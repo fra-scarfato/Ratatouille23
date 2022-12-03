@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-Ratatouille23Application<ratatouille23>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.unina.ratatouille23.Ratatouille23Application",
+            "projectName": "ratatouille23",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

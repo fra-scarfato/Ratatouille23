@@ -1,21 +1,41 @@
 package com.unina.ratatouille23.menu.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+@Entity
 public class Elemento {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(unique = true)
+    private Integer id;
+
+    @Column(nullable = false)
     private String nome;
+
+    @Column(nullable = false)
     private String descrizione;
+
+    @Column(nullable = false)
     private double costo;
+
+    @Column(nullable = false)
     private String allergeni;
+    
+    @ManyToOne
+    @JoinColumn(name = "id_categoria")
+    @JsonBackReference
     private Categoria categoria;
 
 
-    public Elemento(int id, String nome, String descrizione, double costo, String allergeni, Categoria categoria) {
-        this.id = id;
-        this.nome = nome;
-        this.descrizione = descrizione;
-        this.costo = costo;
-        this.allergeni = allergeni;
-        this.categoria = categoria;
+    public Elemento() {
     }
 
 

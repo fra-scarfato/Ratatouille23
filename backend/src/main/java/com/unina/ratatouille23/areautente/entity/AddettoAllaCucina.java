@@ -1,10 +1,13 @@
 package com.unina.ratatouille23.areautente.entity;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("addetto alla cucina")
 public class AddettoAllaCucina extends Utente{
-    public AddettoAllaCucina(String nome, String cognome, String email, String password) {
-        super.setNome(nome);
-        super.setCognome(cognome);
-        super.setEmail(email);
-        super.setPassword(password);
+    
+    public AddettoAllaCucina() {
     }
+
 }
