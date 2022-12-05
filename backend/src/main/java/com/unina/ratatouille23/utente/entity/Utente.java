@@ -1,4 +1,4 @@
-package com.unina.ratatouille23.areautente.entity;
+package com.unina.ratatouille23.utente.entity;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;

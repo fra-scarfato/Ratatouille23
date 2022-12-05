@@ -1,4 +1,4 @@
-package com.unina.ratatouille23.areautente.controller;
+package com.unina.ratatouille23.utente.controller;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.unina.ratatouille23.areautente.entity.Utente;
-import com.unina.ratatouille23.areautente.services.UtenteService;
+import com.unina.ratatouille23.utente.entity.Utente;
+import com.unina.ratatouille23.utente.services.UtenteService;
 
 @RestController
 @RequestMapping("/user")
