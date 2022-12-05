@@ -1,7 +1,7 @@
 version: '3.8'
 services:
  server:
-   image: myserver-image
+   image: frascarfato/ratatouille23:server
    ports:
      - 8080:8080
    environment:
@@ -9,8 +9,6 @@ services:
      - MYSQL_USER=ratatouille
      - MYSQL_PASSWORD=ratatouille
      - MYSQL_URL=jdbc:mysql://database/ratatouille
-   volumes:
-     - ./:/app
    depends_on:
      - database
 
@@ -24,9 +22,3 @@ services:
       - MYSQL_USER=ratatouille
       - MYSQL_PASSWORD=ratatouille
       - MYSQL_DATABASE=ratatouille
-    volumes:
-      - mysql_data:/var/lib/mysql
-      - mysql_config:/etc/mysql/conf.d
-volumes:
-    mysql_data:
-    mysql_config:

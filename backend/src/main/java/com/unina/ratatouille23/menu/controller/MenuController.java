@@ -13,44 +13,48 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.unina.ratatouille23.menu.entity.Categoria;
 import com.unina.ratatouille23.menu.entity.Elemento;
-import com.unina.ratatouille23.menu.repository.CategoriaRepository;
-import com.unina.ratatouille23.menu.repository.ElementoRepository;
+import com.unina.ratatouille23.menu.services.MenuService;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 @RestController
 @RequestMapping("/menu")
 public class MenuController {
     @Autowired
-    private CategoriaRepository categoriaRepository;
-    @Autowired
-    private ElementoRepository elementoRepository;
+    private MenuService servizioMenu;
 
     @GetMapping("/element/get")
     List<Elemento> getMenu(@RequestParam(value = "idr") int idRistorante) {
-        return elementoRepository.trovaElementiDelRistorante(idRistorante);
+        return servizioMenu.getTuttiGliElementi(idRistorante);
     }
 
     @GetMapping("/category/get")
     List<Categoria> getCategorie(@RequestParam(value = "idr") int idRistorante) {
-        return categoriaRepository.trovaCategorieDelRistorante(idRistorante);
+        return servizioMenu.getTutteLeCategorie(idRistorante);
     }
 
     @PostMapping("/element/add")
     void aggiungiElementoAlMenu(@RequestBody Elemento elementoDaAggiungere) {
-        elementoRepository.save(elementoDaAggiungere);
+        servizioMenu.aggiungiNuovoElemento(elementoDaAggiungere);
     }
 
     @PostMapping("/category/add")
     void aggiungiCategoria(@RequestBody Categoria categoriaDaAggiungere) {
-        categoriaRepository.save(categoriaDaAggiungere);
+        servizioMenu.aggiungiNuovaCategoria(categoriaDaAggiungere);
     }
 
     @DeleteMapping("/element/delete")
     void rimuoviElementoDalMenu(@RequestBody Elemento elementoDaRimuovere) {
-        elementoRepository.delete(elementoDaRimuovere);
+        servizioMenu.rimuoviElemento(elementoDaRimuovere);
     }
 
     @DeleteMapping("/category/delete")
     void rimuoviCategoria(@RequestBody Categoria categoriaDaRimuovere) {
-        categoriaRepository.delete(categoriaDaRimuovere);
+        servizioMenu.rimuoviCategoria(categoriaDaRimuovere);
+    }
+
+    @PutMapping("/element/update")
+    public void modificaElemento(@RequestBody Elemento elementoDaAggiornare) {
+        servizioMenu.aggiornaElemento(elementoDaAggiornare);
     }
 }

@@ -12,26 +12,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.unina.ratatouille23.areautente.entity.Utente;
-import com.unina.ratatouille23.areautente.repository.UtenteRepository;
+import com.unina.ratatouille23.areautente.services.UtenteService;
 
 @RestController
 @RequestMapping("/user")
 public class UtenteController {
     @Autowired
-    private UtenteRepository utenteRepository;
+    private UtenteService servizioUtente;
 
     @GetMapping("/get")
     List<Utente> getAllUtenti(@RequestParam(value = "idr") int idRistorante) {
-        return utenteRepository.trovaUtentiDelRistorante(idRistorante);
+        return servizioUtente.getTuttiGliUtenti(idRistorante);
     }
 
     @PostMapping("/add")
     void aggiungiUtente(@RequestBody Utente nuovoUtente) {
-        utenteRepository.save(nuovoUtente);
+        servizioUtente.registraNuovoUtente(nuovoUtente);
     }
 
     @DeleteMapping("/delete")
     void eliminaUtente(@RequestBody Utente utenteDaEliminare) {
-        utenteRepository.delete(utenteDaEliminare);
+        servizioUtente.rimuoviUtente(utenteDaEliminare);
     }
 }
