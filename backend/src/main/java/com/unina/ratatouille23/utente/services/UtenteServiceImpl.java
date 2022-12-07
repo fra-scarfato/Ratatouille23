@@ -1,12 +1,12 @@
-package com.unina.ratatouille23.areautente.services;
+package com.unina.ratatouille23.utente.services;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.unina.ratatouille23.areautente.entity.Utente;
-import com.unina.ratatouille23.areautente.repository.UtenteRepository;
+import com.unina.ratatouille23.utente.entity.Utente;
+import com.unina.ratatouille23.utente.repository.UtenteRepository;
 
 @Service
 public class UtenteServiceImpl implements UtenteService{

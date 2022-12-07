@@ -1,4 +1,4 @@
-package com.unina.ratatouille23.areautente.entity;
+package com.unina.ratatouille23.utente.entity;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -28,7 +28,7 @@ import jakarta.persistence.Id;
 public abstract class Utente {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(unique = true)
+    @Column(name = "id_utente", unique = true)
     private Integer id;
 
     @Column(nullable = false)
@@ -40,7 +40,7 @@ public abstract class Utente {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "id_ristorante", nullable = false)
     private Integer idRistorante;
 
 

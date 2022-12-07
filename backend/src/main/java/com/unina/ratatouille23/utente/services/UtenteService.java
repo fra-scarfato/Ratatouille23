@@ -1,8 +1,8 @@
-package com.unina.ratatouille23.areautente.services;
+package com.unina.ratatouille23.utente.services;
 
 import org.springframework.stereotype.Service;
 
-import com.unina.ratatouille23.areautente.entity.Utente;
+import com.unina.ratatouille23.utente.entity.Utente;
 import java.util.List;
 
 @Service

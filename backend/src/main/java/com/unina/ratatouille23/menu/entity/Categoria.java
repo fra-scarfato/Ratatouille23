@@ -16,7 +16,7 @@ import jakarta.persistence.OneToMany;
 public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(unique = true)
+    @Column(name = "id_categoria", unique = true)
     private int id;
 
     @Column(nullable = false)

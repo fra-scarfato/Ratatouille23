@@ -14,7 +14,7 @@ import jakarta.persistence.ManyToOne;
 public class Elemento {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(unique = true)
+    @Column(name = "id_elemento", unique = true)
     private Integer id;
 
     @Column(nullable = false)
@@ -30,14 +30,22 @@ public class Elemento {
     private String allergeni;
     
     @ManyToOne
-    @JoinColumn(name = "id_categoria")
+    @JoinColumn(name = "fk_id_categoria")
     @JsonBackReference
     private Categoria categoria;
 
+    public Elemento(Integer id, String nome, String descrizione, double costo, String allergeni, Categoria categoria) {
+        this.id = id;
+        this.nome = nome;
+        this.descrizione = descrizione;
+        this.costo = costo;
+        this.allergeni = allergeni;
+        this.categoria = categoria;
+    }
+    
 
     public Elemento() {
     }
-
 
     public Categoria getCategoria() {
         return this.categoria;
