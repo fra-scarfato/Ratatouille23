@@ -10,6 +10,7 @@ import com.unina.ratatouille23.ordinazione.entity.Ordinazione;
 public interface OrdinazioneService {
     public void registraNuovaOrdinazione(Ordinazione ordinazioneDaRegistrare);
     public void eliminaOrdinazione(Ordinazione ordinazioneDaEliminare);
-    public List<Ordinazione> getTutteLeOrdinazioni(int idRistorante, int idUtente);
+    public List<Ordinazione> getTutteLeOrdinazioni(int idRistorante);
     public void modificaOrdinazione(Ordinazione ordinazioneDaAggiornare);
+    public String getBroadcastURL(Ordinazione nuovOrdinazione);
 }

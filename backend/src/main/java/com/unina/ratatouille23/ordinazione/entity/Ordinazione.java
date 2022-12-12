@@ -43,6 +43,7 @@ public class Ordinazione {
     @OneToMany(mappedBy = "ordinazione")
     @JsonManagedReference
     private List<ElementoOrdinato> elementiOrdinati;
+    
 
     public Integer getId() {
         return id;
@@ -98,6 +99,14 @@ public class Ordinazione {
 
     public void setElementiOrdinati(List<ElementoOrdinato> elementiOrdinati) {
         this.elementiOrdinati = elementiOrdinati;
+    }
+
+    public Utente getGestoreOrdinazione() {
+        return gestoreOrdinazione;
+    }
+
+    public void setGestoreOrdinazione(Utente gestoreOrdinazione) {
+        this.gestoreOrdinazione = gestoreOrdinazione;
     }
     
 }

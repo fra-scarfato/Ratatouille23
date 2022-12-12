@@ -8,10 +8,6 @@ import org.springframework.data.repository.CrudRepository;
 import com.unina.ratatouille23.ordinazione.entity.Ordinazione;
 
 public interface OrdinazioneRepository extends CrudRepository<Ordinazione, Integer>{
-    @Query(value = "SELECT * FROM ordinazione WHERE ordinazione.fk_id_utente=(SELECT utente.id_utente FROM utente WHERE utente.id_ristorante = ?1 AND utente.id_utente = 2", nativeQuery = true)
-    public List<Ordinazione> getTutteLeOrdinazioni();
-
-    //TODO: Update da fare a casi
-
-
+    @Query(value = "SELECT * FROM ordinazione WHERE ordinazione.fk_id_utente=(SELECT utente.id_utente FROM utente WHERE utente.id_ristorante=?1)", nativeQuery = true)
+    public List<Ordinazione> getTutteLeOrdinazioni(int idRistorante);
 }
