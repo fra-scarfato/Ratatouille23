@@ -13,7 +13,7 @@ public class OrdinazioneServiceImpl implements OrdinazioneService{
     @Autowired
     private OrdinazioneRepository ordinazioneRepository;
 
-    private String broadcastURL = "/order/";
+    private String broadcastURL = "/ws/order/";
     
     @Override
     public void registraNuovaOrdinazione(Ordinazione ordinazioneDaRegistrare) {

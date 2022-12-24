@@ -7,7 +7,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,11 +30,11 @@ public class OrdinazioneController {
     }
 
     @PostMapping("/add")
-    void registraNuovaOrdinazione(Ordinazione nuovaOrdinazione) {
-        //Client già registrato su un endpoint /order/subscribe
+    void registraNuovaOrdinazione(@RequestBody Ordinazione nuovaOrdinazione) {
+        //Client connesso su /ws
         servizioOrdinazioni.registraNuovaOrdinazione(nuovaOrdinazione);
-        //Client in ascolto su un endpoint /order/{idr}
-        simpMessagingTemplate.convertAndSend(servizioOrdinazioni.getBroadcastURL(nuovaOrdinazione), nuovaOrdinazione);
+        //Client in ascolto su un endpoint /ws/order/{idr}
+        simpMessagingTemplate.convertAndSend("/ws/order/1", nuovaOrdinazione);
     }
 
     @DeleteMapping("/delete")

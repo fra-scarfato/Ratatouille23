@@ -20,13 +20,16 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
          
-        http.authorizeHttpRequests()
+        http.cors()
+            .and()
+            .csrf().disable()
+            .authorizeHttpRequests()
                 .anyRequest()        
         //.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html")
-                    .permitAll()
-            .and()
-            .oauth2ResourceServer()
-                .jwt();
+                    .permitAll();
+            //.and()
+            //.oauth2ResourceServer()
+                //.jwt();
         return http.build();
          
     }
