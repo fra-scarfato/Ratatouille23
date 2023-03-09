@@ -11,9 +11,8 @@ import com.unina.ratatouille23.menu.entity.Elemento;
 public interface MenuService {
     public void aggiungiNuovaCategoria(Categoria nuovaCategoria);
     public void rimuoviCategoria(Categoria categoriaDaRimuovere);
-    public List<Categoria> getTutteLeCategorie(int idRistorante);
+    public List<Categoria> getCategorieConElementi(int idRistorante);
     public void aggiungiNuovoElemento(Elemento nuovoElemento);
     public void rimuoviElemento(Elemento elementoDaRimuovere);
-    public List<Elemento> getTuttiGliElementi(int idRistorante);
     public void aggiornaElemento(Elemento elementoDaAggiornare);   
 }

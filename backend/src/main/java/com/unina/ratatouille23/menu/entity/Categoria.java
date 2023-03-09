@@ -2,6 +2,8 @@ package com.unina.ratatouille23.menu.entity;
 
 import java.util.List;
 
+import org.hibernate.annotations.*;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -25,7 +27,8 @@ public class Categoria {
     @Column(nullable = false)
     private int idRistorante;
 
-    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "categoria")
+    @OnDelete(action = OnDeleteAction.CASCADE) //TODO: Da testare con nuove inizializzazioni
     @JsonManagedReference
     private List<Elemento> elementiDellaCategoria;
 

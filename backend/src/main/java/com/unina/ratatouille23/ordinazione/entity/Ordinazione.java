@@ -2,7 +2,11 @@ package com.unina.ratatouille23.ordinazione.entity;
 
 import java.util.List;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.unina.ratatouille23.utente.entity.Utente;
 
 import jakarta.persistence.Column;
@@ -23,12 +27,12 @@ public class Ordinazione {
 
     @ManyToOne
     @JoinColumn(name = "fk_id_utente")
+    @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
     private Utente gestoreOrdinazione;
 
     @Column(name = "n_tavolo", nullable = false)
     private int numeroTavolo;
 
-    @Column(nullable = false)
     private String note;
 
     @Column(nullable = false)
@@ -41,6 +45,7 @@ public class Ordinazione {
     private double costoTotale;
 
     @OneToMany(mappedBy = "ordinazione")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonManagedReference
     private List<ElementoOrdinato> elementiOrdinati;
     
