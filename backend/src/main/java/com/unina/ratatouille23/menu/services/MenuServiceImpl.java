@@ -29,7 +29,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<Categoria> getTutteLeCategorie(int idRistorante) {
+    public List<Categoria> getCategorieConElementi(int idRistorante) {
         return categoriaRepository.trovaCategorieDelRistorante(idRistorante);
     }
 
@@ -41,11 +41,6 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public void rimuoviElemento(Elemento elementoDaRimuovere) {
         elementoRepository.delete(elementoDaRimuovere);
-    }
-
-    @Override
-    public List<Elemento> getTuttiGliElementi(int idRistorante) {
-        return elementoRepository.trovaElementiDelRistorante(idRistorante);
     }
 
     @Override

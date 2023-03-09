@@ -23,14 +23,9 @@ public class MenuController {
     @Autowired
     private MenuService servizioMenu;
 
-    @GetMapping("/element/get")
-    List<Elemento> getMenu(@RequestParam(value = "idr") int idRistorante) {
-        return servizioMenu.getTuttiGliElementi(idRistorante);
-    }
-
-    @GetMapping("/category/get")
-    List<Categoria> getCategorie(@RequestParam(value = "idr") int idRistorante) {
-        return servizioMenu.getTutteLeCategorie(idRistorante);
+    @GetMapping("/get")
+    List<Categoria> getMenu(@RequestParam(value = "idr") int idRistorante) {
+        return servizioMenu.getCategorieConElementi(idRistorante);
     }
 
     @PostMapping("/element/add")

@@ -30,15 +30,15 @@ public class OrdinazioneServiceImpl implements OrdinazioneService{
         return ordinazioneRepository.getTutteLeOrdinazioni(idRistorante);
     }
 
+    //TODO
     @Override
     public void modificaOrdinazione(Ordinazione ordinazioneDaAggiornare) {
-        // TODO Auto-generated method stub
         
     } 
     
     @Override
-    public String getBroadcastURL(Ordinazione nuovOrdinazione) {
-        String idRistorante = String.valueOf(nuovOrdinazione.getGestoreOrdinazione().getIdRistorante());
+    public String getBroadcastURL(Ordinazione ordinazione) {
+        String idRistorante = String.valueOf(ordinazione.getGestoreOrdinazione().getIdRistorante());
         return broadcastURL.concat(idRistorante);
     }
     
