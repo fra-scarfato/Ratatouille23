@@ -10,11 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.unina.ratatouille23.ordinazione.entity.Ordinazione;
 
 public interface OrdinazioneRepository extends CrudRepository<Ordinazione, Integer>{
-    @Query(value = "SELECT * FROM ordinazione WHERE ordinazione.fk_id_utente=(SELECT utente.id_utente FROM utente WHERE utente.id_ristorante=?1)", nativeQuery = true)
+    @Query(value = "SELECT * FROM ordinazione WHERE ordinazione.id_ristorante=?1", nativeQuery = true)
     public List<Ordinazione> getTutteLeOrdinazioni(int idRistorante);
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE elemento e SET e.nome=?1, e.descrizione=?2, e.costo=?3, e.allergeni=?4, e.fk_id_categoria=?5 WHERE e.id_elemento=?6", nativeQuery = true)
-    void aggiornaOrdinazione(String nome, String descrizione, double costo, String allergeni, int idCategoria, int id); //TODO
+    @Query(value = "UPDATE ordinazione o SET o.note=?1, o.costo_totale=?2 WHERE o.id_ordinazione=?3", nativeQuery = true)
+    void aggiornaOrdinazione(String note, double costoTotale, int id);
+
+    @Query(value = "SELECT * FROM ordinazione WHERE ordinazione.fk_id_utente=?1", nativeQuery = true)
+    public List<Ordinazione> getOrdinazioniAddettoAllaSala(int idUtente);
 }

@@ -6,7 +6,6 @@ import org.hibernate.annotations.*;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,7 +27,7 @@ public class Categoria {
     private int idRistorante;
 
     @OneToMany(mappedBy = "categoria")
-    @OnDelete(action = OnDeleteAction.CASCADE) //TODO: Da testare con nuove inizializzazioni
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonManagedReference
     private List<Elemento> elementiDellaCategoria;
 

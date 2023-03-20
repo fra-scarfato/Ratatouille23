@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.unina.ratatouille23.ordinazione.entity.Ordinazione;
 import com.unina.ratatouille23.ordinazione.services.OrdinazioneService;
+import com.unina.ratatouille23.utente.entity.Utente;
 
 @RestController
 @RequestMapping("/order")
@@ -26,8 +26,8 @@ public class OrdinazioneController {
     private SimpMessagingTemplate simpMessagingTemplate;
 
     @GetMapping("/get")
-    List<Ordinazione> getOrdinazioni(@RequestParam(value = "idr") int idRistorante) {
-        return servizioOrdinazioni.getTutteLeOrdinazioni(idRistorante);
+    List<Ordinazione> getOrdinazioni(@RequestBody Utente gestoreOrdinazione) {
+        return servizioOrdinazioni.getOrdinazioni(gestoreOrdinazione);
     }
 
     @PostMapping("/add")
@@ -39,7 +39,7 @@ public class OrdinazioneController {
     }
 
     @DeleteMapping("/delete")
-    void eliminaOrdinazione(Ordinazione ordinazioneDaEliminare) {
+    void eliminaOrdinazione(@RequestBody Ordinazione ordinazioneDaEliminare) {
         servizioOrdinazioni.eliminaOrdinazione(ordinazioneDaEliminare);
         //Client in ascolto su un endpoint /order/{idr}
         simpMessagingTemplate.convertAndSend(servizioOrdinazioni.getBroadcastURL(ordinazioneDaEliminare), "Un ordinazione è stata eliminata. Aggiorna");

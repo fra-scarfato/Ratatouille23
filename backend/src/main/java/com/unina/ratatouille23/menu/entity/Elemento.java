@@ -9,6 +9,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+
+import java.util.List;
+import com.unina.ratatouille23.ordinazione.entity.ElementoOrdinato;
 
 @Entity
 public class Elemento {
@@ -28,6 +32,9 @@ public class Elemento {
 
     @Column(nullable = false)
     private String allergeni;
+
+    @OneToMany(mappedBy = "elementoDaOrdinare")
+    private List<ElementoOrdinato> elementiOrdinati;
     
     @ManyToOne
     @JoinColumn(name = "fk_id_categoria")
