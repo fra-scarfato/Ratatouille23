@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ratatouille23/views/custom_widget/bottone_arancione_con_testo.dart';
+import 'package:ratatouille23/views/pagina_iniziale.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
 class Login_ui extends StatefulWidget {
@@ -65,6 +67,10 @@ class Login extends State<Login_ui>{
   TextEditingController passwordController = TextEditingController();
   String fullMail = '';
   String fullPassword = '';
+  BorderSide borderMail= BorderSide.none;
+  Color mailHintTextColor= CupertinoColors.systemGrey;
+  BorderSide borderPassword= BorderSide.none;
+  Color passwordHintTextColor= CupertinoColors.systemGrey;
 
   @override
   Widget build(BuildContext context){
@@ -105,10 +111,11 @@ class Login extends State<Login_ui>{
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
+                          borderSide: borderMail,
                           borderRadius: BorderRadius.circular(50)
                       ),
                       hintText: 'Inserisci email',
+                      hintStyle: TextStyle(color: mailHintTextColor)
                     ),
                     keyboardType: TextInputType.emailAddress,
                     onChanged: (text){
@@ -141,8 +148,25 @@ class Login extends State<Login_ui>{
                     },
                   ) ,
                 ),
+                //bottone_arancione_con_testo(text: 'ACCEDI', route: pagina_iniziale())
                 ElevatedButton(
-                    onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => const home()));},
+                    onPressed: () {
+                      if(fullMail=='' || fullPassword==''){
+                        if(fullMail==''){
+                          setState(() {
+                            borderMail=  BorderSide(color: Colors.red, width: 2 );
+                            mailHintTextColor= Colors.red;
+                          });
+                        }
+                        if(fullPassword==''){
+                          setState(() {
+                            borderPassword=  BorderSide(color: Colors.red, width: 2 );
+                            passwordHintTextColor= Colors.red;
+                          });
+                        }
+                      } else
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const pagina_iniziale()));
+                      },
                     child: Text(
                       'ACCEDI',
                       style:TextStyle(

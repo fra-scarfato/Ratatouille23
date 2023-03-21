@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ratatouille23/views/custom_widget/bottone_arancione_con_testo.dart';
 
 import 'Login_ui.dart';
 
@@ -33,7 +34,8 @@ class Home extends StatelessWidget{
                 SizedBox(
                   height: 30,
                 ),
-                ElevatedButton(
+                bottone_arancione_con_testo(text: 'COMINCIA ORA', route: const Login_ui())
+                /*ElevatedButton(
 
                     onPressed: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const Login_ui()));
@@ -53,8 +55,7 @@ class Home extends StatelessWidget{
 
                     )
 
-
-                )
+                )*/
               ],
             )
         )
