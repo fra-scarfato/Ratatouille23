@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
 
+import 'Login_ui.dart';
 import 'barra_superiore.dart';
 
 class registra_utente extends StatefulWidget {
@@ -67,6 +68,18 @@ class registra_utente_ui extends State<registra_utente> {
   List <String> items= ['Amministratore','Supervisore','Addetto alla sala','addetto alla cucina'];
   String? selectedItem= 'Amministratore';
 
+  Color borderSideColorNome = CupertinoColors.systemGrey3;
+  Color borderSideColorCognome = CupertinoColors.systemGrey3;
+  Color borderSideColorMail = CupertinoColors.systemGrey3;
+  Color borderSideColorPassword = CupertinoColors.systemGrey3;
+  Color borderSideColorRuolo = CupertinoColors.systemGrey3;
+
+  Color hintColorNome = CupertinoColors.systemGrey3;
+  Color hintColorCognome = CupertinoColors.systemGrey3;
+  Color hintColorMail = CupertinoColors.systemGrey3;
+  Color hintColorPassword = CupertinoColors.systemGrey3;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,13 +115,14 @@ class registra_utente_ui extends State<registra_utente> {
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: CupertinoColors.systemGrey3,
+                            color: borderSideColorNome,
                             width: 5.0
                         ),
                         borderRadius: BorderRadius.circular(50),
 
                       ),
                       hintText: 'Inserisci il nome',
+                      hintStyle: TextStyle(color: hintColorNome)
                     ),
                     onChanged: (text){
                       setState(() {
@@ -147,12 +161,13 @@ class registra_utente_ui extends State<registra_utente> {
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: CupertinoColors.systemGrey3,
+                              color: borderSideColorCognome,
                               width: 5.0
                           ),
                           borderRadius: BorderRadius.circular(50)
                       ),
                       hintText: 'Inserisci il cognome',
+                        hintStyle: TextStyle(color: hintColorCognome)
                     ),
                     onChanged: (text){
                       setState(() {
@@ -191,12 +206,13 @@ class registra_utente_ui extends State<registra_utente> {
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: CupertinoColors.systemGrey3,
+                              color: borderSideColorMail,
                               width: 5.0
                           ),
                           borderRadius: BorderRadius.circular(50)
                       ),
                       hintText: 'Inserisci il nome',
+                        hintStyle: TextStyle(color: hintColorMail)
                     ),
                     onChanged: (text){
                       setState(() {
@@ -236,12 +252,13 @@ class registra_utente_ui extends State<registra_utente> {
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: CupertinoColors.systemGrey3,
+                              color: borderSideColorPassword,
                               width: 5.0
                           ),
                           borderRadius: BorderRadius.circular(50)
                       ),
                       hintText: 'Inserisci la password',
+                        hintStyle: TextStyle(color: hintColorPassword)
                     ),
                     onChanged: (text){
                       setState(() {
@@ -271,7 +288,7 @@ class registra_utente_ui extends State<registra_utente> {
                   height: 61,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
-                      border:Border.all( color:CupertinoColors.systemGrey, width: 1)
+                      border:Border.all( color:borderSideColorRuolo, width: 1)
                   ),
                   padding: EdgeInsets.only(left: 7.0, right: 4.0, top: 3.0),
                   child:DropDown(
@@ -303,7 +320,39 @@ class registra_utente_ui extends State<registra_utente> {
                 ElevatedButton(
 
                     onPressed: () {
-                      //Navigator.push(context, MaterialPageRoute(builder: (context) => const login_ui()));
+                      if(nome=='' || cognome=='' || mail=='' || password=='' || ruolo==''){
+                        if(nome==''){
+                          setState(() {
+                            borderSideColorNome=  Colors.red;
+                            hintColorNome= Colors.red;
+                          });
+                        }
+                        if(cognome==''){
+                          setState(() {
+                            borderSideColorCognome=  Colors.red;
+                            hintColorCognome= Colors.red;
+                          });
+                        }
+                        if(mail==''){
+                          setState(() {
+                            borderSideColorMail=  Colors.red;
+                            hintColorMail= Colors.red;
+                          });
+                        }
+                        if(password==''){
+                          setState(() {
+                            borderSideColorPassword=  Colors.red;
+                            hintColorPassword= Colors.red;
+                          });
+                        }
+                        if(ruolo==''){
+                          setState(() {
+                            borderSideColorRuolo=  Colors.red;
+                          });
+                        }
+                      }
+                      else
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const Login_ui()));
                     },
                     child: Text(
                       'AGGIUNGI UTENTE',

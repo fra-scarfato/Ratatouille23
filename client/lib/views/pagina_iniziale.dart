@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ratatouille23/views/custom_widget/bottoni_gestione.dart';
+import 'package:ratatouille23/views/menu_vuoto.dart';
+import 'package:ratatouille23/views/registra_utente.dart';
 
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:flutter/services.dart';
@@ -90,16 +92,16 @@ class pagina_iniziale_ui extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               bottoni_gestione(route: const registra_utente(), text: 'AGGIUNGI UTENTE', color1: Colors.orangeAccent, color2: Colors.yellow, icon: Icons.person_add_alt_1_outlined),
-              bottoni_gestione(route: const ordinazioni(), text: 'ORDINAZIONI', color1: Colors.pink, color2: Colors.deepOrange, icon: Icons.checklist_outlined),
-              bottoni_gestione(route: const menu_vuoto(), text: 'MENU', color1: Colors.lightBlue, color2: Colors.lightBlueAccent, icon: Icons.menu_book),
+              bottoni_gestione(route: /*const ordinazioni()*/const registra_utente(), text: 'ORDINAZIONI', color1: Colors.pink, color2: Colors.deepOrange, icon: Icons.checklist_outlined),
+              bottoni_gestione(route: /*const menu_vuoto()*/const menu_vuoto(), text: 'MENU', color1: Colors.lightBlue, color2: Colors.lightBlueAccent, icon: Icons.menu_book),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              bottoni_gestione(route: const lista_ordinazioni_cucina(), text: 'CUCINA', color1: Colors.purple, color2: Colors.purpleAccent, icon: Icons.cake_outlined),
+              bottoni_gestione(route: /*const lista_ordinazioni_cucina()*/const registra_utente(), text: 'CUCINA', color1: Colors.purple, color2: Colors.purpleAccent, icon: Icons.cake_outlined),
               SizedBox(width: 30,),
-              bottoni_gestione(route: route, text: 'STATISTICHE', color1: Colors.green, color2: Colors.lightGreen, icon: Icons.query_stats_outlined)
+              bottoni_gestione(route: /*route*/const registra_utente(), text: 'STATISTICHE', color1: Colors.green, color2: Colors.lightGreen, icon: Icons.query_stats_outlined)
             ],
           )
         ],

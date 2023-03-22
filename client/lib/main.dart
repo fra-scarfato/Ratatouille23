@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.orange,
 
         ),
+        debugShowCheckedModeBanner: false,
         builder: (context, child) => ResponsiveWrapper.builder(
           child,
           maxWidth: 1200,

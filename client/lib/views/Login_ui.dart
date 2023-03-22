@@ -136,10 +136,11 @@ class Login extends State<Login_ui>{
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
+                          borderSide: borderPassword,
                           borderRadius: BorderRadius.circular(50)
                       ),
                       hintText: 'Inserisci la password',
+                        hintStyle: TextStyle(color: passwordHintTextColor)
                     ),
                     onChanged: (text){
                       setState(() {
@@ -154,13 +155,13 @@ class Login extends State<Login_ui>{
                       if(fullMail=='' || fullPassword==''){
                         if(fullMail==''){
                           setState(() {
-                            borderMail=  BorderSide(color: Colors.red, width: 2 );
+                            borderMail=  BorderSide(color: Colors.red, width: 5 );
                             mailHintTextColor= Colors.red;
                           });
                         }
                         if(fullPassword==''){
                           setState(() {
-                            borderPassword=  BorderSide(color: Colors.red, width: 2 );
+                            borderPassword=  BorderSide(color: Colors.red, width: 5 );
                             passwordHintTextColor= Colors.red;
                           });
                         }
