@@ -7,10 +7,9 @@ import 'package:stomp_dart_client/stomp_frame.dart';
 void onCallback(StompFrame frame) {
   print("Tornato");
   print(frame.body);
-  String ordine = frame.body.toString();
-  var ordinazioneMap = jsonDecode(ordine);
-  var ordinazione = Ordinazione.fromJson(ordinazioneMap);
-  print("${ordinazione.stato}");
+  // String ordine = frame.body.toString();
+  // var ordinazioneMap = jsonDecode(ordine);
+  // var ordinazione = Ordinazione.fromJson(ordinazioneMap);
 }
 
 void onConnect(StompFrame frame) {
@@ -43,7 +42,8 @@ class Ordinazione {
   double? costoTotale;
 
   Ordinazione(
-      {this.id,
+      {
+      this.id,
       this.gestoreOrdinazione,
       this.numeroTavolo,
       this.note,

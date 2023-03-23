@@ -42,19 +42,9 @@ public class OrdinazioneServiceImpl implements OrdinazioneService{
         return (gestoreOrdinazione instanceof AddettoAllaSala) ? ordinazioneRepository.getOrdinazioniAddettoAllaSala(gestoreOrdinazione.getId()) : ordinazioneRepository.getTutteLeOrdinazioni(gestoreOrdinazione.getIdRistorante());
     }
 
-    //TODO: Da testare
     @Override
     public void modificaOrdinazione(Ordinazione nuovaOrdinazione) {
-        Ordinazione vecchiaOrdinazione = ordinazioneRepository.findById(nuovaOrdinazione.getId()).get();
-        ordinazioneRepository.aggiornaOrdinazione(nuovaOrdinazione.getNote(), nuovaOrdinazione.getCostoTotale(), nuovaOrdinazione.getId()); //Aggiorno note o costo totale
-        
-        //Se costo totale è diverso significa che qualche quantità è cambiata quindi aggiorno
-        if (vecchiaOrdinazione.getCostoTotale() != nuovaOrdinazione.getCostoTotale()) { 
-            for (ElementoOrdinato elementoOrdinato : nuovaOrdinazione.getElementiOrdinati()) {
-                elementoOrdinatoRepository.aggiornaQuantità(elementoOrdinato.getQuantità(), elementoOrdinato.getId());
-            }
-        }
-        
+        ordinazioneRepository.save(nuovaOrdinazione);
     } 
     
     @Override
