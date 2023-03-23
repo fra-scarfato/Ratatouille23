@@ -146,4 +146,5 @@ public class Ordinazione {
         this.gestoreOrdinazione = gestoreOrdinazione;
     }
     
+
 }

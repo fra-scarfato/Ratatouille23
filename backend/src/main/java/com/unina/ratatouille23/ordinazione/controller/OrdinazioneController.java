@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.unina.ratatouille23.ordinazione.entity.Ordinazione;
+import com.unina.ratatouille23.ordinazione.entity.OrdinazioneDTO;
 import com.unina.ratatouille23.ordinazione.services.OrdinazioneService;
 import com.unina.ratatouille23.utente.entity.Utente;
 
@@ -35,20 +36,20 @@ public class OrdinazioneController {
         //Client connesso su /ws
         servizioOrdinazioni.registraNuovaOrdinazione(nuovaOrdinazione);
         //Client in ascolto su un endpoint /ws/order/{idr}
-        simpMessagingTemplate.convertAndSend("/ws/order/1", nuovaOrdinazione);
+        simpMessagingTemplate.convertAndSend(servizioOrdinazioni.getBroadcastURL(nuovaOrdinazione), new OrdinazioneDTO(nuovaOrdinazione, "INSERT"));
     }
 
     @DeleteMapping("/delete")
     void eliminaOrdinazione(@RequestBody Ordinazione ordinazioneDaEliminare) {
         servizioOrdinazioni.eliminaOrdinazione(ordinazioneDaEliminare);
-        //Client in ascolto su un endpoint /order/{idr}
-        simpMessagingTemplate.convertAndSend(servizioOrdinazioni.getBroadcastURL(ordinazioneDaEliminare), "Un ordinazione è stata eliminata. Aggiorna");
+        //Client in ascolto su un endpoint /ws/order/{idr}
+        simpMessagingTemplate.convertAndSend(servizioOrdinazioni.getBroadcastURL(ordinazioneDaEliminare), new OrdinazioneDTO(ordinazioneDaEliminare, "DELETE"));
     }
 
     @PutMapping("/update")
     void aggiornaOrdinazione(@RequestBody Ordinazione ordinazioneDaAggiornare) {
         servizioOrdinazioni.modificaOrdinazione(ordinazioneDaAggiornare);
-        simpMessagingTemplate.convertAndSend(servizioOrdinazioni.getBroadcastURL(ordinazioneDaAggiornare), ordinazioneDaAggiornare);
+        simpMessagingTemplate.convertAndSend(servizioOrdinazioni.getBroadcastURL(ordinazioneDaAggiornare), new OrdinazioneDTO(ordinazioneDaAggiornare, "UPDATE"));
     }
 
 }

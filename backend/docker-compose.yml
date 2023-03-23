@@ -1,24 +1,27 @@
 version: '3.8'
 services:
- server:
-   image: frascarfato/ratatouille23:server
-   ports:
-     - 8080:8080
-   environment:
-     - SERVER_PORT=8080
-     - MYSQL_USER=ratatouille
-     - MYSQL_PASSWORD=ratatouille
-     - MYSQL_URL=jdbc:mysql://database/ratatouille
-   depends_on:
-     - database
-
- database:
-    image: mysql:8.0
+  server:
+    container_name: ratatouille-server
+    image: frascarfato/ratatouille23:server 
+    build: .
     ports:
-      - 3307:3306 #TODO
+      - 8080:8080
     environment:
-      - MYSQL_ROOT_PASSWORD=
-      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - SERVER_PORT=8080
       - MYSQL_USER=ratatouille
       - MYSQL_PASSWORD=ratatouille
-      - MYSQL_DATABASE=ratatouille
+      - MYSQL_URL=jdbc:mysql://ratatouille.c3gk45pepbam.us-east-1.rds.amazonaws.com:3306/ratatouille
+  #   depends_on:
+  #     - database
+
+  # database:
+  #     container_name: ratatouille-mysql
+  #     image: public.ecr.aws/y5h4y0a2/fra-repo:database
+  #     ports:
+  #       - 3306:3306 #TODO
+  #     environment:
+  #       - MYSQL_ROOT_PASSWORD=
+  #       - MYSQL_ALLOW_EMPTY_PASSWORD=true
+  #       - MYSQL_USER=ratatouille
+  #       - MYSQL_PASSWORD=ratatouille
+  #       - MYSQL_DATABASE=ratatouille
