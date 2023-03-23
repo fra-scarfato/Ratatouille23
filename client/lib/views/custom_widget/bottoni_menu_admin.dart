@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ratatouille23/views/menu_vuoto.dart';
 
 class bottoni_menu_admin extends StatelessWidget{
   final Widget route;
@@ -12,7 +13,7 @@ class bottoni_menu_admin extends StatelessWidget{
 
       onPressed: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) => route));
-        Navigator.pop(context);
+
       },
 
       style: ElevatedButton.styleFrom(

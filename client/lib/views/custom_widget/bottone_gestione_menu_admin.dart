@@ -3,12 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/views/Login_ui.dart';
+import 'package:ratatouille23/views/aggiungi_piatto.dart';
 import 'package:ratatouille23/views/custom_widget/slide_button.dart';
 import 'package:ratatouille23/views/menu_vuoto.dart';
 
 import 'bottoni_menu_admin.dart';
 
-class bottone_gestione_menu_admin extends StatelessWidget{
+class bottone_gestione_menu_admin extends StatefulWidget{
+  @override
+  bottone_gestione_menu_admin_state createState() => bottone_gestione_menu_admin_state();
+
+}
+
+class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admin>{
+
+
+
   Widget build(BuildContext context){
     return ElevatedButton(
       onPressed: () {
@@ -48,14 +58,42 @@ class bottone_gestione_menu_admin extends StatelessWidget{
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  slide_button(vertical_offset: 80, horizontal_offset: 0, text: 'Aggiungi categoria', route:  /*displayAggiungiCategoria*/const menu_vuoto(), icon: Icons.add),
+                  SlideAnimation(
+                      verticalOffset: 80,
+                      child:Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children:[Text('Aggiungi categoria', style: GoogleFonts.roboto(fontSize: 24,color: Colors.white),),
+                          SizedBox(height: 8),
+                          ElevatedButton(
+
+                            onPressed: () {
+                              _displayAddCategoria(context);
+
+                            },
+
+                            style: ElevatedButton.styleFrom(
+                              shape: StadiumBorder(),
+                              backgroundColor: Colors.orange,
+                              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                            ),
+                            child: Icon(
+                              Icons.add,
+                              color: Colors.white,
+                              size: 60,
+                            ),
+
+
+                          ),] ,
+                      )
+                  ),
+                  //slide_button(vertical_offset: 80, horizontal_offset: 0, text: 'Aggiungi categoria', route: , icon: Icons.add),
                   SizedBox(
                     height: 8,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      slide_button(vertical_offset: 40, horizontal_offset: 40, text: 'Aggiungi piatto', route:  /*displayAggiungiCategoria*/const menu_vuoto(), icon: Icons.add),
+                      slide_button(vertical_offset: 40, horizontal_offset: 40, text: 'Aggiungi piatto', route:  /*displayAggiungiCategoria*/aggiungi_piatto(), icon: Icons.add),
                       SizedBox(
                         height: 8,
                         width: 150,
@@ -94,4 +132,142 @@ class bottone_gestione_menu_admin extends StatelessWidget{
         }
     );
   }
+
+
+  Future<void> _displayAddCategoria(BuildContext context){
+
+    TextEditingController nomeCategoriaController = TextEditingController();
+    String nomeCategoria = '';
+    Color colore=Colors.black.withOpacity(0.1);
+    Color borderSideColorNome = CupertinoColors.systemGrey3;
+    Color hintColorNome = CupertinoColors.systemGrey3;
+
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(32.0))),
+            title: Center(
+
+                child:Padding(
+
+                  padding: EdgeInsetsDirectional.all(30.0),
+                  child: Text(
+                    "Aggiungi una nuova categoria",
+                    style: GoogleFonts.roboto(fontSize: 44, color: Colors.orange),
+                  ),
+                )
+            ),
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 15,
+                ),
+                Text(
+                  'Nome categoria',
+                  style: GoogleFonts.roboto(fontSize: 44,),
+                ),
+                SizedBox(
+                  width: 50,
+                ),
+                Spacer(),
+                SizedBox(
+                  width: 522,
+                  height: 54,
+                  child: TextFormField(
+                    controller: nomeCategoriaController,
+                    keyboardType: TextInputType.name,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: borderSideColorNome,
+                            width: 5.0
+                        ),
+                        borderRadius: BorderRadius.circular(50),
+
+                      ),
+                      hintText: 'Inserisci il nome della categoria',
+                        hintStyle: TextStyle(color: hintColorNome)
+                    ),
+                    onChanged: (text){
+                      setState(() {
+                        nomeCategoria=text;
+                      });
+                    },
+                  ) ,
+                ),
+                SizedBox(
+                  width: 15,
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              Column(mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(height:40),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                          onPressed: () {
+                            //Navigator.push(context, MaterialPageRoute(builder: (context) => const menu()));
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'ANNULLA',
+                            style:TextStyle(
+                              fontSize: 24,
+                              color: Colors.white,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            shape: StadiumBorder(),
+                            backgroundColor: Colors.red,
+                            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                          )
+                      ),
+                      SizedBox(width:80),
+                      ElevatedButton(
+                          onPressed: () {
+                            if(nomeCategoria==''){
+                              setState(() {
+                                borderSideColorNome=  Colors.red;
+                                hintColorNome= Colors.red;
+                              });
+                            }
+                            //Navigator.push(context, MaterialPageRoute(builder: (context) => const menu()));
+                          },
+                          child: Text(
+                            'AGGIUNGI',
+                            style:TextStyle(
+                              fontSize: 24,
+                              color: Colors.white,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            shape: StadiumBorder(),
+                            backgroundColor: Colors.green,
+                            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                          )
+                      ),
+
+                    ],
+                  ),
+                  SizedBox(height:40)
+                ],)
+            ],
+          );}
+
+    );
+
+
+  }
+
+
+  
 }

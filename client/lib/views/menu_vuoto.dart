@@ -60,10 +60,6 @@ class menu_vuoto extends StatefulWidget {
 
 class menu_vuoto_ui extends State<menu_vuoto>{
 
-  TextEditingController nomeCategoriaController = TextEditingController();
-  String nomeCategoria='';
-  Color colore=Colors.black.withOpacity(0.1);
-
 
   @override
   Widget build(BuildContext context) {
@@ -84,66 +80,6 @@ class menu_vuoto_ui extends State<menu_vuoto>{
             children: [
               barra_superiore(),
               finestra_nessun_elemento(string1: 'NON CI SONO PIATTI', string2: 'NEL TUO MENU', string3: 'CREA UNA CATEGORIA E', string4: 'AGGIUNGI UN NUOVO PIATTO', string5: 'CLICCANDO IL BOTTONE'),
-
-              /*PopupMenuButton<TodoMenuItem>(
-            icon: Icon(Icons.sticky_note_2_outlined,
-              color: Colors.black,
-              size: 60,),
-            onSelected: ((valueSelected) {
-              //print('valueSelected: ${valueSelected.title}');
-            }),
-            itemBuilder: (BuildContext context) {
-              return foodMenuList.map((TodoMenuItem todoMenuItem) {
-                return PopupMenuItem<TodoMenuItem>(
-                  value: todoMenuItem,
-                  child: Row(
-                    children: <Widget>[
-                      ElevatedButton(
-
-                        onPressed: () {
-
-                        },
-                        child: Icon(
-                          Icons.add,
-                          color: Colors.black,
-                          size: 60,
-                        ),
-
-                        style: ElevatedButton.styleFrom(
-                          shape: StadiumBorder(),
-                          backgroundColor: Colors.orange,
-                          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-
-                        ),
-
-
-                      ),
-                      ElevatedButton(
-
-                        onPressed: () {
-
-                        },
-                        child: Icon(
-                          Icons.remove,
-                          color: Colors.black,
-                          size: 60,
-                        ),
-
-                        style: ElevatedButton.styleFrom(
-                          shape: StadiumBorder(),
-                          backgroundColor: Colors.orange,
-                          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-
-                        ),
-
-
-                      )
-                    ],
-                  ),
-                );
-              }).toList();
-            },
-          ),*/
               SizedBox(height:35),
               bottone_gestione_menu_admin(),
               SizedBox(
@@ -157,125 +93,7 @@ class menu_vuoto_ui extends State<menu_vuoto>{
   }
 
 
-  Future<void> _displayAddCategoria(BuildContext context){
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
 
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(32.0))),
-            title: Center(
-
-                child:Padding(
-
-                  padding: EdgeInsetsDirectional.all(30.0),
-                  child: Text(
-                    "Aggiungi una nuova categoria",
-                    style: GoogleFonts.roboto(fontSize: 44, color: Colors.orange),
-                  ),
-                )
-            ),
-            content: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  width: 15,
-                ),
-                Text(
-                  'Nome categoria',
-                  style: GoogleFonts.roboto(fontSize: 44,),
-                ),
-                SizedBox(
-                  width: 50,
-                ),
-                Spacer(),
-                SizedBox(
-                  width: 522,
-                  height: 54,
-                  child: TextFormField(
-                    controller: nomeCategoriaController,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: CupertinoColors.systemGrey3,
-                            width: 5.0
-                        ),
-                        borderRadius: BorderRadius.circular(50),
-
-                      ),
-                      hintText: 'Inserisci il nome della categoria',
-                    ),
-                    onChanged: (text){
-                      setState(() {
-                        nomeCategoria=text;
-                      });
-                    },
-                  ) ,
-                ),
-                SizedBox(
-                  width: 15,
-                ),
-              ],
-            ),
-            actions: <Widget>[
-              Column(mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(height:40),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ElevatedButton(
-                          onPressed: () {
-                            //Navigator.push(context, MaterialPageRoute(builder: (context) => const menu()));
-                            Navigator.pop(context);
-                          },
-                          child: Text(
-                            'ANNULLA',
-                            style:TextStyle(
-                              fontSize: 24,
-                              color: Colors.white,
-                            ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            shape: StadiumBorder(),
-                            backgroundColor: Colors.red,
-                            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                          )
-                      ),
-                      SizedBox(width:80),
-                      ElevatedButton(
-                          onPressed: () {
-                            //Navigator.push(context, MaterialPageRoute(builder: (context) => const menu()));
-                          },
-                          child: Text(
-                            'AGGIUNGI',
-                            style:TextStyle(
-                              fontSize: 24,
-                              color: Colors.white,
-                            ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            shape: StadiumBorder(),
-                            backgroundColor: Colors.green,
-                            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                          )
-                      ),
-
-                    ],
-                  ),
-                  SizedBox(height:40)
-                ],)
-            ],
-          );}
-
-    );
-
-
-  }
 
 
 
