@@ -1,7 +1,7 @@
 
 
 import 'dart:ui';
-import 'package:ratatouille23/views/barra_superiore.dart';
+import 'package:ratatouille23/views/custom_widget/barra_superiore.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -78,7 +78,7 @@ class menu_vuoto_ui extends State<menu_vuoto>{
           child:Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              barra_superiore(),
+              barra_superiore(text: '',),
               finestra_nessun_elemento(string1: 'NON CI SONO PIATTI', string2: 'NEL TUO MENU', string3: 'CREA UNA CATEGORIA E', string4: 'AGGIUNGI UN NUOVO PIATTO', string5: 'CLICCANDO IL BOTTONE'),
               SizedBox(height:35),
               bottone_gestione_menu_admin(),

@@ -6,7 +6,7 @@ import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
 
 import 'Login_ui.dart';
-import 'barra_superiore.dart';
+import 'custom_widget/barra_superiore.dart';
 
 class registra_utente extends StatefulWidget {
 
@@ -89,7 +89,7 @@ class registra_utente_ui extends State<registra_utente> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            barra_superiore(),
+            barra_superiore(text: '',),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

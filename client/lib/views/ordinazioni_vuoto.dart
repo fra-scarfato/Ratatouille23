@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/views/custom_widget/bottone_arancione_con_testo.dart';
 import 'package:ratatouille23/views/menu_vuoto.dart';
 
-import 'barra_superiore.dart';
+import 'custom_widget/barra_superiore.dart';
 import 'custom_widget/finestra_nessun_elemento.dart';
 
 class ordinazioni_vuoto extends StatefulWidget{
@@ -34,7 +34,7 @@ class ordinazioni_vuoto_state extends State<ordinazioni_vuoto>{
           child:Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              barra_superiore(),
+              barra_superiore(text: '',),
               finestra_nessun_elemento(string1: 'NON HAI REGISTRATO', string2: 'NESSUNA ORDINAZIONE', string3: 'REGISTRA UNA NUOVA', string4: 'ORDINAZIONE CLICCANDO IL', string5: 'BOTTONE'),
               SizedBox(height:35),
               ElevatedButton(

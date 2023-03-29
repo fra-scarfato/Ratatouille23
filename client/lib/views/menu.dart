@@ -5,7 +5,7 @@ import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flag/flag.dart';
 
-import 'barra_superiore.dart';
+import 'custom_widget/barra_superiore.dart';
 import 'custom_widget/categoria_card.dart';
 import 'custom_widget/elementi_card.dart';
 import 'custom_widget/elementi_card_bottom.dart';
@@ -65,7 +65,7 @@ class menu_ui extends State<menu>{
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          barra_superiore(),
+          barra_superiore(text: '',),
           SizedBox(height: 30,),
           Container(
               height: 67,

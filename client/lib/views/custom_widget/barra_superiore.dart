@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class barra_superiore extends StatelessWidget{
+  final String text;
+  const barra_superiore({Key? key, required this.text}): super(key: key);
   Widget build(BuildContext context){
     return Container(
         height: 60.0,
@@ -35,6 +37,15 @@ class barra_superiore extends StatelessWidget{
                 size: 40,
               ),
             ),
+            Spacer(),
+            Text(
+              '$text',
+              style:TextStyle(
+                fontSize: 36,
+                color: Colors.white,
+              ),
+            ),
+            Spacer(),
           ],
         )
     );

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'barra_superiore.dart';
+import 'custom_widget/barra_superiore.dart';
 import 'menu_vuoto.dart';
 
 class aggiungi_piatto extends StatefulWidget{
@@ -43,7 +43,7 @@ class aggiungi_piatto_state extends State<aggiungi_piatto>{
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            barra_superiore(),
+            barra_superiore(text: '',),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
