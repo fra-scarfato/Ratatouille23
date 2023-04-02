@@ -1,6 +1,7 @@
+import 'package:ratatouille23/models/Elemento_ordinato.dart';
 import 'package:ratatouille23/models/Utente.dart';
 
-import 'Elemento.dart';
+import 'menu/Elemento.dart';
 
 class Ordinazione{
   late int _id;
@@ -8,20 +9,20 @@ class Ordinazione{
   late String _note;
   late String _stato;
   late DateTime _data;
-  late List<Elemento> _elementi;
+  late List<Elemento_ordinato> _elementi;
   late double _costo_totale;
   late Utente _gestore_ordinazione;
 
 
-  double _calcola_totale(List<Elemento> elementi){
+  double _calcola_totale(List<Elemento_ordinato> elementi){
     double totale=0;
     for(int i=0;i<elementi.length;i++){
-      totale=totale+elementi[i].get_costo();
+      totale=totale+elementi[i].get_elemento().get_costo();
     }
     return totale;
   }
 
-    Ordinazione(int id, int tavolo, String note, List<Elemento> elementi, Utente gestore_ordinazione /*String stato, DateTime data, double costo_totale*/){
+    Ordinazione(int id, int tavolo, String note, List<Elemento_ordinato> elementi, Utente gestore_ordinazione /*String stato, DateTime data, double costo_totale*/){
       _id=id;
       _tavolo=tavolo;
       _note=note;
@@ -60,9 +61,7 @@ class Ordinazione{
     void set_tavolo(int tavolo){_tavolo=tavolo;}
     void set_note(String note){_note=note;}
     void set_stato(String stato){_stato=stato;}
-    void set_elementi(List<Elemento> elementi){_elementi=elementi;}
-    void aggiungi_elemento(Elemento elemento){_elementi.add(elemento);}
-    void rimuovi_elemento(Elemento elemento){_elementi.removeWhere((element) => element.get_id()==elemento.get_id());}
+    void set_lista_elementi(List<Elemento_ordinato> elementi){_elementi=elementi;}
     void set_gestore_ordinazione(Utente gestore_ordinazione){_gestore_ordinazione=gestore_ordinazione;}
 
     int get_id(){return _id;}
@@ -70,8 +69,10 @@ class Ordinazione{
     String get_note(){return _note;}
     String get_stato(){return _stato;}
     DateTime get_data(){return _data;}
-    List<Elemento> get_elementi(){return _elementi;}
+    List<Elemento_ordinato> get_lista_elementi(){return _elementi;}
     double get_costo_totale(){return _costo_totale;}
     Utente get_gestore_ordinazione(){return _gestore_ordinazione;}
+    Elemento get_elemento(int i){return _elementi[i].get_elemento();}
+    int get_quantita_elemento(int i){return _elementi[i].get_quantita();}
 
 }

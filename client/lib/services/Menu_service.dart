@@ -1,8 +1,88 @@
+import 'dart:convert';
+
+import 'package:ratatouille23/models/menu/Categoria.dart';
+import 'package:http/http.dart' as http;
+import 'package:ratatouille23/models/menu/Elemento.dart';
+
 class Menu_service{
-  List<Map<String, dynamic>> _menu=[];
-  List<Map<String, dynamic>> _elementi=[];
 
+  Future<List<Categoria>> elenco_categorie() async {
+    var response= await http.get(Uri.parse(''));
+    if(response.statusCode==200){
+      List<Categoria> categorie=[];
+      List cat= json.decode(response.body);
+      cat.map((c) => categorie.add(Categoria.fromJson(c))).toList();
+      return categorie;
+    }
+    else{
+      throw('error');
+    }
+  }
 
+  Future<List<Elemento>> elenco_elementi() async {
+    var response= await http.get(Uri.parse(''));
+    if(response.statusCode==200){
+      List<Elemento> elementi=[];
+      List elem= json.decode(response.body);
+      elem.map((e) => elementi.add(Elemento.fromJson(e))).toList();
+      return elementi;
+    }
+    else{
+      throw('error');
+    }
+  }
+
+  Future<http.Response> aggiungi_nuova_categoria(Categoria categoria) async {
+    return http.post(
+        Uri.parse(''),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: categoria.toJson()
+    );
+  }
+
+  Future<http.Response> aggiungi_nuovo_elemento(Elemento elemento) async {
+    return http.post(
+        Uri.parse(''),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: elemento.toJson()
+    );
+  }
+
+  Future<http.Response> modifica_elemento(Elemento elemento) async{
+    return http.put(
+        Uri.parse(''),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: elemento.toJson()
+    );
+  }
+
+  Future<http.Response> elimina_categoria(Categoria categoria) async {
+    return http.delete(
+        Uri.parse(''),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: categoria.toJson()
+    );
+  }
+
+  Future<http.Response> elimina_elemento(Elemento elemento) async {
+    return http.delete(
+        Uri.parse(''),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: elemento.toJson()
+    );
+  }
+
+/*
   Future<void> inserisci_categoria(Map<String, dynamic> categoria) async {
     _menu.add(categoria);
 
@@ -36,7 +116,7 @@ class Menu_service{
     await Future.delayed(Duration(milliseconds: 800));
     return _elementi;
   }
-/*
+
   Future<List<Map<String, dynamic>>> get_elementi_categoria(int id) async{
     await Future.delayed(Duration(milliseconds: 800));
     int i= _menu.indexWhere((categoria) => categoria['id']==id);

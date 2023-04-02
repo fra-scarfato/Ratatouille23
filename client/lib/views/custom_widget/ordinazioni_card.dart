@@ -5,8 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../models/Ordinazione.dart';
 
 class ordinazioni_card extends StatefulWidget{
-  List<Ordinazione> elem;
-  ordinazioni_card({Key? key, required this.elem}): super(key: key);
+  List<Ordinazione> ord;
+  ordinazioni_card({Key? key, required this.ord}): super(key: key);
   @override
   ordinazioni_card_state createState() => ordinazioni_card_state();
   }
@@ -18,7 +18,7 @@ class ordinazioni_card_state extends State<ordinazioni_card>{
       child: ListView(
         shrinkWrap: true,
         children: [
-          ...ordini_card(widget.elem),
+          ...ordini_card(widget.ord),
         ],
       ),
 
@@ -89,15 +89,15 @@ class ordinazioni_card_state extends State<ordinazioni_card>{
   }
 
   List<Widget> lista_elementi(Ordinazione ordinazione) {
-    double costo=ordinazione.get_costo();
+    double costo=ordinazione.get_costo_totale();
     List<Widget> list=[];
-    for(int i=0 ;i< ordinazione.elementi_ordinati.length; i++){
-      if (i!=ordinazione.elementi_ordinati.length-1) {
-        list.add(buildRiga(ordinazione.get_nome_elemento(i),ordinazione.get_quantita(i),ordinazione.get_costo_elemento(i)));
+    for(int i=0 ;i< ordinazione.get_lista_elementi().length; i++){
+      if (i!=ordinazione.get_lista_elementi().length-1) {
+        list.add(buildRiga(ordinazione.get_elemento(i).get_nome(),ordinazione.get_quantita_elemento(i),ordinazione.get_elemento(i).get_costo()));
         list.add(Divider(color: Colors.orange,));
       }
       else{
-        list.add(buildRiga(ordinazione.get_nome_elemento(i),ordinazione.get_quantita(i),ordinazione.get_costo_elemento(i)));
+        list.add(buildRiga(ordinazione.get_elemento(i).get_nome(),ordinazione.get_quantita_elemento(i),ordinazione.get_elemento(i).get_costo()));
         list.add(Divider(color: Colors.orange,));
         list.add(
             Row(

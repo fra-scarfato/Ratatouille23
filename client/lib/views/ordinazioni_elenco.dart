@@ -2,10 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ratatouille23/controllers/Ordinazione_controller.dart';
 import 'package:ratatouille23/views/ordinazioni_vuoto.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
+import '../models/Elemento_ordinato.dart';
 import '../models/Ordinazione.dart';
+import '../models/Utente.dart';
+import '../models/menu/Elemento.dart';
 import 'custom_widget/barra_superiore.dart';
 import 'custom_widget/ordinazioni_card.dart';
 
@@ -45,8 +49,9 @@ class ordinazioni_elenco extends StatefulWidget{
 }
 
 class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
+  Ordinazione_controller ordinazione_controller = Ordinazione_controller();
+  late List<Ordinazione> ord = ordinazione_controller.getAll_ordini() as List<Ordinazione>;//ord = getall_ordini
 
-  late List<Ordinazione> elem;
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +74,7 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height-195,
-              child: ordinazioni_card(elem: elem),
+              child: ordinazioni_card(ord: ord),
 
             ),
             ElevatedButton(

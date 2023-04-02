@@ -7,22 +7,27 @@ import '../services/Utente_service.dart';
 
 class Utente_controller{
 
-  late Utente_repository _utente_repository=Utente_repository(Utente_service());
+  //late Utente_repository _utente_repository=Utente_repository(Utente_service());
+  late Utente_service _utente_service;
 
   Future<List<Utente>> getAll_utenti() {
-    return _utente_repository.getAll();
+    //return _utente_repository.getAll();
+    return _utente_service.elenco_utenti();
   }
 
   Future<void> aggiungi_utente(Utente utente) async {
-   _utente_repository.inserisci(utente);
+   //_utente_repository.inserisci(utente);
+    _utente_service.inserisci(utente);
   }
 
   Future<void> rimuovi_utente(Utente utente) async {
-    _utente_repository.rimuovi(utente);
+    //_utente_repository.rimuovi(utente);
+    _utente_service.rimuovi(utente);
   }
 
   Future<void> aggiorna_password(Utente utente) async {
-    _utente_repository.aggiorna(utente);
+    //_utente_repository.aggiorna(utente);
+    _utente_service.aggiorna(utente);
   }
 
 

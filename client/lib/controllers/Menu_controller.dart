@@ -1,12 +1,12 @@
-import 'package:ratatouille23/models/menu/Categoria.dart';
-import 'package:ratatouille23/models/menu/Elemento.dart';
 import 'package:ratatouille23/services/Menu_service.dart';
 
-class Menu_repository{
+import '../models/menu/Categoria.dart';
+import '../models/menu/Elemento.dart';
+import '../services/Menu_service.dart';
 
+
+class Menu_controller{
   late Menu_service _menu_service;
-
-  Menu_repository(Menu_service menu_service){_menu_service=menu_service;}
 
   Future<void> inserisci_categoria(Categoria categoria) async {
     await _menu_service.aggiungi_nuova_categoria(categoria);
@@ -35,4 +35,6 @@ class Menu_repository{
   Future<List<Elemento>> elenco_elementi() async {
     return _menu_service.elenco_elementi();
   }
+
+
 }
