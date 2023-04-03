@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Ordinazione_controller.dart';
 import 'package:ratatouille23/services/Ordinazione_service.dart';
 import 'package:ratatouille23/views/ordinazioni_vuoto.dart';
+import 'package:ratatouille23/views/custom_widget/ordinazioni_cucina_presi_in_carica_card.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
 import '../models/Elemento_ordinato.dart';
@@ -96,7 +97,7 @@ class ordinazioni_elenco_cucina_state extends State<ordinazioni_elenco_cucina>{
                   Container(
                     width: MediaQuery.of(context).size.width,
                      height: MediaQuery.of(context).size.height-195,
-                      child: ordinazioni_cucina_card(ord: ord)),],
+                      child: ordinazioni_cucina_presi_in_carica_card(ord: ord)),],
             )
             ),
               /*Container(
