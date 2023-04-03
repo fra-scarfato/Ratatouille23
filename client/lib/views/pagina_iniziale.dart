@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'menu.dart';
 import 'ordinazioni_elenco.dart';
+import 'ordinazioni_elenco_cucina.dart';
 import 'ordinazioni_vuoto.dart';
 
 
@@ -103,7 +104,7 @@ class pagina_iniziale_ui extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              bottoni_gestione(route: /*const lista_ordinazioni_cucina()*/const registra_utente(), text: 'CUCINA', color1: Colors.purple, color2: Colors.purpleAccent, icon: Icons.cake_outlined),
+              bottoni_gestione(route: ordinazioni_elenco_cucina()/*const registra_utente()*/, text: 'CUCINA', color1: Colors.purple, color2: Colors.purpleAccent, icon: Icons.cake_outlined),
               SizedBox(width: 30,),
               bottoni_gestione(route: /*route*/const registra_utente(), text: 'STATISTICHE', color1: Colors.green, color2: Colors.lightGreen, icon: Icons.query_stats_outlined)
             ],

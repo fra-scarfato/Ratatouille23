@@ -25,9 +25,9 @@ class ordinazioni_card_state extends State<ordinazioni_card>{
     );
   }
 
-  List<Card> ordini_card(List<Ordinazione> elem){
+  List<Card> ordini_card(List<Ordinazione> ord){
     List<Card> list=[];
-    for(int i=0;i<elem.length;i++){
+    for(int i=0;i<ord.length;i++){
       list.add(Card(
           color: Colors.white,
           elevation: 24.0,
@@ -45,7 +45,7 @@ class ordinazioni_card_state extends State<ordinazioni_card>{
                         style: GoogleFonts.roboto(color: Colors.orange, fontSize: 36, fontStyle: FontStyle.italic),
                       ),
                       Text(
-                        '${elem[i].get_tavolo()}',
+                        '${ord[i].get_tavolo()}',
                         style: GoogleFonts.roboto(fontSize: 36, fontStyle: FontStyle.italic,fontWeight: FontWeight.bold),
                       ),
                       Spacer(),
@@ -73,7 +73,7 @@ class ordinazioni_card_state extends State<ordinazioni_card>{
                     child: ListView(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      children: lista_elementi(elem[i]),
+                      children: lista_elementi(ord[i]),
 
                     ),
                   )

@@ -25,7 +25,7 @@ class bottone_arancione_con_testo extends StatelessWidget{
         style: ElevatedButton.styleFrom(
           shape: StadiumBorder(),
           backgroundColor: Colors.orange,
-          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+          //padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
 
         )
 

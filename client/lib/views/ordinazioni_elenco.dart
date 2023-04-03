@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Ordinazione_controller.dart';
+import 'package:ratatouille23/services/Ordinazione_service.dart';
 import 'package:ratatouille23/views/ordinazioni_vuoto.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
@@ -50,9 +51,18 @@ class ordinazioni_elenco extends StatefulWidget{
 
 class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
   Ordinazione_controller ordinazione_controller = Ordinazione_controller();
-  late List<Ordinazione> ord = ordinazione_controller.getAll_ordini() as List<Ordinazione>;//ord = getall_ordini
+  Ordinazione_service ordinazione_service = Ordinazione_service();
+  List<Elemento_ordinato> elem=[Elemento_ordinato(5656, Elemento(47,'pera','frutto dolce',1.5,'',37), 1),Elemento_ordinato(5656, Elemento(42,'mela','frutto dolce',1.3,'',31), 3)];
 
-
+  late List<Ordinazione> ord=[Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so','amministratore',45)),Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so','amministratore',45)),
+    Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so','amministratore',45)),Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so','amministratore',45))]; //= ordinazione_controller.getAll_ordini() as List<Ordinazione>;//ord = getall_ordini
+  /*@override
+  void initState() {
+    Future.delayed(Duration.zero,() async {
+      ord = await ordinazione_service.elenco_ordinazioni();
+    });
+    super.initState();
+  }*/
   @override
   Widget build(BuildContext context) {
 
@@ -114,8 +124,8 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
     TextEditingController numeroTavoloController = TextEditingController();
     String numeroTavolo = '';
     Color colore=Colors.black.withOpacity(0.1);
-    Color borderSideColorNumeroTavolo = CupertinoColors.systemGrey3;
-    Color hintColorNumeroTavolo = CupertinoColors.systemGrey3;
+    BorderSide borderSideColorNumeroTavolo = BorderSide(color: CupertinoColors.systemGrey, width: 5 );
+    Color hintColorNumeroTavolo = CupertinoColors.systemGrey;
 
     return showDialog(
         context: context,
@@ -159,14 +169,11 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: borderSideColorNumeroTavolo,
-                              width: 5.0
-                          ),
+                          borderSide: borderSideColorNumeroTavolo,
                           borderRadius: BorderRadius.circular(50),
 
                         ),
-                        hintText: 'Inserisci il nome della categoria',
+                        hintText: 'Inserisci numero del tavolo',
                         hintStyle: TextStyle(color: hintColorNumeroTavolo)
                     ),
                     onChanged: (text){
@@ -211,7 +218,8 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
                           onPressed: () {
                             if(numeroTavolo==''){
                               setState(() {
-                                borderSideColorNumeroTavolo=  Colors.red;
+                                print('oh');
+                                borderSideColorNumeroTavolo=  BorderSide(color: Colors.red, width: 5 );
                                 hintColorNumeroTavolo= Colors.red;
                               });
                             }
@@ -219,7 +227,7 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
                             //Navigator.push(context, MaterialPageRoute(builder: (context) => const menu(numerotavolo.toInt()));
                           },
                           child: Text(
-                            'Prosegui',
+                            'PROSEGUI',
                             style:TextStyle(
                               fontSize: 24,
                               color: Colors.white,

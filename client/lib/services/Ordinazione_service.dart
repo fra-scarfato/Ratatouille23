@@ -42,8 +42,8 @@ class Ordinazione_service{
   }
 
   Future<List<Ordinazione>> elenco_ordinazioni() async {
-    var response= await http.get(Uri.parse(''));
-    if(response.statusCode==200){
+    //var response= await http.get(Uri.parse(''));
+    //if(response.statusCode==200){
       List<Elemento_ordinato> elem=[Elemento_ordinato(5656, Elemento(47,'pera','frutto dolce',1.5,'',37), 1),Elemento_ordinato(5656, Elemento(42,'mela','frutto dolce',1.3,'',31), 3)];
       List<Ordinazione> ordinazioni=[Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so','amministratore',45)),Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so','amministratore',45)),
         Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so','amministratore',45)),Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so','amministratore',45))];
@@ -51,10 +51,10 @@ class Ordinazione_service{
       //ord.map((o) => ordinazioni.add(Ordinazione.fromJson(o))).toList();
       return ordinazioni;
     }
-    else{
-      throw('error');
-    }
-  }
+   // else{
+   //   throw('error');
+   // }
+  //}
 
 
 }

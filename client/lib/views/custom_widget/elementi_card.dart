@@ -6,12 +6,12 @@ import 'elementi_card_bottom.dart';
 import 'elementi_card_header.dart';
 
 class elementi_card extends StatefulWidget{
-
+  final Key key = UniqueKey();
   final String nome;
   final double costo;
   final String descrizione;
   final String allergeni;
-  const elementi_card({Key? key, required this.nome, required this.costo, required this.descrizione, required this.allergeni}): super(key : key);
+  elementi_card({required this.nome, required this.costo, required this.descrizione, required this.allergeni});
   @override
   elementi_card_state createState() => elementi_card_state();
 }
