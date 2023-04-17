@@ -106,7 +106,7 @@ class Presa_ordinazione_state extends State<Presa_ordinazione>{
 
             ),
           ),
-          bottone_arancione_con_testo(text: 'Visualizza riepilogo', route: Visualizza_riepilogo(Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so','amministratore',45)))),
+          bottone_arancione_con_testo(text: 'Visualizza riepilogo', route: Visualizza_riepilogo(Ordinazione(001, 3, 'boh', elem_ord, Utente(01,'er','va','ap','so','amministratore',45)))),
 
 
         ],

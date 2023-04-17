@@ -19,6 +19,16 @@ class Utente{
 
   }
 
+  Utente.senzaId(String nome, String cognome, String email, String password, String ruolo, int id_ristorante){
+    _nome=nome;
+    _cognome=cognome;
+    _email=email;
+    _password=password;
+    _ruolo=ruolo;
+    _id_ristorante=id_ristorante;
+
+  }
+
   Utente.fromJson(Map<String, dynamic> json):
     _id=json['id'],
     _nome=json['nome'],

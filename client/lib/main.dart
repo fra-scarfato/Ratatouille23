@@ -29,8 +29,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         builder: (context, child) => ResponsiveWrapper.builder(
           child,
-          maxWidth: 1200,
-          minWidth: 480,
+          maxWidth: MediaQuery.of(context).size.width,//1200,
+          minWidth: MediaQuery.of(context).size.width,//480,
           defaultScale: true,
           breakpoints: [
             ResponsiveBreakpoint.resize(480, name: MOBILE),
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
             ResponsiveBreakpoint.resize(1000, name: DESKTOP),
           ],
           background: RotatedBox(quarterTurns: 3, child: Container(
-            decoration: BoxDecoration(
+          decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
                 image: NetworkImage("https://images.pexels.com/photos/7439978/pexels-photo-7439978.jpeg"),

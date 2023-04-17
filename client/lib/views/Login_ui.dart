@@ -24,8 +24,8 @@ class Login_ui extends StatefulWidget {
       ),
       builder: (context, child) => ResponsiveWrapper.builder(
         child,
-        maxWidth: 1200,
-        minWidth: 480,
+        maxWidth: MediaQuery.of(context).size.width,//1200,
+        minWidth: MediaQuery.of(context).size.width,//480,
         defaultScale: true,
         breakpoints: [
           ResponsiveBreakpoint.resize(480, name: MOBILE),

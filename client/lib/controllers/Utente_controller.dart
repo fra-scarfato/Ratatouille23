@@ -15,19 +15,19 @@ class Utente_controller{
     return _utente_service.elenco_utenti();
   }
 
-  Future<void> aggiungi_utente(Utente utente) async {
+  Future<void> aggiungi_utente(String nome, String cognome, String email, String password, String ruolo, int id_ristorante) async {
    //_utente_repository.inserisci(utente);
-    _utente_service.inserisci(utente);
+    _utente_service.inserisci(Utente.senzaId(nome, cognome, email, password, ruolo, id_ristorante));
   }
 
-  Future<void> rimuovi_utente(Utente utente) async {
+  Future<void> rimuovi_utente(int id, String nome, String cognome, String email, String password, String ruolo, int id_ristorante) async {
     //_utente_repository.rimuovi(utente);
-    _utente_service.rimuovi(utente);
+    _utente_service.rimuovi(Utente(id, nome, cognome, email, password, ruolo, id_ristorante));
   }
 
-  Future<void> aggiorna_password(Utente utente) async {
+  Future<void> aggiorna_password(int id, String nome, String cognome, String email, String password, String ruolo, int id_ristorante) async {
     //_utente_repository.aggiorna(utente);
-    _utente_service.aggiorna(utente);
+    _utente_service.aggiorna(Utente(id, nome, cognome, email, password, ruolo, id_ristorante));
   }
 
 
