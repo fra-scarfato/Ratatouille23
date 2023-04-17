@@ -47,7 +47,18 @@ class Utente{
       'email':_email,
       'password':_password,
       'ruolo':_ruolo,
-      'id_ristorante':_id_ristorante
+      'idRistorante':_id_ristorante
+    };
+  }
+
+  Map<String,dynamic> toJsonWithoutId(){
+    return {
+      'nome':_nome,
+      'cognome':_cognome,
+      'email':_email,
+      'password':_password,
+      'ruolo':_ruolo,
+      'idRistorante':_id_ristorante
     };
   }
 

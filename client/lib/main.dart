@@ -39,11 +39,11 @@ class MyApp extends StatelessWidget {
           ],
           background: RotatedBox(quarterTurns: 3, child: Container(
           decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage("https://images.pexels.com/photos/7439978/pexels-photo-7439978.jpeg"),
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: AssetImage("assets/images/wallpaper_ratatouille.jpeg"),
 
-              ),
+            ),
 
             ),
           ),

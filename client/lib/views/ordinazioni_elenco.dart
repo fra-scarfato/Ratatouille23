@@ -16,34 +16,34 @@ import 'custom_widget/ordinazioni_card.dart';
 
 class ordinazioni_elenco extends StatefulWidget{
 
-  @override
-  Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
-    return MaterialApp(
-      title: 'Flutter Demo',
-      builder: (context, child) =>
-          ResponsiveWrapper.builder(
-            child,
-            maxWidth: 1200,
-            minWidth: 480,
-            defaultScale: true,
-            breakpoints: [
-              ResponsiveBreakpoint.resize(480, name: MOBILE),
-              ResponsiveBreakpoint.autoScale(800, name: TABLET),
-              ResponsiveBreakpoint.resize(1000, name: DESKTOP),
-            ],
-
-          ),
-
-
-
-     // initialRoute: "/",
-
-    );
-  }
+  // @override
+  // Widget build(BuildContext context) {
+  //   SystemChrome.setPreferredOrientations([
+  //     DeviceOrientation.landscapeLeft,
+  //     DeviceOrientation.landscapeRight,
+  //   ]);
+  //   return MaterialApp(
+  //     title: 'Flutter Demo',
+  //     builder: (context, child) =>
+  //         ResponsiveWrapper.builder(
+  //           child,
+  //           maxWidth: 1200,
+  //           minWidth: 480,
+  //           defaultScale: true,
+  //           breakpoints: [
+  //             ResponsiveBreakpoint.resize(480, name: MOBILE),
+  //             ResponsiveBreakpoint.autoScale(800, name: TABLET),
+  //             ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+  //           ],
+  //
+  //         ),
+  //
+  //
+  //
+  //    // initialRoute: "/",
+  //
+  //   );
+  // }
 
   @override
   ordinazioni_elenco_state createState() => ordinazioni_elenco_state();

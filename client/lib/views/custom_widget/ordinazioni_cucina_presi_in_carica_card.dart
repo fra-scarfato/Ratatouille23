@@ -32,7 +32,7 @@ class ordinazioni_cucina_card_presi_in_carica_state extends State<ordinazioni_cu
   List<Card> ordini_cucina_card(List<Ordinazione> ord){
     List<Card> list=[];
     for(int i=0;i<ord.length;i++){
-      if(ord[i].get_gestore_ordinazione()==this){list.add(Card(
+      if(/*ord[i].get_gestore_ordinazione()==this*/ord[i].get_stato() == 'Preso in carica'){list.add(Card(
           color: Colors.white,
           elevation: 30.0,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(33.0))),

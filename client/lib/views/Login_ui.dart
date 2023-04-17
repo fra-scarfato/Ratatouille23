@@ -10,49 +10,49 @@ class Login_ui extends StatefulWidget {
   const Login_ui({super.key});
 
   // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.orange,
+  // @override
+  // Widget build(BuildContext context) {
+  //   SystemChrome.setPreferredOrientations([
+  //     DeviceOrientation.landscapeLeft,
+  //     DeviceOrientation.landscapeRight,
+  //   ]);
+  //   return MaterialApp(
+  //     title: 'Flutter Demo',
+  //     theme: ThemeData(
+  //       primarySwatch: Colors.orange,
+  //
+  //     ),
+  //     builder: (context, child) => ResponsiveWrapper.builder(
+  //       child,
+  //       maxWidth: MediaQuery.of(context).size.width,//1200,
+  //       minWidth: MediaQuery.of(context).size.width,//480,
+  //       defaultScale: true,
+  //       breakpoints: [
+  //         ResponsiveBreakpoint.resize(480, name: MOBILE),
+  //         ResponsiveBreakpoint.autoScale(800, name: TABLET),
+  //         ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+  //       ],
+  //       background: RotatedBox(quarterTurns: 3, child: Container(
+  //         decoration: BoxDecoration(
+  //           image: DecorationImage(
+  //             fit: BoxFit.cover,
+  //             image: NetworkImage("https://images.pexels.com/photos/7439978/pexels-photo-7439978.jpeg"),
+  //
+  //           ),
+  //
+  //         ),
+  //       ),
+  //       ),
+  //
+  //
+  //     ),
+  //     initialRoute: "/",
+  //
+  //   );
 
-      ),
-      builder: (context, child) => ResponsiveWrapper.builder(
-        child,
-        maxWidth: MediaQuery.of(context).size.width,//1200,
-        minWidth: MediaQuery.of(context).size.width,//480,
-        defaultScale: true,
-        breakpoints: [
-          ResponsiveBreakpoint.resize(480, name: MOBILE),
-          ResponsiveBreakpoint.autoScale(800, name: TABLET),
-          ResponsiveBreakpoint.resize(1000, name: DESKTOP),
-        ],
-        background: RotatedBox(quarterTurns: 3, child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: NetworkImage("https://images.pexels.com/photos/7439978/pexels-photo-7439978.jpeg"),
-
-            ),
-
-          ),
-        ),
-        ),
 
 
-      ),
-      initialRoute: "/",
-
-    );
-
-
-
-  }
+  //}
 
 
   @override
@@ -166,7 +166,7 @@ class Login extends State<Login_ui>{
                           });
                         }
                       } else
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const pagina_iniziale()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) =>  pagina_iniziale_ui()));
                       },
                     child: Text(
                       'ACCEDI',

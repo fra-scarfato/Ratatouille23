@@ -32,7 +32,7 @@ class ordinazioni_cucina_card_state extends State<ordinazioni_cucina_card>{
   List<Card> ordini_cucina_card(List<Ordinazione> ord){
     List<Card> list=[];
     for(int i=0;i<ord.length;i++){
-      list.add(Card(
+      if(ord[i].get_stato() != 'Evaso'){list.add(Card(
           color: Colors.white,
           elevation: 30.0,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(33.0))),
@@ -87,7 +87,7 @@ class ordinazioni_cucina_card_state extends State<ordinazioni_cucina_card>{
               )
           )
 
-      ));
+      ));};
     }
     return list;
   }
@@ -134,7 +134,9 @@ class ordinazioni_cucina_card_state extends State<ordinazioni_cucina_card>{
     String stato = ord.get_stato();
     Widget bottone_evadi = ElevatedButton(
 
-        onPressed: () {ord.set_stato('Evaso'); /*ordinazione_controller.modifica_ordinazione(ord);*/},
+        onPressed: () {setState(() {
+          ord.set_stato('Evaso');
+        }); /*ordinazione_controller.modifica_ordinazione(ord);*/},
         child: Text(
           '           EVADI           ',
           style:TextStyle(
@@ -154,7 +156,9 @@ class ordinazioni_cucina_card_state extends State<ordinazioni_cucina_card>{
     );
 
     Widget bottone_prendi_in_carica= ElevatedButton(
-        onPressed: () {ord.set_stato('Preso in carica'); /*ordinazione_controller.modifica_ordinazione(ord);*/},
+        onPressed: () {setState(() {
+          ord.set_stato('Preso in carica');
+        }); /*ordinazione_controller.modifica_ordinazione(ord);*/},
 
         child: Text(
           'PRENDI IN CARICA',

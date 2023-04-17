@@ -18,48 +18,48 @@ import 'ordinazioni_vuoto.dart';
 
 
 
-class pagina_iniziale extends StatelessWidget {
-  const pagina_iniziale({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
-    return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          appBarTheme:  AppBarTheme(
-              backgroundColor: Colors.white,
-              foregroundColor: Colors.orange
-
-          ),
-
-
-        ),
-
-        builder: (context, child) => ResponsiveWrapper.builder(
-          child,
-          maxWidth: 1200,
-          minWidth: 480,
-          defaultScale: true,
-          breakpoints: [
-            ResponsiveBreakpoint.resize(480, name: MOBILE),
-            ResponsiveBreakpoint.autoScale(800, name: TABLET),
-            ResponsiveBreakpoint.resize(1000, name: DESKTOP),
-          ],
-
-        ),
-
-        home: pagina_iniziale_ui()
-    );
-
-
-
-  }
-}
+// class pagina_iniziale extends StatelessWidget {
+//   const pagina_iniziale({super.key});
+//
+//   // This widget is the root of your application.
+//   @override
+//   Widget build(BuildContext context) {
+//     SystemChrome.setPreferredOrientations([
+//       DeviceOrientation.landscapeLeft,
+//       DeviceOrientation.landscapeRight,
+//     ]);
+//     return MaterialApp(
+//         title: 'Flutter Demo',
+//         theme: ThemeData(
+//           appBarTheme:  AppBarTheme(
+//               backgroundColor: Colors.white,
+//               foregroundColor: Colors.orange
+//
+//           ),
+//
+//
+//         ),
+//
+//         builder: (context, child) => ResponsiveWrapper.builder(
+//           child,
+//           maxWidth: 1200,
+//           minWidth: 480,
+//           defaultScale: true,
+//           breakpoints: [
+//             ResponsiveBreakpoint.resize(480, name: MOBILE),
+//             ResponsiveBreakpoint.autoScale(800, name: TABLET),
+//             ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+//           ],
+//
+//         ),
+//
+//         home: pagina_iniziale_ui()
+//     );
+//
+//
+//
+//   }
+// }
 
 class pagina_iniziale_ui extends StatelessWidget {
   @override

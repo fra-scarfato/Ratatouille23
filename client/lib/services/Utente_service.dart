@@ -14,7 +14,7 @@ class Utente_service{
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: utente.toJson(),
+      body: jsonEncode(utente.toJsonWithoutId()),
     );
   }
 

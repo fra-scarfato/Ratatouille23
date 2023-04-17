@@ -102,7 +102,7 @@ class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
         ElevatedButton(
 
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => pagina_iniziale()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => pagina_iniziale_ui()));
             },
             child: Text(
               'CONFERMA ORDINE',
