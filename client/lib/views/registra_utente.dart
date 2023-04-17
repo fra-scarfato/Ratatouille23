@@ -213,7 +213,7 @@ class registra_utente_ui extends State<registra_utente> {
                           ),
                           borderRadius: BorderRadius.circular(50)
                       ),
-                      hintText: 'Inserisci il nome',
+                      hintText: 'Inserisci l\'email',
                         hintStyle: TextStyle(color: hintColorMail)
                     ),
                     onChanged: (text){
@@ -322,6 +322,7 @@ class registra_utente_ui extends State<registra_utente> {
                 ElevatedButton(
 
                     onPressed: () {
+                      utente_controller.getAllUtenti(1);
                       if(nome=='' || cognome=='' || mail=='' || password=='' || ruolo==''){
                         if(nome==''){
                           setState(() {
@@ -355,7 +356,6 @@ class registra_utente_ui extends State<registra_utente> {
                       }
                       else {
                         utente_controller.aggiungiUtente(nome, cognome, mail, password, ruolo, 1);
-                        print (utente_controller.getAllUtenti());
                         // Navigator.push(context, MaterialPageRoute(builder: (context) => const Login_ui()));
                       }
 

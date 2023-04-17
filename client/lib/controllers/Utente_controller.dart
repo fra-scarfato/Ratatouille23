@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-import 'package:http/http.dart';
 import 'package:ratatouille23/models/Utente.dart';
 
 import '../services/Utente_service.dart';
@@ -9,9 +7,10 @@ class Utente_controller{
 
   Utente_service _utente_service = new Utente_service();
 
-  Future<void> getAllUtenti() async {
+  Future<void> getAllUtenti(int idRistorante) async {
     try{
-      print(_utente_service.getUtenti());
+      List<Utente> listaUtenti = await _utente_service.getUtenti(idRistorante);
+      print(listaUtenti[0].get_name());
     } catch (error) {
       //TODO: Something bad
       print("Errore:"+error.toString());
