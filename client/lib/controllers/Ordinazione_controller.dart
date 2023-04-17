@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:ratatouille23/models/Ordinazione.dart';
-import 'package:ratatouille23/repositories/Ordinazione_repository.dart';
 
 import '../models/menu/Elemento.dart';
 import '../services/Ordinazione_service.dart';

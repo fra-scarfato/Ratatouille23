@@ -2,9 +2,6 @@ package com.unina.ratatouille23.ordinazione.entity;
 
 import java.util.List;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.unina.ratatouille23.utente.entity.Utente;
 

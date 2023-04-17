@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ratatouille23/controllers/Utente_controller.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
 
@@ -56,6 +57,7 @@ class registra_utente extends StatefulWidget {
 
 class registra_utente_ui extends State<registra_utente> {
 
+  Utente_controller utente_controller = new Utente_controller();
   TextEditingController nomeController = TextEditingController();
   TextEditingController cognomeController = TextEditingController();
   TextEditingController mailController = TextEditingController();
@@ -351,8 +353,12 @@ class registra_utente_ui extends State<registra_utente> {
                           });
                         }
                       }
-                      else
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const Login_ui()));
+                      else {
+                        utente_controller.aggiungiUtente(nome, cognome, mail, password, ruolo, 1);
+                        print (utente_controller.getAllUtenti());
+                        // Navigator.push(context, MaterialPageRoute(builder: (context) => const Login_ui()));
+                      }
+
                     },
                     child: Text(
                       'AGGIUNGI UTENTE',

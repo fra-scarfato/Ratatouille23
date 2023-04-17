@@ -17,10 +17,10 @@ import jakarta.persistence.Id;
         visible = true,
         property = "ruolo") //Chiave presente nel JSON che identifica il tipo
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = Amministratore.class, name = "amministratore"), //name si riferisce al valore passato al JSON  
-        @JsonSubTypes.Type(value = AddettoAllaSala.class, name = "addetto alla sala"),
-        @JsonSubTypes.Type(value = AddettoAllaCucina.class, name = "addetto alla cucina"),
-        @JsonSubTypes.Type(value = Supervisore.class, name = "supervisore")
+        @JsonSubTypes.Type(value = Amministratore.class, name = "Amministratore"), //name si riferisce al valore passato al JSON  
+        @JsonSubTypes.Type(value = AddettoAllaSala.class, name = "Addetto alla sala"),
+        @JsonSubTypes.Type(value = AddettoAllaCucina.class, name = "Addetto alla cucina"),
+        @JsonSubTypes.Type(value = Supervisore.class, name = "Supervisore")
 })
 
 @Entity
