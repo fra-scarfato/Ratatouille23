@@ -1,5 +1,4 @@
 import 'package:ratatouille23/models/Utente.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
 
 
 import '../services/Utente_service.dart';
@@ -7,30 +6,7 @@ import '../services/Utente_service.dart';
 
 class Utente_controller{
 
-  Utente_service _utente_service = new Utente_service();
-
-  Future<SignInResult> signInUser(String email, String password) async {
-    SignInResult result;
-    try {
-      result = await Amplify.Auth.signIn(
-        username: email,
-        password: password,
-      );
-    } on AuthException catch (e) {
-      rethrow;
-    }
-    return result;
-  }
-
-  Future<void> resetPassword(String nuovaPassword) async {
-    try {
-      await Amplify.Auth.confirmSignIn(
-        confirmationValue: nuovaPassword,
-      );
-    }catch (e) {
-      rethrow;
-    }
-  }
+  final Utente_service _utente_service = Utente_service();
 
   //TODO: Come recupero id ristorante?
   Future<List<Utente>?> getAllUtenti(int idRistorante) async {

@@ -1,4 +1,7 @@
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:ratatouille23/controllers/Amplify_controller.dart';
 import 'package:ratatouille23/views/custom_widget/bottoni_gestione.dart';
 import 'package:ratatouille23/views/menu_vuoto.dart';
 import 'package:ratatouille23/views/registra_utente.dart';
@@ -7,63 +10,18 @@ import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'Login_ui.dart';
 import 'menu.dart';
 import 'ordinazioni_elenco.dart';
 import 'ordinazioni_elenco_cucina.dart';
 import 'ordinazioni_vuoto.dart';
 
 
-
-
-
-
-
-// class pagina_iniziale extends StatelessWidget {
-//   const pagina_iniziale({super.key});
-//
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     SystemChrome.setPreferredOrientations([
-//       DeviceOrientation.landscapeLeft,
-//       DeviceOrientation.landscapeRight,
-//     ]);
-//     return MaterialApp(
-//         title: 'Flutter Demo',
-//         theme: ThemeData(
-//           appBarTheme:  AppBarTheme(
-//               backgroundColor: Colors.white,
-//               foregroundColor: Colors.orange
-//
-//           ),
-//
-//
-//         ),
-//
-//         builder: (context, child) => ResponsiveWrapper.builder(
-//           child,
-//           maxWidth: 1200,
-//           minWidth: 480,
-//           defaultScale: true,
-//           breakpoints: [
-//             ResponsiveBreakpoint.resize(480, name: MOBILE),
-//             ResponsiveBreakpoint.autoScale(800, name: TABLET),
-//             ResponsiveBreakpoint.resize(1000, name: DESKTOP),
-//           ],
-//
-//         ),
-//
-//         home: pagina_iniziale_ui()
-//     );
-//
-//
-//
-//   }
-// }
-
 class pagina_iniziale_ui extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+    Amplify_controller amplify_controller = Amplify_controller();
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -84,7 +42,10 @@ class pagina_iniziale_ui extends StatelessWidget {
                 width: 400,
               ),
               IconButton(
-                onPressed: (){Navigator.pop(context);},
+                onPressed: (){
+                  amplify_controller.signOutCurrentUser();
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Login_ui()));
+                },
                 icon: Icon(
                   Icons.logout_rounded,
                   color: Colors.black,

@@ -5,15 +5,14 @@ import '../models/menu/Elemento.dart';
 
 
 class Menu_controller{
-  late Menu_service _menu_service = new Menu_service();
+  late Menu_service _menu_service = Menu_service();
 
   Future<void> aggiungiCategoria(String nome, int idRistorante) async {
     try{
       var categoriaDaAggiungere = Categoria.senzaIdAndElementi(nome, idRistorante);
       _menu_service.aggiungiNuovaCategoria(categoriaDaAggiungere);
     } catch (error) {
-      //TODO: Something bad
-      print("Errore:"+error.toString());
+      throw (error.toString());
     }
   }
 
@@ -22,7 +21,7 @@ class Menu_controller{
       _menu_service.eliminaCategoria(categoriaDaRimuovere);
     } catch (error) {
       //TODO: Something bad
-      print("Errore:"+error.toString());
+      print("Errore:$error");
     }
   }
 
@@ -32,8 +31,9 @@ class Menu_controller{
       return listaCategorie;
     } catch (error) {
       //TODO: Something bad
-      print("Errore:"+error.toString());
+      print("Errore:$error");
     }
+    return null;
   }
 
   List<String> getCategorieAsString(List<Categoria>? listaCategorie) {
@@ -47,7 +47,7 @@ class Menu_controller{
   }
 
   Categoria? trovaCategoriaElemento(String nomeCategoria, List<Categoria>? listaCategorie){
-    Categoria? categoriaElemento = null;
+    Categoria? categoriaElemento;
     listaCategorie!.forEach((categoria) {
       if(categoria.get_nome() == nomeCategoria) {
         categoriaElemento = categoria;
@@ -61,7 +61,7 @@ class Menu_controller{
       _menu_service.aggiungiNuovoElemento(elementoDaAggiungere);
     } catch (error) {
       //TODO: Something bad
-      print("Errore:"+error.toString());
+      print("Errore:$error");
     }
   }
 
@@ -70,7 +70,7 @@ class Menu_controller{
       _menu_service.eliminaElemento(elementoDaRimuovere);
     } catch (error) {
       //TODO: Something bad
-      print("Errore:"+error.toString());
+      print("Errore:$error");
     }
   }
 
@@ -79,7 +79,7 @@ class Menu_controller{
       _menu_service.aggiornaVecchioElemento(elementoDaAggiornare);
     } catch (error) {
       //TODO: Something bad
-      print("Errore:"+error.toString());
+      print("Errore:$error");
     }
   }
 

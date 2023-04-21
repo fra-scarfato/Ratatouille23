@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:ratatouille23/models/Ordinazione.dart';
 
 import '../services/Ordinazione_service.dart';
@@ -5,7 +6,7 @@ import '../services/Ordinazione_service.dart';
 class Ordinazione_controller{
 
   //late Ordinazione_repository _ordinazione_repository=Ordinazione_repository(Ordinazione_service());
-  late Ordinazione_service _ordinazione_service = Ordinazione_service();
+  late final Ordinazione_service _ordinazione_service = Ordinazione_service();
 
   // Future<List<Ordinazione>> getAll_ordini() {
   //   //return _ordinazione_repository.getAll();
