@@ -97,11 +97,11 @@ class ordinazioni_cucina_card_presi_in_carica_state extends State<ordinazioni_cu
     List<Widget> list=[];
     for(int i=0 ;i< ordinazione.get_lista_elementi().length; i++){
       if (i!=ordinazione.get_lista_elementi().length-1) {
-        list.add(buildRiga(ordinazione.get_elemento(i).get_nome(),ordinazione.get_quantita_elemento(i)));
+        list.add(buildRiga(ordinazione.get_elemento(i).nome,ordinazione.get_quantita_elemento(i)));
         list.add(Divider(color: Colors.orange,));
       }
       else{
-        list.add(buildRiga(ordinazione.get_elemento(i).get_nome(),ordinazione.get_quantita_elemento(i)));
+        list.add(buildRiga(ordinazione.get_elemento(i).nome,ordinazione.get_quantita_elemento(i)));
         list.add(Divider(color: Colors.orange,));
 
       }

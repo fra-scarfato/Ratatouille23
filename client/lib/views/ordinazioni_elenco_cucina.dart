@@ -54,10 +54,10 @@ class ordinazioni_elenco_cucina extends StatefulWidget{
 class ordinazioni_elenco_cucina_state extends State<ordinazioni_elenco_cucina>{
   Ordinazione_controller ordinazione_controller = Ordinazione_controller();
   Ordinazione_service ordinazione_service = Ordinazione_service();
-  List<Elemento_ordinato> elem=[Elemento_ordinato(5656, Elemento(47,'pera','frutto dolce',1.5,'',37), 1),Elemento_ordinato(5656, Elemento(42,'mela','frutto dolce',1.3,'',31), 3)];
-
-  late List<Ordinazione> ord=[Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so','amministratore',45)),Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so','amministratore',45)),
-    Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so','amministratore',45)),Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so','amministratore',45))]; //= ordinazione_controller.getAll_ordini() as List<Ordinazione>;//ord = getall_ordini
+  // List<Elemento_ordinato> elem=[Elemento_ordinato(5656, Elemento(47,'pera','frutto dolce',1.5,'',37), 1),Elemento_ordinato(5656, Elemento(42,'mela','frutto dolce',1.3,'',31), 3)];
+  //
+  // late List<Ordinazione> ord=[Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so','amministratore',45)),Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so','amministratore',45)),
+  //   Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so','amministratore',45)),Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so','amministratore',45))]; //= ordinazione_controller.getAll_ordini() as List<Ordinazione>;//ord = getall_ordini
     //ord[1].set_stato('Preso in carica');
   /*@override
   void initState() {
@@ -90,14 +90,18 @@ class ordinazioni_elenco_cucina_state extends State<ordinazioni_elenco_cucina>{
             height: MediaQuery.of(context).size.height-195,
             child: ListView(
               scrollDirection: Axis.horizontal,
-              children: [Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height-195,
-                  child: ordinazioni_cucina_card(ord: ord)),
-                  Container(
+              children: [
+                Container(
                     width: MediaQuery.of(context).size.width,
-                     height: MediaQuery.of(context).size.height-195,
-                      child: ordinazioni_cucina_presi_in_carica_card(ord: ord)),],
+                    height: MediaQuery.of(context).size.height-195,
+                    //child: ordinazioni_cucina_card(ord: ord)
+                ),
+                Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height-195,
+                    //child: ordinazioni_cucina_presi_in_carica_card(ord: ord)
+                ),
+              ],
             )
             ),
               /*Container(

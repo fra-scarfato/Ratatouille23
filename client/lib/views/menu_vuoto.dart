@@ -16,41 +16,6 @@ import 'custom_widget/finestra_nessun_elemento.dart';
 class menu_vuoto extends StatefulWidget {
   const menu_vuoto({super.key});
 
-// This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     SystemChrome.setPreferredOrientations([
-//       DeviceOrientation.landscapeLeft,
-//       DeviceOrientation.landscapeRight,
-//     ]);
-//     return MaterialApp(
-//       title: 'Flutter Demo',
-//       theme: ThemeData(
-//         primarySwatch: Colors.orange,
-//
-//       ),
-//       builder: (context, child) =>
-//           ResponsiveWrapper.builder(
-//             child,
-//             maxWidth: 1200,
-//             minWidth: 480,
-//             defaultScale: true,
-//             breakpoints: [
-//               ResponsiveBreakpoint.resize(480, name: MOBILE),
-//               ResponsiveBreakpoint.autoScale(800, name: TABLET),
-//               ResponsiveBreakpoint.resize(1000, name: DESKTOP),
-//             ],
-//
-//           ),
-//
-//
-//
-//       initialRoute: "/",
-//
-//     );
-//   }
-
-
   @override
   menu_vuoto_ui createState() => menu_vuoto_ui();
 
@@ -81,7 +46,7 @@ class menu_vuoto_ui extends State<menu_vuoto>{
               barra_superiore(text: '',),
               finestra_nessun_elemento(string1: 'NON CI SONO PIATTI', string2: 'NEL TUO MENU', string3: 'CREA UNA CATEGORIA E', string4: 'AGGIUNGI UN NUOVO PIATTO', string5: 'CLICCANDO IL BOTTONE'),
               SizedBox(height:35),
-              bottone_gestione_menu_admin(),
+              bottone_gestione_menu_admin(listaCategorie: [],),
               SizedBox(
                 height: 8,
               )

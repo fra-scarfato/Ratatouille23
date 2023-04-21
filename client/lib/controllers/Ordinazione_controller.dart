@@ -7,10 +7,10 @@ class Ordinazione_controller{
   //late Ordinazione_repository _ordinazione_repository=Ordinazione_repository(Ordinazione_service());
   late Ordinazione_service _ordinazione_service = Ordinazione_service();
 
-  Future<List<Ordinazione>> getAll_ordini() {
-    //return _ordinazione_repository.getAll();
-    return _ordinazione_service.elenco_ordinazioni();
-  }
+  // Future<List<Ordinazione>> getAll_ordini() {
+  //   //return _ordinazione_repository.getAll();
+  //   // return _ordinazione_service.elenco_ordinazioni();
+  // }
 
   Future<void> registra_nuova_ordinazione(Ordinazione ordinazione) async {
     //_ordinazione_repository.registra_nuova_ordinazione(ordinazione);

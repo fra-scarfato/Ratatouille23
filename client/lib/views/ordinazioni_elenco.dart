@@ -52,10 +52,10 @@ class ordinazioni_elenco extends StatefulWidget{
 class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
   Ordinazione_controller ordinazione_controller = Ordinazione_controller();
   Ordinazione_service ordinazione_service = Ordinazione_service();
-  List<Elemento_ordinato> elem=[Elemento_ordinato(5656, Elemento(47,'pera','frutto dolce',1.5,'',37), 1),Elemento_ordinato(5656, Elemento(42,'mela','frutto dolce',1.3,'',31), 3)];
-
-  late List<Ordinazione> ord=[Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so','amministratore',45)),Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so','amministratore',45)),
-    Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so','amministratore',45)),Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so','amministratore',45))]; //= ordinazione_controller.getAll_ordini() as List<Ordinazione>;//ord = getall_ordini
+  // List<Elemento_ordinato> elem=[Elemento_ordinato(5656, Elemento(47,'pera','frutto dolce',1.5,'',37), 1),Elemento_ordinato(5656, Elemento(42,'mela','frutto dolce',1.3,'',31), 3)];
+  //
+  // late List<Ordinazione> ord=[Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so','amministratore',45)),Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so','amministratore',45)),
+  //   Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so','amministratore',45)),Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so','amministratore',45))]; //= ordinazione_controller.getAll_ordini() as List<Ordinazione>;//ord = getall_ordini
   /*@override
   void initState() {
     Future.delayed(Duration.zero,() async {
@@ -84,7 +84,7 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height-195,
-              child: ordinazioni_card(ord: ord),
+              // child: ordinazioni_card(ord: ord),
 
             ),
             ElevatedButton(

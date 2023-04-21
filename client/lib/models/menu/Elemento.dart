@@ -1,3 +1,5 @@
+import 'Categoria.dart';
+
 class Elemento{
 
   late int _id;
@@ -5,15 +7,23 @@ class Elemento{
   late String _descrizione;
   late double _costo;
   late String _allergeni;
-  late int _id_categoria;
+  late Categoria _categoria;
 
-  Elemento(int id, String nome, String descrizione, double costo, String allergeni, int id_categoria){
+  Elemento.senzaId(String nome, String descrizione, double costo, String allergeni, Categoria categoria){
+    _nome=nome;
+    _descrizione=descrizione;
+    _costo=costo;
+    _allergeni=allergeni;
+    _categoria=categoria;
+  }
+
+  Elemento(int id, String nome, String descrizione, double costo, String allergeni, Categoria categoria){
     _id=id;
     _nome=nome;
     _descrizione=descrizione;
     _costo=costo;
     _allergeni=allergeni;
-    _id_categoria=id_categoria;
+    _categoria=categoria;
   }
 
   Elemento.fromJson(Map<String, dynamic> json):
@@ -21,8 +31,7 @@ class Elemento{
     _nome=json['nome'],
     _descrizione=json['descrizione'],
     _costo=json['costo'],
-    _allergeni=json['allergeni'],
-    _id_categoria=json['id_categoria'];
+    _allergeni=json['allergeni'];
 
   Map<String, dynamic> toJson(){
     return{
@@ -31,24 +40,53 @@ class Elemento{
       'descrizione':_descrizione,
       'costo':_costo,
       'allergeni':_allergeni,
-      'id_categoria':_id_categoria
+      'categoria':_categoria.toJson()
     };
   }
 
+  Map<String, dynamic> toJsonSenzaId(){
+    return{
+      'nome':_nome,
+      'descrizione':_descrizione,
+      'costo':_costo,
+      'allergeni':_allergeni,
+      'categoria':_categoria.toJson()
+    };
+  }
 
-  void set_id(int id){_id=id;}
-  void set_nome(String nome){_nome=nome;}
-  void set_descrizione(String descrizione){_descrizione=descrizione;}
-  void set_costo(double costo){_costo=costo;}
-  void set_allergeni(String allergeni){_allergeni=allergeni;}
-  void set_id_categoria(int id_categoria){_id_categoria=id_categoria;}
+  Categoria get categoria => _categoria;
 
-  int get_id(){return _id;}
-  String get_nome(){return _nome;}
-  String get_descrizone(){return _descrizione;}
-  double get_costo(){return _costo;}
-  String get_allergeni(){return _allergeni;}
-  int get_id_categoria(){return _id_categoria;}
+  set categoria(Categoria value) {
+    _categoria = value;
+  }
 
+  String get allergeni => _allergeni;
 
+  set allergeni(String value) {
+    _allergeni = value;
+  }
+
+  double get costo => _costo;
+
+  set costo(double value) {
+    _costo = value;
+  }
+
+  String get descrizione => _descrizione;
+
+  set descrizione(String value) {
+    _descrizione = value;
+  }
+
+  String get nome => _nome;
+
+  set nome(String value) {
+    _nome = value;
+  }
+
+  int get id => _id;
+
+  set id(int value) {
+    _id = value;
+  }
 }

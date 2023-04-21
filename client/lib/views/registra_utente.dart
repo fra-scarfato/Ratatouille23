@@ -355,7 +355,12 @@ class registra_utente_ui extends State<registra_utente> {
                         }
                       }
                       else {
-                        utente_controller.aggiungiUtente(nome, cognome, mail, password, ruolo, 1);
+                        try{
+                          utente_controller.aggiungiUtente(nome, cognome, mail, password, ruolo, 1);
+                        }catch (error){
+                          //TODO: Finestra/dialog errore
+                        }
+
                         // Navigator.push(context, MaterialPageRoute(builder: (context) => const Login_ui()));
                       }
 

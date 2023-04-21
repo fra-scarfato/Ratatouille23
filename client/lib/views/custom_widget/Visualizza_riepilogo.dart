@@ -130,11 +130,11 @@ class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
     List<Widget> list=[];
     for(int i=0 ;i< ordinazione.get_lista_elementi().length; i++){
       if (i!=ordinazione.get_lista_elementi().length-1) {
-        list.add(buildRiga(ordinazione.get_elemento(i).get_nome(),ordinazione.get_quantita_elemento(i),ordinazione.get_elemento(i).get_costo()));
+        list.add(buildRiga(ordinazione.get_elemento(i).nome,ordinazione.get_quantita_elemento(i),ordinazione.get_elemento(i).costo));
         list.add(Divider(color: Colors.orange,));
       }
       else{
-        list.add(buildRiga(ordinazione.get_elemento(i).get_nome(),ordinazione.get_quantita_elemento(i),ordinazione.get_elemento(i).get_costo()));
+        list.add(buildRiga(ordinazione.get_elemento(i).nome,ordinazione.get_quantita_elemento(i),ordinazione.get_elemento(i).costo));
         list.add(Divider(color: Colors.orange,));
         list.add(
             Row(

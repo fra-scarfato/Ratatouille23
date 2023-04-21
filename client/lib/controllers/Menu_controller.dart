@@ -5,34 +5,82 @@ import '../models/menu/Elemento.dart';
 
 
 class Menu_controller{
-  late Menu_service _menu_service;
+  late Menu_service _menu_service = new Menu_service();
 
-  Future<void> inserisci_categoria(Categoria categoria) async {
-    await _menu_service.aggiungi_nuova_categoria(categoria);
+  Future<void> aggiungiCategoria(String nome, int idRistorante) async {
+    try{
+      var categoriaDaAggiungere = Categoria.senzaIdAndElementi(nome, idRistorante);
+      _menu_service.aggiungiNuovaCategoria(categoriaDaAggiungere);
+    } catch (error) {
+      //TODO: Something bad
+      print("Errore:"+error.toString());
+    }
   }
 
-  Future<void> rimuovi_categoria(Categoria categoria) async{
-    await _menu_service.elimina_categoria(categoria);
+  Future<void> rimuoviCategoria(Categoria categoriaDaRimuovere) async{
+    try{
+      _menu_service.eliminaCategoria(categoriaDaRimuovere);
+    } catch (error) {
+      //TODO: Something bad
+      print("Errore:"+error.toString());
+    }
   }
 
-  Future<List<Categoria>> elenco_categorie() async {
-    return _menu_service.elenco_categorie();
+  Future<List<Categoria>?> getAllCategorie() async {
+    try{
+      List<Categoria> listaCategorie = await _menu_service.getCategorie();
+      return listaCategorie;
+    } catch (error) {
+      //TODO: Something bad
+      print("Errore:"+error.toString());
+    }
   }
 
-  Future<void> inserisci_elemento(Elemento elemento) async {
-    await _menu_service.aggiungi_nuovo_elemento(elemento);
+  List<String> getCategorieAsString(List<Categoria>? listaCategorie) {
+    List<String> listaCategorieAsString = [];
+    if(listaCategorie!.isNotEmpty) {
+      listaCategorie.forEach((categoria) {
+        listaCategorieAsString.add(categoria.get_nome());
+      });
+    }
+    return listaCategorieAsString;
   }
 
-  Future<void> rimuovi_elemento(Elemento elemento) async{
-    await _menu_service.elimina_elemento(elemento);
+  Categoria? trovaCategoriaElemento(String nomeCategoria, List<Categoria>? listaCategorie){
+    Categoria? categoriaElemento = null;
+    listaCategorie!.forEach((categoria) {
+      if(categoria.get_nome() == nomeCategoria) {
+        categoriaElemento = categoria;
+      }
+    });
+    return categoriaElemento;
   }
 
-  Future<void> modifica_elemento(Elemento elemento) async {
-    await _menu_service.modifica_elemento(elemento);
+  Future<void> aggiungiElemento(Elemento elementoDaAggiungere) async {
+    try{
+      _menu_service.aggiungiNuovoElemento(elementoDaAggiungere);
+    } catch (error) {
+      //TODO: Something bad
+      print("Errore:"+error.toString());
+    }
   }
 
-  Future<List<Elemento>> elenco_elementi() async {
-    return _menu_service.elenco_elementi();
+  Future<void> rimuoviElemento(Elemento elementoDaRimuovere) async{
+    try{
+      _menu_service.eliminaElemento(elementoDaRimuovere);
+    } catch (error) {
+      //TODO: Something bad
+      print("Errore:"+error.toString());
+    }
+  }
+
+  Future<void> modificaElemento(Elemento elementoDaAggiornare) async {
+    try{
+      _menu_service.aggiornaVecchioElemento(elementoDaAggiornare);
+    } catch (error) {
+      //TODO: Something bad
+      print("Errore:"+error.toString());
+    }
   }
 
 

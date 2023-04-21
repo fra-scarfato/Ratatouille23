@@ -2,14 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ratatouille23/controllers/Menu_controller.dart';
 import 'package:ratatouille23/views/Login_ui.dart';
 import 'package:ratatouille23/views/aggiungi_piatto.dart';
 import 'package:ratatouille23/views/custom_widget/slide_button.dart';
 import 'package:ratatouille23/views/menu_vuoto.dart';
 
+import '../../models/menu/Categoria.dart';
 import 'bottoni_menu_admin.dart';
 
 class bottone_gestione_menu_admin extends StatefulWidget{
+  final List<Categoria>? listaCategorie;
+
+  const bottone_gestione_menu_admin({super.key, required this.listaCategorie});
+
   @override
   bottone_gestione_menu_admin_state createState() => bottone_gestione_menu_admin_state();
 
@@ -93,7 +99,7 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      slide_button(vertical_offset: 40, horizontal_offset: 40, text: 'Aggiungi piatto', route:  /*displayAggiungiCategoria*/aggiungi_piatto(), icon: Icons.add),
+                      slide_button(vertical_offset: 40, horizontal_offset: 40, text: 'Aggiungi piatto', route:  /*displayAggiungiCategoria*/aggiungi_piatto(listaCategorie: widget.listaCategorie), icon: Icons.add),
                       SizedBox(
                         height: 8,
                         width: 150,
@@ -141,6 +147,7 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
     Color colore=Colors.black.withOpacity(0.1);
     Color borderSideColorNome = CupertinoColors.systemGrey3;
     Color hintColorNome = CupertinoColors.systemGrey3;
+    Menu_controller menu_controller = new Menu_controller();
 
     return showDialog(
         context: context,
@@ -240,8 +247,13 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
                                 hintColorNome= Colors.red;
                               });
                             }
-                            //Navigator.push(context, MaterialPageRoute(builder: (context) => const menu()));
-                          },
+                            //TODO: Come recupero id ristorante?
+                            try{
+                              menu_controller.aggiungiCategoria(nomeCategoria, 1);
+                            }catch (error){
+                              //TODO: Finestra errore
+                            }
+                            },
                           child: Text(
                             'AGGIUNGI',
                             style:TextStyle(

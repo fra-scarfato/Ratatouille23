@@ -63,7 +63,7 @@ class Presa_ordinazione extends StatefulWidget {
 class Presa_ordinazione_state extends State<Presa_ordinazione>{
 
   late List<Widget> elem=elementi();
-  List<Elemento_ordinato> elem_ord=[Elemento_ordinato(5656, Elemento(47,'pera','frutto dolce',1.5,'',37), 1),Elemento_ordinato(5656, Elemento(42,'mela','frutto dolce',1.3,'',31), 3)];
+  //List<Elemento_ordinato> elem_ord=[Elemento_ordinato(5656, Elemento(47,'pera','frutto dolce',1.5,'',37), 1),Elemento_ordinato(5656, Elemento(42,'mela','frutto dolce',1.3,'',31), 3)];
 
 
 
@@ -106,7 +106,7 @@ class Presa_ordinazione_state extends State<Presa_ordinazione>{
 
             ),
           ),
-          bottone_arancione_con_testo(text: 'Visualizza riepilogo', route: Visualizza_riepilogo(Ordinazione(001, 3, 'boh', elem_ord, Utente(01,'er','va','ap','so','amministratore',45)))),
+          //bottone_arancione_con_testo(text: 'Visualizza riepilogo', route: Visualizza_riepilogo(Ordinazione(001, 3, 'boh', elem_ord, Utente(01,'er','va','ap','so','amministratore',45)))),
 
 
         ],

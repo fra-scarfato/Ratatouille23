@@ -17,7 +17,7 @@ class Ordinazione{
   double _calcola_totale(List<Elemento_ordinato> elementi){
     double totale=0;
     for(int i=0;i<elementi.length;i++){
-      totale=totale+elementi[i].get_elemento().get_costo();
+      totale=totale+elementi[i].get_elemento().costo;
     }
     return totale;
   }

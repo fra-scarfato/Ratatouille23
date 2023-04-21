@@ -51,7 +51,7 @@ class Utente{
     };
   }
 
-  Map<String,dynamic> toJsonWithoutId(){
+  Map<String,dynamic> toJsonSenzaId(){
     return {
       'nome':_nome,
       'cognome':_cognome,

@@ -11,16 +11,14 @@ class Utente_service{
     'Content-Type': 'application/json; charset=UTF-8',
     'Access-Control-Allow-Origin': '*',
   };
-  final queryParameter = {
-    'idr': '1'
-  };
+
 
   void aggiungi(Utente utente) async {
     final uri = Uri.http(authority, '/user/add');
     var response = await http.post(
       uri,
       headers: header,
-      body: jsonEncode(utente.toJsonWithoutId()),
+      body: jsonEncode(utente.toJsonSenzaId()),
     );
     if (response.statusCode != 200) {
       throw(response.statusCode);
@@ -52,6 +50,9 @@ class Utente_service{
   }
 
   Future<List<Utente>> getUtenti(int idRistorante) async {
+    final queryParameter = {
+      'idr': idRistorante
+    };
     final uri = Uri.http(authority, '/user/get', queryParameter);
     var response = await http.get(uri);
     if(response.statusCode==200){

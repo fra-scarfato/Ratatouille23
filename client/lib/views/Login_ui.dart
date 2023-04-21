@@ -1,6 +1,9 @@
+
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ratatouille23/controllers/Utente_controller.dart';
 import 'package:ratatouille23/views/custom_widget/bottone_arancione_con_testo.dart';
 import 'package:ratatouille23/views/pagina_iniziale.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
@@ -25,7 +28,8 @@ class Login extends State<Login_ui>{
   Color mailHintTextColor= CupertinoColors.systemGrey;
   BorderSide borderPassword= BorderSide.none;
   Color passwordHintTextColor= CupertinoColors.systemGrey;
-
+  Utente_controller _utente_controller = new Utente_controller();
+  
   @override
   Widget build(BuildContext context){
 
@@ -105,7 +109,7 @@ class Login extends State<Login_ui>{
                 ),
                 //bottone_arancione_con_testo(text: 'ACCEDI', route: pagina_iniziale())
                 ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if(fullMail=='' || fullPassword==''){
                         if(fullMail==''){
                           setState(() {
@@ -119,8 +123,22 @@ class Login extends State<Login_ui>{
                             passwordHintTextColor= Colors.red;
                           });
                         }
-                      } else
-                          Navigator.push(context, MaterialPageRoute(builder: (context) =>  pagina_iniziale_ui()));
+                      } else {
+                        try{
+                          var result = await _utente_controller.signInUser(fullMail, fullPassword);
+                          if(result.nextStep.signInStep == AuthSignInStep.confirmSignInWithNewPassword) {
+                            //TODO: Finestra nuova password, in quella finestra chiamare utente_controller.resetPassword(String nuovaPassword)
+                            print("Cambio password");
+                            Navigator.push(context, MaterialPageRoute(builder: (context) =>  pagina_iniziale_ui()));
+                          }
+                          else if(result.nextStep.signInStep == AuthSignInStep.done) {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) =>  pagina_iniziale_ui()));
+                          }
+                        }catch (error){
+                          //TODO: Finestra errore
+                        }
+                      }
+                         
                       },
                     child: Text(
                       'ACCEDI',
