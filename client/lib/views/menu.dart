@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flag/flag.dart';
 
 import '../controllers/Menu_controller.dart';
+import '../models/Utente.dart';
 import 'custom_widget/barra_superiore.dart';
 import 'custom_widget/categoria_card.dart';
 import 'custom_widget/elementi_card.dart';
@@ -15,7 +16,8 @@ import 'custom_widget/elementi_card_header.dart';
 import 'home.dart';
 
 class menu extends StatefulWidget {
-  const menu({super.key});
+  const menu({super.key, required this.utente});
+  final Utente utente;
 
   @override
   menu_ui createState() => menu_ui();
@@ -27,13 +29,13 @@ class menu_ui extends State<menu> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _menu_controller.getAllCategorie(),
+      future: _menu_controller.getAllCategorie(widget.utente.get_id_ristorante()),
       builder: (BuildContext context, snapshot) {
         Widget widget;
         if (snapshot.connectionState == ConnectionState.done) {
           List<Categoria>? menu = [];
           menu = snapshot.data;
-          var elem = getElementiCards(menu);
+          var elem = getElementiCards(menu![0]);
           widget = Scaffold(
             body: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -47,10 +49,21 @@ class menu_ui extends State<menu> {
                 Container(
                     height: 67,
                     width: MediaQuery.of(context).size.width,
-                    child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        //TODO: Mi serve sapere in che categoria sono
-                        children: getCategorieCards(menu))),
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: menu?.length,
+                      itemBuilder: (BuildContext context, int index){
+                        return GestureDetector(
+                            onTap: (){
+                              setState(() {
+                                elem = getElementiCards(menu![index]);
+                              });
+                            },
+                            child: categoria_card(nomeCategoria: menu![index].get_nome())
+                        );
+                      },
+
+                    )),
                 SizedBox(
                   height: 30,
                 ),
@@ -103,11 +116,9 @@ class menu_ui extends State<menu> {
     return list;
   }
 
-  List<Widget> getElementiCards(List<Categoria>? listaCategorie) {
+  List<Widget> getElementiCards(Categoria categoria) {
     //TODO: Sto prendendo gli elementi di tutte le categorie nella prima schermata. Devo sapere in che categoria sono e visualizzare solo gli elementi di quella categoria
     List<Widget> list = [];
-    if (listaCategorie!.isNotEmpty) {
-      listaCategorie.forEach((categoria) {
         if (categoria.get_elementi()!.isNotEmpty) {
           categoria.get_elementi()!.forEach((element) {
             list.add(elementi_card(
@@ -117,8 +128,8 @@ class menu_ui extends State<menu> {
                 allergeni: element.allergeni));
           });
         }
-      });
-    }
+
+
     return list;
   }
 }

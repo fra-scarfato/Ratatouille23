@@ -66,5 +66,18 @@ class Utente_service{
     }
 
   }
+
+  Future<void> resetPassword(Utente utente, String newPassword) async {
+    final uri = Uri.http(authority, '/user/update');
+    utente.set_password(newPassword);
+    var response = await http.put(
+      uri,
+      headers: header,
+      body: jsonEncode(utente.toJson()),
+    );
+    if (response.statusCode != 200) {
+      throw(response.statusCode);
+    }
+  }
   
 }

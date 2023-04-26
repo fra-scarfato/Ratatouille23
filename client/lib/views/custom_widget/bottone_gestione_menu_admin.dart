@@ -8,13 +8,15 @@ import 'package:ratatouille23/views/aggiungi_piatto.dart';
 import 'package:ratatouille23/views/custom_widget/slide_button.dart';
 import 'package:ratatouille23/views/menu_vuoto.dart';
 
+import '../../models/Utente.dart';
 import '../../models/menu/Categoria.dart';
 import 'bottoni_menu_admin.dart';
 
 class bottone_gestione_menu_admin extends StatefulWidget{
   final List<Categoria>? listaCategorie;
+  final Utente utente;
 
-  const bottone_gestione_menu_admin({super.key, required this.listaCategorie});
+  const bottone_gestione_menu_admin({super.key, required this.listaCategorie, required this.utente});
 
   @override
   bottone_gestione_menu_admin_state createState() => bottone_gestione_menu_admin_state();
@@ -249,9 +251,10 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
                             }
                             //TODO: Come recupero id ristorante?
                             try{
-                              menu_controller.aggiungiCategoria(nomeCategoria, 1);
+                              menu_controller.aggiungiCategoria(nomeCategoria, widget.utente.get_id_ristorante());
                             }catch (error){
                               //TODO: Finestra errore
+                              finestra_errore();
                             }
                             },
                           child: Text(
@@ -280,6 +283,31 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
 
   }
 
+  Future<void> finestra_errore() async {
+    return showDialog(
+        context: context,
+        builder: (context){
+          Future.delayed(Duration(seconds: 2), () {
+            Navigator.of(context).pop();
+          });
+          return AlertDialog(
+            backgroundColor: Colors.redAccent,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(32.0))
+            ),
+            title: Center(
+              child: Padding(
+                padding: EdgeInsetsDirectional.all(30.0),
+                child: Text(
+                  "Errore durante l'operazione",
+                  style: GoogleFonts.roboto(fontSize: 44, color: Colors.black),
+                ),
+              ),
+            ),
+          );
+        }
+    );
+  }
 
   
 }

@@ -47,4 +47,8 @@ class Utente_controller{
       rethrow;
     }
   }
+
+  Future<void> resetPassword(Utente utente, String newPassword) async {
+    _utente_service.resetPassword(utente, newPassword);
+  }
 }

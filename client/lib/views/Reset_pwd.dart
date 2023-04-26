@@ -7,35 +7,34 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Amplify_controller.dart';
 import 'package:ratatouille23/controllers/Utente_controller.dart';
-import 'package:ratatouille23/views/Reset_pwd.dart';
 import 'package:ratatouille23/views/custom_widget/bottone_arancione_con_testo.dart';
 import 'package:ratatouille23/views/pagina_iniziale.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
-class Login_ui extends StatefulWidget {
+import '../models/Utente.dart';
 
-  const Login_ui({super.key});
+class Reset_pwd_ui extends StatefulWidget {
+
+  const Reset_pwd_ui({Key? key,required this.utente}) : super(key : key);
+  final Utente utente;
 
   @override
-  Login createState() => Login();
+  Reset_pwd createState() => Reset_pwd();
 
 
 }
 
 
 
-class Login extends State<Login_ui>{
+class Reset_pwd extends State<Reset_pwd_ui>{
 
-  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  String fullMail = '';
   String fullPassword = '';
-  BorderSide borderMail= BorderSide.none;
-  Color mailHintTextColor= CupertinoColors.systemGrey;
   BorderSide borderPassword= BorderSide.none;
   Color passwordHintTextColor= CupertinoColors.systemGrey;
   Amplify_controller amplify_controller = new Amplify_controller();
-  
+  Utente_controller _utente_controller = new Utente_controller();
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -69,40 +68,17 @@ class Login extends State<Login_ui>{
                   width: 509,
                   height: 91,
                   child: TextFormField(
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                          borderSide: borderMail,
-                          borderRadius: BorderRadius.circular(50)
-                      ),
-                      hintText: 'Inserisci email',
-                      hintStyle: TextStyle(color: mailHintTextColor)
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    onChanged: (text){
-                      setState(() {
-                        fullMail=text;
-                      });
-                    },
-                  ) ,
-                ),
-                SizedBox(
-                  width: 509,
-                  height: 91,
-                  child: TextFormField(
                     controller: passwordController,
                     obscureText: true,
                     keyboardType: TextInputType.visiblePassword ,
                     decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                          borderSide: borderPassword,
-                          borderRadius: BorderRadius.circular(50)
-                      ),
-                      hintText: 'Inserisci la password',
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                            borderSide: borderPassword,
+                            borderRadius: BorderRadius.circular(50)
+                        ),
+                        hintText: 'Inserisci la nuova password',
                         hintStyle: TextStyle(color: passwordHintTextColor)
                     ),
                     onChanged: (text){
@@ -115,40 +91,24 @@ class Login extends State<Login_ui>{
                 //bottone_arancione_con_testo(text: 'ACCEDI', route: pagina_iniziale())
                 ElevatedButton(
                     onPressed: () async {
-                      if(fullMail=='' || fullPassword==''){
-                        if(fullMail==''){
-                          setState(() {
-                            borderMail=  BorderSide(color: Colors.red, width: 5 );
-                            mailHintTextColor= Colors.red;
-                          });
-                        }
                         if(fullPassword==''){
                           setState(() {
                             borderPassword=  BorderSide(color: Colors.red, width: 5 );
                             passwordHintTextColor= Colors.red;
                           });
-                        }
                       } else {
                         try{
-                          var result = await amplify_controller.signInUser(fullMail, fullPassword);
-                          if(result.nextStep.signInStep == AuthSignInStep.confirmSignInWithNewPassword) {
-                            //TODO: Finestra nuova password, in quella finestra chiamare utente_controller.resetPassword(String nuovaPassword)
-                            Reset_pwd_ui();//dovrebbe avere utente come parametro
-                            amplify_controller.resetPassword("ioioioio");
-                            Navigator.push(context, MaterialPageRoute(builder: (context) =>  pagina_iniziale_ui()));
-                          }
-                          else if(result.nextStep.signInStep == AuthSignInStep.done) {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) =>  pagina_iniziale_ui()));
-                          }
-                        }catch (error){
-                          finestra_errore();
+                            _utente_controller.resetPassword(widget.utente, fullPassword);//perche non usare aggiorna_utente?
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>pagina_iniziale_ui()));
+                          }catch (error){
                           //TODO: Finestra errore
+                          finestra_errore();
+                           }
                         }
-                      }
-                         
-                      },
+
+                    },
                     child: Text(
-                      'ACCEDI',
+                      'CAMBIA PASSWORD',
                       style:TextStyle(
                         fontSize: 24,
                         color: Colors.white,
@@ -168,9 +128,6 @@ class Login extends State<Login_ui>{
             )
         )
     );
-
-
-
   }
 
   Future<void> finestra_errore() async {

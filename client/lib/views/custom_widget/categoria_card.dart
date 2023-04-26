@@ -22,7 +22,6 @@ class categoria_card extends StatelessWidget {
           style: GoogleFonts.roboto(fontSize: 34, fontStyle: FontStyle.italic),
         ),
       ),
-
     );
   }
 }

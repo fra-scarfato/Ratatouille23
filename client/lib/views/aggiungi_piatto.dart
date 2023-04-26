@@ -318,7 +318,7 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                               }
                             }catch (error){
                               // TODO: Finestra errore
-                             error.toString();
+                             finestra_errore();
                            }
                           }
 
@@ -344,5 +344,30 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
               ],
             )
           );
+  }
+  Future<void> finestra_errore() async {
+    return showDialog(
+        context: context,
+        builder: (context){
+          Future.delayed(Duration(seconds: 2), () {
+            Navigator.of(context).pop();
+          });
+          return AlertDialog(
+            backgroundColor: Colors.redAccent,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(32.0))
+            ),
+            title: Center(
+              child: Padding(
+                padding: EdgeInsetsDirectional.all(30.0),
+                child: Text(
+                  "Errore durante l'operazione",
+                  style: GoogleFonts.roboto(fontSize: 44, color: Colors.black),
+                ),
+              ),
+            ),
+          );
+        }
+    );
   }
 }

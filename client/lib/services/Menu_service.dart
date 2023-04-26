@@ -12,10 +12,10 @@ class Menu_service{
   };
 
 
-  Future<List<Categoria>> getCategorie() async {
+  Future<List<Categoria>> getCategorie(int id_ristorante) async {
     //TODO: Come recupero id ristorante?
     final queryParameter = {
-      'idr': '1'
+      'idr': id_ristorante //toString?
     };
     final uri = Uri.http(authority, '/menu/get', queryParameter);
     var response = await http.get(uri);

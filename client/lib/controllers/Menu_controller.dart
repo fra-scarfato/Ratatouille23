@@ -25,9 +25,9 @@ class Menu_controller{
     }
   }
 
-  Future<List<Categoria>?> getAllCategorie() async {
+  Future<List<Categoria>?> getAllCategorie(int id_ristornate) async {//getAllCategorie(int idRistorante)
     try{
-      List<Categoria> listaCategorie = await _menu_service.getCategorie();
+      List<Categoria> listaCategorie = await _menu_service.getCategorie(id_ristornate);
       return listaCategorie;
     } catch (error) {
       //TODO: Something bad
@@ -82,6 +82,8 @@ class Menu_controller{
       print("Errore:$error");
     }
   }
+
+
 
 
 }

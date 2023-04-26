@@ -6,12 +6,14 @@ import 'package:ratatouille23/controllers/Utente_controller.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
 
+import '../models/Utente.dart';
 import 'Login_ui.dart';
 import 'custom_widget/barra_superiore.dart';
 
 class registra_utente extends StatefulWidget {
 
-  const registra_utente({super.key});
+  const registra_utente({super.key, required this.utente});
+  final Utente utente;
   //
   // // This widget is the root of your application.
   // @override
@@ -322,7 +324,7 @@ class registra_utente_ui extends State<registra_utente> {
                 ElevatedButton(
 
                     onPressed: () {
-                      utente_controller.getAllUtenti(1);
+                      utente_controller.getAllUtenti(widget.utente.get_id_ristorante());
                       if(nome=='' || cognome=='' || mail=='' || password=='' || ruolo==''){
                         if(nome==''){
                           setState(() {
@@ -359,6 +361,7 @@ class registra_utente_ui extends State<registra_utente> {
                           utente_controller.aggiungiUtente(nome, cognome, mail, password, ruolo, 1);
                         }catch (error){
                           //TODO: Finestra/dialog errore
+                          finestra_errore();
                         }
 
                         // Navigator.push(context, MaterialPageRoute(builder: (context) => const Login_ui()));
@@ -394,5 +397,30 @@ class registra_utente_ui extends State<registra_utente> {
 
 
 
+  }
+  Future<void> finestra_errore() async {
+    return showDialog(
+        context: context,
+        builder: (context){
+          Future.delayed(Duration(seconds: 2), () {
+            Navigator.of(context).pop();
+          });
+          return AlertDialog(
+            backgroundColor: Colors.redAccent,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(32.0))
+            ),
+            title: Center(
+              child: Padding(
+                padding: EdgeInsetsDirectional.all(30.0),
+                child: Text(
+                  "Errore durante l'operazione",
+                  style: GoogleFonts.roboto(fontSize: 44, color: Colors.black),
+                ),
+              ),
+            ),
+          );
+        }
+    );
   }
 }
