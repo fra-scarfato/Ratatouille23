@@ -35,6 +35,15 @@ class Login extends State<Login_ui>{
   BorderSide borderPassword= BorderSide.none;
   Color passwordHintTextColor= CupertinoColors.systemGrey;
   Amplify_controller amplify_controller = new Amplify_controller();
+  Utente_controller utente_controller = new Utente_controller();
+
+  late int id;
+  late String nome;
+  late String cognome;
+  late String email;
+  late String password;
+  late String ruolo;
+  late int id_ristorante;
   
   @override
   Widget build(BuildContext context){
@@ -132,10 +141,12 @@ class Login extends State<Login_ui>{
                         try{
                           var result = await amplify_controller.signInUser(fullMail, fullPassword);
                           if(result.nextStep.signInStep == AuthSignInStep.confirmSignInWithNewPassword) {
+                            email = fullMail;
+                            utente_controller.getDati(id, nome, cognome, email, password, ruolo, id_ristorante);
                             //TODO: Finestra nuova password, in quella finestra chiamare utente_controller.resetPassword(String nuovaPassword)
-                            Reset_pwd_ui();//dovrebbe avere utente come parametro
-                            amplify_controller.resetPassword("ioioioio");
-                            Navigator.push(context, MaterialPageRoute(builder: (context) =>  pagina_iniziale_ui()));
+                            Reset_pwd_ui(id: id, nome: nome, cognome: cognome, email: email, password: password, ruolo: ruolo, id_ristorante: id_ristorante);//dovrebbe avere le variabili di utente come parametro (?)
+                            // amplify_controller.resetPassword("ioioioio");
+                            // Navigator.push(context, MaterialPageRoute(builder: (context) =>  pagina_iniziale_ui()));
                           }
                           else if(result.nextStep.signInStep == AuthSignInStep.done) {
                             Navigator.push(context, MaterialPageRoute(builder: (context) =>  pagina_iniziale_ui()));

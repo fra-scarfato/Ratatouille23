@@ -14,8 +14,8 @@ import 'custom_widget/bottone_gestione_menu_admin.dart';
 import 'custom_widget/finestra_nessun_elemento.dart';
 
 class menu_vuoto extends StatefulWidget {
-  const menu_vuoto({super.key});
-
+  const menu_vuoto({super.key, required this.id_ristorante});
+  final int id_ristorante;
   @override
   menu_vuoto_ui createState() => menu_vuoto_ui();
 
@@ -46,7 +46,7 @@ class menu_vuoto_ui extends State<menu_vuoto>{
               barra_superiore(text: '',),
               finestra_nessun_elemento(string1: 'NON CI SONO PIATTI', string2: 'NEL TUO MENU', string3: 'CREA UNA CATEGORIA E', string4: 'AGGIUNGI UN NUOVO PIATTO', string5: 'CLICCANDO IL BOTTONE'),
               SizedBox(height:35),
-              bottone_gestione_menu_admin(listaCategorie: [],),
+              bottone_gestione_menu_admin(listaCategorie: [], id_ristorante: widget.id_ristorante,),
               SizedBox(
                 height: 8,
               )

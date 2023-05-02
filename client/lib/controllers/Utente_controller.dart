@@ -57,4 +57,27 @@ class Utente_controller{
       rethrow;
     }
   }
+
+  Future<void> getDati(int id, String nome, String cognome, String email, String password, String ruolo, int id_ristorante) async {
+    try{
+      id = await _utente_service.getId(email);
+      nome = await _utente_service.getNome(email);
+      cognome = await _utente_service.getCognome(email);
+      // email = await _utente_service.getEmail(email);
+      password = await _utente_service.getPassword(email);
+      ruolo = await _utente_service.getRuolo(email);
+      id_ristorante = await _utente_service.getId_ristorante(email);
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  // Future<int?> get_idRistorante(int idRistorante) async {
+  //   try{
+  //
+  //   } catch (error) {
+  //     rethrow;
+  //   }
+  //
+  // }
 }

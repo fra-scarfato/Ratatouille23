@@ -16,8 +16,17 @@ import 'custom_widget/elementi_card_header.dart';
 import 'home.dart';
 
 class menu extends StatefulWidget {
-  const menu({super.key, required this.utente});
-  final Utente utente;
+    //final Utente utente;
+  final int id;
+  final String nome;
+  final String cognome;
+  final String email;
+  final String password;
+  final String ruolo;
+  final int id_ristorante;
+
+  const menu({super.key, required this.id, required this.nome, required this.cognome, required this.email, required this.password, required this.ruolo, required this.id_ristorante,});
+
 
   @override
   menu_ui createState() => menu_ui();
@@ -29,7 +38,7 @@ class menu_ui extends State<menu> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _menu_controller.getAllCategorie(widget.utente.get_id_ristorante()),
+      future: _menu_controller.getAllCategorie(widget.id_ristorante),
       builder: (BuildContext context, snapshot) {
         Widget widget;
         if (snapshot.connectionState == ConnectionState.done) {
@@ -89,7 +98,7 @@ class menu_ui extends State<menu> {
                 ),
               ],
             ),
-            floatingActionButton: bottone_gestione_menu_admin(listaCategorie: menu,),
+            floatingActionButton: bottone_gestione_menu_admin(listaCategorie: menu, id_ristorante: widget.id_ristorante ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
           );
