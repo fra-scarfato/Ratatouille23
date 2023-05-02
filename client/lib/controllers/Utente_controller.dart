@@ -48,7 +48,13 @@ class Utente_controller{
     }
   }
 
-  Future<void> resetPassword(Utente utente, String newPassword) async {
-    _utente_service.resetPassword(utente, newPassword);
+  Future<void> resetPassword(/*Utente utente*/int id, String nome, String cognome, String email, String password, String ruolo, int id_ristorante, String newPassword) async {
+    //_utente_service.resetPassword(/*utente*/Utente(id, nome, cognome, email, password, ruolo, id_ristorante), newPassword);
+    try{
+      var utenteDaAggiornare = Utente(id, nome, cognome, email, password, ruolo, id_ristorante);
+      _utente_service.resetPassword(utenteDaAggiornare, newPassword);
+    } catch (error) {
+      rethrow;
+    }
   }
 }

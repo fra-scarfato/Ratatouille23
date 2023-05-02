@@ -15,8 +15,15 @@ import '../models/Utente.dart';
 
 class Reset_pwd_ui extends StatefulWidget {
 
-  const Reset_pwd_ui({Key? key,required this.utente}) : super(key : key);
-  final Utente utente;
+  const Reset_pwd_ui({Key? key,/*required this.utente,*/required this.id, required this.nome, required this.cognome, required this.email, required this.password, required this.ruolo, required this.id_ristorante}) : super(key : key);
+  //final Utente utente;
+  final int id;
+  final String nome;
+  final String cognome;
+  final String email;
+  final String password;
+  final String ruolo;
+  final int id_ristorante;
 
   @override
   Reset_pwd createState() => Reset_pwd();
@@ -98,7 +105,7 @@ class Reset_pwd extends State<Reset_pwd_ui>{
                           });
                       } else {
                         try{
-                            _utente_controller.resetPassword(widget.utente, fullPassword);//perche non usare aggiorna_utente?
+                            _utente_controller.resetPassword(/*widget.utente*/widget.id, widget.nome, widget.cognome, widget.email, widget.password, widget.ruolo, widget.id_ristorante, fullPassword);//perche non usare aggiorna_utente?
                             Navigator.push(context, MaterialPageRoute(builder: (context)=>pagina_iniziale_ui()));
                           }catch (error){
                           //TODO: Finestra errore
