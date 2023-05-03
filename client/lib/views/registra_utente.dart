@@ -12,8 +12,17 @@ import 'custom_widget/barra_superiore.dart';
 
 class registra_utente extends StatefulWidget {
 
-  const registra_utente({super.key, required this.utente});
-  final Utente utente;
+  final int id;
+  final String nome;
+  final String cognome;
+  final String email;
+  final String password;
+  final String ruolo;
+  final int id_ristorante;
+
+  const registra_utente({super.key, required this.id, required this.nome, required this.cognome, required this.email, required this.password, required this.ruolo, required this.id_ristorante});
+
+  //final Utente utente;
   //
   // // This widget is the root of your application.
   // @override
@@ -324,7 +333,7 @@ class registra_utente_ui extends State<registra_utente> {
                 ElevatedButton(
 
                     onPressed: () {
-                      utente_controller.getAllUtenti(widget.utente.get_id_ristorante());
+                      utente_controller.getAllUtenti(widget.id_ristorante);
                       if(nome=='' || cognome=='' || mail=='' || password=='' || ruolo==''){
                         if(nome==''){
                           setState(() {

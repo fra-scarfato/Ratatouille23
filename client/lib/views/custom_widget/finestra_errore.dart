@@ -10,7 +10,21 @@ class Finestra_errore extends StatefulWidget{
 class Finestra_errore_ui extends State<Finestra_errore>{
   @override
   Widget build(BuildContext context) {
-    return showDialog(context: context, builder: builder)
+    Future.delayed(Duration(seconds: 0), (){
+      _showAlert(context);
+    });
+    return Scaffold();
+  }
+  Future<void> _showAlert(BuildContext context){
+    return showDialog(context: context, builder: (BuildContext context){
+      Future.delayed(Duration(seconds: 3), () {
+        Navigator.of(context).pop();
+      });
+      return AlertDialog(
+        title: const Text("Errore !", textAlign: TextAlign.center,),
+        backgroundColor: Colors.redAccent,
+      );
+    });
   }
 
 }

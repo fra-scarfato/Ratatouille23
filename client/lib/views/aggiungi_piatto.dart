@@ -11,8 +11,9 @@ import 'menu_vuoto.dart';
 
 class aggiungi_piatto extends StatefulWidget {
   final List<Categoria>? listaCategorie;
+  final int id_ristorante;
 
-  const aggiungi_piatto({super.key, required this.listaCategorie});
+  const aggiungi_piatto({super.key, required this.listaCategorie, required this.id_ristorante});
 
   @override
   aggiungi_piatto_state createState() => aggiungi_piatto_state();
@@ -314,7 +315,7 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                                 double costoDouble = double.parse(costo);
                                 Elemento elementoDaAggiungere = Elemento.senzaId(nome,descrizione,costoDouble,allergeni,categoriaElemento);
                                 await _menu_controller.aggiungiElemento(elementoDaAggiungere);
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const menu_vuoto()));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => menu_vuoto(id_ristorante: widget.id_ristorante)));
                               }
                             }catch (error){
                               // TODO: Finestra errore

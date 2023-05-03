@@ -25,7 +25,7 @@ class menu extends StatefulWidget {
   final String ruolo;
   final int id_ristorante;
 
-  const menu({super.key, required this.id, required this.nome, required this.cognome, required this.email, required this.password, required this.ruolo, required this.id_ristorante,});
+  const menu({super.key, required this.id, required this.nome, required this.cognome, required this.email, required this.password, required this.ruolo, required this.id_ristorante});
 
 
   @override
@@ -34,7 +34,6 @@ class menu extends StatefulWidget {
 
 class menu_ui extends State<menu> {
   Menu_controller _menu_controller = new Menu_controller();
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -98,7 +97,7 @@ class menu_ui extends State<menu> {
                 ),
               ],
             ),
-            floatingActionButton: bottone_gestione_menu_admin(listaCategorie: menu, id_ristorante: widget.id_ristorante ),
+            floatingActionButton: bottone_gestione_menu_admin(listaCategorie: menu, id_ristorante: menu[1].getIDRistorante()),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
           );

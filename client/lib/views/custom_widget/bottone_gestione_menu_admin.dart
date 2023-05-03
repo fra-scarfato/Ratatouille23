@@ -108,12 +108,12 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      slide_button(vertical_offset: 40, horizontal_offset: 40, text: 'Aggiungi piatto', route:  /*displayAggiungiCategoria*/aggiungi_piatto(listaCategorie: widget.listaCategorie), icon: Icons.add),
+                      slide_button(vertical_offset: 40, horizontal_offset: 40, text: 'Aggiungi piatto', route:  /*displayAggiungiCategoria*/aggiungi_piatto(listaCategorie: widget.listaCategorie, id_ristorante: widget.id_ristorante ), icon: Icons.add),
                       SizedBox(
                         height: 8,
                         width: 150,
                       ),
-                      slide_button(vertical_offset: 40, horizontal_offset: -40, text: 'Elimina categoria', route:  /*displayAggiungiCategoria*/const menu_vuoto(), icon: Icons.delete_outline_outlined),
+                      slide_button(vertical_offset: 40, horizontal_offset: -40, text: 'Elimina categoria', route:  /*displayAggiungiCategoria*/menu_vuoto(id_ristorante: widget.id_ristorante,), icon: Icons.delete_outline_outlined),
                     ],
                   ),
                   ElevatedButton(

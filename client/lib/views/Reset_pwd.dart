@@ -105,7 +105,7 @@ class Reset_pwd extends State<Reset_pwd_ui>{
                           });
                       } else {
                         try{
-                            _utente_controller.resetPassword(/*widget.utente*/widget.id, widget.nome, widget.cognome, widget.email, widget.password, widget.ruolo, widget.id_ristorante, fullPassword);//perche non usare aggiorna_utente?
+                           // _utente_controller.resetPassword(/*widget.utente*/widget.id, widget.nome, widget.cognome, widget.email, widget.password, widget.ruolo, widget.id_ristorante, fullPassword);//perche non usare aggiorna_utente?
                             amplify_controller.resetPassword(fullPassword);
                             Navigator.push(context, MaterialPageRoute(builder: (context)=>pagina_iniziale_ui()));
                           }catch (error){
