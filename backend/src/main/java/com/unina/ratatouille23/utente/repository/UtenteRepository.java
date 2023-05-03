@@ -10,4 +10,7 @@ import com.unina.ratatouille23.utente.entity.Utente;
 public interface UtenteRepository extends CrudRepository<Utente, Integer> {
     @Query(value = "SELECT * FROM utente WHERE utente.id_ristorante=?1", nativeQuery = true)
     List<Utente> trovaUtentiDelRistorante(int idRistorante);
+
+    @Query(value = "SELECT * FROM utente WHERE utente.email=?1", nativeQuery = true)
+    Utente findByEmail(String email);
 }

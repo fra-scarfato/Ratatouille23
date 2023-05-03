@@ -10,7 +10,7 @@ services:
       - SERVER_PORT=8080
       - MYSQL_USER=ratatouille
       - MYSQL_PASSWORD=ratatouille
-      - MYSQL_URL=jdbc:mysql://ratatouille.c3gk45pepbam.us-east-1.rds.amazonaws.com:3306/ratatouille
+      - MYSQL_URL=jdbc:mysql://ratatouille-db.c3gk45pepbam.us-east-1.rds.amazonaws.com:3306/ratatouille
   # PER DEPLOYMENT
   #   depends_on:
   #     - database

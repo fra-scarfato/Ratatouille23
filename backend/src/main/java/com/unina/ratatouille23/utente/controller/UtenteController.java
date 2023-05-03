@@ -25,6 +25,11 @@ public class UtenteController {
         return servizioUtente.getTuttiGliUtenti(idRistorante);
     }
 
+    @GetMapping("/get-user")
+    Utente getUtente(@RequestParam(value = "email") String email) {
+        return servizioUtente.getUtenteByEmail(email);
+    }
+
     @PostMapping("/add")
     void aggiungiUtente(@RequestBody Utente nuovoUtente) {
         servizioUtente.registraNuovoUtente(nuovoUtente);

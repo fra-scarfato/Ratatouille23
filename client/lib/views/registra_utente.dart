@@ -13,53 +13,9 @@ import 'custom_widget/barra_superiore.dart';
 
 class registra_utente extends StatefulWidget {
 
-  final int id;
-  final String nome;
-  final String cognome;
-  final String email;
-  final String password;
-  final String ruolo;
-  final int id_ristorante;
+  final Utente utente;
 
-  const registra_utente({super.key, required this.id, required this.nome, required this.cognome, required this.email, required this.password, required this.ruolo, required this.id_ristorante});
-
-  //final Utente utente;
-  //
-  // // This widget is the root of your application.
-  // @override
-  // Widget build(BuildContext context) {
-  //   SystemChrome.setPreferredOrientations([
-  //     DeviceOrientation.landscapeLeft,
-  //     DeviceOrientation.landscapeRight,
-  //   ]);
-  //   return MaterialApp(
-  //     title: 'Flutter Demo',
-  //     theme: ThemeData(
-  //       primarySwatch: Colors.orange,
-  //
-  //     ),
-  //     builder: (context, child) => ResponsiveWrapper.builder(
-  //       child,
-  //       maxWidth: 1200,
-  //       minWidth: 480,
-  //       defaultScale: true,
-  //       breakpoints: [
-  //         ResponsiveBreakpoint.resize(480, name: MOBILE),
-  //         ResponsiveBreakpoint.autoScale(800, name: TABLET),
-  //         ResponsiveBreakpoint.resize(1000, name: DESKTOP),
-  //       ],
-  //
-  //
-  //
-  //     ),
-  //     initialRoute: "/",
-  //
-  //   );
-  //
-  //
-  //
-  // }
-
+  const registra_utente({super.key, required this.utente});
 
   @override
   registra_utente_ui createState() => registra_utente_ui();
@@ -334,7 +290,7 @@ class registra_utente_ui extends State<registra_utente> {
                 ElevatedButton(
 
                     onPressed: () {
-                      utente_controller.getAllUtenti(widget.id_ristorante);
+                      utente_controller.getAllUtenti(widget.utente.get_id_ristorante());
                       if(nome=='' || cognome=='' || mail=='' || password=='' || ruolo==''){
                         if(nome==''){
                           setState(() {
@@ -368,7 +324,7 @@ class registra_utente_ui extends State<registra_utente> {
                       }
                       else {
                         try{
-                          utente_controller.aggiungiUtente(nome, cognome, mail, password, ruolo, 1);
+                          utente_controller.aggiungiUtente(nome, cognome, mail, ruolo, 1);
                         }catch (error){
                           //TODO: Finestra/dialog errore
                           Finestra_errore(title: 'Errore !', content: 'Errore durante l\'operazione');

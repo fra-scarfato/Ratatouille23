@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Amplify_controller.dart';
 import 'package:ratatouille23/controllers/Utente_controller.dart';
+import 'package:ratatouille23/models/Utente.dart';
 import 'package:ratatouille23/views/Reset_pwd.dart';
 import 'package:ratatouille23/views/custom_widget/bottone_arancione_con_testo.dart';
 import 'package:ratatouille23/views/pagina_iniziale.dart';
@@ -24,10 +25,8 @@ class Login_ui extends StatefulWidget {
 
 }
 
-
-
 class Login extends State<Login_ui>{
-
+  bool isLoading = false;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   String fullMail = '';
@@ -37,16 +36,27 @@ class Login extends State<Login_ui>{
   BorderSide borderPassword= BorderSide.none;
   Color passwordHintTextColor= CupertinoColors.systemGrey;
   Amplify_controller amplify_controller = new Amplify_controller();
-  Utente_controller utente_controller = new Utente_controller();
-
-  late int id;
-  late String nome;
-  late String cognome;
-  late String email;
-  late String password;
-  late String ruolo;
-  late int id_ristorante;
   
+  void showDialogue(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => Container(
+        color: Colors.white,
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
+    );
+  }
+
+  void hideProgressDialogue(BuildContext context) {
+    Navigator.of(context).pop(Container(
+      color: Colors.white,
+      child: Center(
+        child: CircularProgressIndicator(),
+      ),
+    ),);}
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -141,20 +151,26 @@ class Login extends State<Login_ui>{
                         }
                       } else {
                         try{
+                          showDialogue(context);
                           var result = await amplify_controller.signInUser(fullMail, fullPassword);
                           if(result.nextStep.signInStep == AuthSignInStep.confirmSignInWithNewPassword) {
-                            email = fullMail;
-                            utente_controller.getDati(id, nome, cognome, email, password, ruolo, id_ristorante);
-                            //TODO: Finestra nuova password, in quella finestra chiamare utente_controller.resetPassword(String nuovaPassword)
-                            Reset_pwd_ui(id: id, nome: nome, cognome: cognome, email: email, password: password, ruolo: ruolo, id_ristorante: id_ristorante);//dovrebbe avere le variabili di utente come parametro (?)
-                            // amplify_controller.resetPassword("ioioioio");
-                            // Navigator.push(context, MaterialPageRoute(builder: (context) =>  pagina_iniziale_ui()));
+                            hideProgressDialogue(context);
+                            Navigator.push(context, MaterialPageRoute(builder: (context) =>  Reset_pwd_ui(email: fullMail)));
                           }
                           else if(result.nextStep.signInStep == AuthSignInStep.done) {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) =>  pagina_iniziale_ui()));
+                            Utente utente = await amplify_controller.fetchCurrentUserAttributes();
+                            hideProgressDialogue(context);
+                            if(utente.get_ruolo() == "Amministratore" || utente.get_ruolo() == "Supervisore") {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) =>  pagina_iniziale(utente)));
+                            } else if (utente.get_ruolo() == "Addetto alla sala") {
+                              //TODO: Prende solo le ordinazioni
+                            } else {
+                              //TODO: Cuoco
+                            }
                           }
                         }catch (error){
-                          Finestra_errore(title: 'Errore !', content: 'La mail o la password sono errate',);
+                          hideProgressDialogue(context);
+                          Finestra_errore(title: 'Errore!', content: "Mail o password sbagliata",);
                           //TODO: Finestra errore
                         }
                       }

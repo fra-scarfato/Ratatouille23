@@ -67,103 +67,15 @@ class Utente_service{
 
   }
 
-  Future<void> resetPassword(Utente utente, String newPassword) async {
-    final uri = Uri.http(authority, '/user/update');
-    utente.set_password(newPassword);
-    var response = await http.put(
-      uri,
-      headers: header,
-      body: jsonEncode(utente.toJson()),
-    );
-    if (response.statusCode != 200) {
-      throw(response.statusCode);
-    }
-  }
-  //TODO: Controllare
-  Future<int> getId(String email) async {
+  Future<Utente> getUtenteWithEmail(String email) async {
     final queryParameter = {
       'email': email
     };
-    final uri = Uri.http(authority, '/user/get', queryParameter);
+    final uri = Uri.http(authority, '/user/get-user', queryParameter);
     var response = await http.get(uri);
     if(response.statusCode==200){
-      int id = jsonDecode(response.body);
-      return id;
-    }
-    else{
-      throw(response.statusCode);
-    }
-  }
-
-  Future<String> getNome(String email) async {
-    final queryParameter = {
-      'email': email
-    };
-    final uri = Uri.http(authority, '/user/get', queryParameter);
-    var response = await http.get(uri);
-    if(response.statusCode==200){
-      String nome = jsonDecode(response.body);
-      return nome;
-    }
-    else{
-      throw(response.statusCode);
-    }
-  }
-
-  Future<String> getCognome(String email) async {
-    final queryParameter = {
-      'email': email
-    };
-    final uri = Uri.http(authority, '/user/get', queryParameter);
-    var response = await http.get(uri);
-    if(response.statusCode==200){
-      String cognome = jsonDecode(response.body);
-      return cognome;
-    }
-    else{
-      throw(response.statusCode);
-    }
-  }
-
-  Future<String> getPassword(String email) async {
-    final queryParameter = {
-      'email': email
-    };
-    final uri = Uri.http(authority, '/user/get', queryParameter);
-    var response = await http.get(uri);
-    if(response.statusCode==200){
-      String password = jsonDecode(response.body);
-      return password;
-    }
-    else{
-      throw(response.statusCode);
-    }
-  }
-
-  Future<String> getRuolo(String email) async {
-    final queryParameter = {
-      'email': email
-    };
-    final uri = Uri.http(authority, '/user/get', queryParameter);
-    var response = await http.get(uri);
-    if(response.statusCode==200){
-      String ruolo = jsonDecode(response.body);
-      return ruolo;
-    }
-    else{
-      throw(response.statusCode);
-    }
-  }
-
-  Future<int> getId_ristorante(String email) async {
-    final queryParameter = {
-      'email': email
-    };
-    final uri = Uri.http(authority, '/user/get', queryParameter);
-    var response = await http.get(uri);
-    if(response.statusCode==200){
-      int id_ristorante = jsonDecode(response.body);
-      return id_ristorante;
+      Utente utente = Utente.fromJson(jsonDecode(response.body));
+      return utente;
     }
     else{
       throw(response.statusCode);

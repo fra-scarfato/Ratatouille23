@@ -132,7 +132,7 @@ class menu_completo_ui extends State<menu_completo> {
               return GestureDetector(
                   onTap: (){
                     setState(() {
-                      elem = getElementiCards(menu![index]);
+                      elem = getElementiCards(menu[index]);
                     });
                   },
                   child: categoria_card(nomeCategoria: menu![index].get_nome())
@@ -174,7 +174,7 @@ class menu_completo_ui extends State<menu_completo> {
           ],
         ),
       );
-    } else if(menu != []){
+    } else if(Menu != []){
       widget = finestra_nessun_elemento(string1: 'NON CI SONO PIATTI', string2: 'NELLA CATEGORIA', string3: '', string4: 'AGGIUNGI UN NUOVO PIATTO', string5: 'CLICCANDO IL BOTTONE');
     } else {
       widget = finestra_nessun_elemento(string1: 'NON CI SONO PIATTI', string2: 'NEL TUO MENU', string3: 'CREA UNA CATEGORIA E', string4: 'AGGIUNGI UN NUOVO PIATTO', string5: 'CLICCANDO IL BOTTONE');

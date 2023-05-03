@@ -59,7 +59,7 @@ class menu_ui extends State<menu> {
                     width: MediaQuery.of(context).size.width,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: menu?.length,
+                      itemCount: menu.length,
                       itemBuilder: (BuildContext context, int index){
                         return GestureDetector(
                             onTap: (){

@@ -27,5 +27,10 @@ public class UtenteServiceImpl implements UtenteService{
     public void rimuoviUtente(Utente utenteDaRimuovere) {
       utenteRepository.delete(utenteDaRimuovere);
     }
+
+    @Override
+    public Utente getUtenteByEmail(String email) {
+        return utenteRepository.findByEmail(email);
+    }
     
 }

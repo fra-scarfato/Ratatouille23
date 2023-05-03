@@ -1,5 +1,7 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:ratatouille23/models/Utente.dart';
+import 'package:ratatouille23/services/Utente_service.dart';
 
 import '../amplifyconfiguration.dart';
 
@@ -33,14 +35,13 @@ class Amplify_controller {
     return false;
   }
 
-  Future<void> fetchCurrentUserAttributes() async {
+  Future<Utente> fetchCurrentUserAttributes() async {
     try {
       final result = await Amplify.Auth.fetchUserAttributes();
-      for (final element in result) {
-        safePrint('key: ${element.userAttributeKey}; value: ${element.value}');
-      }
-    } on AuthException catch (e) {
-      safePrint('Error fetching user attributes: ${e.message}');
+      Utente_service utente_service = Utente_service();
+      return await utente_service.getUtenteWithEmail(result[1].value);
+    } on AuthException {
+      rethrow;
     }
   }
 

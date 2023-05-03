@@ -10,4 +10,5 @@ public interface UtenteService {
     public void registraNuovoUtente(Utente utenteDaRegistrare);
     public List<Utente> getTuttiGliUtenti(int idRistorante);
     public void rimuoviUtente(Utente utenteDaRimuovere);
+    public Utente getUtenteByEmail(String email);
 }
