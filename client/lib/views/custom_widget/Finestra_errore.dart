@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Finestra_errore extends StatefulWidget{
+  final String title;
+  final String content;
+  Finestra_errore({Key ? key, required this.title, required this.content, }) : super(key : key);
   @override
   Finestra_errore_ui createState() => Finestra_errore_ui();
 }
@@ -21,7 +24,8 @@ class Finestra_errore_ui extends State<Finestra_errore>{
         Navigator.of(context).pop();
       });
       return AlertDialog(
-        title: const Text("Errore !", textAlign: TextAlign.center,),
+        title: Text(widget.title, textAlign: TextAlign.center,),
+        content: Text(widget.content),
         backgroundColor: Colors.redAccent,
       );
     });

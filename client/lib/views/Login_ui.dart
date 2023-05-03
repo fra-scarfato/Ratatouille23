@@ -12,6 +12,8 @@ import 'package:ratatouille23/views/custom_widget/bottone_arancione_con_testo.da
 import 'package:ratatouille23/views/pagina_iniziale.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
+import 'custom_widget/Finestra_errore.dart';
+
 class Login_ui extends StatefulWidget {
 
   const Login_ui({super.key});
@@ -152,7 +154,7 @@ class Login extends State<Login_ui>{
                             Navigator.push(context, MaterialPageRoute(builder: (context) =>  pagina_iniziale_ui()));
                           }
                         }catch (error){
-                          finestra_errore();
+                          Finestra_errore(title: 'Errore !', content: 'La mail o la password sono errate',);
                           //TODO: Finestra errore
                         }
                       }
@@ -182,31 +184,5 @@ class Login extends State<Login_ui>{
 
 
 
-  }
-
-  Future<void> finestra_errore() async {
-    return showDialog(
-        context: context,
-        builder: (context){
-          Future.delayed(Duration(seconds: 2), () {
-            Navigator.of(context).pop();
-          });
-          return AlertDialog(
-            backgroundColor: Colors.redAccent,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(32.0))
-            ),
-            title: Center(
-              child: Padding(
-                padding: EdgeInsetsDirectional.all(30.0),
-                child: Text(
-                  "Errore durante l'operazione",
-                  style: GoogleFonts.roboto(fontSize: 44, color: Colors.black),
-                ),
-              ),
-            ),
-          );
-        }
-    );
   }
 }

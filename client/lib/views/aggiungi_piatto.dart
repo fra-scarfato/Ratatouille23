@@ -6,6 +6,7 @@ import 'package:ratatouille23/controllers/Menu_controller.dart';
 import 'package:ratatouille23/models/menu/Categoria.dart';
 import 'package:ratatouille23/models/menu/Elemento.dart';
 
+import 'custom_widget/Finestra_errore.dart';
 import 'custom_widget/barra_superiore.dart';
 import 'menu_vuoto.dart';
 
@@ -319,7 +320,7 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                               }
                             }catch (error){
                               // TODO: Finestra errore
-                             finestra_errore();
+                             Finestra_errore(title: 'Errore !', content: 'Errore durante l\'operazione di inserimento',);
                            }
                           }
 
@@ -346,29 +347,5 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
             )
           );
   }
-  Future<void> finestra_errore() async {
-    return showDialog(
-        context: context,
-        builder: (context){
-          Future.delayed(Duration(seconds: 2), () {
-            Navigator.of(context).pop();
-          });
-          return AlertDialog(
-            backgroundColor: Colors.redAccent,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(32.0))
-            ),
-            title: Center(
-              child: Padding(
-                padding: EdgeInsetsDirectional.all(30.0),
-                child: Text(
-                  "Errore durante l'operazione",
-                  style: GoogleFonts.roboto(fontSize: 44, color: Colors.black),
-                ),
-              ),
-            ),
-          );
-        }
-    );
-  }
+
 }

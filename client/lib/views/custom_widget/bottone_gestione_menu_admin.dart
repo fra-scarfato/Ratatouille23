@@ -10,6 +10,7 @@ import 'package:ratatouille23/views/menu_vuoto.dart';
 
 import '../../models/Utente.dart';
 import '../../models/menu/Categoria.dart';
+import 'Finestra_errore.dart';
 import 'bottoni_menu_admin.dart';
 
 class bottone_gestione_menu_admin extends StatefulWidget{
@@ -261,7 +262,7 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
                               menu_controller.aggiungiCategoria(nomeCategoria,/*widget.utente.get_idRistorante*/ widget.id_ristorante);
                             }catch (error){
                               //TODO: Finestra errore
-                              finestra_errore();
+                              Finestra_errore(title: 'Errore !', content: 'Errore durante l\'operazione',);
                             }
                             },
                           child: Text(
@@ -290,31 +291,6 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
 
   }
 
-  Future<void> finestra_errore() async {
-    return showDialog(
-        context: context,
-        builder: (context){
-          Future.delayed(Duration(seconds: 2), () {
-            Navigator.of(context).pop();
-          });
-          return AlertDialog(
-            backgroundColor: Colors.redAccent,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(32.0))
-            ),
-            title: Center(
-              child: Padding(
-                padding: EdgeInsetsDirectional.all(30.0),
-                child: Text(
-                  "Errore durante l'operazione",
-                  style: GoogleFonts.roboto(fontSize: 44, color: Colors.black),
-                ),
-              ),
-            ),
-          );
-        }
-    );
-  }
 
   
 }

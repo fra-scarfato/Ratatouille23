@@ -12,6 +12,7 @@ import 'package:ratatouille23/views/pagina_iniziale.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
 import '../models/Utente.dart';
+import 'custom_widget/Finestra_errore.dart';
 
 class Reset_pwd_ui extends StatefulWidget {
 
@@ -110,7 +111,7 @@ class Reset_pwd extends State<Reset_pwd_ui>{
                             Navigator.push(context, MaterialPageRoute(builder: (context)=>pagina_iniziale_ui()));
                           }catch (error){
                           //TODO: Finestra errore
-                          finestra_errore();
+                          Finestra_errore(title: 'Errore !', content: 'Errore durante l\'aggiornamento della password',);
                            }
                         }
 
@@ -138,29 +139,5 @@ class Reset_pwd extends State<Reset_pwd_ui>{
     );
   }
 
-  Future<void> finestra_errore() async {
-    return showDialog(
-        context: context,
-        builder: (context){
-          Future.delayed(Duration(seconds: 2), () {
-            Navigator.of(context).pop();
-          });
-          return AlertDialog(
-            backgroundColor: Colors.redAccent,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(32.0))
-            ),
-            title: Center(
-              child: Padding(
-                padding: EdgeInsetsDirectional.all(30.0),
-                child: Text(
-                  "Errore durante l'operazione",
-                  style: GoogleFonts.roboto(fontSize: 44, color: Colors.black),
-                ),
-              ),
-            ),
-          );
-        }
-    );
-  }
+
 }
