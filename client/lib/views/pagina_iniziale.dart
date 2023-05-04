@@ -30,10 +30,8 @@ class pagina_iniziale extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        // crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -102,9 +100,10 @@ class pagina_iniziale extends StatelessWidget {
                       color1: Colors.purple,
                       color2: Colors.purpleAccent,
                       icon: Icons.cake_outlined),
+                  utente.get_ruolo() == "Amministratore" ?
                   SizedBox(
                     width: 30,
-                  ),
+                  ): SizedBox.shrink(),
                   utente.get_ruolo() == "Amministratore" ?
                   bottoni_gestione(
                       route: /*route*/ registra_utente(
