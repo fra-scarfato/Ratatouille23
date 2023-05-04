@@ -10,21 +10,16 @@ import 'package:ratatouille23/views/menu_vuoto.dart';
 
 import '../../models/Utente.dart';
 import '../../models/menu/Categoria.dart';
+import '../menu_completo.dart';
 import 'Finestra_errore.dart';
 import 'bottoni_menu_admin.dart';
 
 class bottone_gestione_menu_admin extends StatefulWidget{
   final List<Categoria>? listaCategorie;
-  // final int id;
-  // final String nome;
-  // final String cognome;
-  // final String email;
-  // final String password;
-  // final String ruolo;
-  final int id_ristorante;
-  // final Utente utente;
 
-  const bottone_gestione_menu_admin({Key? key, required this.listaCategorie,/*required this.utente, required this.id, required this.nome, required this.cognome, required this.email, required this.password, required this.ruolo,*/ required this.id_ristorante}) : super(key : key);
+  final Utente utente;
+
+  const bottone_gestione_menu_admin({Key? key, required this.listaCategorie,required this.utente}) : super(key : key);
 
   @override
   bottone_gestione_menu_admin_state createState() => bottone_gestione_menu_admin_state();
@@ -109,12 +104,12 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      slide_button(vertical_offset: 40, horizontal_offset: 40, text: 'Aggiungi piatto', route:  /*displayAggiungiCategoria*/aggiungi_piatto(listaCategorie: widget.listaCategorie, id_ristorante: widget.id_ristorante ), icon: Icons.add),
+                      slide_button(vertical_offset: 40, horizontal_offset: 40, text: 'Aggiungi piatto', route:  /*displayAggiungiCategoria*/aggiungi_piatto(listaCategorie: widget.listaCategorie, utente: widget.utente), icon: Icons.add),
                       SizedBox(
                         height: 8,
                         width: 150,
                       ),
-                      slide_button(vertical_offset: 40, horizontal_offset: -40, text: 'Elimina categoria', route:  /*displayAggiungiCategoria*/menu_vuoto(id_ristorante: widget.id_ristorante,), icon: Icons.delete_outline_outlined),
+                      slide_button(vertical_offset: 40, horizontal_offset: -40, text: 'Elimina categoria', route:  /*displayAggiungiCategoria*/menu_completo(utente: widget.utente), icon: Icons.delete_outline_outlined),
                     ],
                   ),
                   ElevatedButton(
@@ -259,7 +254,7 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
                             }
                             //TODO: Come recupero id ristorante?
                             try{
-                              menu_controller.aggiungiCategoria(nomeCategoria,/*widget.utente.get_idRistorante*/ widget.id_ristorante);
+                              menu_controller.aggiungiCategoria(nomeCategoria,/*widget.utente.get_idRistorante*/ widget.utente.get_id_ristorante());
                             }catch (error){
                               //TODO: Finestra errore
                               Finestra_errore(title: 'Errore !', content: 'Errore durante l\'operazione',);

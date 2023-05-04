@@ -15,8 +15,10 @@ class bottoni_gestione extends StatelessWidget{
           Navigator.push(context, MaterialPageRoute(builder: (context) => route),);
         },
         child: Ink(
-          height: 350,
-          width: 350,
+            height: (2*(MediaQuery.of(context).size.height))/5,
+            width: (2*(MediaQuery.of(context).size.height))/5,
+          // height: 350,
+          // width: 350,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(33.0)),
             gradient: LinearGradient(
@@ -34,11 +36,12 @@ class bottoni_gestione extends StatelessWidget{
           children: [
             Icon(
               icon,
-              size: 225,
+              size: MediaQuery.of(context).size.height/4,
+              // size: 225,
             ),
             Text(
               '$text',
-              style: GoogleFonts.roboto(fontSize: 40,fontStyle: FontStyle.italic)
+              style: GoogleFonts.roboto(fontSize: /*40*/MediaQuery.of(context).size.height/25 ,fontStyle: FontStyle.italic)
             )
           ],
         )

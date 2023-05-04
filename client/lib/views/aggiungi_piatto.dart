@@ -6,15 +6,17 @@ import 'package:ratatouille23/controllers/Menu_controller.dart';
 import 'package:ratatouille23/models/menu/Categoria.dart';
 import 'package:ratatouille23/models/menu/Elemento.dart';
 
+import '../models/Utente.dart';
 import 'custom_widget/Finestra_errore.dart';
 import 'custom_widget/barra_superiore.dart';
+import 'menu_completo.dart';
 import 'menu_vuoto.dart';
 
 class aggiungi_piatto extends StatefulWidget {
   final List<Categoria>? listaCategorie;
-  final int id_ristorante;
+  final Utente utente;
 
-  const aggiungi_piatto({super.key, required this.listaCategorie, required this.id_ristorante});
+  const aggiungi_piatto({super.key, required this.listaCategorie, required this.utente, });
 
   @override
   aggiungi_piatto_state createState() => aggiungi_piatto_state();
@@ -316,7 +318,7 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                                 double costoDouble = double.parse(costo);
                                 Elemento elementoDaAggiungere = Elemento.senzaId(nome,descrizione,costoDouble,allergeni,categoriaElemento);
                                 await _menu_controller.aggiungiElemento(elementoDaAggiungere);
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => menu_vuoto(id_ristorante: widget.id_ristorante)));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => menu_completo(utente: widget.utente,)));
                               }
                             }catch (error){
                               // TODO: Finestra errore

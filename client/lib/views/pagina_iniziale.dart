@@ -14,6 +14,7 @@ import '../controllers/Utente_controller.dart';
 import '../models/Utente.dart';
 import 'Login_ui.dart';
 import 'menu.dart';
+import 'menu_completo.dart';
 import 'ordinazioni_elenco.dart';
 import 'ordinazioni_elenco_cucina.dart';
 import 'ordinazioni_vuoto.dart';
@@ -29,13 +30,16 @@ class pagina_iniziale extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        // crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Spacer(),
               Text(
                 'Ratatouille23',
                 style: GoogleFonts.sendFlowers(
@@ -43,9 +47,10 @@ class pagina_iniziale extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     color: Colors.orange),
               ),
-              SizedBox(
-                width: 400,
-              ),
+              Spacer(),
+              // SizedBox(
+              //   width: 400,
+              // ),
               IconButton(
                 onPressed: () {
                   amplify_controller.signOutCurrentUser();
@@ -80,7 +85,12 @@ class pagina_iniziale extends StatelessWidget {
                       color1: Colors.pink,
                       color2: Colors.deepOrange,
                       icon: Icons.checklist_outlined),
-                  //bottoni_gestione(route: /*const menu_vuoto()*/menu(utente), text: 'MENU', color1: Colors.lightBlue, color2: Colors.lightBlueAccent, icon: Icons.menu_book),
+                  bottoni_gestione(
+                      route: /*const menu_vuoto()*/menu_completo(utente: utente),
+                      text: 'MENU',
+                      color1: Colors.lightBlue,
+                      color2: Colors.lightBlueAccent,
+                      icon: Icons.menu_book),
                 ],
               ),
               Row(

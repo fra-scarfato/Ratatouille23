@@ -17,16 +17,16 @@ import 'home.dart';
 import 'custom_widget/finestra_nessun_elemento.dart';
 
 class menu_completo extends StatefulWidget {
-  //final Utente utente;
-  final int id;
-  final String nome;
-  final String cognome;
-  final String email;
-  final String password;
-  final String ruolo;
-  final int id_ristorante;
+  final Utente utente;
+  // final int id;
+  // final String nome;
+  // final String cognome;
+  // final String email;
+  // final String password;
+  // final String ruolo;
+  // final int id_ristorante;
 
-  const menu_completo({super.key, required this.id, required this.nome, required this.cognome, required this.email, required this.password, required this.ruolo, required this.id_ristorante});
+  const menu_completo({super.key, required this.utente, });
 
 
   @override
@@ -42,7 +42,7 @@ class menu_completo_ui extends State<menu_completo> {
       //crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         FutureBuilder(
-          future: _menu_controller.getAllCategorie(widget.id_ristorante),
+          future: _menu_controller.getAllCategorie(widget.utente.get_id_ristorante()),
           builder: (BuildContext context, snapshot) {
             Widget widget;
             if (snapshot.connectionState == ConnectionState.done) {
@@ -82,7 +82,7 @@ class menu_completo_ui extends State<menu_completo> {
             return widget;
           },
         ),
-        bottone_gestione_menu_admin(listaCategorie: Menu, id_ristorante: widget.id_ristorante),
+        bottone_gestione_menu_admin(listaCategorie: Menu, utente: widget.utente),
         // Row(
         //   children: [
         //     SizedBox(width: 100),

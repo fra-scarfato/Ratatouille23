@@ -97,7 +97,7 @@ class menu_ui extends State<menu> {
                 ),
               ],
             ),
-            floatingActionButton: bottone_gestione_menu_admin(listaCategorie: menu, id_ristorante: menu[1].getIDRistorante()),
+            //floatingActionButton: bottone_gestione_menu_admin(listaCategorie: menu, utente: widget.utente),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
           );
