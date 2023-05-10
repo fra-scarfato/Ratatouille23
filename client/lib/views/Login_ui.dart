@@ -153,9 +153,9 @@ class Login extends State<Login_ui>{
                         try{
                           showDialogue(context);
                           var result = await amplify_controller.signInUser(fullMail, fullPassword);
-                          if(result.nextStep.signInStep == AuthSignInStep.confirmSignInWithNewPassword) {
+                          if(result.nextStep.signInStep == AuthSignInStep.confirmSignUp) {
                             hideProgressDialogue(context);
-                            Navigator.push(context, MaterialPageRoute(builder: (context) =>  Reset_pwd_ui(email: fullMail)));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) =>  Reset_pwd_ui(email: fullMail, oldPassword: fullPassword)));
                           }
                           else if(result.nextStep.signInStep == AuthSignInStep.done) {
                             Utente utente = await amplify_controller.fetchCurrentUserAttributes();
@@ -171,7 +171,6 @@ class Login extends State<Login_ui>{
                         }catch (error){
                           hideProgressDialogue(context);
                           Finestra_errore(title: 'Errore!', content: "Mail o password sbagliata",);
-                          //TODO: Finestra errore
                         }
                       }
                          

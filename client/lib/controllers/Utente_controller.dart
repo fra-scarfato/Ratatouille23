@@ -8,7 +8,6 @@ class Utente_controller{
 
   final Utente_service _utente_service = Utente_service();
 
-  //TODO: Come recupero id ristorante?
   Future<List<Utente>?> getAllUtenti(int idRistorante) async {
     try{
       List<Utente> listaUtenti = await _utente_service.getUtenti(idRistorante);
@@ -48,11 +47,9 @@ class Utente_controller{
   }
 
   Future<void> aggiornaUtente(int id, String nome, String cognome, String email, String ruolo, int id_ristorante) async {
-
-    _utente_service.aggiorna(Utente(id, nome, cognome, email, ruolo, id_ristorante));
     try{
       var utenteDaAggiornare = Utente(id, nome, cognome, email, ruolo, id_ristorante);
-      _utente_service.rimuovi(utenteDaAggiornare);
+      _utente_service.aggiorna(utenteDaAggiornare);
     } catch (error) {
       rethrow;
     }

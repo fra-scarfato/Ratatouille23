@@ -32,7 +32,7 @@ class Utente{
     _cognome=json['cognome'],
     _email=json['email'],
     _ruolo=json['ruolo'],
-    _id_ristorante=json['id_ristorante'];
+    _id_ristorante=json['idRistorante'];
 
 
   Map<String,dynamic> toJson(){

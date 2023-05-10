@@ -55,6 +55,7 @@ class Utente_service{
     };
     final uri = Uri.http(authority, '/user/get', queryParameter);
     var response = await http.get(uri);
+    print(jsonDecode(response.body));
     if(response.statusCode==200){
       List<Utente> lista_utenti = (jsonDecode(response.body) as List)
           .map((utente) => Utente.fromJson(utente))

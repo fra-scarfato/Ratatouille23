@@ -252,11 +252,9 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
                                 hintColorNome= Colors.red;
                               });
                             }
-                            //TODO: Come recupero id ristorante?
                             try{
                               menu_controller.aggiungiCategoria(nomeCategoria,/*widget.utente.get_idRistorante*/ widget.utente.get_id_ristorante());
                             }catch (error){
-                              //TODO: Finestra errore
                               Finestra_errore(title: 'Errore !', content: 'Errore durante l\'operazione',);
                             }
                             },
