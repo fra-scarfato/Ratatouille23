@@ -113,7 +113,10 @@ class menu_completo_ui extends State<menu_completo> {
             nome: element.nome,
             costo: element.costo,
             descrizione: element.descrizione,
-            allergeni: element.allergeni));
+            allergeni: element.allergeni,
+            utente: widget.utente,
+            elemento: element,
+            listaCategorie: Menu,));
       });
     }
     return list;

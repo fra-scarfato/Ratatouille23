@@ -1,9 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ratatouille23/controllers/Menu_controller.dart';
 
+import '../../models/Utente.dart';
+import '../../models/menu/Categoria.dart';
+import '../../models/menu/Elemento.dart';
 import 'elementi_card_bottom.dart';
 import 'elementi_card_header.dart';
+import 'modifica_piatto.dart';
 
 class elementi_card extends StatefulWidget{
   final Key key = UniqueKey();
@@ -11,12 +16,17 @@ class elementi_card extends StatefulWidget{
   final double costo;
   final String descrizione;
   final String allergeni;
-  elementi_card({required this.nome, required this.costo, required this.descrizione, required this.allergeni});
+  final Utente utente;
+  final Elemento elemento;
+  final List<Categoria>? listaCategorie;
+
+  elementi_card({required this.nome, required this.costo, required this.descrizione, required this.allergeni, required this.utente, required this.elemento, required this.listaCategorie});
   @override
   elementi_card_state createState() => elementi_card_state();
 }
 
 class elementi_card_state extends State<elementi_card>{
+  Menu_controller menu_controller=Menu_controller();
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -29,7 +39,39 @@ class elementi_card_state extends State<elementi_card>{
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            elementi_card_header(nome: widget.nome, costo: widget.costo),
+            //elementi_card_header(nome: widget.nome, costo: widget.costo),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  widget.nome,
+                  style: GoogleFonts.roboto(color: Colors.orange, fontSize: 36, fontStyle: FontStyle.italic),
+                ),
+                Spacer(),
+                Text(
+                  'Costo: ${widget.costo}\$',
+                  style: GoogleFonts.roboto(color: Colors.orange, fontSize: 36, fontStyle: FontStyle.italic),
+                ),
+                SizedBox(width: 176,),
+                IconButton(
+                    onPressed: (){modifica_piatto(listaCategorie: widget.listaCategorie, utente: widget.utente, elemento: widget.elemento);},
+                    icon: Icon(
+                      Icons.mode_edit_outlined,
+                      size: 50,
+                    )
+                ),
+                IconButton(
+                    onPressed: (){menu_controller.rimuoviElemento(widget.elemento);},
+                    icon: Icon(
+                      Icons.delete_outline,
+                      color: Colors.red,
+                      size: 50,
+                    )
+                ),
+
+
+              ],
+            ),
             SizedBox(height: 16),
             Container(
               width:1161,
