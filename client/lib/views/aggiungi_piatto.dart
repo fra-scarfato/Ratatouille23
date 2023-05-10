@@ -318,7 +318,7 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                               Categoria? categoriaElemento = _menu_controller.trovaCategoriaElemento(categoria, widget.listaCategorie);
                               if(categoriaElemento != null){
                                 double costoDouble = double.parse(costo);
-                                Elemento elementoDaAggiungere = Elemento.senzaId(nome,descrizione,costoDouble,allergeni,categoriaElemento,0);
+                                Elemento elementoDaAggiungere = Elemento.senzaId(nome,descrizione,costoDouble,allergeni,categoriaElemento);
                                 await _menu_controller.aggiungiElemento(elementoDaAggiungere);
                                 Finestra_conferma(title: '', content: 'Il piatto è stato aggiunto con successo',);
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => menu_completo(utente: widget.utente,)));

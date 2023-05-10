@@ -3,30 +3,27 @@ import 'Categoria.dart';
 class Elemento{
 
   late int _id;
-  late int _indice;
   late String _nome;
   late String _descrizione;
   late double _costo;
   late String _allergeni;
   late Categoria _categoria;
 
-  Elemento.senzaId(String nome, String descrizione, double costo, String allergeni, Categoria categoria, int indice){
+  Elemento.senzaId(String nome, String descrizione, double costo, String allergeni, Categoria categoria){
     _nome=nome;
     _descrizione=descrizione;
     _costo=costo;
     _allergeni=allergeni;
     _categoria=categoria;
-    _indice=indice;
   }
 
-  Elemento(int id, String nome, String descrizione, double costo, String allergeni, Categoria categoria, int indice){
+  Elemento(int id, String nome, String descrizione, double costo, String allergeni, Categoria categoria){
     _id=id;
     _nome=nome;
     _descrizione=descrizione;
     _costo=costo;
     _allergeni=allergeni;
     _categoria=categoria;
-    _indice=indice;
   }
 
   Elemento.fromJson(Map<String, dynamic> json):
@@ -34,8 +31,7 @@ class Elemento{
     _nome=json['nome'],
     _descrizione=json['descrizione'],
     _costo=json['costo'],
-    _allergeni=json['allergeni'],
-    _indice=json['indice'];
+    _allergeni=json['allergeni'];
 
   Map<String, dynamic> toJson(){
     return{
@@ -45,7 +41,6 @@ class Elemento{
       'costo':_costo,
       'allergeni':_allergeni,
       'categoria':_categoria.toJson(),
-      'indice':_indice
     };
   }
 
@@ -56,15 +51,9 @@ class Elemento{
       'costo':_costo,
       'allergeni':_allergeni,
       'categoria':_categoria.toJson(),
-      'indice':_indice
     };
   }
 
-  int get indice => _indice;
-
-  set indice(int value) {
-    _indice = value;
-  }
 
   Categoria get categoria => _categoria;
 

@@ -40,11 +40,15 @@ class menu_completo_ui extends State<menu_completo> {
             Widget widget;
             if (snapshot.connectionState == ConnectionState.done) {
               List<Categoria>? menu = [];
+              print(snapshot.data.toString());
               menu = snapshot.data;
               Menu = menu;
               var elem = [];
-              if(menu != []){
+              if(menu!.isNotEmpty){
                 elem = getElementiCards(menu![0]);
+                if(elem.isEmpty) {
+                  elem = [];
+                }
               }
               widget = Scaffold(
                 body: Column(

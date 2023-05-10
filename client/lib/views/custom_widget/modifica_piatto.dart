@@ -341,7 +341,6 @@ class modifica_piatto_state extends State<modifica_piatto> {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => menu_completo(utente: widget.utente,)));
                           }
                         }catch (error){
-                          // TODO: Finestra errore
                           Finestra_errore(title: 'Errore !', content: 'Errore durante l\'operazione di inserimento',);
                         }
                       }
