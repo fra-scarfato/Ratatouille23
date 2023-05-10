@@ -12,7 +12,7 @@ class Menu_controller{
       var categoriaDaAggiungere = Categoria.senzaIdAndElementi(nome, idRistorante);
       _menu_service.aggiungiNuovaCategoria(categoriaDaAggiungere);
     } catch (error) {
-      throw (error.toString());
+      rethrow;
     }
   }
 
@@ -20,8 +20,7 @@ class Menu_controller{
     try{
       _menu_service.eliminaCategoria(categoriaDaRimuovere);
     } catch (error) {
-      //TODO: Something bad
-      print("Errore:$error");
+      rethrow;
     }
   }
 
@@ -30,10 +29,8 @@ class Menu_controller{
       List<Categoria> listaCategorie = await _menu_service.getCategorie(id_ristornate);
       return listaCategorie;
     } catch (error) {
-      //TODO: Something bad
-      print("Errore:$error");
+      rethrow;
     }
-    return null;
   }
 
   List<String> getCategorieAsString(List<Categoria>? listaCategorie) {
@@ -60,8 +57,7 @@ class Menu_controller{
     try{
       _menu_service.aggiungiNuovoElemento(elementoDaAggiungere);
     } catch (error) {
-      //TODO: Something bad
-      print("Errore:$error");
+      rethrow;
     }
   }
 
@@ -69,8 +65,7 @@ class Menu_controller{
     try{
       _menu_service.eliminaElemento(elementoDaRimuovere);
     } catch (error) {
-      //TODO: Something bad
-      print("Errore:$error");
+      rethrow;
     }
   }
 
@@ -78,8 +73,7 @@ class Menu_controller{
     try{
       _menu_service.aggiornaVecchioElemento(elementoDaAggiornare);
     } catch (error) {
-      //TODO: Something bad
-      print("Errore:$error");
+      rethrow;
     }
   }
 

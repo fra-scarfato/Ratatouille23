@@ -13,7 +13,6 @@ class Menu_service{
 
 
   Future<List<Categoria>> getCategorie(int id_ristorante) async {
-    //TODO: Come recupero id ristorante?
     final queryParameter = {
       'idr': id_ristorante //toString?
     };

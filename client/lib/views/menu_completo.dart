@@ -18,13 +18,6 @@ import 'custom_widget/finestra_nessun_elemento.dart';
 
 class menu_completo extends StatefulWidget {
   final Utente utente;
-  // final int id;
-  // final String nome;
-  // final String cognome;
-  // final String email;
-  // final String password;
-  // final String ruolo;
-  // final int id_ristorante;
 
   const menu_completo({super.key, required this.utente, });
 

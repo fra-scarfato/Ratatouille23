@@ -67,13 +67,45 @@ class Amplify_controller {
     return result;
   }
 
-  Future<void> resetPassword(String nuovaPassword) async {
+  Future<void> confirmUser({
+    required String username,
+    required String confirmationCode,
+  }) async {
     try {
-      await Amplify.Auth.confirmSignIn(
-        confirmationValue: nuovaPassword,
+      await Amplify.Auth.confirmSignUp(
+        username: username,
+        confirmationCode: confirmationCode,
       );
-    }catch (e) {
+    } on AuthException catch (e) {
       rethrow;
+    }
+  }
+
+  Future<void> signUpUser({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      await Amplify.Auth.signUp(
+        username: email,
+        password: password,
+      );
+    } on AuthException catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> updatePassword({
+    required String oldPassword,
+    required String newPassword,
+  }) async {
+    try {
+      await Amplify.Auth.updatePassword(
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+      );
+    } on AuthException catch (e) {
+      safePrint('Error updating password: ${e.message}');
     }
   }
 }

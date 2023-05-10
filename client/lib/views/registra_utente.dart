@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ratatouille23/controllers/Amplify_controller.dart';
 import 'package:ratatouille23/controllers/Utente_controller.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
@@ -25,7 +26,8 @@ class registra_utente extends StatefulWidget {
 
 class registra_utente_ui extends State<registra_utente> {
 
-  Utente_controller utente_controller = new Utente_controller();
+  Utente_controller utente_controller = Utente_controller();
+  Amplify_controller amplify_controller = Amplify_controller();
   TextEditingController nomeController = TextEditingController();
   TextEditingController cognomeController = TextEditingController();
   TextEditingController mailController = TextEditingController();
@@ -289,8 +291,7 @@ class registra_utente_ui extends State<registra_utente> {
               children: [
                 ElevatedButton(
 
-                    onPressed: () {
-                      utente_controller.getAllUtenti(widget.utente.get_id_ristorante());
+                    onPressed: () async {
                       if(nome=='' || cognome=='' || mail=='' || password=='' || ruolo==''){
                         if(nome==''){
                           setState(() {
@@ -324,9 +325,12 @@ class registra_utente_ui extends State<registra_utente> {
                       }
                       else {
                         try{
-                          utente_controller.aggiungiUtente(nome, cognome, mail, ruolo, 1);
+                          showDialogue(context);
+                          await amplify_controller.signUpUser(email: mail, password: password);
+                          await utente_controller.aggiungiUtente(nome, cognome, mail, ruolo, widget.utente.get_id_ristorante());
+                          hideProgressDialogue(context);
                         }catch (error){
-                          //TODO: Finestra/dialog errore
+                          hideProgressDialogue(context);
                           Finestra_errore(title: 'Errore !', content: 'Errore durante l\'operazione');
                         }
 
@@ -364,4 +368,24 @@ class registra_utente_ui extends State<registra_utente> {
 
 
   }
+
+  void showDialogue(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => Container(
+        color: Colors.white,
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
+    );
+  }
+
+  void hideProgressDialogue(BuildContext context) {
+    Navigator.of(context).pop(Container(
+      color: Colors.white,
+      child: Center(
+        child: CircularProgressIndicator(),
+      ),
+    ),);}
 }

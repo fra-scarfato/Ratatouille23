@@ -14,9 +14,10 @@ import '../models/Utente.dart';
 import 'custom_widget/Finestra_errore.dart';
 
 class Reset_pwd_ui extends StatefulWidget {
-  const Reset_pwd_ui({Key? key, required this.email}) : super(key: key);
+  const Reset_pwd_ui({Key? key, required this.email, required this.oldPassword}) : super(key: key);
 
   final String email;
+  final String oldPassword;
 
   @override
   Reset_pwd createState() => Reset_pwd();
@@ -24,7 +25,9 @@ class Reset_pwd_ui extends StatefulWidget {
 
 class Reset_pwd extends State<Reset_pwd_ui> {
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmationController = TextEditingController();
   String fullPassword = '';
+  String confirmationCode = '';
   BorderSide borderPassword = BorderSide.none;
   Color passwordHintTextColor = CupertinoColors.systemGrey;
   Amplify_controller amplify_controller = new Amplify_controller();
@@ -53,6 +56,28 @@ class Reset_pwd extends State<Reset_pwd_ui> {
                     ])),
             SizedBox(
               height: 50,
+            ),
+            SizedBox(
+              width: 509,
+              height: 91,
+              child: TextFormField(
+                controller: confirmationController,
+                decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                        borderSide: borderPassword,
+                        borderRadius: BorderRadius.circular(50)
+                    ),
+                    hintText: 'Inserisci codice di conferma',
+                    hintStyle: TextStyle(color: passwordHintTextColor)
+                ),
+                onChanged: (text) {
+                  setState(() {
+                    confirmationCode = text;
+                  });
+                },
+              ),
             ),
             SizedBox(
               width: 509,
@@ -87,7 +112,8 @@ class Reset_pwd extends State<Reset_pwd_ui> {
                   } else {
                     try {
                       showDialogue(context);
-                      await amplify_controller.resetPassword(fullPassword);
+                      await amplify_controller.confirmUser(username: widget.email, confirmationCode: confirmationCode);
+                      await amplify_controller.updatePassword(oldPassword: widget.oldPassword, newPassword: fullPassword);
                       Utente utente =
                           await amplify_controller.fetchCurrentUserAttributes();
                       Navigator.push(
@@ -96,9 +122,7 @@ class Reset_pwd extends State<Reset_pwd_ui> {
                               builder: (context) =>
                                   pagina_iniziale(utente)));
                     } catch (error) {
-                      //TODO: Finestra errore
-                      error.toString();
-                      Finestra_errore(title: 'Errore!', content: "Reset password non riuscito",);
+                      Finestra_errore(title: 'Errore!', content: "Reset password non riuscito.",);
                     }
                   }
                 },
