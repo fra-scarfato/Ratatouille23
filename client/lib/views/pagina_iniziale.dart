@@ -92,6 +92,7 @@ class pagina_iniziale extends StatelessWidget {
                       icon: Icons.menu_book),
                 ],
               ),
+              SizedBox(height: 25,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

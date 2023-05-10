@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:ratatouille23/controllers/Menu_controller.dart';
 import 'package:ratatouille23/models/menu/Categoria.dart';
 import 'package:ratatouille23/models/menu/Elemento.dart';
@@ -114,6 +115,7 @@ class modifica_piatto_state extends State<modifica_piatto> {
                     onChanged: (text) {
                       setState(() {
                         nome = text;
+                        OpenFoodAPIClient.getSuggestions(TagType.COUNTRIES, language: OpenFoodFactsLanguage.ITALIAN);
                       });
                     },
                   ),
