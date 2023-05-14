@@ -8,12 +8,9 @@ import 'package:ratatouille23/models/menu/Categoria.dart';
 import 'package:ratatouille23/models/menu/Elemento.dart';
 
 import '../../models/Utente.dart';
-import '../menu_completo.dart';
-import '../models/Utente.dart';
+import '../menu.dart';
 import 'Finestra_errore.dart';
 import 'barra_superiore.dart';
-import 'custom_widget/Finestra_errore.dart';
-import 'custom_widget/barra_superiore.dart';
 import 'menu_completo.dart';
 import 'menu_vuoto.dart';
 
@@ -338,7 +335,7 @@ class modifica_piatto_state extends State<modifica_piatto> {
                             double costoDouble = double.parse(costo);
                             Elemento elementoDaAggiornare = Elemento(widget.elemento.id, nome,descrizione,costoDouble,allergeni,categoriaElemento);
                             await _menu_controller.modificaElemento(elementoDaAggiornare);
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => menu_completo(utente: widget.utente,)));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => menu(utente: widget.utente,)));
                           }
                         }catch (error){
                           Finestra_errore(title: 'Errore !', content: 'Errore durante l\'operazione di inserimento',);

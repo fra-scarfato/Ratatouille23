@@ -4,28 +4,24 @@ import 'package:ratatouille23/models/menu/Categoria.dart';
 import 'package:http/http.dart' as http;
 import 'package:ratatouille23/models/menu/Elemento.dart';
 
-class Menu_service{
+class Menu_service {
   final String authority = "localhost:8080";
   final header = {
     'Content-Type': 'application/json; charset=UTF-8',
     'Access-Control-Allow-Origin': '*',
   };
 
-
   Future<List<Categoria>> getCategorie(int id_ristorante) async {
-    final queryParameter = {
-      'idr': id_ristorante //toString?
-    };
+    final queryParameter = {'idr': id_ristorante.toString()};
     final uri = Uri.http(authority, '/menu/get', queryParameter);
     var response = await http.get(uri);
-    if(response.statusCode==200){
+    if (response.statusCode == 200) {
       List<Categoria> listaCategorie = (jsonDecode(response.body) as List)
           .map((categoria) => Categoria.fromJson(categoria))
           .toList();
       return listaCategorie;
-    }
-    else{
-      throw(response.statusCode);
+    } else {
+      throw (response.statusCode);
     }
   }
 
@@ -37,10 +33,9 @@ class Menu_service{
       body: jsonEncode(categoria.toJsonSenzaId()),
     );
     if (response.statusCode != 200) {
-      throw(response.statusCode);
+      throw (response.statusCode);
     }
   }
-
 
   void aggiungiNuovoElemento(Elemento elemento) async {
     final uri = Uri.http(authority, '/menu/element/add');
@@ -50,12 +45,11 @@ class Menu_service{
       body: jsonEncode(elemento.toJsonSenzaId()),
     );
     if (response.statusCode != 200) {
-      throw(response.statusCode);
+      throw (response.statusCode);
     }
   }
 
-
-  void aggiornaVecchioElemento(Elemento elemento) async{
+  void aggiornaVecchioElemento(Elemento elemento) async {
     final uri = Uri.http(authority, '/menu/element/update');
     var response = await http.put(
       uri,
@@ -63,7 +57,7 @@ class Menu_service{
       body: jsonEncode(elemento.toJsonSenzaId()),
     );
     if (response.statusCode != 200) {
-      throw(response.statusCode);
+      throw (response.statusCode);
     }
   }
 
@@ -75,7 +69,7 @@ class Menu_service{
       body: jsonEncode(categoriaDaEliminare.toJsonSenzaId()),
     );
     if (response.statusCode != 200) {
-      throw(response.statusCode);
+      throw (response.statusCode);
     }
   }
 
@@ -87,7 +81,7 @@ class Menu_service{
       body: jsonEncode(elementoDaEliminare.toJsonSenzaId()),
     );
     if (response.statusCode != 200) {
-      throw(response.statusCode);
+      throw (response.statusCode);
     }
   }
 }

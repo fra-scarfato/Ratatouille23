@@ -14,13 +14,11 @@ import '../controllers/Utente_controller.dart';
 import '../models/Utente.dart';
 import 'Login_ui.dart';
 import 'menu.dart';
-import 'menu_completo.dart';
 import 'ordinazioni_elenco.dart';
 import 'ordinazioni_elenco_cucina.dart';
-import 'ordinazioni_vuoto.dart';
 
 class pagina_iniziale extends StatelessWidget {
-  late Utente utente;
+  final Utente utente;
   late Amplify_controller amplify_controller;
   late Utente_controller utente_controller;
 
@@ -85,7 +83,7 @@ class pagina_iniziale extends StatelessWidget {
                       color2: Colors.deepOrange,
                       icon: Icons.checklist_outlined),
                   bottoni_gestione(
-                      route: /*const menu_vuoto()*/menu_completo(utente: utente),
+                      route: menu(utente: utente),
                       text: 'MENU',
                       color1: Colors.lightBlue,
                       color2: Colors.lightBlueAccent,

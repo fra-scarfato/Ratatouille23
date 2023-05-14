@@ -10,7 +10,7 @@ import 'package:ratatouille23/views/menu_vuoto.dart';
 
 import '../../models/Utente.dart';
 import '../../models/menu/Categoria.dart';
-import '../menu_completo.dart';
+import '../menu.dart';
 import 'Finestra_errore.dart';
 import 'bottoni_menu_admin.dart';
 
@@ -109,7 +109,7 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
                         height: 8,
                         width: 150,
                       ),
-                      slide_button(vertical_offset: 40, horizontal_offset: -40, text: 'Elimina categoria', route:  /*displayAggiungiCategoria*/menu_completo(utente: widget.utente), icon: Icons.delete_outline_outlined),
+                      slide_button(vertical_offset: 40, horizontal_offset: -40, text: 'Elimina categoria', route: menu(utente: widget.utente), icon: Icons.delete_outline_outlined),
                     ],
                   ),
                   ElevatedButton(

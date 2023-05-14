@@ -51,7 +51,7 @@ class Utente_service{
 
   Future<List<Utente>> getUtenti(int idRistorante) async {
     final queryParameter = {
-      'idr': idRistorante
+      'idr': idRistorante.toString()
     };
     final uri = Uri.http(authority, '/user/get', queryParameter);
     var response = await http.get(uri);

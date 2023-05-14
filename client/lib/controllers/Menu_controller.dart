@@ -24,7 +24,7 @@ class Menu_controller{
     }
   }
 
-  Future<List<Categoria>?> getAllCategorie(int id_ristornate) async {//getAllCategorie(int idRistorante)
+  Future<List<Categoria>?> getAllCategorie(int id_ristornate) async {
     try{
       List<Categoria> listaCategorie = await _menu_service.getCategorie(id_ristornate);
       return listaCategorie;

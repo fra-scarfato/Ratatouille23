@@ -170,7 +170,7 @@ class Login extends State<Login_ui>{
                           }
                         }catch (error){
                           hideProgressDialogue(context);
-                          Finestra_errore(title: 'Errore!', content: "Mail o password sbagliata",);
+                          Finestra_errore(title: 'Errore!', content: "Mail o password sbagliata",).showAlert(context);
                         }
                       }
                          

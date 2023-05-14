@@ -12,15 +12,11 @@ import 'modifica_piatto.dart';
 
 class elementi_card extends StatefulWidget{
   final Key key = UniqueKey();
-  final String nome;
-  final double costo;
-  final String descrizione;
-  final String allergeni;
   final Utente utente;
   final Elemento elemento;
   final List<Categoria>? listaCategorie;
 
-  elementi_card({required this.nome, required this.costo, required this.descrizione, required this.allergeni, required this.utente, required this.elemento, required this.listaCategorie});
+  elementi_card({required this.utente, required this.elemento, required this.listaCategorie});
   @override
   elementi_card_state createState() => elementi_card_state();
 }
@@ -44,12 +40,12 @@ class elementi_card_state extends State<elementi_card>{
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  widget.nome,
+                  widget.elemento.nome,
                   style: GoogleFonts.roboto(color: Colors.orange, fontSize: 36, fontStyle: FontStyle.italic),
                 ),
                 Spacer(),
                 Text(
-                  'Costo: ${widget.costo}\$',
+                  'Costo: ${widget.elemento.costo}\$',
                   style: GoogleFonts.roboto(color: Colors.orange, fontSize: 36, fontStyle: FontStyle.italic),
                 ),
                 SizedBox(width: 176,),
@@ -76,13 +72,13 @@ class elementi_card_state extends State<elementi_card>{
             Container(
               width:1161,
               child: Text(
-                  widget.descrizione,
+                  widget.elemento.descrizione,
                   style: GoogleFonts.roboto(fontStyle: FontStyle.italic, fontSize: 27)
               ),
               //  )
             ),
             SizedBox(height: 32),
-            elementi_card_bottom(allergeni: widget.allergeni)
+            elementi_card_bottom(allergeni: widget.elemento.allergeni)
           ],
         ),
       ),

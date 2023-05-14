@@ -6,12 +6,11 @@ import 'package:ratatouille23/controllers/Menu_controller.dart';
 import 'package:ratatouille23/models/menu/Categoria.dart';
 import 'package:ratatouille23/models/menu/Elemento.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
-import 'package:ratatouille23/views/custom_widget/custom_widget/Finestra_conferma.dart';
+import 'package:ratatouille23/views/custom_widget/Finestra_conferma.dart';
 import '../models/Utente.dart';
 import 'custom_widget/Finestra_errore.dart';
 import 'custom_widget/barra_superiore.dart';
-import 'menu_completo.dart';
-import 'menu_vuoto.dart';
+import 'menu.dart';
 
 class aggiungi_piatto extends StatefulWidget {
   final List<Categoria>? listaCategorie;
@@ -97,7 +96,7 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                         onChanged: (text) {
                           setState(() {
                             nome = text;
-                            /*await*/ OpenFoodAPIClient.getSuggestions(TagType.COUNTRIES, language: OpenFoodFactsLanguage.ITALIAN);
+                            OpenFoodAPIClient.getSuggestions(TagType.COUNTRIES, language: OpenFoodFactsLanguage.ITALIAN);
                           });
                         },
                       ),
@@ -321,7 +320,7 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                                 Elemento elementoDaAggiungere = Elemento.senzaId(nome,descrizione,costoDouble,allergeni,categoriaElemento);
                                 await _menu_controller.aggiungiElemento(elementoDaAggiungere);
                                 Finestra_conferma(title: '', content: 'Il piatto è stato aggiunto con successo',);
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => menu_completo(utente: widget.utente,)));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => menu(utente: widget.utente,)));
                               }
                             }catch (error){
                              Finestra_errore(title: 'Errore !', content: 'Errore durante l\'operazione di inserimento',);
