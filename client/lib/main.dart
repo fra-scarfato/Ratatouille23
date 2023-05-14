@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:ratatouille23/controllers/Amplify_controller.dart';
 import 'package:ratatouille23/views/Home.dart';
@@ -31,6 +33,7 @@ class MyApp extends StatelessWidget {
 
         ),
         debugShowCheckedModeBanner: false,
+        scrollBehavior: MyCustomScrollBehavior(),
         builder: (context, child) => ResponsiveWrapper.builder(
           child,
           maxWidth: MediaQuery.of(context).size.width,//1200,
@@ -59,4 +62,13 @@ class MyApp extends StatelessWidget {
         home: Home()
     );
   }
+}
+
+class MyCustomScrollBehavior extends MaterialScrollBehavior {
+  // Override behavior methods and getters like dragDevices
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+    PointerDeviceKind.touch,
+    PointerDeviceKind.mouse,
+  };
 }

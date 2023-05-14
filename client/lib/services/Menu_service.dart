@@ -78,7 +78,7 @@ class Menu_service {
     var response = await http.delete(
       uri,
       headers: header,
-      body: jsonEncode(elementoDaEliminare.toJsonSenzaId()),
+      body: jsonEncode(elementoDaEliminare.toJsonSenzaCategoria()),
     );
     if (response.statusCode != 200) {
       throw (response.statusCode);

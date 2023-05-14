@@ -1,14 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:ratatouille23/controllers/Menu_controller.dart';
 import 'package:ratatouille23/models/menu/Categoria.dart';
 import 'package:ratatouille23/models/menu/Elemento.dart';
+import 'package:ratatouille23/views/custom_widget/Finestra_attesa.dart';
 
 import '../../models/Utente.dart';
 import '../menu.dart';
+import 'Finestra_conferma.dart';
 import 'Finestra_errore.dart';
 import 'barra_superiore.dart';
 import 'menu_completo.dart';
@@ -329,16 +332,30 @@ class modifica_piatto_state extends State<modifica_piatto> {
                           });
                         }
                       } else {
+                        FToast toast = FToast();
+                        var attesa = Finestra_attesa(context);
                         try{
                           Categoria? categoriaElemento = _menu_controller.trovaCategoriaElemento(categoria, widget.listaCategorie);
                           if(categoriaElemento != null){
                             double costoDouble = double.parse(costo);
                             Elemento elementoDaAggiornare = Elemento(widget.elemento.id, nome,descrizione,costoDouble,allergeni,categoriaElemento);
+                            attesa.showDialogue();
                             await _menu_controller.modificaElemento(elementoDaAggiornare);
+                            attesa.hideProgressDialogue();
+                            Fluttertoast.cancel();
+                            toast.showToast(
+                                child: Finestra_conferma(message: "Modifica completata"),
+                                toastDuration: Duration(seconds: 2),
+                                gravity: ToastGravity.BOTTOM);
                             Navigator.push(context, MaterialPageRoute(builder: (context) => menu(utente: widget.utente,)));
                           }
                         }catch (error){
-                          Finestra_errore(title: 'Errore !', content: 'Errore durante l\'operazione di inserimento',);
+                          attesa.hideProgressDialogue();
+                          Fluttertoast.cancel();
+                          toast.showToast(
+                              child: Finestra_errore(message: "Modifica non riuscita"),
+                              toastDuration: Duration(seconds: 2),
+                              gravity: ToastGravity.BOTTOM);
                         }
                       }
 

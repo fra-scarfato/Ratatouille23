@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Menu_controller.dart';
 import 'package:ratatouille23/views/Login_ui.dart';
 import 'package:ratatouille23/views/aggiungi_piatto.dart';
+import 'package:ratatouille23/views/custom_widget/Finestra_attesa.dart';
+import 'package:ratatouille23/views/custom_widget/Finestra_conferma.dart';
 import 'package:ratatouille23/views/custom_widget/slide_button.dart';
 import 'package:ratatouille23/views/menu_vuoto.dart';
 
@@ -227,7 +230,6 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
                     children: [
                       ElevatedButton(
                           onPressed: () {
-                            //Navigator.push(context, MaterialPageRoute(builder: (context) => const menu()));
                             Navigator.pop(context);
                           },
                           child: Text(
@@ -245,17 +247,33 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
                       ),
                       SizedBox(width:80),
                       ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             if(nomeCategoria==''){
                               setState(() {
                                 borderSideColorNome=  Colors.red;
                                 hintColorNome= Colors.red;
                               });
                             }
+                            var attesa = Finestra_attesa(context);
+                            FToast toast = FToast();
+                            toast.init(context);
                             try{
-                              menu_controller.aggiungiCategoria(nomeCategoria,/*widget.utente.get_idRistorante*/ widget.utente.get_id_ristorante());
+                              attesa.showDialogue();
+                              await menu_controller.aggiungiCategoria(nomeCategoria,/*widget.utente.get_idRistorante*/ widget.utente.get_id_ristorante());
+                              attesa.hideProgressDialogue();
+                              Fluttertoast.cancel();
+                              toast.showToast(
+                                  child: Finestra_conferma(message: "Categoria aggiunta correttamente"),
+                                  toastDuration: Duration(seconds: 2),
+                                  gravity: ToastGravity.BOTTOM);
+                              Navigator.pop(context);
                             }catch (error){
-                              Finestra_errore(title: 'Errore !', content: 'Errore durante l\'operazione',);
+                              attesa.hideProgressDialogue();
+                              Fluttertoast.cancel();
+                              toast.showToast(
+                                  child: Finestra_errore(message: "Errore nell'aggiunta della categoria"),
+                                  toastDuration: Duration(seconds: 2),
+                                  gravity: ToastGravity.BOTTOM);
                             }
                             },
                           child: Text(

@@ -11,7 +11,7 @@ import '../models/Utente.dart';
 import '../models/menu/Elemento.dart';
 import 'custom_widget/Visualizza_riepilogo.dart';
 import 'custom_widget/barra_superiore.dart';
-import 'custom_widget/categoria_card.dart';
+import 'custom_widget/categorie_bar.dart';
 import 'custom_widget/elementi_card.dart';
 import 'custom_widget/elementi_card_bottom.dart';
 import 'custom_widget/elementi_card_header.dart';
@@ -120,10 +120,7 @@ class Presa_ordinazione_state extends State<Presa_ordinazione>{
   List<Widget> categorie() {
     List<Widget> list=[];
     for(int i=0; i<10; i++){
-      list.add(categoria_card( nomeCategoria: 'Primi',));
-      list.add(categoria_card(nomeCategoria: 'Secondi'));
-      list.add(categoria_card(nomeCategoria: 'Contorni'));
-      list.add(categoria_card(nomeCategoria: 'Dolci'));
+
     }
 
     return list;

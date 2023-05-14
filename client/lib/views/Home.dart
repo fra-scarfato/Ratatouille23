@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ratatouille23/controllers/Amplify_controller.dart';
+import 'package:ratatouille23/views/custom_widget/Finestra_attesa.dart';
 import 'package:ratatouille23/views/custom_widget/bottone_arancione_con_testo.dart';
 import 'package:ratatouille23/views/pagina_iniziale.dart';
 
@@ -42,10 +43,11 @@ class Home extends StatelessWidget {
                         ElevatedButton(
 
                             onPressed: () async {
+                              var attesa = Finestra_attesa(context);
                               if(snapshot.data!) {
-                                showDialogue(context);
+                                attesa.showDialogue();
                                 Utente utente  = await amplify_controller.fetchCurrentUserAttributes();
-                                hideProgressDialogue(context);
+                                attesa.hideProgressDialogue();
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => pagina_iniziale(utente)));
                               } else {
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => Login_ui()));
@@ -76,24 +78,4 @@ class Home extends StatelessWidget {
 
     );
   }
-
-  void showDialogue(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) => Container(
-        color: Colors.white,
-        child: Center(
-          child: CircularProgressIndicator(),
-        ),
-      ),
-    );
-  }
-
-  void hideProgressDialogue(BuildContext context) {
-    Navigator.of(context).pop(Container(
-      color: Colors.white,
-      child: Center(
-        child: CircularProgressIndicator(),
-      ),
-    ),);}
 }

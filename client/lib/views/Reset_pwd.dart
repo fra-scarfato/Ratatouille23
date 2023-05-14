@@ -3,9 +3,12 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Amplify_controller.dart';
 import 'package:ratatouille23/controllers/Utente_controller.dart';
+import 'package:ratatouille23/views/custom_widget/Finestra_attesa.dart';
+import 'package:ratatouille23/views/custom_widget/Finestra_conferma.dart';
 import 'package:ratatouille23/views/custom_widget/bottone_arancione_con_testo.dart';
 import 'package:ratatouille23/views/pagina_iniziale.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
@@ -110,19 +113,33 @@ class Reset_pwd extends State<Reset_pwd_ui> {
                       passwordHintTextColor = Colors.red;
                     });
                   } else {
+                    var attesa = Finestra_attesa(context);
+                    FToast toast = FToast();
+                    toast.init(context);
                     try {
-                      showDialogue(context);
+                      attesa.showDialogue();
                       await amplify_controller.confirmUser(username: widget.email, confirmationCode: confirmationCode);
                       await amplify_controller.updatePassword(oldPassword: widget.oldPassword, newPassword: fullPassword);
                       Utente utente =
                           await amplify_controller.fetchCurrentUserAttributes();
+                      attesa.hideProgressDialogue();
+                      Fluttertoast.cancel();
+                      toast.showToast(
+                          child: Finestra_conferma(message: "Conferma completata"),
+                          toastDuration: Duration(seconds: 2),
+                          gravity: ToastGravity.BOTTOM);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
                                   pagina_iniziale(utente)));
                     } catch (error) {
-                      Finestra_errore(title: 'Errore!', content: "Reset password non riuscito.",);
+                      attesa.hideProgressDialogue();
+                      Fluttertoast.cancel();
+                      toast.showToast(
+                          child: Finestra_errore(message: "Conferma non riuscita"),
+                          toastDuration: Duration(seconds: 2),
+                          gravity: ToastGravity.BOTTOM);
                     }
                   }
                 },
@@ -144,26 +161,4 @@ class Reset_pwd extends State<Reset_pwd_ui> {
   }
 
 
-  void showDialogue(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) => Container(
-        color: Colors.white,
-        child: Center(
-          child: CircularProgressIndicator(),
-        ),
-      ),
-    );
-  }
-
-  void hideProgressDialogue(BuildContext context) {
-    Navigator.of(context).pop(
-      Container(
-        color: Colors.white,
-        child: Center(
-          child: CircularProgressIndicator(),
-        ),
-      ),
-    );
-  }
 }

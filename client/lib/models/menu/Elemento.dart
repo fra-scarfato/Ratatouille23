@@ -54,6 +54,15 @@ class Elemento{
     };
   }
 
+  Map<String, dynamic> toJsonSenzaCategoria(){
+    return{
+      'id':_id,
+      'nome':_nome,
+      'descrizione':_descrizione,
+      'costo':_costo,
+      'allergeni':_allergeni,
+    };
+  }
 
   Categoria get categoria => _categoria;
 

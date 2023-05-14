@@ -76,7 +76,7 @@ class Amplify_controller {
         username: username,
         confirmationCode: confirmationCode,
       );
-    } on AuthException catch (e) {
+    } on AuthException {
       rethrow;
     }
   }
@@ -90,7 +90,7 @@ class Amplify_controller {
         username: email,
         password: password,
       );
-    } on AuthException catch (e) {
+    } on AuthException {
       rethrow;
     }
   }

@@ -34,7 +34,7 @@ class barra_superiore extends StatelessWidget{
               icon: Icon(
                 Icons.arrow_back_outlined,
                 color: Colors.white,
-                size: 40,
+                size: 30,
               ),
             ),
             Spacer(),

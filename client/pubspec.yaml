@@ -47,7 +47,7 @@ dependencies:
   amplify_flutter: ^1.0.0
   amplify_auth_cognito: ^1.0.0
   openfoodfacts: ^2.5.0
-
+  fluttertoast: ^8.2.1
 
 dev_dependencies:
   flutter_test:

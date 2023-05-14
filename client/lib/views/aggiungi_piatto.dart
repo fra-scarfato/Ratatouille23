@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Menu_controller.dart';
 import 'package:ratatouille23/models/menu/Categoria.dart';
 import 'package:ratatouille23/models/menu/Elemento.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
+import 'package:ratatouille23/views/custom_widget/Finestra_attesa.dart';
 import 'package:ratatouille23/views/custom_widget/Finestra_conferma.dart';
 import '../models/Utente.dart';
 import 'custom_widget/Finestra_errore.dart';
@@ -313,17 +315,31 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                               });
                             }
                           } else {
+                            var attesa = Finestra_attesa(context);
+                            FToast toast = FToast();
+                            toast.init(context);
                             try{
                               Categoria? categoriaElemento = _menu_controller.trovaCategoriaElemento(categoria, widget.listaCategorie);
                               if(categoriaElemento != null){
                                 double costoDouble = double.parse(costo);
                                 Elemento elementoDaAggiungere = Elemento.senzaId(nome,descrizione,costoDouble,allergeni,categoriaElemento);
+                                attesa.showDialogue();
                                 await _menu_controller.aggiungiElemento(elementoDaAggiungere);
-                                Finestra_conferma(title: '', content: 'Il piatto è stato aggiunto con successo',);
+                                attesa.hideProgressDialogue();
+                                Fluttertoast.cancel();
+                                toast.showToast(
+                                    child: Finestra_conferma(message: "Elemento aggiunto correttamente"),
+                                    toastDuration: Duration(seconds: 2),
+                                    gravity: ToastGravity.BOTTOM);
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => menu(utente: widget.utente,)));
                               }
                             }catch (error){
-                             Finestra_errore(title: 'Errore !', content: 'Errore durante l\'operazione di inserimento',);
+                              attesa.hideProgressDialogue();
+                              Fluttertoast.cancel();
+                              toast.showToast(
+                                  child: Finestra_errore(message: "Errore nell'aggiunta dell'elemento"),
+                                  toastDuration: Duration(seconds: 2),
+                                  gravity: ToastGravity.BOTTOM);
                            }
                           }
 

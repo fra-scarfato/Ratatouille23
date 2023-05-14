@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Menu_controller.dart';
 
 import '../../models/Utente.dart';
 import '../../models/menu/Categoria.dart';
 import '../../models/menu/Elemento.dart';
+import 'Finestra_conferma.dart';
 import 'elementi_card_bottom.dart';
 import 'elementi_card_header.dart';
 import 'modifica_piatto.dart';
@@ -48,7 +50,7 @@ class elementi_card_state extends State<elementi_card>{
                   'Costo: ${widget.elemento.costo}\$',
                   style: GoogleFonts.roboto(color: Colors.orange, fontSize: 36, fontStyle: FontStyle.italic),
                 ),
-                SizedBox(width: 176,),
+                SizedBox(width: 170,),
                 IconButton(
                     onPressed: (){modifica_piatto(listaCategorie: widget.listaCategorie, utente: widget.utente, elemento: widget.elemento);},
                     icon: Icon(
@@ -57,7 +59,15 @@ class elementi_card_state extends State<elementi_card>{
                     )
                 ),
                 IconButton(
-                    onPressed: (){menu_controller.rimuoviElemento(widget.elemento);},
+                    onPressed: (){
+                      FToast toast = FToast();
+                      Fluttertoast.cancel();
+                      toast.showToast(
+                          child: Finestra_conferma(message: "Elemento rimosso"),
+                          toastDuration: Duration(seconds: 2),
+                          gravity: ToastGravity.BOTTOM);
+                      menu_controller.rimuoviElemento(widget.elemento);
+                      },
                     icon: Icon(
                       Icons.delete_outline,
                       color: Colors.red,

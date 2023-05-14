@@ -1,14 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Amplify_controller.dart';
 import 'package:ratatouille23/controllers/Utente_controller.dart';
+import 'package:ratatouille23/views/custom_widget/Finestra_conferma.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
 
 import '../models/Utente.dart';
 import 'Login_ui.dart';
+import 'custom_widget/Finestra_attesa.dart';
 import 'custom_widget/Finestra_errore.dart';
 import 'custom_widget/barra_superiore.dart';
 
@@ -324,17 +327,27 @@ class registra_utente_ui extends State<registra_utente> {
                         }
                       }
                       else {
+                        var attesa = Finestra_attesa(context);
+                        FToast toast = FToast();
+                        toast.init(context);
                         try{
-                          showDialogue(context);
+                          attesa.showDialogue();
                           await amplify_controller.signUpUser(email: mail, password: password);
                           await utente_controller.aggiungiUtente(nome, cognome, mail, ruolo, widget.utente.get_id_ristorante());
-                          hideProgressDialogue(context);
+                          attesa.hideProgressDialogue();
+                          Fluttertoast.cancel();
+                          toast.showToast(
+                              child: Finestra_conferma(message: "Utente aggiunto correttamente"),
+                              toastDuration: Duration(seconds: 2),
+                              gravity: ToastGravity.BOTTOM);
                         }catch (error){
-                          hideProgressDialogue(context);
-                          Finestra_errore(title: 'Errore !', content: 'Errore durante l\'operazione');
+                          attesa.hideProgressDialogue();
+                          Fluttertoast.cancel();
+                          toast.showToast(
+                              child: Finestra_errore(message: "Aggiunta non riuscita"),
+                              toastDuration: Duration(seconds: 2),
+                              gravity: ToastGravity.BOTTOM);
                         }
-
-                        // Navigator.push(context, MaterialPageRoute(builder: (context) => const Login_ui()));
                       }
 
                     },
@@ -368,24 +381,4 @@ class registra_utente_ui extends State<registra_utente> {
 
 
   }
-
-  void showDialogue(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) => Container(
-        color: Colors.white,
-        child: Center(
-          child: CircularProgressIndicator(),
-        ),
-      ),
-    );
-  }
-
-  void hideProgressDialogue(BuildContext context) {
-    Navigator.of(context).pop(Container(
-      color: Colors.white,
-      child: Center(
-        child: CircularProgressIndicator(),
-      ),
-    ),);}
 }

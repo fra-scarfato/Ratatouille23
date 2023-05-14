@@ -1,34 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-class Finestra_conferma extends StatefulWidget{
-  final String title;
-  final String content;
-  Finestra_conferma({Key ? key, required this.title, required this.content, }) : super(key : key);
-  @override
-  Finestra_conferma_ui createState() => Finestra_conferma_ui();
-}
+class Finestra_conferma extends StatelessWidget{
+  final String message;
 
-class Finestra_conferma_ui extends State<Finestra_conferma>{
+
+  Finestra_conferma({required this.message});
+
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 0), (){
-      _showAlert(context);
-    });
-    return Scaffold();
-  }
-  Future<void> _showAlert(BuildContext context){
-    return showDialog(context: context, builder: (BuildContext context){
-      Future.delayed(Duration(seconds: 3), () {
-        Navigator.of(context).pop();
-      });
-      return AlertDialog(
-        title: Text(widget.title, textAlign: TextAlign.center,),
-        content: Text(widget.content),
-        backgroundColor: Colors.lightGreenAccent,
-      );
-    });
+    return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(25.0),
+      color: Colors.greenAccent,
+    ),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(Icons.check),
+        SizedBox(
+          width: 12.0,
+        ),
+        Text(message),
+      ],
+    ),
+    );
   }
 
 }

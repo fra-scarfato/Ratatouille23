@@ -19,7 +19,7 @@ import 'ordinazioni_elenco_cucina.dart';
 
 class pagina_iniziale extends StatelessWidget {
   final Utente utente;
-  late Amplify_controller amplify_controller;
+  Amplify_controller amplify_controller = Amplify_controller();
   late Utente_controller utente_controller;
 
   pagina_iniziale(this.utente);
@@ -27,40 +27,32 @@ class pagina_iniziale extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Ratatouille23',
+              style: GoogleFonts.sendFlowers(
+                  fontSize: 48,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.orange),
+            ),
+          ],
+        ),
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.logout)
+          )
+        ],
+      ),
       body: Column(
         //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Spacer(),
-              Text(
-                'Ratatouille23',
-                style: GoogleFonts.sendFlowers(
-                    fontSize: 48,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.orange),
-              ),
-              Spacer(),
-              // SizedBox(
-              //   width: 400,
-              // ),
-              IconButton(
-                onPressed: () {
-                  amplify_controller.signOutCurrentUser();
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Login_ui()));
-                },
-                icon: Icon(
-                  Icons.logout_rounded,
-                  color: Colors.black,
-                  size: 48,
-                ),
-              ),
-            ],
-          ),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
