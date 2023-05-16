@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Menu_controller.dart';
@@ -82,26 +83,39 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                     SizedBox(
                       width: 900,
                       height: 91,
-                      child: TextFormField(
-                        controller: nomeController,
-                        keyboardType: TextInputType.name,
-                        decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: borderSideColorNome, width: 5.0),
-                              borderRadius: BorderRadius.circular(50),
+                      child: TypeAheadFormField(
+                        textFieldConfiguration: TextFieldConfiguration(
+                            controller: nomeController,
+                            keyboardType: TextInputType.name,
+                            enableSuggestions: true,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: CupertinoColors.systemGrey3,
+                                      width: 5.0
+                                  ),
+                                  borderRadius: BorderRadius.circular(50)
+                              ),
+                              hintText: 'Inserisci il nome',
                             ),
-                            hintText: 'Inserisci il nome dell\'elemento',
-                            hintStyle: TextStyle(color: hintColorNome)),
-                        onChanged: (text) {
-                          setState(() {
-                            nome = text;
-                            OpenFoodAPIClient.getSuggestions(TagType.COUNTRIES, language: OpenFoodFactsLanguage.ITALIAN);
-                          });
+                            onChanged: (text){
+                              setState(() {
+                                nome=text;
+                              });
+                            }
+                        ),
+                        onSuggestionSelected: (suggestion) {
+                          this.nomeController.text = suggestion;
                         },
-                      ),
+                        itemBuilder: (context, suggestion) {
+                          return ListTile(
+                              title: Text(suggestion));
+                        },
+                        suggestionsCallback: (String pattern) async {
+                          return await OpenFoodAPIClient.getSuggestions(TagType.INGREDIENTS, input: pattern, language: OpenFoodFactsLanguage.ITALIAN);
+                        },)
                     ),
                     SizedBox(
                       width: 30,
@@ -223,26 +237,39 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                     SizedBox(
                       width: 900,
                       height: 91,
-                      child: TextFormField(
-                        controller: allergeniController,
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: CupertinoColors.systemGrey3,
-                                  width: 5.0),
-                              borderRadius: BorderRadius.circular(50)),
-                          hintText:
-                              'Inserisci gli allergeni presenti nell\'elemento',
+                      child: TypeAheadFormField(
+                        textFieldConfiguration: TextFieldConfiguration(
+                            controller: allergeniController,
+                            keyboardType: TextInputType.name,
+                            enableSuggestions: true,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: CupertinoColors.systemGrey3,
+                                      width: 5.0
+                                  ),
+                                  borderRadius: BorderRadius.circular(50)
+                              ),
+                              hintText: 'Inserisci gli allergeni',
+                            ),
+                            onChanged: (text){
+                              setState(() {
+                                allergeni=text;
+                              });
+                            }
                         ),
-                        onChanged: (text) {
-                          setState(() {
-                            allergeni = text;
-                          });
+                        onSuggestionSelected: (suggestion) {
+                          //this.allergeniController.text = suggestion;
                         },
-                      ),
+                        itemBuilder: (context, suggestion) {
+                          return ListTile(
+                              title: Text(suggestion));
+                        },
+                        suggestionsCallback: (String pattern) async {
+                          return await OpenFoodAPIClient.getSuggestions(TagType.ALLERGENS, input: pattern, language: OpenFoodFactsLanguage.ITALIAN);
+                        },),
                     ),
                     SizedBox(
                       width: 30,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ratatouille23/models/menu/Categoria.dart';
+import 'package:ratatouille23/models/menu/Elemento.dart';
 import 'package:ratatouille23/views/custom_widget/bottone_gestione_menu_admin.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -37,7 +38,12 @@ class menu_ui extends State<menu> {
       builder: (BuildContext context, snapshot) {
         Widget widget;
         if (snapshot.connectionState == ConnectionState.done) {
-          List<Categoria>? menu = [];
+          List<Categoria>? menu = [/*Categoria(0, "nome",
+              [Elemento(0, "nome", "descrizione", 1, "allergeni", Categoria(0,"",[],0)),
+                Elemento(1, "nome1", "descrizione1", 1, "allergeni", Categoria(0,"",[],0)),
+                Elemento(2, "nome2", "descrizione", 1, "allergeni", Categoria(0,"",[],0)),
+                Elemento(3, "nome3", "descrizione", 1, "allergeni", Categoria(0,"",[],0))],
+              0)*/];
           menu = snapshot.data;
           var elem = getElementiCards(menu![0]);
           listaCategorie = menu;

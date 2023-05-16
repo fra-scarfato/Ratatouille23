@@ -16,5 +16,23 @@
         "clientb702ec24": {}
       }
     }
+  },
+  "env": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-client-env-144033-authRole",
+      "UnauthRoleArn": "arn:aws:iam::708606148962:role/amplify-client-env-144033-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::708606148962:role/amplify-client-env-144033-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-client-env-144033-deployment",
+      "UnauthRoleName": "amplify-client-env-144033-unauthRole",
+      "StackName": "amplify-client-env-144033",
+      "StackId": "arn:aws:cloudformation:us-east-1:708606148962:stack/amplify-client-env-144033/b1783640-f31d-11ed-b652-1282f343deb1",
+      "AmplifyAppId": "dftzjph35mq2l"
+    },
+    "categories": {
+      "auth": {
+        "clientb702ec24": {}
+      }
+    }
   }
 }

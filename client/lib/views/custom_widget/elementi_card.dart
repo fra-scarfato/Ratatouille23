@@ -52,7 +52,10 @@ class elementi_card_state extends State<elementi_card>{
                 ),
                 SizedBox(width: 170,),
                 IconButton(
-                    onPressed: (){modifica_piatto(listaCategorie: widget.listaCategorie, utente: widget.utente, elemento: widget.elemento);},
+                    onPressed: (){Navigator.push(context,
+                        MaterialPageRoute(builder: (context)=>
+                            modifica_piatto(listaCategorie: widget.listaCategorie,
+                                utente: widget.utente, elemento: widget.elemento)));},
                     icon: Icon(
                       Icons.mode_edit_outlined,
                       size: 50,

@@ -46,7 +46,7 @@ class Home extends StatelessWidget {
                               var attesa = Finestra_attesa(context);
                               if(snapshot.data!) {
                                 attesa.showDialogue();
-                                Utente utente  = await amplify_controller.fetchCurrentUserAttributes();
+                                Utente utente  = /*Utente(3, "nome", "cognome", "email", "Amministratore", 0);*/await amplify_controller.fetchCurrentUserAttributes();
                                 attesa.hideProgressDialogue();
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => pagina_iniziale(utente)));
                               } else {
