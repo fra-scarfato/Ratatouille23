@@ -43,7 +43,20 @@ class menu_ui extends State<menu> {
                 Elemento(1, "nome1", "descrizione1", 1, "allergeni", Categoria(0,"",[],0)),
                 Elemento(2, "nome2", "descrizione", 1, "allergeni", Categoria(0,"",[],0)),
                 Elemento(3, "nome3", "descrizione", 1, "allergeni", Categoria(0,"",[],0))],
-              0)*/];
+              0),
+            Categoria(1, "nome2",
+                [Elemento(0, "nome4", "descrizione", 1, "allergeni", Categoria(0,"",[],0)),
+                  Elemento(1, "nome5", "descrizione1", 1, "allergeni", Categoria(0,"",[],0)),
+                  Elemento(2, "nome6", "descrizione", 1, "allergeni", Categoria(0,"",[],0)),
+                  Elemento(3, "nome7", "descrizione", 1, "allergeni", Categoria(0,"",[],0))],
+                0),
+            Categoria(2, "nome3",
+                [Elemento(0, "nome8", "descrizione", 1, "allergeni", Categoria(0,"",[],0)),
+                  Elemento(1, "nome10", "descrizione1", 1, "allergeni", Categoria(0,"",[],0)),
+                  Elemento(2, "nome11", "descrizione", 1, "allergeni", Categoria(0,"",[],0)),
+                  Elemento(3, "nome12", "descrizione", 1, "allergeni", Categoria(0,"",[],0))],
+                0),*/
+          ];
           menu = snapshot.data;
           var elem = getElementiCards(menu![0]);
           listaCategorie = menu;
@@ -54,7 +67,8 @@ class menu_ui extends State<menu> {
                 barra_superiore(
                   text: '',
                 ),
-                CategorieBar(listaCategorie: listaCategorie!),
+                CategorieBar_parent(listaCategorie: listaCategorie!, /*fun: (Categoria categoria){setState(() {
+                   elem = getElementiCards(categoria); print(categoria.get_nome());});}*/),
                 SizedBox(
                   height: 30,
                 ),

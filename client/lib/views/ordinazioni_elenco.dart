@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Ordinazione_controller.dart';
 import 'package:ratatouille23/services/Ordinazione_service.dart';
 import 'package:ratatouille23/views/ordinazioni_vuoto.dart';
+import 'package:ratatouille23/views/presa_ordinazione.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
 import '../models/Elemento_ordinato.dart';
@@ -223,8 +224,8 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
                                 hintColorNumeroTavolo= Colors.red;
                               });
                             }
-                            print(int.parse(numeroTavolo));
-                            //Navigator.push(context, MaterialPageRoute(builder: (context) => const menu(numerotavolo.toInt()));
+                            // print(int.parse(numeroTavolo));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const Presa_ordinazione()));
                           },
                           child: Text(
                             'PROSEGUI',
