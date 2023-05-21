@@ -1,20 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:ratatouille23/controllers/Menu_view_controller.dart';
 
 import '../../models/menu/Categoria.dart';
 
 
 class CategorieBar_parent extends StatefulWidget{
   final List<Categoria> listaCategorie;
-  // final Function(Categoria) fun;
+  final Menu_view_controller menu_view_controller;
+
+  //final Function(Categoria) fun;
 
 
 
   CategorieBar_parent({
     Key? key,
     required this.listaCategorie,
-    // required this.fun,
+    required this.menu_view_controller
+    //required this.fun,
   }) : super(key: key);
   @override
   CategorieBar createState() => new CategorieBar();
@@ -51,7 +56,9 @@ class CategorieBar extends State<CategorieBar_parent>{
                 selectedColor: Colors.black,
                 selected: list[index],
                 onTap: (){
-                  // widget.fun(widget.listaCategorie![index]);
+                  //widget.fun(widget.listaCategorie![index]);
+                  widget.menu_view_controller.set_selected(widget.listaCategorie[index]);
+                  print(widget.listaCategorie[index].get_nome());
                   setState(() {
                   for(int i=0; i<list.length; i++){
                     if(i!=index){

@@ -9,8 +9,10 @@ import 'package:ratatouille23/views/registra_utente.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../controllers/Utente_controller.dart';
+import '../controllers/Menu_view_controller.dart';
 import '../models/Utente.dart';
 import 'Login_ui.dart';
 import 'menu.dart';
@@ -75,7 +77,10 @@ class pagina_iniziale extends StatelessWidget {
                       color2: Colors.deepOrange,
                       icon: Icons.checklist_outlined),
                   bottoni_gestione(
-                      route: menu(utente: utente),
+                      route: ChangeNotifierProvider(
+                        create:(_) => Menu_view_controller(),
+                        child: menu(utente: utente)
+                      ),
                       text: 'MENU',
                       color1: Colors.lightBlue,
                       color2: Colors.lightBlueAccent,
