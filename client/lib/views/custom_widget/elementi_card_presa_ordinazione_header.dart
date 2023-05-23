@@ -2,12 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../models/Utente.dart';
+import '../../models/menu/Categoria.dart';
+import '../../models/menu/Elemento.dart';
+
 class elementi_card_presa_ordinazione_header extends StatefulWidget{
   final String nome;
   final double costo;
   int quantita_da_ordinare=0;
+  final Utente utente;
+  final Elemento elemento;
+  final List<Categoria>? listaCategorie;
 
-  elementi_card_presa_ordinazione_header({Key? key, required this.nome, required this.costo}) : super(key: key);
+  elementi_card_presa_ordinazione_header({Key? key, required this.nome, required this.costo, required this.utente, required this.elemento, required this.listaCategorie}) : super(key: key);
   @override
   elementi_card_presa_ordinazione_header_state createState() => elementi_card_presa_ordinazione_header_state();
 
@@ -18,6 +25,7 @@ class elementi_card_presa_ordinazione_header_state extends State<elementi_card_p
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           widget.nome,
@@ -39,7 +47,7 @@ class elementi_card_presa_ordinazione_header_state extends State<elementi_card_p
               size: 50,
             )
         ),
-        Text('${widget.quantita_da_ordinare}'),
+        Text('${widget.quantita_da_ordinare}', style: TextStyle(fontSize: 50),),
         IconButton(
             onPressed: (){setState(() {
               widget.quantita_da_ordinare++;

@@ -33,23 +33,20 @@ class modifica_piatto_state extends State<modifica_piatto> {
   TextEditingController costoController = TextEditingController();
   TextEditingController descrizioneController = TextEditingController();
   TextEditingController allergeniController = TextEditingController();
-  late String nome;
-  late String costo;
-  late String descrizione;
-  late String allergeni;
-  late String categoria;
-  onInit(){
-    nome = widget.elemento.nome;
-    costo = widget.elemento.costo as String;
-    descrizione = widget.elemento.descrizione;
-    allergeni = widget.elemento.allergeni;
-    categoria = widget.elemento.categoria.get_nome();
+  String nome = '';
+  String costo = '';
+  String descrizione = '';
+  String allergeni = '';
+  String categoria = '';
+
+  initState(){
+    super.initState();
+    nome = nomeController.text = widget.elemento.nome;
+    costo = costoController.text = widget.elemento.costo.toString();
+    descrizione = descrizioneController.text = widget.elemento.descrizione;
+    allergeni = allergeniController.text = widget.elemento.allergeni;
   }
-  // String nome = widget.nome;
-  // String costo = '';
-  // String descrizione = '';
-  // String allergeni = '';
-  // String categoria = '';
+
   List<String> items = []; //List<Categoria>
   String? selectedItem = 'Seleziona la categoria';
   Menu_controller _menu_controller = new Menu_controller();
@@ -108,12 +105,13 @@ class modifica_piatto_state extends State<modifica_piatto> {
                           fillColor: Colors.white,
                           border: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: CupertinoColors.systemGrey3,
+                                  color: borderSideColorNome,
                                   width: 5.0
                               ),
                               borderRadius: BorderRadius.circular(50)
                           ),
                           hintText: 'Inserisci il nome',
+                          hintStyle: TextStyle(color: hintColorNome),
                         ),
                         onChanged: (text){
                           setState(() {
@@ -161,7 +159,7 @@ class modifica_piatto_state extends State<modifica_piatto> {
                   height: 91,
                   child: TextFormField(
                     controller: costoController,
-                    keyboardType: TextInputType.name,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -170,7 +168,7 @@ class modifica_piatto_state extends State<modifica_piatto> {
                                 color: borderSideColorCosto, width: 5.0),
                             borderRadius: BorderRadius.circular(50)),
                         hintText: 'Inserisci il costo dell\'elemento',
-                        hintStyle: TextStyle(color: hintColorCosto)),
+                        hintStyle: TextStyle(color: hintColorCosto),),
                     onChanged: (text) {
                       setState(() {
                         costo = text;
@@ -276,7 +274,7 @@ class modifica_piatto_state extends State<modifica_piatto> {
                         }
                     ),
                     onSuggestionSelected: (suggestion) {
-                      //this.allergeniController.text = suggestion;
+                      allergeniController.text = suggestion;
                     },
                     itemBuilder: (context, suggestion) {
                       return ListTile(
@@ -312,7 +310,7 @@ class modifica_piatto_state extends State<modifica_piatto> {
                   child: DropDown(
                     items: items,
                     hint: Text(
-                      'Seleziona la categoria',
+                      categoria,
                       style: TextStyle(color: hintColorCategoria),
                     ),
                     icon: Icon(
@@ -337,14 +335,14 @@ class modifica_piatto_state extends State<modifica_piatto> {
               children: [
                 ElevatedButton(
                     onPressed: () async {
-                      if (nome == '' || costo == '' || categoria == '') {
+                      if (nome == '' || costo == '' || !isNumber(costo) || categoria == '') {
                         if (nome == '') {
                           setState(() {
                             borderSideColorNome = Colors.red;
                             hintColorNome = Colors.red;
                           });
                         }
-                        if (costo == '') {
+                        if (costo == '' || !isNumber(costo)) {
                           setState(() {
                             borderSideColorCosto = Colors.red;
                             hintColorCosto = Colors.red;
@@ -406,6 +404,10 @@ class modifica_piatto_state extends State<modifica_piatto> {
           ],
         )
     );
+  }
+
+  bool isNumber(String costo) {
+    return (int.tryParse(costo) != null) && (int.tryParse(costo)! > 0);
   }
 
 }

@@ -71,7 +71,7 @@ class pagina_iniziale extends StatelessWidget {
                       color2: Colors.yellow,
                       icon: Icons.person_add_alt_1_outlined) : SizedBox.shrink(),
                   bottoni_gestione(
-                      route: ordinazioni_elenco() /*const ordinazioni_vuoto()*/,
+                      route: ordinazioni_elenco(utente: utente) /*const ordinazioni_vuoto()*/,
                       text: 'ORDINAZIONI',
                       color1: Colors.pink,
                       color2: Colors.deepOrange,

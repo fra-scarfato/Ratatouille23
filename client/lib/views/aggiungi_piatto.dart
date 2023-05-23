@@ -114,7 +114,11 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                               title: Text(suggestion));
                         },
                         suggestionsCallback: (String pattern) async {
-                          return await OpenFoodAPIClient.getSuggestions(TagType.INGREDIENTS, input: pattern, language: OpenFoodFactsLanguage.ITALIAN);
+                          return await OpenFoodAPIClient.getSuggestions(
+                              TagType.INGREDIENTS,
+                              input: pattern,
+                              language: OpenFoodFactsLanguage.ITALIAN
+                          );
                         },)
                     ),
                     SizedBox(

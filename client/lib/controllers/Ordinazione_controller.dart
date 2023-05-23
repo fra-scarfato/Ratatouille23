@@ -1,32 +1,46 @@
 // ignore: file_names
 import 'package:ratatouille23/models/Ordinazione.dart';
 
+import '../models/Utente.dart';
 import '../services/Ordinazione_service.dart';
 
 class Ordinazione_controller{
 
-  //late Ordinazione_repository _ordinazione_repository=Ordinazione_repository(Ordinazione_service());
+
   late final Ordinazione_service _ordinazione_service = Ordinazione_service();
 
-  // Future<List<Ordinazione>> getAll_ordini() {
-  //   //return _ordinazione_repository.getAll();
-  //   // return _ordinazione_service.elenco_ordinazioni();
-  // }
+  Future<List<Ordinazione>?> getAll_ordini(Utente utente) async {
+    try{
+      List<Ordinazione> listaOrdinazione = await _ordinazione_service.elenco_ordinazioni(utente);
+      return listaOrdinazione;
+    } catch (error) {
+      rethrow;
+    }
+  }
 
   Future<void> registra_nuova_ordinazione(Ordinazione ordinazione) async {
-    //_ordinazione_repository.registra_nuova_ordinazione(ordinazione);
-    _ordinazione_service.registra_nuova_ordinazione(ordinazione);
+    try{
+      _ordinazione_service.registra_nuova_ordinazione(ordinazione);
+    } catch (error) {
+      rethrow;
+    }
   }
 
   Future<void> elimina_ordinazione(Ordinazione ordinazione) async {
-     //_ordinazione_repository.elimina_ordinazione(ordinazione);
-    _ordinazione_service.elimina_ordinazione(ordinazione);
+    try{
+      _ordinazione_service.elimina_ordinazione(ordinazione);
+    } catch (error) {
+      rethrow;
+    }
   }
 
 
   Future<void> modifica_ordinazione(Ordinazione ordinazione)async {
-    //_ordinazione_repository.modifica_ordinazione(ordinazione);
-    _ordinazione_service.modifica_ordinazione(ordinazione);
+    try{
+      _ordinazione_service.modifica_ordinazione(ordinazione);
+    } catch (error) {
+      rethrow;
+    }
   }
 
 

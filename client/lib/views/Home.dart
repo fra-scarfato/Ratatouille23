@@ -41,7 +41,7 @@ class Home extends StatelessWidget {
                           height: 30,
                         ),
                         ElevatedButton(
-
+                          
                             onPressed: () async {
                               var attesa = Finestra_attesa(context);
                               if(snapshot.data!) {

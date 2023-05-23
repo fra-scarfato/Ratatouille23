@@ -55,19 +55,17 @@ class menu_ui extends State<menu> {
         //         Elemento(3, "nome7", "descrizione", 1, "allergeni", Categoria(0,"",[],0))],
         //       0),
         //   Categoria(2, "nome3",
-        //       [Elemento(0, "nome8", "descrizione", 1, "allergeni", Categoria(0,"",[],0)),
+        //       [/*Elemento(0, "nome8", "descrizione", 1, "allergeni", Categoria(0,"",[],0)),
         //         Elemento(1, "nome10", "descrizione1", 1, "allergeni", Categoria(0,"",[],0)),
         //         Elemento(2, "nome11", "descrizione", 1, "allergeni", Categoria(0,"",[],0)),
-        //         Elemento(3, "nome12", "descrizione", 1, "allergeni", Categoria(0,"",[],0))],
+        //         Elemento(3, "nome12", "descrizione", 1, "allergeni", Categoria(0,"",[],0))*/],
         //       0),]
         // );
-          //menu = snapshot.data;
           _menu_view_controller.set_categorie(snapshot.data);
-          var menu = _menu_view_controller.get_categorie();
-          // var elem = getElementiCards(context.read<Menu_view_controller>().get_categorie()[0]);
-          // context.read<Menu_view_controller>().set_elem(elem);
-          _menu_view_controller.set_selected(menu[0]);
-          
+          List<Categoria>? menu = _menu_view_controller.get_categorie();
+          if (menu!.isNotEmpty) {
+            _menu_view_controller.set_selected(menu[0]);
+          }
           listaCategorie = menu;
           widget = Scaffold(
             body: Column(
@@ -79,20 +77,20 @@ class menu_ui extends State<menu> {
                 CategorieBar_parent(
                     listaCategorie: listaCategorie!,
                     menu_view_controller: _menu_view_controller
-                    // fun: (Categoria categoria){
-                    //  context.read<Menu_view_controller>().set_elem(getElementiCards(categoria));
-                    //  print(categoria.get_nome());}
                 ),
                 SizedBox(
                   height: 30,
                 ),
-                //container_elementi(getElementiCards(context.watch<Menu_view_controller>().get_selected()))
                 ListenableBuilder(
                     listenable: _menu_view_controller,
                     builder: (context, child){
-                      var elem = getElementiCards(_menu_view_controller.get_selected());
+                      List<Widget> elem = [];
+                      if (menu.isNotEmpty) {
+                        elem = getElementiCards(_menu_view_controller.get_selected());
+                      }
                       return container_elementi(elem);
-                    })
+                    }
+                )
               ],
             ),
             floatingActionButton: bottone_gestione_menu_admin(
@@ -129,9 +127,9 @@ class menu_ui extends State<menu> {
     return list;
   }
 
-  Widget container_elementi(var elem) {
+  Widget container_elementi(List<Widget> elem) {
     Widget widget;
-    if (elem != []) {
+    if (elem.length != 0) {
       widget = Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height - 187,
@@ -152,7 +150,7 @@ class menu_ui extends State<menu> {
           ],
         ),
       );
-    } else if (listaCategorie == []) {
+    } else if (listaCategorie?.length != 0) {
       widget = finestra_nessun_elemento(
           string1: 'NON CI SONO PIATTI',
           string2: 'NELLA CATEGORIA',
