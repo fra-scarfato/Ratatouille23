@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ratatouille23/views/custom_widget/bottone_gestione_menu_admin.dart';
+import 'package:ratatouille23/views/pagina_iniziale.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flag/flag.dart';
 
 import '../controllers/Menu_controller.dart';
 import '../controllers/Menu_view_controller.dart';
+import '../controllers/Presa_ordinazione_view_controller.dart';
 import '../models/Elemento_ordinato.dart';
 import '../models/Ordinazione.dart';
 import '../models/Utente.dart';
@@ -38,18 +40,21 @@ class Presa_ordinazione_state extends State<Presa_ordinazione>{
 
 
   Menu_controller _menu_controller = new Menu_controller();
-  List<Categoria>? listaCategorie = [];
+  //List<Categoria>? listaCategorie = [];
+  final Presa_ordinazione_view_controller _presa_ordinazione_view_controller= Presa_ordinazione_view_controller();
   final Menu_view_controller _menu_view_controller= Menu_view_controller();
 
   @override
   Widget build(BuildContext context) {
     Utente utente = widget.utente;
+    int tavolo = int.parse(widget.numeroTavolo);
+
     return FutureBuilder(
       future: _menu_controller.getAllCategorie(utente.get_id_ristorante()),
       builder: (BuildContext context, snapshot) {
         Widget widget;
         if (snapshot.connectionState == ConnectionState.done) {
-        // _menu_view_controller.set_categorie(
+        //   _menu_view_controller.set_categorie(
         //     [Categoria(0, "nome",
         //         [Elemento(0, "nome", "descrizione", 1, "allergeni", Categoria(0,"",[],0)),
         //           Elemento(1, "nome1", "descrizione1", 1, "allergeni", Categoria(0,"",[],0)),
@@ -69,12 +74,12 @@ class Presa_ordinazione_state extends State<Presa_ordinazione>{
         //         Elemento(3, "nome12", "descrizione", 1, "allergeni", Categoria(0,"",[],0))*/],
         //           0),]
         // );
-          _menu_view_controller.set_categorie(snapshot.data);
+        _menu_view_controller.set_categorie(snapshot.data);
+        _presa_ordinazione_view_controller.set_categorie(_menu_view_controller.get_categorie());
         List<Categoria>? menu = _menu_view_controller.get_categorie();
         if (menu!.isNotEmpty) {
           _menu_view_controller.set_selected(menu[0]);
         }
-        listaCategorie = menu;
         widget = Scaffold(
           body: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -83,7 +88,7 @@ class Presa_ordinazione_state extends State<Presa_ordinazione>{
                 text: '',
               ),
               CategorieBar_parent(
-                  listaCategorie: listaCategorie!,
+                  listaCategorie: _menu_view_controller.get_categorie(),
                   menu_view_controller: _menu_view_controller
               ),
               SizedBox(
@@ -98,13 +103,15 @@ class Presa_ordinazione_state extends State<Presa_ordinazione>{
                     }
                     return container_elementi(elem);
                   }
-              )
+              ),
+
             ],
           ),
-          floatingActionButton: bottone_gestione_menu_admin(
-              listaCategorie: menu, utente: utente),
-          floatingActionButtonLocation:
-          FloatingActionButtonLocation.centerFloat,
+          floatingActionButton: bottone_arancione_con_testo(
+              text: 'Visualizza riepilogo',
+              route: Visualizza_riepilogo(tavolo: tavolo, elementi_ordinati: _presa_ordinazione_view_controller.get_list_elem_ord(), utente: utente)
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         );
         } else {
           widget = Container(
@@ -127,7 +134,7 @@ class Presa_ordinazione_state extends State<Presa_ordinazione>{
         list.add(elementi_card_presa_ordinazione(
           utente: widget.utente,
           elemento: element,
-          listaCategorie: listaCategorie,
+          presa_ordinazione_view_controller: _presa_ordinazione_view_controller
         ));
       });
     }
@@ -141,24 +148,14 @@ class Presa_ordinazione_state extends State<Presa_ordinazione>{
       widget = Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height - 187,
-        child: ReorderableListView(
+        child: ListView(
           shrinkWrap: true,
-          onReorder: (int oldIndex, int newIndex) {
-            setState(() {
-              if (newIndex > oldIndex) {
-                newIndex -= 1;
-              }
-
-              final items = elem.removeAt(oldIndex);
-              elem.insert(newIndex, items);
-            });
-          },
           children: [
             ...elem,
           ],
         ),
       );
-    } else if (listaCategorie?.length != 0) {
+    } else if (_menu_view_controller.get_categorie().length != 0) {
       widget = finestra_nessun_elemento(
           string1: 'NON CI SONO PIATTI',
           string2: 'NELLA CATEGORIA',

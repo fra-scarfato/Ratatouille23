@@ -36,17 +36,18 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
   @override
   Widget build(BuildContext context) {
     Utente utente = widget.utente;
-    _ordinazione_elenco_view_controller.set_ordinazioni([Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so',45)),
-      Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so',45)),
-      Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so',45)),
-      Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so',45))]);
-    List<Ordinazione> ord = _ordinazione_elenco_view_controller.get_ordinazioni();
+    // _ordinazione_elenco_view_controller.set_ordinazioni([Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so',45)),
+    //   Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so',45)),
+    //   Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so',45)),
+    //   Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so',45))]);
+    // List<Ordinazione> ord = _ordinazione_elenco_view_controller.get_ordinazioni();
     return FutureBuilder(
         future: _ordinazione_controller.getAll_ordini(utente),
         builder: (BuildContext context, snapshot) {
           Widget widget;
           if (snapshot.connectionState == ConnectionState.done){
             _ordinazione_elenco_view_controller.set_ordinazioni(snapshot.data);
+            List<Ordinazione> ord = _ordinazione_elenco_view_controller.get_ordinazioni();
 
             widget = Scaffold(
               backgroundColor: Colors.transparent,

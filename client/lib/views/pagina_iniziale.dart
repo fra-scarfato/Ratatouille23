@@ -77,10 +77,7 @@ class pagina_iniziale extends StatelessWidget {
                       color2: Colors.deepOrange,
                       icon: Icons.checklist_outlined),
                   bottoni_gestione(
-                      route: ChangeNotifierProvider(
-                        create:(_) => Menu_view_controller(),
-                        child: menu(utente: utente)
-                      ),
+                      route: menu(utente: utente),
                       text: 'MENU',
                       color1: Colors.lightBlue,
                       color2: Colors.lightBlueAccent,

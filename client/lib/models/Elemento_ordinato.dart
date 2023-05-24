@@ -11,6 +11,11 @@ class Elemento_ordinato{
     _quantita=quantita;
   }
 
+  Elemento_ordinato.senzaId(Elemento elemento, int quantita){
+    _elemento=elemento;
+    _quantita=quantita;
+  }
+
   Elemento_ordinato.fromJson(Map<String, dynamic> json):
       _id_ordinazione=json['id_ordinazione'],
       _elemento=json['elemento'],
@@ -19,6 +24,14 @@ class Elemento_ordinato{
   Map<String, dynamic> toJson(){
     return{
       'id_ordinazione':_id_ordinazione,
+      'elemento':_elemento,
+      'quantita':_quantita
+
+    };
+  }
+
+  Map<String, dynamic> toJsonSenzaId(){
+    return{
       'elemento':_elemento,
       'quantita':_quantita
 

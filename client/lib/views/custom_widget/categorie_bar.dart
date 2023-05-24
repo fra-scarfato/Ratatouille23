@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:ratatouille23/controllers/Menu_view_controller.dart';
 
 import '../../models/menu/Categoria.dart';
+import '../../models/menu/Elemento.dart';
 
 
 class CategorieBar_parent extends StatefulWidget{
@@ -58,7 +59,6 @@ class CategorieBar extends State<CategorieBar_parent>{
                 selectedColor: Colors.black,
                 selected: list[index],
                 onTap: (){
-                  //widget.fun(widget.listaCategorie![index]);
                   widget.menu_view_controller.set_selected(widget.listaCategorie[index]);
                   setState(() {
                   for(int i=0; i<list.length; i++){

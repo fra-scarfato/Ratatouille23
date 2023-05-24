@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/models/Utente.dart';
 import 'package:ratatouille23/models/menu/Elemento.dart';
 
+import '../../controllers/Menu_view_controller.dart';
+import '../../controllers/Presa_ordinazione_view_controller.dart';
 import '../../models/menu/Categoria.dart';
 import 'elementi_card_bottom.dart';
 import 'elementi_card_header.dart';
@@ -13,9 +15,9 @@ class elementi_card_presa_ordinazione extends StatefulWidget{
   final Key key = UniqueKey();
   final Utente utente;
   final Elemento elemento;
-  final List<Categoria>? listaCategorie;
+  final Presa_ordinazione_view_controller presa_ordinazione_view_controller;
 
-  elementi_card_presa_ordinazione({required this.utente, required this.elemento, this.listaCategorie});
+  elementi_card_presa_ordinazione({required this.utente, required this.elemento, required this.presa_ordinazione_view_controller});
   @override
   elementi_card_presa_ordinazione_state createState() => elementi_card_presa_ordinazione_state();
 }
@@ -38,7 +40,7 @@ class elementi_card_presa_ordinazione_state extends State<elementi_card_presa_or
                 costo: widget.elemento.costo,
                 utente: widget.utente,
                 elemento: widget.elemento,
-                listaCategorie: widget.listaCategorie,
+                presa_ordinazione_view_controller: widget.presa_ordinazione_view_controller
             ),
             SizedBox(height: 16),
             Container(

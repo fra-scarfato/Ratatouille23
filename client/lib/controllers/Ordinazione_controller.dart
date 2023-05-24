@@ -1,6 +1,7 @@
 // ignore: file_names
 import 'package:ratatouille23/models/Ordinazione.dart';
 
+import '../models/Elemento_ordinato.dart';
 import '../models/Utente.dart';
 import '../services/Ordinazione_service.dart';
 
@@ -18,9 +19,9 @@ class Ordinazione_controller{
     }
   }
 
-  Future<void> registra_nuova_ordinazione(Ordinazione ordinazione) async {
+  Future<void> registra_nuova_ordinazione(int tavolo, String note, List<Elemento_ordinato> elementi, Utente gestore_ordinazione) async {
     try{
-      _ordinazione_service.registra_nuova_ordinazione(ordinazione);
+      _ordinazione_service.registra_nuova_ordinazione(Ordinazione.senzaId(tavolo, note, elementi, gestore_ordinazione));
     } catch (error) {
       rethrow;
     }
@@ -35,9 +36,9 @@ class Ordinazione_controller{
   }
 
 
-  Future<void> modifica_ordinazione(Ordinazione ordinazione)async {
+  Future<void> modifica_ordinazione(int id, int tavolo, String note, List<Elemento_ordinato> elementi, Utente gestore_ordinazione)async {
     try{
-      _ordinazione_service.modifica_ordinazione(ordinazione);
+      _ordinazione_service.modifica_ordinazione(Ordinazione(id, tavolo, note, elementi, gestore_ordinazione));
     } catch (error) {
       rethrow;
     }

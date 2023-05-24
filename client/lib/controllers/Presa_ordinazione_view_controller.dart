@@ -1,18 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:ratatouille23/models/Elemento_ordinato.dart';
 import 'package:ratatouille23/models/menu/Categoria.dart';
 
 import '../models/menu/Elemento.dart';
 
 class Presa_ordinazione_view_controller with ChangeNotifier{
   List<Categoria>? _categorie = <Categoria>[];
-  List<Widget>? _elem = <Widget>[];//TODO
-  late Categoria _selected ;
+  List<Elemento_ordinato> _list_elem_ord = <Elemento_ordinato>[];
 
-  set_categorie(List<Categoria>? cat){_categorie = cat; notifyListeners();}
-  set_elem(List<Widget> el){_elem = el; notifyListeners();}
-  set_selected(Categoria categoria){_selected = categoria; notifyListeners();}
+
+  set_categorie(List<Categoria>? cat){
+    _categorie = cat;
+    for(int i = 0; i < _categorie!.length; i++){
+      for(int j = 0; j < _categorie![i].get_elementi()!.length; j++){
+        _list_elem_ord.add(
+            Elemento_ordinato(_categorie![i].get_elementi()![j].id, _categorie![i].get_elementi()![j], 0)
+        );
+      }
+    }
+    notifyListeners();
+  }
+  set_list_elem_ord(List<Elemento_ordinato> el){_list_elem_ord = el; notifyListeners();}
+  aggiungi_quantita(Elemento elemento){
+    int i = 0;
+    while(_list_elem_ord[i].get_elemento() != elemento){
+      i++;
+    }
+    _list_elem_ord[i].incrementa_quantita();
+  }
+  rimuovi_quantita(Elemento elemento){
+    int i = 0;
+    while(_list_elem_ord[i].get_elemento() != elemento){
+      i++;
+    }
+    _list_elem_ord[i].decrementa_quantita();
+  }
 
   get_categorie(){return _categorie;}
-  get_elem(){return _elem;}
-  get_selected(){return _selected;}
+  List<Elemento_ordinato> get_list_elem_ord(){
+    List<Elemento_ordinato> ordinazioni = <Elemento_ordinato>[];
+    for(int i=0; i < _list_elem_ord.length; i++){
+      if(_list_elem_ord[i].get_quantita() > 0){
+        ordinazioni.add(_list_elem_ord[i]);
+      }
+    }
+    return ordinazioni;
+  }
+  get_quantita(Elemento elemento){
+      int i = 0;
+      while(_list_elem_ord[i].get_elemento() != elemento){
+        i++;
+      }
+      return _list_elem_ord[i].get_quantita();
+    }
 }

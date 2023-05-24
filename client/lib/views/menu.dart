@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -62,11 +63,11 @@ class menu_ui extends State<menu> {
         //       0),]
         // );
           _menu_view_controller.set_categorie(snapshot.data);
-          List<Categoria>? menu = _menu_view_controller.get_categorie();
+
+        List<Categoria>? menu = _menu_view_controller.get_categorie();
           if (menu!.isNotEmpty) {
             _menu_view_controller.set_selected(menu[0]);
           }
-          listaCategorie = menu;
           widget = Scaffold(
             body: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -74,9 +75,14 @@ class menu_ui extends State<menu> {
                 barra_superiore(
                   text: '',
                 ),
-                CategorieBar_parent(
-                    listaCategorie: listaCategorie!,
-                    menu_view_controller: _menu_view_controller
+                ListenableBuilder(
+                  listenable: _menu_view_controller,
+                  builder: (context, child) {
+                    return CategorieBar_parent(
+                        listaCategorie: _menu_view_controller.get_categorie(),
+                        menu_view_controller: _menu_view_controller
+                    );
+                  },
                 ),
                 SizedBox(
                   height: 30,

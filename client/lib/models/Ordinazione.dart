@@ -34,6 +34,17 @@ class Ordinazione{
 
     }
 
+  Ordinazione.senzaId(int tavolo, String note, List<Elemento_ordinato> elementi, Utente gestore_ordinazione /*String stato, DateTime data, double costo_totale*/){
+    _tavolo=tavolo;
+    _note=note;
+    _stato='In attesa';
+    _data= DateTime.now();
+    _elementi=elementi;
+    _costo_totale=_calcola_totale(elementi);
+    _gestore_ordinazione=gestore_ordinazione;
+
+  }
+
     Ordinazione.fromJson(Map<String, dynamic> json):
       _id=json['id'],
       _tavolo=json['tavolo'],
@@ -56,6 +67,18 @@ class Ordinazione{
         'gestore_ordinazione':_gestore_ordinazione
       };
     }
+
+  Map<String, dynamic> toJsonSenzaId(){
+    return{
+      'tavolo':_tavolo,
+      'note':_note,
+      'stato':_stato,
+      'data':_data,
+      'elementi':_elementi,
+      'costo_totale':_costo_totale,
+      'gestore_ordinazione':_gestore_ordinazione
+    };
+  }
 
     void set_id(int id){_id=id;}
     void set_tavolo(int tavolo){_tavolo=tavolo;}
