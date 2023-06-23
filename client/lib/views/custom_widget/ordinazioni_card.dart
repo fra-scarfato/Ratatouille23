@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ratatouille23/controllers/Ordinazione_controller.dart';
 
 import '../../models/Ordinazione.dart';
 
@@ -12,6 +13,7 @@ class ordinazioni_card extends StatefulWidget{
   }
 
 class ordinazioni_card_state extends State<ordinazioni_card>{
+  Ordinazione_controller _ordinazione_controller = Ordinazione_controller();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,7 +52,9 @@ class ordinazioni_card_state extends State<ordinazioni_card>{
                       ),
                       Spacer(),
                       IconButton(
-                          onPressed: (){},
+                          onPressed: (){
+                            //TODO
+                          },
                           icon: Icon(
                             Icons.mode_edit_outlined,
                             size: 50,
@@ -58,7 +62,9 @@ class ordinazioni_card_state extends State<ordinazioni_card>{
                       ),
                       SizedBox(width:16),
                       IconButton(
-                          onPressed: (){},
+                          onPressed: (){
+                            _ordinazione_controller.elimina_ordinazione(ord[i]);
+                          },
                           icon: Icon(
                             Icons.delete_outline,
                             color: Colors.red,
@@ -74,7 +80,13 @@ class ordinazioni_card_state extends State<ordinazioni_card>{
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       children: lista_elementi(ord[i]),
-
+                    ),
+                  ),
+                  Container(
+                    width:1161,
+                    child: Text(
+                        ord[i].get_note(),
+                        style: GoogleFonts.roboto(fontStyle: FontStyle.italic, fontSize: 27)
                     ),
                   )
 

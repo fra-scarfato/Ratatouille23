@@ -20,31 +20,40 @@ class Presa_ordinazione_view_controller with ChangeNotifier{
     }
     notifyListeners();
   }
+
   set_list_elem_ord(List<Elemento_ordinato> el){_list_elem_ord = el; notifyListeners();}
+
   aggiungi_quantita(Elemento elemento){
     int i = 0;
     while(_list_elem_ord[i].get_elemento() != elemento){
       i++;
     }
     _list_elem_ord[i].incrementa_quantita();
+    // print(_list_elem_ord[i].get_quantita());
+    print(get_list_elem_ord().length);
+    notifyListeners();
   }
+
   rimuovi_quantita(Elemento elemento){
     int i = 0;
     while(_list_elem_ord[i].get_elemento() != elemento){
       i++;
     }
     _list_elem_ord[i].decrementa_quantita();
+    notifyListeners();
   }
 
   get_categorie(){return _categorie;}
+
   List<Elemento_ordinato> get_list_elem_ord(){
     List<Elemento_ordinato> ordinazioni = <Elemento_ordinato>[];
     for(int i=0; i < _list_elem_ord.length; i++){
+      // print(_list_elem_ord[i].get_quantita());
       if(_list_elem_ord[i].get_quantita() > 0){
         ordinazioni.add(_list_elem_ord[i]);
       }
     }
-    return ordinazioni;
+    return ordinazioni.toList();
   }
   get_quantita(Elemento elemento){
       int i = 0;

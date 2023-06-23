@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+import 'package:ratatouille23/views/custom_widget/Finestra_errore.dart';
 import 'package:ratatouille23/views/custom_widget/bottone_gestione_menu_admin.dart';
 import 'package:ratatouille23/views/pagina_iniziale.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
@@ -48,6 +51,7 @@ class Presa_ordinazione_state extends State<Presa_ordinazione>{
   Widget build(BuildContext context) {
     Utente utente = widget.utente;
     int tavolo = int.parse(widget.numeroTavolo);
+    List<Elemento_ordinato> elementi_ordinati = [];
 
     return FutureBuilder(
       future: _menu_controller.getAllCategorie(utente.get_id_ristorante()),
@@ -100,16 +104,54 @@ class Presa_ordinazione_state extends State<Presa_ordinazione>{
                     List<Widget> elem = [];
                     if (menu.isNotEmpty) {
                       elem = elementi_card_ordinazione(_menu_view_controller.get_selected());
+                      elementi_ordinati = _presa_ordinazione_view_controller.get_list_elem_ord();
                     }
                     return container_elementi(elem);
                   }
               ),
-
+              // ElevatedButton(
+              //
+              //     onPressed: () {
+              //       check_ordinazione(tavolo, _presa_ordinazione_view_controller.get_list_elem_ord(), utente);
+              //     },
+              //     child: Text(
+              //       'Visualizza riepilogo',
+              //       style:TextStyle(
+              //         fontSize: 12,
+              //         color: Colors.white,
+              //       ),
+              //     ),
+              //
+              //     style: ElevatedButton.styleFrom(
+              //       shape: StadiumBorder(),
+              //       backgroundColor: Colors.orange,
+              //       padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+              //
+              //     )
+              //
+              // )
             ],
+
           ),
-          floatingActionButton: bottone_arancione_con_testo(
-              text: 'Visualizza riepilogo',
-              route: Visualizza_riepilogo(tavolo: tavolo, elementi_ordinati: _presa_ordinazione_view_controller.get_list_elem_ord(), utente: utente)
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: (){
+              elementi_ordinati = _presa_ordinazione_view_controller.get_list_elem_ord();
+              print(elementi_ordinati.length);
+              if(elementi_ordinati.length > 0){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Visualizza_riepilogo(tavolo: tavolo, elementi_ordinati: elementi_ordinati/*_presa_ordinazione_view_controller.get_list_elem_ord()*/, utente: utente)));
+              } else {
+                FToast toast = FToast();
+                toast.init(context);
+                return toast.showToast(
+                    child: Finestra_errore(message: 'L\'ordine non puo essere vuoto!'),
+                    toastDuration: Duration(seconds: 2),
+                    gravity: ToastGravity.BOTTOM
+                );
+              }
+            },
+            label: Text('Visualizza riepilogo', style: TextStyle(color: Colors.white, fontSize: 24,),),
+            backgroundColor: Colors.orangeAccent,
+            hoverColor: Colors.orange,
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         );
@@ -142,7 +184,7 @@ class Presa_ordinazione_state extends State<Presa_ordinazione>{
     return list;
   }
 
-  Widget container_elementi(List<Widget> elem) {
+  Widget  container_elementi(List<Widget> elem) {
     Widget widget;
     if (elem.length != 0) {
       widget = Container(
@@ -171,5 +213,19 @@ class Presa_ordinazione_state extends State<Presa_ordinazione>{
           string5: 'CLICCANDO IL BOTTONE');
     }
     return widget;
+  }
+
+  check_ordinazione(int tavolo, List<Elemento_ordinato> get_list_elem_ord, Utente utente) {
+    if(get_list_elem_ord.length != 0){
+      return Visualizza_riepilogo(tavolo: tavolo, elementi_ordinati: _presa_ordinazione_view_controller.get_list_elem_ord(), utente: utente);
+    } else {
+      FToast toast = FToast();
+      toast.init(context);
+      return toast.showToast(
+          child: Finestra_errore(message: 'L\'ordine non puo essere vuoto!'),
+          toastDuration: Duration(seconds: 2),
+          gravity: ToastGravity.BOTTOM
+      );
+    }
   }
 }

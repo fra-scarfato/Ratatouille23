@@ -41,20 +41,20 @@ class elementi_card_presa_ordinazione_header_state extends State<elementi_card_p
         Column(
           children: [
             IconButton(
-                onPressed: (){
-                  if(widget.quantita > 0){
-                    setState(() {
-                      widget.quantita--;
-                    });
-                    widget.presa_ordinazione_view_controller
-                        .rimuovi_quantita(widget.elemento);
-                  }
-                },
                 icon: Icon(
                   Icons.minimize,
                   color: Colors.orangeAccent,
                   size: 50,
-                )
+                ),
+              onPressed: (){
+                if(widget.quantita > 0){
+                  setState(() {
+                    widget.quantita--;
+                  });
+                  widget.presa_ordinazione_view_controller
+                      .rimuovi_quantita(widget.elemento);
+                }
+              },
             ),
             SizedBox(width: 50,),
           ],
@@ -71,20 +71,20 @@ class elementi_card_presa_ordinazione_header_state extends State<elementi_card_p
         Column(
           children: [
             IconButton(
-                onPressed: (){
-                    setState(() {
-                      widget.quantita++;
-                    });
-                    widget.presa_ordinazione_view_controller
-                        .aggiungi_quantita(widget.elemento);
-
-                },
                 icon: Icon(
                   Icons.add,
                   color: Colors.orangeAccent,
                   size: 50,
-                )
+                ),
+              onPressed: (){
+                setState(() {
+                  widget.quantita++;
+                });
+                widget.presa_ordinazione_view_controller
+                    .aggiungi_quantita(widget.elemento);
+              },
             ),
+
             SizedBox(width: 20,),
           ],
         ),

@@ -7,7 +7,8 @@ import '../../models/Ordinazione.dart';
 
 class ordinazioni_cucina_card extends StatefulWidget{
   List<Ordinazione> ord;
-  ordinazioni_cucina_card({Key? key, required this.ord}): super(key: key);
+  String richiesta;
+  ordinazioni_cucina_card({Key? key, required this.ord, required this.richiesta}): super(key: key);
   @override
   ordinazioni_cucina_card_state createState() => ordinazioni_cucina_card_state();
 }
@@ -22,17 +23,23 @@ class ordinazioni_cucina_card_state extends State<ordinazioni_cucina_card>{
       child: ListView(
         shrinkWrap: true,
         children: [
-          ...ordini_cucina_card(widget.ord),
+          ...ordini_cucina_card(widget.ord, ""),
         ],
       ),
 
     );
   }
 
-  List<Card> ordini_cucina_card(List<Ordinazione> ord){
+  List<Card> ordini_cucina_card(List<Ordinazione> ord, String richiesta){
     List<Card> list=[];
+    String daEscludere = "";
+    if(richiesta == "IN ATTESA"){
+      daEscludere = 'Preso in carica';
+    } else if(richiesta == "PRESI IN CARICO"){
+      daEscludere = 'In attesa';
+    }
     for(int i=0;i<ord.length;i++){
-      if(ord[i].get_stato() != 'Evaso'){list.add(Card(
+      if((ord[i].get_stato() != 'Evaso') && (ord[i].get_stato() != daEscludere)){list.add(Card(
           color: Colors.white,
           elevation: 30.0,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(33.0))),

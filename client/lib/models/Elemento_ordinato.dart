@@ -41,7 +41,11 @@ class Elemento_ordinato{
   void set_id_ordinazione(int id_ordinazione){_id_ordinazione=id_ordinazione;}
   void set_id_elemento(Elemento elemento){_elemento=elemento;}
   void incrementa_quantita(){_quantita++;}
-  void decrementa_quantita(){_quantita--;}
+  void decrementa_quantita(){
+    if(_quantita > 0){
+      _quantita--;
+    }
+  }
 
   int get_id_ordinazione(){return _id_ordinazione;}
   Elemento get_elemento(){return _elemento;}

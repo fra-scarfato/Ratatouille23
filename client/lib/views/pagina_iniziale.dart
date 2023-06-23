@@ -89,7 +89,7 @@ class pagina_iniziale extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   bottoni_gestione(
-                      route: ordinazioni_elenco_cucina(),
+                      route: ordinazioni_elenco_cucina(utente: utente,),
                       text: 'CUCINA',
                       color1: Colors.purple,
                       color2: Colors.purpleAccent,

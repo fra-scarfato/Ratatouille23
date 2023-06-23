@@ -38,7 +38,7 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
     Utente utente = widget.utente;
     // _ordinazione_elenco_view_controller.set_ordinazioni([Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so',45)),
     //   Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so',45)),
-    //   Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so',45)),
+    //   Ordinazione(001, 3, 'boh nota molto lunga per appesantire chi legge e chi scrive e per testtare la grafica che sembra fatta da un babbeo', elem, Utente(01,'er','va','ap','so',45)),
     //   Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so',45))]);
     // List<Ordinazione> ord = _ordinazione_elenco_view_controller.get_ordinazioni();
     return FutureBuilder(
