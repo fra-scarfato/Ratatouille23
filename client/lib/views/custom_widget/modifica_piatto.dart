@@ -121,6 +121,7 @@ class modifica_piatto_state extends State<modifica_piatto> {
                     ),
                     onSuggestionSelected: (suggestion) {
                       this.nomeController.text = suggestion;
+                      nome = suggestion;
                     },
                     itemBuilder: (context, suggestion) {
                       return ListTile(
@@ -275,6 +276,7 @@ class modifica_piatto_state extends State<modifica_piatto> {
                     ),
                     onSuggestionSelected: (suggestion) {
                       allergeniController.text = suggestion;
+                      allergeni = allergeniController.text;
                     },
                     itemBuilder: (context, suggestion) {
                       return ListTile(

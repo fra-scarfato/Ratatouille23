@@ -108,6 +108,7 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                         ),
                         onSuggestionSelected: (suggestion) {
                           this.nomeController.text = suggestion;
+                          nome = this.nomeController.text;
                         },
                         itemBuilder: (context, suggestion) {
                           return ListTile(
@@ -265,7 +266,8 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                             }
                         ),
                         onSuggestionSelected: (suggestion) {
-                          //this.allergeniController.text = suggestion;
+                          this.allergeniController.text = suggestion;
+                          allergeni = this.allergeniController.text;
                         },
                         itemBuilder: (context, suggestion) {
                           return ListTile(
@@ -301,7 +303,7 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                       child: DropDown(
                         items: items,
                         hint: Text(
-                          'Seleziona la categoria',
+                          categoria,
                           style: TextStyle(color: hintColorCategoria),
                         ),
                         icon: Icon(

@@ -142,7 +142,6 @@ class Login extends State<Login_ui> {
                         Utente utente = await amplify_controller
                             .fetchCurrentUserAttributes();
                         attesa.hideProgressDialogue();
-                        //Fluttertoast.cancel();
                         toast.showToast(
                             child: Finestra_conferma(message: "Accesso completato"),
                             toastDuration: Duration(seconds: 2),
@@ -160,7 +159,7 @@ class Login extends State<Login_ui> {
                           //TODO: Cuoco
                         }
                       }
-                    } catch (error) {
+                    } on AmplifyException {
                       attesa.hideProgressDialogue();
                       Fluttertoast.cancel();
                       toast.showToast(
