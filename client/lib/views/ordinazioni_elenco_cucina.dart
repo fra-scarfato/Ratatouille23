@@ -24,7 +24,7 @@ class ordinazioni_elenco_cucina extends StatefulWidget{
 
   final Utente utente;
 
-  const ordinazioni_elenco_cucina({super.key, required this.utente});
+  const  ordinazioni_elenco_cucina({super.key, required this.utente});
 
   @override
   ordinazioni_elenco_cucina_state createState() => ordinazioni_elenco_cucina_state();
@@ -87,17 +87,9 @@ class ordinazioni_elenco_cucina_state extends State<ordinazioni_elenco_cucina>{
                   //       ...bottoni(_ordinazione_elenco_cucina_view_controller),
                   //     ],
                   // ),
-              ListenableBuilder(
-                listenable: _ordinazione_elenco_cucina_view_controller,
-                builder: (context, child) {
-                  return bottoni(
-                      _ordinazione_elenco_cucina_view_controller
-                  );
-                },
-              ),
-                  SizedBox(
-                    height: 30,
-                  ),
+
+                bottoneOrdini(_ordinazione_elenco_cucina_view_controller),
+
                 ListenableBuilder(
                     listenable: _ordinazione_elenco_cucina_view_controller,
                     builder: (context, child) {
@@ -317,11 +309,65 @@ class ordinazioni_elenco_cucina_state extends State<ordinazioni_elenco_cucina>{
             ),
           ),
         ));
+  }
 
-
-
+  Row bottoneOrdini(Ordinazione_elenco_cucina_view_controller ordinazione_elenco_cucina_view_controller){
+    List<bool> list = [true, false];
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Expanded(
+          child: ListTile(
+            tileColor: Colors.yellow.shade200,
+            selectedTileColor: Colors.yellow,
+            selectedColor: Colors.black,
+            selected: list[0],
+            onTap: (){
+              ordinazione_elenco_cucina_view_controller.set_selected('IN ATTESA');
+              setState(() {
+                list[0] = true;
+                list[1] = false;
+              });},
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Ordini in attesa',
+                  style: GoogleFonts.roboto(fontSize: 24, fontStyle: FontStyle.italic),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Expanded(
+            child:ListTile(
+              tileColor: Colors.yellow.shade200,
+              selectedTileColor: Colors.yellow,
+              selectedColor: Colors.black,
+              selected: list[1],
+              onTap: (){
+                ordinazione_elenco_cucina_view_controller.set_selected('PRESI IN CARICO');
+                setState(() {
+                  list[1] = true;
+                  list[0] = false;
+                });},
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Ordini presi in carica',
+                    style: GoogleFonts.roboto(fontSize: 24, fontStyle: FontStyle.italic),
+                  ),
+                ],
+              ),
+            )
+        )
+      ],
+    );
 
   }
+
 
 
 
