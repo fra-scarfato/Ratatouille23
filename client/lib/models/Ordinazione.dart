@@ -34,6 +34,19 @@ class Ordinazione{
 
     }
 
+  Ordinazione.conStato(int id, int tavolo, String note, String stato, List<Elemento_ordinato> elementi, Utente gestore_ordinazione /*String stato, DateTime data, double costo_totale*/){
+    _id=id;
+    _tavolo=tavolo;
+    _note=note;
+    _stato=stato;
+    _data= DateTime.now();
+    _elementi=elementi;
+    _costo_totale=_calcola_totale(elementi);
+    _gestore_ordinazione=gestore_ordinazione;
+
+  }
+
+
   Ordinazione.senzaId(int tavolo, String note, List<Elemento_ordinato> elementi, Utente gestore_ordinazione /*String stato, DateTime data, double costo_totale*/){
     _tavolo=tavolo;
     _note=note;

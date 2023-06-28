@@ -36,9 +36,9 @@ class Ordinazione_controller{
   }
 
 
-  Future<void> modifica_ordinazione(int id, int tavolo, String note, List<Elemento_ordinato> elementi, Utente gestore_ordinazione)async {
+  Future<void> modifica_ordinazione(int id, int tavolo, String note, String stato, List<Elemento_ordinato> elementi, Utente gestore_ordinazione)async {
     try{
-      _ordinazione_service.modifica_ordinazione(Ordinazione(id, tavolo, note, elementi, gestore_ordinazione));
+      _ordinazione_service.modifica_ordinazione(Ordinazione.conStato(id, tavolo, note, stato, elementi, gestore_ordinazione));
     } catch (error) {
       rethrow;
     }
