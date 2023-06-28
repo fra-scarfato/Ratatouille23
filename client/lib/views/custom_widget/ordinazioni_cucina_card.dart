@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Ordinazione_controller.dart';
-
+import 'package:ratatouille23/controllers/Ordinazione_elenco_cucina_view_controller.dart';
 import '../../models/Ordinazione.dart';
 
 class ordinazioni_cucina_card extends StatefulWidget{
-  List<Ordinazione> ord;
-  String richiesta;
-  ordinazioni_cucina_card({Key? key, required this.ord, required this.richiesta}): super(key: key);
+  final List<Ordinazione> ord;
+  final String richiesta;
+  final Ordinazione_elenco_cucina_view_controller ordinazione_elenco_cucina_view_controller;
+  const ordinazioni_cucina_card({Key? key, required this.ord, required this.richiesta, required this.ordinazione_elenco_cucina_view_controller}): super(key: key);
   @override
   ordinazioni_cucina_card_state createState() => ordinazioni_cucina_card_state();
 }
@@ -23,14 +24,14 @@ class ordinazioni_cucina_card_state extends State<ordinazioni_cucina_card>{
       child: ListView(
         shrinkWrap: true,
         children: [
-          ...ordini_cucina_card(widget.ord, ""),
+          ...ordini_cucina_card(widget.ord, widget.richiesta, widget.ordinazione_elenco_cucina_view_controller),
         ],
       ),
 
     );
   }
 
-  List<Card> ordini_cucina_card(List<Ordinazione> ord, String richiesta){
+  List<Card> ordini_cucina_card(List<Ordinazione> ord, String richiesta, Ordinazione_elenco_cucina_view_controller ordinazione_elenco_cucina_view_controller){
     List<Card> list=[];
     String daEscludere = "";
     if(richiesta == "IN ATTESA"){
@@ -82,7 +83,7 @@ class ordinazioni_cucina_card_state extends State<ordinazioni_cucina_card>{
                       SizedBox(width:114),
                       Column(
                         children: [
-                          statoOrdine(ord[i]),
+                          statoOrdine(ord[i], ordinazione_elenco_cucina_view_controller),
                           SizedBox(height: 50,)
                         ],
                       ),
@@ -137,12 +138,13 @@ class ordinazioni_cucina_card_state extends State<ordinazioni_cucina_card>{
     );
   }
 
-  Widget statoOrdine(Ordinazione ord) {
+  Widget statoOrdine(Ordinazione ord, Ordinazione_elenco_cucina_view_controller ordinazione_elenco_cucina_view_controller) {
     String stato = ord.get_stato();
     Widget bottone_evadi = ElevatedButton(
 
         onPressed: () {setState(() {
-          ord.set_stato('Evaso');
+          // ord.set_stato('Evaso');
+          ordinazione_elenco_cucina_view_controller.set_stato(ord, 'Evaso');
         }); /*ordinazione_controller.modifica_ordinazione(ord);*/},
         child: Text(
           '           EVADI           ',
@@ -164,7 +166,8 @@ class ordinazioni_cucina_card_state extends State<ordinazioni_cucina_card>{
 
     Widget bottone_prendi_in_carica= ElevatedButton(
         onPressed: () {setState(() {
-          ord.set_stato('Preso in carica');
+          // ord.set_stato('Preso in carica');
+          ordinazione_elenco_cucina_view_controller.set_stato(ord, 'Preso in carica');
         }); /*ordinazione_controller.modifica_ordinazione(ord);*/},
 
         child: Text(
