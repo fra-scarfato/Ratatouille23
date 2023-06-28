@@ -38,15 +38,6 @@ class modifica_piatto_state extends State<modifica_piatto> {
   String descrizione = '';
   String allergeni = '';
   String categoria = '';
-
-  initState(){
-    super.initState();
-    nome = nomeController.text = widget.elemento.nome;
-    costo = costoController.text = widget.elemento.costo.toString();
-    descrizione = descrizioneController.text = widget.elemento.descrizione;
-    allergeni = allergeniController.text = widget.elemento.allergeni;
-  }
-
   List<String> items = []; //List<Categoria>
   String? selectedItem = 'Seleziona la categoria';
   Menu_controller _menu_controller = new Menu_controller();
@@ -58,6 +49,13 @@ class modifica_piatto_state extends State<modifica_piatto> {
   Color hintColorCosto = CupertinoColors.systemGrey3;
   Color hintColorCategoria = CupertinoColors.systemGrey3;
 
+  initState(){
+    super.initState();
+    nome = nomeController.text = widget.elemento.nome;
+    costo = costoController.text = widget.elemento.costo.toString();
+    descrizione = descrizioneController.text = widget.elemento.descrizione;
+    allergeni = allergeniController.text = widget.elemento.allergeni;
+  }
 
   @override
   Widget build(BuildContext context) {

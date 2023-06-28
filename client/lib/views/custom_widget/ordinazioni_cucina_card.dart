@@ -5,6 +5,7 @@ import 'package:ratatouille23/controllers/Ordinazione_controller.dart';
 import 'package:ratatouille23/controllers/Ordinazione_elenco_cucina_view_controller.dart';
 import '../../models/Ordinazione.dart';
 import '../../models/Utente.dart';
+import 'finestra_nessun_elemento.dart';
 
 class ordinazioni_cucina_card extends StatefulWidget{
   final List<Ordinazione> ord;
@@ -100,7 +101,21 @@ class ordinazioni_cucina_card_state extends State<ordinazioni_cucina_card>{
 
       ));
     }
-    return list;
+    if(list.isNotEmpty){
+      return list;
+    } else {
+     list.add(
+       Card(
+         child: finestra_nessun_elemento(
+             string1: 'NON SONO',
+             string2: 'PRESENTI ORDINAZIONI',
+             string3: '',
+             string4: '',
+             string5: ''),
+       )
+     );
+     return list;
+    }
   }
 
   List<Widget> lista_elementi(Ordinazione ordinazione) {
