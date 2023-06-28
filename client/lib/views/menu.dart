@@ -65,6 +65,7 @@ class menu_ui extends State<menu> {
           _menu_view_controller.set_categorie(snapshot.data);
 
         List<Categoria>? menu = _menu_view_controller.get_categorie();
+        listaCategorie = menu;
           if (menu!.isNotEmpty) {
             _menu_view_controller.set_selected(menu[0]);
           }
