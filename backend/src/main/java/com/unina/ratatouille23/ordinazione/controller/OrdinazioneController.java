@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.unina.ratatouille23.ordinazione.entity.Ordinazione;
@@ -26,9 +27,14 @@ public class OrdinazioneController {
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
-    @GetMapping("/get")
-    List<Ordinazione> getOrdinazioni(@RequestBody Utente gestoreOrdinazione) {
-        return servizioOrdinazioni.getOrdinazioni(gestoreOrdinazione);
+    @GetMapping("/get/sala")
+    List<Ordinazione> getOrdinazioniSala(@RequestParam(value = "idu") int idUtente) {
+        return servizioOrdinazioni.getOrdinazioniDaAddettoAllaSala(idUtente);
+    }
+
+     @GetMapping("/get/all")
+    List<Ordinazione> getOrdinazioni(@RequestParam(value = "idr") int idRistorante) {
+        return servizioOrdinazioni.getOrdinazioni(idRistorante);
     }
 
     @PostMapping("/add")

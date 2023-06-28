@@ -38,8 +38,13 @@ public class OrdinazioneServiceImpl implements OrdinazioneService{
     }
 
     @Override
-    public List<Ordinazione> getOrdinazioni(Utente gestoreOrdinazione) {
-        return (gestoreOrdinazione instanceof AddettoAllaSala) ? ordinazioneRepository.getOrdinazioniAddettoAllaSala(gestoreOrdinazione.getId()) : ordinazioneRepository.getTutteLeOrdinazioni(gestoreOrdinazione.getIdRistorante());
+    public List<Ordinazione> getOrdinazioni(int idRistorante) {
+        return ordinazioneRepository.getTutteLeOrdinazioni(idRistorante);
+    }
+
+    @Override
+    public List<Ordinazione> getOrdinazioniDaAddettoAllaSala(int idUtente) {
+        return ordinazioneRepository.getOrdinazioniAddettoAllaSala(idUtente);
     }
 
     @Override

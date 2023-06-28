@@ -20,8 +20,8 @@ public class ElementoOrdinato {
     @JoinColumn(name = "fk_id_elemento")
     private Elemento elementoDaOrdinare;
 
-    @Column(nullable = false)
-    private int quantità;
+    @Column(name = "quantità", nullable = false)
+    private int quantita;
 
     //Il riferimento all'ordinazione è stato implementato tramite annotation in Ordinazione.java
 
@@ -29,7 +29,7 @@ public class ElementoOrdinato {
     public ElementoOrdinato(Integer id, Elemento elementoDaOrdinare, int quantità) {
         this.id = id;
         this.elementoDaOrdinare = elementoDaOrdinare;
-        this.quantità = quantità;
+        this.quantita = quantità;
     }
 
 
@@ -53,12 +53,12 @@ public class ElementoOrdinato {
         this.elementoDaOrdinare = elementoDaOrdinare;
     }
 
-    public int getQuantità() {
-        return quantità;
+    public int getQuantita() {
+        return quantita;
     }
 
-    public void setQuantità(int quantità) {
-        this.quantità = quantità;
+    public void setQuantita(int quantità) {
+        this.quantita = quantità;
     }
     
     

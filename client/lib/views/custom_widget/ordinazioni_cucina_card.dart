@@ -4,18 +4,27 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Ordinazione_controller.dart';
 import 'package:ratatouille23/controllers/Ordinazione_elenco_cucina_view_controller.dart';
 import '../../models/Ordinazione.dart';
+import '../../models/Utente.dart';
 
 class ordinazioni_cucina_card extends StatefulWidget{
   final List<Ordinazione> ord;
-  final String richiesta;
-  final Ordinazione_elenco_cucina_view_controller ordinazione_elenco_cucina_view_controller;
-  const ordinazioni_cucina_card({Key? key, required this.ord, required this.richiesta, required this.ordinazione_elenco_cucina_view_controller}): super(key: key);
+  final Ordinazione_controller ordinazione_controller;
+  final Utente utente;
+
+  const ordinazioni_cucina_card({Key? key, required this.ord, required this.ordinazione_controller, required this.utente}): super(key: key);
   @override
   ordinazioni_cucina_card_state createState() => ordinazioni_cucina_card_state();
 }
 
 class ordinazioni_cucina_card_state extends State<ordinazioni_cucina_card>{
-  Ordinazione_controller ordinazione_controller=Ordinazione_controller();
+  Ordinazione_controller ordinazione_controller = Ordinazione_controller();
+
+  @override
+  void initState() {
+    ordinazione_controller = widget.ordinazione_controller;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,23 +33,17 @@ class ordinazioni_cucina_card_state extends State<ordinazioni_cucina_card>{
       child: ListView(
         shrinkWrap: true,
         children: [
-          ...ordini_cucina_card(widget.ord, widget.richiesta, widget.ordinazione_elenco_cucina_view_controller),
+          ...ordini_cucina_card(widget.ord),
         ],
       ),
 
     );
   }
 
-  List<Card> ordini_cucina_card(List<Ordinazione> ord, String richiesta, Ordinazione_elenco_cucina_view_controller ordinazione_elenco_cucina_view_controller){
+  List<Card> ordini_cucina_card(List<Ordinazione> ord){
     List<Card> list=[];
-    String daEscludere = "";
-    if(richiesta == "IN ATTESA"){
-      daEscludere = 'Preso in carica';
-    } else if(richiesta == "PRESI IN CARICO"){
-      daEscludere = 'In attesa';
-    }
     for(int i=0;i<ord.length;i++){
-      if((ord[i].get_stato() != 'Evaso') && (ord[i].get_stato() != daEscludere)){list.add(Card(
+      list.add(Card(
           color: Colors.white,
           elevation: 30.0,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(33.0))),
@@ -83,7 +86,7 @@ class ordinazioni_cucina_card_state extends State<ordinazioni_cucina_card>{
                       SizedBox(width:114),
                       Column(
                         children: [
-                          statoOrdine(ord[i], ordinazione_elenco_cucina_view_controller),
+                          statoOrdine(ord[i], ordinazione_controller),
                           SizedBox(height: 50,)
                         ],
                       ),
@@ -95,7 +98,7 @@ class ordinazioni_cucina_card_state extends State<ordinazioni_cucina_card>{
               )
           )
 
-      ));};
+      ));
     }
     return list;
   }
@@ -138,13 +141,14 @@ class ordinazioni_cucina_card_state extends State<ordinazioni_cucina_card>{
     );
   }
 
-  Widget statoOrdine(Ordinazione ord, Ordinazione_elenco_cucina_view_controller ordinazione_elenco_cucina_view_controller) {
+  Widget statoOrdine(Ordinazione ord, Ordinazione_controller ordinazioneController) {
     String stato = ord.get_stato();
     Widget bottone_evadi = ElevatedButton(
 
-        onPressed: () {setState(() {
+        onPressed: () {
+          setState(() {
           // ord.set_stato('Evaso');
-          ordinazione_elenco_cucina_view_controller.set_stato(ord, 'Evaso');
+          ordinazioneController.evadiOrdinazione(ord);
         }); /*ordinazione_controller.modifica_ordinazione(ord);*/},
         child: Text(
           '           EVADI           ',
@@ -165,10 +169,12 @@ class ordinazioni_cucina_card_state extends State<ordinazioni_cucina_card>{
     );
 
     Widget bottone_prendi_in_carica= ElevatedButton(
-        onPressed: () {setState(() {
-          // ord.set_stato('Preso in carica');
-          ordinazione_elenco_cucina_view_controller.set_stato(ord, 'Preso in carica');
-        }); /*ordinazione_controller.modifica_ordinazione(ord);*/},
+        onPressed: () {
+          setState(() {
+          ordinazioneController.prendiInCaricoOrdinazione(ord);
+        });
+          ordinazione_controller.modifica_ordinazione(ord);
+          },
 
         child: Text(
           'PRENDI IN CARICA',
@@ -199,13 +205,15 @@ class ordinazioni_cucina_card_state extends State<ordinazioni_cucina_card>{
       ],
     );
 
-    if(stato == 'In attesa'){
+    if(stato == "In attesa"){
       return bottone_prendi_in_carica;
     }
-    else if(stato == 'Preso in carica'){
+    else if(stato == "Presa in carico" && ord.get_gestore_ordinazione().get_id() == widget.utente.get_id()){
       return bottone_evadi;
     }
-    else return bottone_gia_preso_in_carica;
+    else {
+      return bottone_gia_preso_in_carica;
+    }
 
   }
 

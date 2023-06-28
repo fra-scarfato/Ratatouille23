@@ -17,14 +17,14 @@ class Elemento_ordinato{
   }
 
   Elemento_ordinato.fromJson(Map<String, dynamic> json):
-      _id_ordinazione=json['id_ordinazione'],
-      _elemento=json['elemento'],
+      _id_ordinazione=json['id'],
+      _elemento=Elemento.fromJson(json['elementoDaOrdinare']),
       _quantita=json['quantita'];
 
   Map<String, dynamic> toJson(){
     return{
-      'id_ordinazione':_id_ordinazione,
-      'elemento':_elemento,
+      'id':_id_ordinazione,
+      'elementoDaOrdinare':_elemento,
       'quantita':_quantita
 
     };

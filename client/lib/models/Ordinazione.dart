@@ -8,7 +8,7 @@ class Ordinazione{
   late int _tavolo;
   late String _note;
   late String _stato;
-  late DateTime _data;
+  late String _data;
   late List<Elemento_ordinato> _elementi;
   late double _costo_totale;
   late Utente _gestore_ordinazione;
@@ -22,62 +22,54 @@ class Ordinazione{
     return totale;
   }
 
-    Ordinazione(int id, int tavolo, String note, List<Elemento_ordinato> elementi, Utente gestore_ordinazione /*String stato, DateTime data, double costo_totale*/){
+    Ordinazione(int id, int tavolo, String note, List<Elemento_ordinato> elementi, Utente gestore_ordinazione, String data, double costo_totale){
       _id=id;
       _tavolo=tavolo;
       _note=note;
       _stato='In attesa';
-      _data= DateTime.now();
+      _data= data;
       _elementi=elementi;
       _costo_totale=_calcola_totale(elementi);
       _gestore_ordinazione=gestore_ordinazione;
 
     }
 
-  Ordinazione.conStato(int id, int tavolo, String note, String stato, List<Elemento_ordinato> elementi, Utente gestore_ordinazione /*String stato, DateTime data, double costo_totale*/){
-    _id=id;
-    _tavolo=tavolo;
-    _note=note;
-    _stato=stato;
-    _data= DateTime.now();
-    _elementi=elementi;
-    _costo_totale=_calcola_totale(elementi);
-    _gestore_ordinazione=gestore_ordinazione;
-
-  }
-
 
   Ordinazione.senzaId(int tavolo, String note, List<Elemento_ordinato> elementi, Utente gestore_ordinazione /*String stato, DateTime data, double costo_totale*/){
     _tavolo=tavolo;
     _note=note;
     _stato='In attesa';
-    _data= DateTime.now();
+    _data= _data;
     _elementi=elementi;
     _costo_totale=_calcola_totale(elementi);
     _gestore_ordinazione=gestore_ordinazione;
 
   }
 
-    Ordinazione.fromJson(Map<String, dynamic> json):
-      _id=json['id'],
-      _tavolo=json['tavolo'],
-      _note=json['note'],
-      _stato=json['stato'],
-      _data=json['data'],
-      _elementi=json['elementi'],
-      _costo_totale=json['costo_totale'],
-      _gestore_ordinazione=json['gestore_ordinazione'];
+    Ordinazione.fromJson(Map<String, dynamic> json){
+      _id = json['id'];
+      _tavolo=json['numeroTavolo'];
+      _note=json['note'];
+      _stato=json['stato'];
+      _data=json['data'];
+      _costo_totale=json['costoTotale'];
+      _gestore_ordinazione=Utente.fromJson(json['gestoreOrdinazione']);
+      _elementi = [];
+      json['elementiOrdinati'].forEach((v) {
+        _elementi.add(Elemento_ordinato.fromJson(v));
+      });
+  }
 
     Map<String, dynamic> toJson(){
       return{
         'id':_id,
-        'tavolo':_tavolo,
+        'numeroTavolo':_tavolo,
         'note':_note,
         'stato':_stato,
         'data':_data,
-        'elementi':_elementi,
-        'costo_totale':_costo_totale,
-        'gestore_ordinazione':_gestore_ordinazione
+        'elementiOrdinati':_elementi,
+        'costoTotale':_costo_totale,
+        'gestoreOrdinazione':_gestore_ordinazione
       };
     }
 
@@ -104,7 +96,7 @@ class Ordinazione{
     int get_tavolo(){return _tavolo;}
     String get_note(){return _note;}
     String get_stato(){return _stato;}
-    DateTime get_data(){return _data;}
+    String get_data(){return _data;}
     List<Elemento_ordinato> get_lista_elementi(){return _elementi;}
     double get_costo_totale(){return _costo_totale;}
     Utente get_gestore_ordinazione(){return _gestore_ordinazione;}

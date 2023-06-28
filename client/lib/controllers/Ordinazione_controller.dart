@@ -1,49 +1,95 @@
 // ignore: file_names
+import 'package:flutter/cupertino.dart';
 import 'package:ratatouille23/models/Ordinazione.dart';
 
 import '../models/Elemento_ordinato.dart';
 import '../models/Utente.dart';
+import '../models/menu/Categoria.dart';
+import '../models/menu/Elemento.dart';
 import '../services/Ordinazione_service.dart';
 
-class Ordinazione_controller{
-
-
+class Ordinazione_controller extends ChangeNotifier {
   late final Ordinazione_service _ordinazione_service = Ordinazione_service();
+  List<Ordinazione> _listaOrdinazione = <Ordinazione>[];
+  List<Ordinazione> _listaOrdiniAttesa = <Ordinazione>[];
+  List<Ordinazione> _listaOrdiniPresiInCarico = <Ordinazione>[];
+  List<Ordinazione> _listaDaVisualizzare = <Ordinazione>[];
 
   Future<List<Ordinazione>?> getAll_ordini(Utente utente) async {
-    try{
-      List<Ordinazione> listaOrdinazione = await _ordinazione_service.elenco_ordinazioni(utente);
-      return listaOrdinazione;
+    try {
+      _listaOrdinazione = await _ordinazione_service.elenco_ordinazioni(utente);
+      if (_listaOrdinazione.isNotEmpty) {
+        for (int i = 0; i < _listaOrdinazione.length; i++) {
+          if (_listaOrdinazione[i].get_stato() == "In attesa") {
+            _listaOrdiniAttesa.add(_listaOrdinazione[i]);
+          } else if (_listaOrdinazione[i].get_stato() == "Presa in carico"){
+            _listaOrdiniPresiInCarico.add(_listaOrdinazione[i]);
+          }
+        }
+      }
+      _listaDaVisualizzare = _listaOrdiniAttesa;
+      return _listaOrdinazione;
     } catch (error) {
+      print(error.toString());
       rethrow;
     }
   }
 
-  Future<void> registra_nuova_ordinazione(int tavolo, String note, List<Elemento_ordinato> elementi, Utente gestore_ordinazione) async {
-    try{
-      _ordinazione_service.registra_nuova_ordinazione(Ordinazione.senzaId(tavolo, note, elementi, gestore_ordinazione));
+  void showOrdinazioniInAttesa() {
+    _listaDaVisualizzare = _listaOrdiniAttesa;
+    notifyListeners();
+  }
+
+  void showOrdinazioniPreseInCarico() {
+    _listaDaVisualizzare = _listaOrdiniPresiInCarico;
+    notifyListeners();
+  }
+
+  List<Ordinazione> getListaOrdinazioniDaVisualizzare() {
+    return _listaDaVisualizzare;
+  }
+
+  void prendiInCaricoOrdinazione(Ordinazione ordinazioneDaPrendereInCarico) {
+    ordinazioneDaPrendereInCarico.set_stato("Presa in carico");
+    _listaDaVisualizzare.remove(ordinazioneDaPrendereInCarico);
+    _listaOrdiniAttesa.remove(ordinazioneDaPrendereInCarico);
+    _listaOrdiniPresiInCarico.add(ordinazioneDaPrendereInCarico);
+    notifyListeners();
+  }
+
+  void evadiOrdinazione(Ordinazione ordinazioneDaEvadere) {
+    ordinazioneDaEvadere.set_stato("Evasa");
+    _listaDaVisualizzare.remove(ordinazioneDaEvadere);
+    _listaOrdiniPresiInCarico.remove(ordinazioneDaEvadere);
+    notifyListeners();
+  }
+
+  Future<void> registra_nuova_ordinazione(int tavolo, String note,
+      List<Elemento_ordinato> elementi, Utente gestore_ordinazione) async {
+    try {
+      _ordinazione_service.registra_nuova_ordinazione(
+          Ordinazione.senzaId(tavolo, note, elementi, gestore_ordinazione));
     } catch (error) {
       rethrow;
     }
   }
 
   Future<void> elimina_ordinazione(Ordinazione ordinazione) async {
-    try{
+    try {
       _ordinazione_service.elimina_ordinazione(ordinazione);
     } catch (error) {
       rethrow;
     }
   }
 
-
-  Future<void> modifica_ordinazione(int id, int tavolo, String note, String stato, List<Elemento_ordinato> elementi, Utente gestore_ordinazione)async {
-    try{
-      _ordinazione_service.modifica_ordinazione(Ordinazione.conStato(id, tavolo, note, stato, elementi, gestore_ordinazione));
+  Future<void> modifica_ordinazione(
+      Ordinazione ordinazione) async {
+    try {
+      _ordinazione_service.modifica_ordinazione(ordinazione);
     } catch (error) {
       rethrow;
     }
   }
-
 
   /*
   late Ordinazione _ordinazione;
@@ -71,5 +117,4 @@ class Ordinazione_controller{
   }
 
    */
-
 }

@@ -16,7 +16,7 @@ class Ordinazione_service{
   };
 
   void registra_nuova_ordinazione(Ordinazione ordinazione) async {
-    final uri = Uri.http(authority, '');
+    final uri = Uri.http(authority, '/order/add');
     var response = await http.post(
       uri,
       headers: header,
@@ -29,7 +29,7 @@ class Ordinazione_service{
   }
 
   void elimina_ordinazione(Ordinazione ordinazione) async {
-    final uri = Uri.http(authority, '');
+    final uri = Uri.http(authority, '/order/delete');
     var response = await http.delete(
       uri,
       headers: header,
@@ -41,7 +41,7 @@ class Ordinazione_service{
   }
 
   void modifica_ordinazione(Ordinazione ordinazione) async{
-    final uri = Uri.http(authority, '');
+    final uri = Uri.http(authority, '/order/update');
     var response = await http.put(
       uri,
       headers: header,
@@ -53,9 +53,18 @@ class Ordinazione_service{
   }
 
   Future<List<Ordinazione>> elenco_ordinazioni(Utente utente) async {
-    final queryParameter = {};//TODO
-    final uri = Uri.http(authority, '', /*queryParameter*/);
+    var queryParameter;
+    String endpoint;
+    if(utente.get_ruolo() == "Addetto alla sala") {
+      queryParameter = {'idu': utente.get_id().toString()};
+      endpoint = "/order/get/sala";
+    } else {
+      queryParameter = {'idr': utente.get_id_ristorante().toString()};
+      endpoint = "/order/get/all";
+    }
+    final uri = Uri.http(authority, endpoint, queryParameter);
     var response = await http.get(uri);
+    print(response.body);
     if (response.statusCode == 200) {
       List<Ordinazione> listaOrdinazione = (jsonDecode(response.body) as List)
           .map((ordinazione) => Ordinazione.fromJson(ordinazione))
