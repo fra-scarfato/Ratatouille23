@@ -27,9 +27,14 @@ public class Ordinazione {
     private int idRistorante;
 
     @ManyToOne
-    @JoinColumn(name = "fk_id_utente")
+    @JoinColumn(name = "fk_id_gestore")
     @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
     private Utente gestoreOrdinazione;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_id_addettosala")
+    @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
+    private Utente addettoAllaSala;
 
     @Column(name = "n_tavolo", nullable = false)
     private int numeroTavolo;

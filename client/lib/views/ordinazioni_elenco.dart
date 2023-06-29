@@ -28,21 +28,20 @@ class ordinazioni_elenco extends StatefulWidget{
 }
 
 class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
-  Ordinazione_controller _ordinazione_controller = new Ordinazione_controller();
+  late Ordinazione_controller _ordinazione_controller;
   Ordinazione_elenco_view_controller _ordinazione_elenco_view_controller = Ordinazione_elenco_view_controller();
 
-  List<Elemento_ordinato> elem=[Elemento_ordinato(5656, Elemento(47,'pera','frutto dolce',1.5,'',Categoria(1,'n',[],1)), 1),Elemento_ordinato(5656, Elemento(42,'mela','frutto dolce',1.3,'',Categoria(1,'n',[],1)), 3)];
+  @override
+  void initState() {
+    _ordinazione_controller = Ordinazione_controller(utente: widget.utente);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     Utente utente = widget.utente;
-    // _ordinazione_elenco_view_controller.set_ordinazioni([Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so',45)),
-    //   Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so',45)),
-    //   Ordinazione(001, 3, 'boh nota molto lunga per appesantire chi legge e chi scrive e per testtare la grafica che sembra fatta da un babbeo', elem, Utente(01,'er','va','ap','so',45)),
-    //   Ordinazione(001, 3, 'boh', elem, Utente(01,'er','va','ap','so',45))]);
-    // List<Ordinazione> ord = _ordinazione_elenco_view_controller.get_ordinazioni();
     return FutureBuilder(
-        future: _ordinazione_controller.getAll_ordini(utente),
+        future: _ordinazione_controller.getAll_ordini(),
         builder: (BuildContext context, snapshot) {
           Widget widget;
           if (snapshot.connectionState == ConnectionState.done){
@@ -71,7 +70,7 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
                             listenable: _ordinazione_elenco_view_controller,
                             builder: (context, child) {
                               if(ord.isNotEmpty){
-                                return ordinazioni_card(ord: ord);
+                                return ordinazioni_card(ord: ord,utente: utente,);
                               } else {
                                 return finestra_nessun_elemento(
                                     string1: 'NON HAI REGISTRATO',

@@ -49,6 +49,7 @@ dependencies:
   openfoodfacts: ^2.5.0
   fluttertoast: ^8.2.1
   flutter_typeahead: ^4.3.8
+  stomp_dart_client: ^0.4.4
 
 dev_dependencies:
   flutter_test:

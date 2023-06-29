@@ -2,6 +2,7 @@ package com.unina.ratatouille23.ordinazione.services;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,12 +40,21 @@ public class OrdinazioneServiceImpl implements OrdinazioneService{
 
     @Override
     public List<Ordinazione> getOrdinazioni(int idRistorante) {
-        return ordinazioneRepository.getTutteLeOrdinazioni(idRistorante);
+        List<Ordinazione> ordinazioni = ordinazioneRepository.getTutteLeOrdinazioni(idRistorante);
+        for (Ordinazione ordinazione : ordinazioni) {
+            ordinazione.setGestoreOrdinazione((Utente) Hibernate.unproxy(ordinazione.getGestoreOrdinazione()));
+        }
+        return ordinazioni;
     }
 
     @Override
     public List<Ordinazione> getOrdinazioniDaAddettoAllaSala(int idUtente) {
-        return ordinazioneRepository.getOrdinazioniAddettoAllaSala(idUtente);
+       
+        List<Ordinazione> ordinazioni = ordinazioneRepository.getOrdinazioniAddettoAllaSala(idUtente);
+        for (Ordinazione ordinazione : ordinazioni) {
+            ordinazione.setGestoreOrdinazione((Utente) Hibernate.unproxy(ordinazione.getGestoreOrdinazione()));
+        }
+        return ordinazioni;
     }
 
     @Override

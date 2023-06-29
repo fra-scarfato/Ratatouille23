@@ -24,7 +24,14 @@ class Visualizza_riepilogo extends StatefulWidget{
 class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
   TextEditingController noteController= TextEditingController();
   String note='';
-  Ordinazione_controller _ordinazione_controller = Ordinazione_controller();
+  late Ordinazione_controller _ordinazione_controller;
+
+  @override
+  void initState() {
+    _ordinazione_controller = Ordinazione_controller(utente: widget.utente);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

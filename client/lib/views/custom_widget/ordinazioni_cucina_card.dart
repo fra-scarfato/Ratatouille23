@@ -18,7 +18,7 @@ class ordinazioni_cucina_card extends StatefulWidget{
 }
 
 class ordinazioni_cucina_card_state extends State<ordinazioni_cucina_card>{
-  Ordinazione_controller ordinazione_controller = Ordinazione_controller();
+  late Ordinazione_controller ordinazione_controller;
 
   @override
   void initState() {
@@ -162,9 +162,9 @@ class ordinazioni_cucina_card_state extends State<ordinazioni_cucina_card>{
 
         onPressed: () {
           setState(() {
-          // ord.set_stato('Evaso');
           ordinazioneController.evadiOrdinazione(ord);
-        }); /*ordinazione_controller.modifica_ordinazione(ord);*/},
+        });
+          ordinazione_controller.modifica_ordinazione(ord);},
         child: Text(
           '           EVADI           ',
           style:TextStyle(

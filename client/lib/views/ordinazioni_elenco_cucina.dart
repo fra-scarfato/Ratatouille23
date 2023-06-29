@@ -32,12 +32,19 @@ class ordinazioni_elenco_cucina extends StatefulWidget {
 }
 
 class ordinazioni_elenco_cucina_state extends State<ordinazioni_elenco_cucina> {
-  Ordinazione_controller _ordinazione_controller = new Ordinazione_controller();
+  late Ordinazione_controller _ordinazione_controller;
+
+  @override
+  void initState() {
+    _ordinazione_controller = Ordinazione_controller(utente: widget.utente);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    _ordinazione_controller.connettiStompClient();
     return FutureBuilder(
-        future: _ordinazione_controller.getAll_ordini(widget.utente),
+        future: _ordinazione_controller.getAll_ordini(),
         builder: (BuildContext context, snapshot) {
           Widget widgetDaTornare;
           if (snapshot.connectionState == ConnectionState.done) {

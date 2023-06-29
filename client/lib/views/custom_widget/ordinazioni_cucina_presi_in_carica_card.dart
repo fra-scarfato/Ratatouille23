@@ -4,16 +4,25 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Ordinazione_controller.dart';
 
 import '../../models/Ordinazione.dart';
+import '../../models/Utente.dart';
 
 class ordinazioni_cucina_presi_in_carica_card extends StatefulWidget{
   List<Ordinazione> ord;
-  ordinazioni_cucina_presi_in_carica_card({Key? key, required this.ord}): super(key: key);
+  Utente utente;
+  ordinazioni_cucina_presi_in_carica_card({Key? key, required this.ord, required this.utente}): super(key: key);
   @override
   ordinazioni_cucina_card_presi_in_carica_state createState() => ordinazioni_cucina_card_presi_in_carica_state();
 }
 
 class ordinazioni_cucina_card_presi_in_carica_state extends State<ordinazioni_cucina_presi_in_carica_card>{
-  Ordinazione_controller ordinazione_controller=Ordinazione_controller();
+  late Ordinazione_controller ordinazione_controller;
+
+  @override
+  void initState() {
+    ordinazione_controller = Ordinazione_controller(utente: widget.utente);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(

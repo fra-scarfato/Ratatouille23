@@ -24,7 +24,7 @@ class Elemento_ordinato{
   Map<String, dynamic> toJson(){
     return{
       'id':_id_ordinazione,
-      'elementoDaOrdinare':_elemento,
+      'elementoDaOrdinare':_elemento.toJsonSenzaCategoria(),
       'quantita':_quantita
 
     };
@@ -32,7 +32,7 @@ class Elemento_ordinato{
 
   Map<String, dynamic> toJsonSenzaId(){
     return{
-      'elemento':_elemento,
+      'elemento':_elemento.toJsonSenzaId(),
       'quantita':_quantita
 
     };

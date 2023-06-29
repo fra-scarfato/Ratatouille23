@@ -4,16 +4,24 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Ordinazione_controller.dart';
 
 import '../../models/Ordinazione.dart';
+import '../../models/Utente.dart';
 
 class ordinazioni_card extends StatefulWidget{
   List<Ordinazione> ord;
-  ordinazioni_card({Key? key, required this.ord}): super(key: key);
+  Utente utente;
+  ordinazioni_card({Key? key, required this.ord, required this.utente}): super(key: key);
   @override
   ordinazioni_card_state createState() => ordinazioni_card_state();
   }
 
 class ordinazioni_card_state extends State<ordinazioni_card>{
-  Ordinazione_controller _ordinazione_controller = Ordinazione_controller();
+  late Ordinazione_controller _ordinazione_controller;
+
+  @override
+  void initState() {
+    _ordinazione_controller = Ordinazione_controller(utente: widget.utente);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
