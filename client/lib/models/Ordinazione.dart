@@ -1,5 +1,5 @@
-import 'dart:js_util';
 
+import 'package:intl/intl.dart';
 import 'package:ratatouille23/models/Elemento_ordinato.dart';
 import 'package:ratatouille23/models/Utente.dart';
 
@@ -10,10 +10,10 @@ class Ordinazione{
   late int _tavolo;
   late String _note;
   late String _stato;
-  late String _data;
+  late DateTime _data;
   late List<Elemento_ordinato> _elementi;
   late double _costo_totale;
-  late Utente _gestore_ordinazione;
+  Utente? _gestore_ordinazione;
   Utente? _addetto_alla_sala;
 
 
@@ -25,35 +25,11 @@ class Ordinazione{
     return totale;
   }
 
-    Ordinazione(int id, int tavolo, String note, List<Elemento_ordinato> elementi, Utente gestore_ordinazione, String stato, String data, double costo_totale, Utente addetto_alla_sala){
-      _id=id;
-      _tavolo=tavolo;
-      _note=note;
-      _stato=stato;
-      _data= data;
-      _elementi=elementi;
-      _costo_totale=_calcola_totale(elementi);
-      _gestore_ordinazione=gestore_ordinazione;
-      _addetto_alla_sala=addetto_alla_sala;
-    }
-
-  Ordinazione.senzaId(int tavolo, String note, List<Elemento_ordinato> elementi, Utente addetto_alla_sala /*String stato, DateTime data, double costo_totale*/){
+  Ordinazione.senzaId(int tavolo, String note, List<Elemento_ordinato> elementi, Utente addetto_alla_sala){
     _tavolo=tavolo;
     _note=note;
     _stato='In attesa';
-    _data= _data;
-    _elementi=elementi;
-    _costo_totale=_calcola_totale(elementi);
-    _addetto_alla_sala=addetto_alla_sala;
-  }
-
-
-  Ordinazione.senzaGestore(int id, int tavolo, String note, List<Elemento_ordinato> elementi, Utente addetto_alla_sala, String stato, String data, double costo_totale){
-    _id=id;
-    _tavolo=tavolo;
-    _note=note;
-    _stato=stato;
-    _data= data;
+    _data= DateTime.now();
     _elementi=elementi;
     _costo_totale=_calcola_totale(elementi);
     _addetto_alla_sala=addetto_alla_sala;
@@ -64,7 +40,7 @@ class Ordinazione{
       _tavolo=json['numeroTavolo'];
       _note=json['note'];
       _stato=json['stato'];
-      _data=json['data'];
+      _data=DateTime.parse(json['data']);
       _costo_totale=json['costoTotale'];
       _gestore_ordinazione=Utente.fromJson(json['gestoreOrdinazione']);
       _addetto_alla_sala=Utente.fromJson(json['addettoAllaSala']);
@@ -79,7 +55,7 @@ class Ordinazione{
     _tavolo=json['numeroTavolo'];
     _note=json['note'];
     _stato=json['stato'];
-    _data=json['data'];
+    _data=DateTime.parse(json['data']);
     _costo_totale=json['costoTotale'];
     _addetto_alla_sala=Utente.fromJson(json['addettoAllaSala']);
     _elementi = [];
@@ -93,7 +69,7 @@ class Ordinazione{
     _tavolo=json['numeroTavolo'];
     _note=json['note'];
     _stato=json['stato'];
-    _data=json['data'];
+    _data=DateTime.parse(json['data']);
     _costo_totale=json['costoTotale'];
     _gestore_ordinazione=Utente.fromJson(json['gestoreOrdinazione']);
     _elementi = [];
@@ -105,14 +81,16 @@ class Ordinazione{
   Map<String, dynamic> toJson(){
       List<Map> jsonElem = _elementi.map((e) => e.toJson()).toList();
       return{
+        'idRistorante':_addetto_alla_sala?.get_id_ristorante(),
         'id':_id,
         'numeroTavolo':_tavolo,
         'note':_note,
         'stato':_stato,
-        'data':_data,
+        'data':fromDateToString(),
         'elementiOrdinati':jsonElem,
         'costoTotale':_costo_totale,
-        'gestoreOrdinazione':_gestore_ordinazione
+        'gestoreOrdinazione':_gestore_ordinazione,
+        'addettoAllaSala':_addetto_alla_sala
       };
     }
 
@@ -121,7 +99,7 @@ class Ordinazione{
       'tavolo':_tavolo,
       'note':_note,
       'stato':_stato,
-      'data':_data,
+      'data':fromDateToString(),
       'elementi':_elementi,
       'costo_totale':_costo_totale,
       'gestore_ordinazione':_gestore_ordinazione
@@ -135,7 +113,7 @@ class Ordinazione{
       'numeroTavolo':_tavolo,
       'note':_note,
       'stato':_stato,
-      'data':_data,
+      'data':fromDateToString(),
       'elementiOrdinati':jsonElem,
       'costoTotale':_costo_totale,
       'gestoreOrdinazione':_gestore_ordinazione
@@ -145,15 +123,21 @@ class Ordinazione{
   Map<String, dynamic> toJsonSenzaGestore(){
     List<Map> jsonElem = _elementi.map((e) => e.toJson()).toList();
     return{
-      'id':_id,
+      'idRistorante':_addetto_alla_sala?.get_id_ristorante(),
       'numeroTavolo':_tavolo,
       'note':_note,
       'stato':_stato,
-      'data':_data,
+      'data':fromDateToString(),
       'elementiOrdinati':jsonElem,
       'costoTotale':_costo_totale,
       'addettoAllaSala':_addetto_alla_sala,
     };
+  }
+
+  String fromDateToString() {
+    var formatter = new DateFormat('yyyy-MM-dd');
+    String formattedDate = formatter.format(_data);
+    return formattedDate;
   }
 
     void set_id(int id){_id=id;}
@@ -167,10 +151,10 @@ class Ordinazione{
     int get_tavolo(){return _tavolo;}
     String get_note(){return _note;}
     String get_stato(){return _stato;}
-    String get_data(){return _data;}
+    DateTime get_data(){return _data;}
     List<Elemento_ordinato> get_lista_elementi(){return _elementi;}
     double get_costo_totale(){return _costo_totale;}
-    Utente get_gestore_ordinazione(){return _gestore_ordinazione;}
+    Utente? get_gestore_ordinazione(){return _gestore_ordinazione;}
     Elemento get_elemento(int i){return _elementi[i].get_elemento();}
     int get_quantita_elemento(int i){return _elementi[i].get_quantita();}
 

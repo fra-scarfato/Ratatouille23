@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:ratatouille23/controllers/Menu_view_controller.dart';
 import 'package:ratatouille23/models/menu/Categoria.dart';
 import 'package:ratatouille23/models/menu/Elemento.dart';
 import 'package:ratatouille23/views/custom_widget/bottone_gestione_menu_admin.dart';
@@ -31,8 +30,7 @@ class menu extends StatefulWidget {
 
 class menu_ui extends State<menu> {
   Menu_controller _menu_controller = new Menu_controller();
-  List<Categoria>? listaCategorie = [];
-  final Menu_view_controller _menu_view_controller= Menu_view_controller();
+  List<Categoria> listaCategorie = [];
 
   @override
   Widget build(BuildContext context) {
@@ -42,33 +40,11 @@ class menu_ui extends State<menu> {
       builder: (BuildContext context, snapshot) {
         Widget widget;
         if (snapshot.connectionState == ConnectionState.done) {
-        // _menu_view_controller.set_categorie(
-        //   [Categoria(0, "nome",
-        //       [Elemento(0, "nome", "descrizione", 1, "allergeni", Categoria(0,"",[],0)),
-        //         Elemento(1, "nome1", "descrizione1", 1, "allergeni", Categoria(0,"",[],0)),
-        //         Elemento(2, "nome2", "descrizione", 1, "allergeni", Categoria(0,"",[],0)),
-        //         Elemento(3, "nome3", "descrizione", 1, "allergeni", Categoria(0,"",[],0))],
-        //       0),
-        //   Categoria(1, "nome2",
-        //       [Elemento(0, "nome4", "descrizione", 1, "allergeni", Categoria(0,"",[],0)),
-        //         Elemento(1, "nome5", "descrizione1", 1, "allergeni", Categoria(0,"",[],0)),
-        //         Elemento(2, "nome6", "descrizione", 1, "allergeni", Categoria(0,"",[],0)),
-        //         Elemento(3, "nome7", "descrizione", 1, "allergeni", Categoria(0,"",[],0))],
-        //       0),
-        //   Categoria(2, "nome3",
-        //       [/*Elemento(0, "nome8", "descrizione", 1, "allergeni", Categoria(0,"",[],0)),
-        //         Elemento(1, "nome10", "descrizione1", 1, "allergeni", Categoria(0,"",[],0)),
-        //         Elemento(2, "nome11", "descrizione", 1, "allergeni", Categoria(0,"",[],0)),
-        //         Elemento(3, "nome12", "descrizione", 1, "allergeni", Categoria(0,"",[],0))*/],
-        //       0),]
-        // );
-          _menu_view_controller.set_categorie(snapshot.data);
-
-        List<Categoria>? menu = _menu_view_controller.get_categorie();
-        listaCategorie = menu;
-          if (menu!.isNotEmpty) {
-            _menu_view_controller.set_selected(menu[0]);
+          listaCategorie = _menu_controller.getCategorieDaVisualizzare();
+          if(listaCategorie.isNotEmpty) {
+            _menu_controller.set_selected(listaCategorie[0]);
           }
+          
           widget = Scaffold(
             body: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -77,31 +53,29 @@ class menu_ui extends State<menu> {
                   text: '',
                 ),
                 ListenableBuilder(
-                  listenable: _menu_view_controller,
+                  listenable: _menu_controller,
                   builder: (context, child) {
                     return CategorieBar_parent(
-                        listaCategorie: _menu_view_controller.get_categorie(),
-                        menu_view_controller: _menu_view_controller
-                    );
+                        menu_controller: _menu_controller);
                   },
                 ),
                 SizedBox(
                   height: 30,
                 ),
                 ListenableBuilder(
-                    listenable: _menu_view_controller,
-                    builder: (context, child){
+                    listenable: _menu_controller,
+                    builder: (context, child) {
                       List<Widget> elem = [];
-                      if (menu.isNotEmpty) {
-                        elem = getElementiCards(_menu_view_controller.get_selected());
+                      if (listaCategorie.isNotEmpty) {
+                        elem = getElementiCards(
+                            _menu_controller.get_selected());
                       }
                       return container_elementi(elem);
-                    }
-                )
+                    })
               ],
             ),
             floatingActionButton: bottone_gestione_menu_admin(
-                listaCategorie: menu, utente: utente),
+                listaCategorie: this.listaCategorie, utente: utente, menu_controller: _menu_controller, ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
           );
@@ -157,7 +131,7 @@ class menu_ui extends State<menu> {
           ],
         ),
       );
-    } else if (listaCategorie?.length != 0) {
+    } else if (listaCategorie.length != 0) {
       widget = finestra_nessun_elemento(
           string1: 'NON CI SONO PIATTI',
           string2: 'NELLA CATEGORIA',

@@ -4,12 +4,11 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Menu_controller.dart';
-import 'package:ratatouille23/views/Login_ui.dart';
 import 'package:ratatouille23/views/aggiungi_piatto.dart';
 import 'package:ratatouille23/views/custom_widget/Finestra_attesa.dart';
 import 'package:ratatouille23/views/custom_widget/Finestra_conferma.dart';
 import 'package:ratatouille23/views/custom_widget/slide_button.dart';
-import 'package:ratatouille23/views/menu_vuoto.dart';
+
 
 import '../../models/Utente.dart';
 import '../../models/menu/Categoria.dart';
@@ -19,10 +18,10 @@ import 'bottoni_menu_admin.dart';
 
 class bottone_gestione_menu_admin extends StatefulWidget{
   final List<Categoria>? listaCategorie;
-
+  final Menu_controller menu_controller;
   final Utente utente;
 
-  const bottone_gestione_menu_admin({Key? key, required this.listaCategorie,required this.utente}) : super(key : key);
+  const bottone_gestione_menu_admin({Key? key, required this.listaCategorie,required this.utente, required this.menu_controller}) : super(key : key);
 
   @override
   bottone_gestione_menu_admin_state createState() => bottone_gestione_menu_admin_state();
@@ -37,7 +36,7 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
     return ElevatedButton(
       onPressed: () {
         //Navigator.push(context, MaterialPageRoute(builder: (context) => const registra_elemento()));
-        _displayFunzioni(context);
+        _displayFunzioni(context, widget.menu_controller);
 
       },
       child: Icon(
@@ -55,7 +54,7 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
     );
   }
 
-  Future _displayFunzioni(BuildContext context){
+  Future _displayFunzioni(BuildContext context, Menu_controller menu_controller){
     return showDialog(
         context: context,
         builder: (context){
@@ -81,7 +80,7 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
                           ElevatedButton(
 
                             onPressed: () {
-                              _displayAddCategoria(context);
+                              _displayAddCategoria(context, menu_controller);
 
                             },
 
@@ -107,7 +106,7 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      slide_button(vertical_offset: 40, horizontal_offset: 40, text: 'Aggiungi piatto', route:  /*displayAggiungiCategoria*/aggiungi_piatto(listaCategorie: widget.listaCategorie, utente: widget.utente), icon: Icons.add),
+                      slide_button(vertical_offset: 40, horizontal_offset: 40, text: 'Aggiungi piatto', route:  /*displayAggiungiCategoria*/aggiungi_piatto(listaCategorie: widget.listaCategorie, utente: widget.utente, menu_controller: menu_controller), icon: Icons.add),
                       SizedBox(
                         height: 8,
                         width: 150,
@@ -148,14 +147,13 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
   }
 
 
-  Future<void> _displayAddCategoria(BuildContext context){
+  Future<void> _displayAddCategoria(BuildContext context, Menu_controller menu_controller){
 
     TextEditingController nomeCategoriaController = TextEditingController();
     String nomeCategoria = '';
     Color colore=Colors.black.withOpacity(0.1);
     Color borderSideColorNome = CupertinoColors.systemGrey3;
     Color hintColorNome = CupertinoColors.systemGrey3;
-    Menu_controller menu_controller = new Menu_controller();
 
     return showDialog(
         context: context,

@@ -1,8 +1,14 @@
 package com.unina.ratatouille23.ordinazione.entity;
 
+import java.util.Date;
 import java.util.List;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.unina.ratatouille23.utente.entity.Utente;
 
 import jakarta.persistence.CascadeType;
@@ -15,6 +21,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 public class Ordinazione {
@@ -44,21 +52,25 @@ public class Ordinazione {
     @Column(nullable = false)
     private String stato;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(nullable = false)
-    private String data; //TODO: Vedi tipo
+    @Temporal(TemporalType.DATE)
+    private Date data; 
 
     @Column(nullable = false)
-    private double costoTotale; //TODO: Su frontend
+    private double costoTotale;
 
-    @OneToMany(targetEntity = ElementoOrdinato.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    //@OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "fk_id_ordinazione", referencedColumnName = "id_ordinazione")
+    @OneToMany(mappedBy = "ordinazione", targetEntity = ElementoOrdinato.class, cascade = CascadeType.MERGE, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonManagedReference
+    // @JoinColumn(name = "fk_id_ordinazione", referencedColumnName = "id_ordinazione")
     //Owner della relazione, viene istanziata l'ordinazione e poi vengono istanziati gli elementi ordinati
     //con l'id dell'ordinazione come foreign key
     private List<ElementoOrdinato> elementiOrdinati;
+
     
 
-    public Ordinazione(int idRistorante, Integer id, Utente gestoreOrdinazione, int numeroTavolo, String note, String stato, String data, double costoTotale, List<ElementoOrdinato> elementiOrdinati) {
+    public Ordinazione(int idRistorante, Integer id, Utente gestoreOrdinazione, int numeroTavolo, String note, String stato, Date data, double costoTotale, List<ElementoOrdinato> elementiOrdinati) {
         this.id = id;
         this.idRistorante = idRistorante;
         this.gestoreOrdinazione = gestoreOrdinazione;
@@ -116,11 +128,11 @@ public class Ordinazione {
         this.stato = stato;
     }
 
-    public String getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(Date data) {
         this.data = data;
     }
 
@@ -146,6 +158,14 @@ public class Ordinazione {
 
     public void setGestoreOrdinazione(Utente gestoreOrdinazione) {
         this.gestoreOrdinazione = gestoreOrdinazione;
+    }
+
+    public Utente getAddettoAllaSala() {
+        return addettoAllaSala;
+    }
+
+    public void setAddettoAllaSala(Utente addettoAllaSala) {
+       this.addettoAllaSala =  addettoAllaSala;
     }
     
 

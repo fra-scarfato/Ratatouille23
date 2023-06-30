@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.unina.ratatouille23.ordinazione.entity.Ordinazione;
 import com.unina.ratatouille23.ordinazione.entity.OrdinazioneDTO;
 import com.unina.ratatouille23.ordinazione.services.OrdinazioneService;
-import com.unina.ratatouille23.utente.entity.Utente;
 
 @RestController
 @RequestMapping("/order")
@@ -27,12 +26,17 @@ public class OrdinazioneController {
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
-    @GetMapping("/get/sala")
-    List<Ordinazione> getOrdinazioniSala(@RequestParam(value = "idu") int idUtente) {
+    @GetMapping("/get/sala/AS")
+    List<Ordinazione> getOrdinazioniSalaDaAddetto(@RequestParam(value = "idu") int idUtente) {
         return servizioOrdinazioni.getOrdinazioniDaAddettoAllaSala(idUtente);
     }
 
-     @GetMapping("/get/all")
+    @GetMapping("/get/sala/all")
+    List<Ordinazione> getOrdinazioniSala(@RequestParam(value = "idr") int idRistorante) {
+        return servizioOrdinazioni.getOrdinazioniDaAddettoAllaSala(idRistorante);
+    }
+
+    @GetMapping("/get/all")
     List<Ordinazione> getOrdinazioni(@RequestParam(value = "idr") int idRistorante) {
         return servizioOrdinazioni.getOrdinazioni(idRistorante);
     }

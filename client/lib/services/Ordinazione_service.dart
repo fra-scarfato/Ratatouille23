@@ -61,21 +61,40 @@ class Ordinazione_service{
     }
   }
 
-  Future<List<Ordinazione>> elenco_ordinazioni(Utente utente) async {
+  Future<List<Ordinazione>> elenco_ordinazioni_cucina(Utente utente) async {
+    var queryParameter;
+    String endpoint;
+    queryParameter = {'idr': utente.get_id_ristorante().toString()};
+    endpoint = "/order/get/all";
+
+    final uri = Uri.http(authority, endpoint, queryParameter);
+    var response = await http.get(uri);
+    print("body:"+response.body);
+    if (response.statusCode == 200) {
+      List<Ordinazione> listaOrdinazione = (jsonDecode(response.body) as List)
+          .map((ordinazione) => Ordinazione.fromJsonSenzaGestore(ordinazione))
+          .toList();
+      return listaOrdinazione;
+    } else {
+      throw (response.statusCode);
+    }
+  }
+
+  Future<List<Ordinazione>> elenco_ordinazioni_sala(Utente utente) async {
     var queryParameter;
     String endpoint;
     if(utente.get_ruolo() == "Addetto alla sala") {
       queryParameter = {'idu': utente.get_id().toString()};
-      endpoint = "/order/get/sala";
+      endpoint = "/order/get/sala/AS";
     } else {
       queryParameter = {'idr': utente.get_id_ristorante().toString()};
-      endpoint = "/order/get/all";
+      endpoint = "/order/get/sala/all";
     }
     final uri = Uri.http(authority, endpoint, queryParameter);
     var response = await http.get(uri);
     if (response.statusCode == 200) {
       List<Ordinazione> listaOrdinazione = (jsonDecode(response.body) as List)
-          .map((ordinazione) => (ordinazione.get_gestore_ordinazione() != null) ? Ordinazione.fromJson(ordinazione) : Ordinazione.fromJsonSenzaGestore(ordinazione))
+          .map((ordinazione) => Ordinazione.fromJsonSenzaGestore(ordinazione))
           .toList();
       return listaOrdinazione;
     } else {

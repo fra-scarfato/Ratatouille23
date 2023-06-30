@@ -50,6 +50,7 @@ dependencies:
   fluttertoast: ^8.2.1
   flutter_typeahead: ^4.3.8
   stomp_dart_client: ^0.4.4
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_test:

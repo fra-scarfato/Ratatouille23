@@ -18,8 +18,9 @@ import 'menu.dart';
 class aggiungi_piatto extends StatefulWidget {
   final List<Categoria>? listaCategorie;
   final Utente utente;
+  final Menu_controller menu_controller;
 
-  const aggiungi_piatto({super.key, required this.listaCategorie, required this.utente, });
+  const aggiungi_piatto({super.key, required this.listaCategorie, required this.utente, required this.menu_controller, });
 
   @override
   aggiungi_piatto_state createState() => aggiungi_piatto_state();

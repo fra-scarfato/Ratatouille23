@@ -10,8 +10,9 @@ import com.unina.ratatouille23.ordinazione.entity.ElementoOrdinato;
 import com.unina.ratatouille23.ordinazione.entity.Ordinazione;
 import com.unina.ratatouille23.ordinazione.repository.ElementoOrdinatoRepository;
 import com.unina.ratatouille23.ordinazione.repository.OrdinazioneRepository;
-import com.unina.ratatouille23.utente.entity.AddettoAllaSala;
 import com.unina.ratatouille23.utente.entity.Utente;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class OrdinazioneServiceImpl implements OrdinazioneService{
@@ -25,12 +26,10 @@ public class OrdinazioneServiceImpl implements OrdinazioneService{
     private String broadcastURL = "/ws/order/";
     
     @Override
+    @Transactional
     public void registraNuovaOrdinazione(Ordinazione ordinazioneDaRegistrare) {
         ordinazioneRepository.save(ordinazioneDaRegistrare);
-        List<ElementoOrdinato> elementiOrdinati = ordinazioneDaRegistrare.getElementiOrdinati();
-        for (ElementoOrdinato elementoOrdinato : elementiOrdinati) {
-            elementoOrdinatoRepository.save(elementoOrdinato);
-        }
+        elementoOrdinatoRepository.saveAll(ordinazioneDaRegistrare.getElementiOrdinati());
     }
 
     @Override
@@ -38,21 +37,37 @@ public class OrdinazioneServiceImpl implements OrdinazioneService{
         ordinazioneRepository.delete(ordinazioneDaEliminare);
     }
 
+    //Tutte le ordinazioni
     @Override
     public List<Ordinazione> getOrdinazioni(int idRistorante) {
         List<Ordinazione> ordinazioni = ordinazioneRepository.getTutteLeOrdinazioni(idRistorante);
         for (Ordinazione ordinazione : ordinazioni) {
             ordinazione.setGestoreOrdinazione((Utente) Hibernate.unproxy(ordinazione.getGestoreOrdinazione()));
+            ordinazione.setAddettoAllaSala((Utente) Hibernate.unproxy(ordinazione.getAddettoAllaSala()));
         }
         return ordinazioni;
     }
 
+    //Tutte le ordinazioni in attesa
+    @Override
+    public List<Ordinazione> getOrdinazioniSala(int idRistorante) {
+       
+        List<Ordinazione> ordinazioni = ordinazioneRepository.getOrdinazioniSala(idRistorante);
+        for (Ordinazione ordinazione : ordinazioni) {
+            ordinazione.setGestoreOrdinazione((Utente) Hibernate.unproxy(ordinazione.getGestoreOrdinazione()));
+            ordinazione.setAddettoAllaSala((Utente) Hibernate.unproxy(ordinazione.getAddettoAllaSala()));
+        }
+        return ordinazioni;
+    }
+
+    //Tutte le ordinazioni prese dal cameriere in attesa
     @Override
     public List<Ordinazione> getOrdinazioniDaAddettoAllaSala(int idUtente) {
        
         List<Ordinazione> ordinazioni = ordinazioneRepository.getOrdinazioniAddettoAllaSala(idUtente);
         for (Ordinazione ordinazione : ordinazioni) {
             ordinazione.setGestoreOrdinazione((Utente) Hibernate.unproxy(ordinazione.getGestoreOrdinazione()));
+            ordinazione.setAddettoAllaSala((Utente) Hibernate.unproxy(ordinazione.getAddettoAllaSala()));
         }
         return ordinazioni;
     }
@@ -64,7 +79,7 @@ public class OrdinazioneServiceImpl implements OrdinazioneService{
     
     @Override
     public String getBroadcastURL(Ordinazione ordinazione) {
-        String idRistorante = String.valueOf(ordinazione.getGestoreOrdinazione().getIdRistorante());
+        String idRistorante = String.valueOf(ordinazione.getAddettoAllaSala().getIdRistorante());
         return broadcastURL.concat(idRistorante);
     }
     

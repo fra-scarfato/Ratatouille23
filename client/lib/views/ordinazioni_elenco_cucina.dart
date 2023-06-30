@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Ordinazione_controller.dart';
-import 'package:ratatouille23/controllers/Ordinazione_elenco_view_controller.dart';
 import 'package:ratatouille23/services/Ordinazione_service.dart';
 import 'package:ratatouille23/views/custom_widget/ordini_bar.dart';
 import 'package:ratatouille23/views/ordinazioni_vuoto.dart';
 import 'package:ratatouille23/views/custom_widget/ordinazioni_cucina_presi_in_carica_card.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
-import '../controllers/Ordinazione_elenco_cucina_view_controller.dart';
 import '../models/Elemento_ordinato.dart';
 import '../models/Ordinazione.dart';
 import '../models/Utente.dart';
@@ -44,7 +42,7 @@ class ordinazioni_elenco_cucina_state extends State<ordinazioni_elenco_cucina> {
   Widget build(BuildContext context) {
     _ordinazione_controller.connettiStompClient();
     return FutureBuilder(
-        future: _ordinazione_controller.getAll_ordini(),
+        future: _ordinazione_controller.get_ordini_cucina(),
         builder: (BuildContext context, snapshot) {
           Widget widgetDaTornare;
           if (snapshot.connectionState == ConnectionState.done) {

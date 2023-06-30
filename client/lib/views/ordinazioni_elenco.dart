@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Ordinazione_controller.dart';
-import 'package:ratatouille23/controllers/Ordinazione_elenco_view_controller.dart';
 import 'package:ratatouille23/models/menu/Categoria.dart';
 import 'package:ratatouille23/services/Ordinazione_service.dart';
 import 'package:ratatouille23/views/ordinazioni_vuoto.dart';
@@ -29,7 +28,6 @@ class ordinazioni_elenco extends StatefulWidget{
 
 class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
   late Ordinazione_controller _ordinazione_controller;
-  Ordinazione_elenco_view_controller _ordinazione_elenco_view_controller = Ordinazione_elenco_view_controller();
 
   @override
   void initState() {
@@ -41,12 +39,12 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
   Widget build(BuildContext context) {
     Utente utente = widget.utente;
     return FutureBuilder(
-        future: _ordinazione_controller.getAll_ordini(),
+        future: _ordinazione_controller.get_ordini_sala(),
         builder: (BuildContext context, snapshot) {
           Widget widget;
           if (snapshot.connectionState == ConnectionState.done){
-            _ordinazione_elenco_view_controller.set_ordinazioni(snapshot.data);
-            List<Ordinazione> ord = _ordinazione_elenco_view_controller.get_ordinazioni();
+
+            List<Ordinazione> ord = _ordinazione_controller.getListaOrdinazioniSala();
 
             widget = Scaffold(
               backgroundColor: Colors.transparent,
@@ -67,7 +65,7 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height - 195,
                         child: ListenableBuilder(
-                            listenable: _ordinazione_elenco_view_controller,
+                            listenable: _ordinazione_controller,
                             builder: (context, child) {
                               if(ord.isNotEmpty){
                                 return ordinazioni_card(ord: ord,utente: utente,);

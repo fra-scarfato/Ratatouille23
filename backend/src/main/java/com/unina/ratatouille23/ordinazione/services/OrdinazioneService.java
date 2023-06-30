@@ -12,6 +12,7 @@ public interface OrdinazioneService {
     public void eliminaOrdinazione(Ordinazione ordinazioneDaEliminare);
     public List<Ordinazione> getOrdinazioni(int idRistorante);
     public List<Ordinazione> getOrdinazioniDaAddettoAllaSala(int idUtente);
+    public List<Ordinazione> getOrdinazioniSala(int idRistorante);
     public void modificaOrdinazione(Ordinazione ordinazioneDaAggiornare);
     public String getBroadcastURL(Ordinazione nuovOrdinazione);
 }

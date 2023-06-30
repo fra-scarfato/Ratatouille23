@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Ordinazione_controller.dart';
 import 'package:ratatouille23/models/Elemento_ordinato.dart';
 import 'package:ratatouille23/views/custom_widget/barra_superiore.dart';
+import 'package:ratatouille23/views/ordinazioni_elenco.dart';
 import 'package:ratatouille23/views/pagina_iniziale.dart';
 
 import '../../models/Ordinazione.dart';
@@ -84,15 +85,13 @@ class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
                 attesa.showDialogue();
                 await _ordinazione_controller.registra_nuova_ordinazione(widget.tavolo, note, widget.elementi_ordinati, widget.utente);
                 attesa.hideProgressDialogue();
-                Fluttertoast.cancel();
                 toast.showToast(
                     child: Finestra_conferma(message: "Ordinazione effettuata correttamente"),
                     toastDuration: Duration(seconds: 2),
                     gravity: ToastGravity.BOTTOM);
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>pagina_iniziale(widget.utente)));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>ordinazioni_elenco(utente: widget.utente)));
               }catch (error){
                 attesa.hideProgressDialogue();
-                Fluttertoast.cancel();
                 toast.showToast(
                     child: Finestra_errore(message: "Ordinazione non riuscita!"),
                     toastDuration: Duration(seconds: 2),

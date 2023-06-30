@@ -18,6 +18,9 @@ public interface OrdinazioneRepository extends CrudRepository<Ordinazione, Integ
     @Query(value = "UPDATE ordinazione o SET o.note=?1, o.costo_totale=?2 WHERE o.id_ordinazione=?3", nativeQuery = true)
     void aggiornaOrdinazione(String note, double costoTotale, int id);
 
-    @Query(value = "SELECT * FROM ordinazione WHERE ordinazione.fk_id_utente=?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM ordinazione WHERE ordinazione.fk_id_addettosala=?1 AND ordinazione.stato='In attesa'", nativeQuery = true)
     public List<Ordinazione> getOrdinazioniAddettoAllaSala(int idUtente);
+
+    @Query(value = "SELECT * FROM ordinazione WHERE ordinazione.id_ristorante=?1 AND ordinazione.stato='In attesa'", nativeQuery = true)
+    public List<Ordinazione> getOrdinazioniSala(int idRistorante);
 }

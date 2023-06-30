@@ -29,8 +29,6 @@ class Presa_ordinazione_view_controller with ChangeNotifier{
       i++;
     }
     _list_elem_ord[i].incrementa_quantita();
-    // print(_list_elem_ord[i].get_quantita());
-    print(get_list_elem_ord().length);
     notifyListeners();
   }
 

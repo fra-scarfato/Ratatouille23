@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Ordinazione_controller.dart';
-import 'package:ratatouille23/controllers/Ordinazione_elenco_cucina_view_controller.dart';
 import '../../models/Ordinazione.dart';
 import '../../models/Utente.dart';
 import 'finestra_nessun_elemento.dart';
@@ -223,7 +222,7 @@ class ordinazioni_cucina_card_state extends State<ordinazioni_cucina_card>{
     if(stato == "In attesa"){
       return bottone_prendi_in_carica;
     }
-    else if(stato == "Presa in carico" && ord.get_gestore_ordinazione().get_id() == widget.utente.get_id()){
+    else if(stato == "Presa in carico" && ord.get_gestore_ordinazione()!.get_id() == widget.utente.get_id()){
       return bottone_evadi;
     }
     else {

@@ -7,6 +7,8 @@ class Categoria{
   List<Elemento>? _elementi;
   late int _id_ristorante;
 
+  Categoria.vuota();
+
   Categoria.senzaIdAndElementi(this._nome, this._id_ristorante);
 
   Categoria(int id, String nome, List<Elemento> elementi, int id_ristorante) {

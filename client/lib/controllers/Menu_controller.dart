@@ -1,16 +1,26 @@
+import 'package:flutter/cupertino.dart';
 import 'package:ratatouille23/services/Menu_service.dart';
 
 import '../models/menu/Categoria.dart';
 import '../models/menu/Elemento.dart';
 
 
-class Menu_controller{
-  late Menu_service _menu_service = Menu_service();
+class Menu_controller extends ChangeNotifier{
+  Menu_service _menu_service = Menu_service();
+  List<Categoria> _listaCategorie = <Categoria>[];
+
+  Categoria selected = Categoria.vuota();
+
+  List<Categoria> getCategorieDaVisualizzare() {
+    return _listaCategorie;
+  }
 
   Future<void> aggiungiCategoria(String nome, int idRistorante) async {
     try{
       var categoriaDaAggiungere = Categoria.senzaIdAndElementi(nome, idRistorante);
+      _listaCategorie.add(categoriaDaAggiungere);
       _menu_service.aggiungiNuovaCategoria(categoriaDaAggiungere);
+      notifyListeners();
     } catch (error) {
       rethrow;
     }
@@ -18,7 +28,9 @@ class Menu_controller{
 
   Future<void> rimuoviCategoria(Categoria categoriaDaRimuovere) async{
     try{
+      _listaCategorie.remove(categoriaDaRimuovere);
       _menu_service.eliminaCategoria(categoriaDaRimuovere);
+      notifyListeners();
     } catch (error) {
       rethrow;
     }
@@ -26,8 +38,8 @@ class Menu_controller{
 
   Future<List<Categoria>?> getAllCategorie(int id_ristornate) async {
     try{
-      List<Categoria> listaCategorie = await _menu_service.getCategorie(id_ristornate);
-      return listaCategorie;
+      _listaCategorie = await _menu_service.getCategorie(id_ristornate);
+      return _listaCategorie;
     } catch (error) {
       rethrow;
     }
@@ -76,6 +88,10 @@ class Menu_controller{
       rethrow;
     }
   }
+
+  Categoria get_selected() {return selected;}
+
+  void set_selected(Categoria categoriaSelezionata) {selected = categoriaSelezionata; notifyListeners();}
 
 
 

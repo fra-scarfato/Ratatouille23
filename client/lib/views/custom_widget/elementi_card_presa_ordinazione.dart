@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/models/Utente.dart';
 import 'package:ratatouille23/models/menu/Elemento.dart';
 
-import '../../controllers/Menu_view_controller.dart';
 import '../../controllers/Presa_ordinazione_view_controller.dart';
 import '../../models/menu/Categoria.dart';
 import 'elementi_card_bottom.dart';
