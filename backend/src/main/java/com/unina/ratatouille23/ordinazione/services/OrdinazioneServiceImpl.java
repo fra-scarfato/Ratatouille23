@@ -6,7 +6,6 @@ import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.unina.ratatouille23.ordinazione.entity.ElementoOrdinato;
 import com.unina.ratatouille23.ordinazione.entity.Ordinazione;
 import com.unina.ratatouille23.ordinazione.repository.ElementoOrdinatoRepository;
 import com.unina.ratatouille23.ordinazione.repository.OrdinazioneRepository;
@@ -81,6 +80,11 @@ public class OrdinazioneServiceImpl implements OrdinazioneService{
     public String getBroadcastURL(Ordinazione ordinazione) {
         String idRistorante = String.valueOf(ordinazione.getAddettoAllaSala().getIdRistorante());
         return broadcastURL.concat(idRistorante);
+    }
+
+    @Override
+    public Ordinazione getOrdinazioneByID(int idOrdinazione) {
+        return ordinazioneRepository.findByID(idOrdinazione);
     }
     
 }

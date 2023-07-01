@@ -36,13 +36,16 @@ class Ordinazione{
   }
 
     Ordinazione.fromJson(Map<String, dynamic> json){
+    print(json);
       _id = json['id'];
       _tavolo=json['numeroTavolo'];
       _note=json['note'];
       _stato=json['stato'];
       _data=DateTime.parse(json['data']);
       _costo_totale=json['costoTotale'];
-      _gestore_ordinazione=Utente.fromJson(json['gestoreOrdinazione']);
+      if(json.containsKey("gestoreOrdinazione")) {
+        _gestore_ordinazione=Utente.fromJson(json['gestoreOrdinazione']);
+      }
       _addetto_alla_sala=Utente.fromJson(json['addettoAllaSala']);
       _elementi = [];
       json['elementiOrdinati'].forEach((v) {

@@ -163,7 +163,8 @@ class ordinazioni_cucina_card_state extends State<ordinazioni_cucina_card>{
           setState(() {
           ordinazioneController.evadiOrdinazione(ord);
         });
-          ordinazione_controller.modifica_ordinazione(ord);},
+          ordinazione_controller.modifica_ordinazione_cucina(ord);
+          },
         child: Text(
           '           EVADI           ',
           style:TextStyle(
@@ -187,7 +188,7 @@ class ordinazioni_cucina_card_state extends State<ordinazioni_cucina_card>{
           setState(() {
           ordinazioneController.prendiInCaricoOrdinazione(ord);
         });
-          ordinazione_controller.modifica_ordinazione(ord);
+          ordinazione_controller.modifica_ordinazione_cucina(ord);
           },
 
         child: Text(

@@ -13,6 +13,7 @@ public interface OrdinazioneService {
     public List<Ordinazione> getOrdinazioni(int idRistorante);
     public List<Ordinazione> getOrdinazioniDaAddettoAllaSala(int idUtente);
     public List<Ordinazione> getOrdinazioniSala(int idRistorante);
+    public Ordinazione getOrdinazioneByID(int idOrdinazione);
     public void modificaOrdinazione(Ordinazione ordinazioneDaAggiornare);
     public String getBroadcastURL(Ordinazione nuovOrdinazione);
 }

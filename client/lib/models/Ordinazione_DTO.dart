@@ -8,8 +8,11 @@ class Ordinazione_DTO{
   Ordinazione_DTO(this._ordinazione, this._operazione);
 
   Ordinazione_DTO.fromJsonSTOMP(Map<String, dynamic> json){
-    _ordinazione = Ordinazione.fromJson(json['ordinazione']);
     _operazione = json['operazione'];
+    if(_operazione == "INSERT") {
+      _ordinazione = Ordinazione.fromJson(json['ordinazione']);
+    }
+
   }
 
   Ordinazione get ordinazione => _ordinazione;

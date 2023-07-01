@@ -68,6 +68,12 @@ class Menu_controller extends ChangeNotifier{
   Future<void> aggiungiElemento(Elemento elementoDaAggiungere) async {
     try{
       _menu_service.aggiungiNuovoElemento(elementoDaAggiungere);
+      _listaCategorie!.forEach((categoria) {
+        if(categoria.get_id() == elementoDaAggiungere.categoria.get_id()) {
+          categoria.get_elementi()?.add(elementoDaAggiungere);
+        }
+      });
+      notifyListeners();
     } catch (error) {
       rethrow;
     }

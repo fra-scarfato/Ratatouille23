@@ -26,6 +26,12 @@ public class OrdinazioneController {
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
+    @GetMapping("/get/sala/single")
+    String getOrdinazioneByID(@RequestParam(value = "ido")int idOrdinazione){
+        Ordinazione ordinazione = servizioOrdinazioni.getOrdinazioneByID(idOrdinazione);
+        return ordinazione.getStato();
+    }
+
     @GetMapping("/get/sala/AS")
     List<Ordinazione> getOrdinazioniSalaDaAddetto(@RequestParam(value = "idu") int idUtente) {
         return servizioOrdinazioni.getOrdinazioniDaAddettoAllaSala(idUtente);

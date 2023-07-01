@@ -7,44 +7,40 @@ import '../../controllers/Menu_controller.dart';
 import '../../models/menu/Categoria.dart';
 import '../../models/menu/Elemento.dart';
 
-
-class CategorieBar_parent extends StatefulWidget{
+class CategorieBar_parent extends StatefulWidget {
   final Menu_controller menu_controller;
 
   //final Function(Categoria) fun;
 
-
-
-  CategorieBar_parent({
-    Key? key,
-    required this.menu_controller
-    //required this.fun,
-  }) : super(key: key);
+  CategorieBar_parent({Key? key, required this.menu_controller
+      //required this.fun,
+      })
+      : super(key: key);
   @override
   CategorieBar createState() => new CategorieBar();
-  }
+}
 
-
-
-class CategorieBar extends State<CategorieBar_parent>{
+class CategorieBar extends State<CategorieBar_parent> {
   List<Categoria> listaCategorie = <Categoria>[];
   List<bool> list = [];
 
   @override
+ void initState() {
+   istanziaLista();
+   if(list.isNotEmpty) {
+     list[0] = true;
+   }
+ }
+
+  @override
   Widget build(BuildContext context) {
-    listaCategorie = widget.menu_controller.getCategorieDaVisualizzare();
-    if (listaCategorie.isNotEmpty) {
-      for(int i=0; i<listaCategorie.length; i++){
-        list.add(false);
-      }
-      list[0]=true;
-    }
+    istanziaLista();
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
         children: List.generate(
           listaCategorie.length,
-              (index) => Padding(
+          (index) => Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
               width: 250,
@@ -53,17 +49,18 @@ class CategorieBar extends State<CategorieBar_parent>{
                 selectedTileColor: Colors.yellow,
                 selectedColor: Colors.black,
                 selected: list[index],
-                onTap: (){
+                onTap: () {
                   setState(() {
-                  for(int i=0; i<list.length; i++){
-                    if(i!=index){
-                      list[i]=false;
-                    } else {
-                      list[index]=true;
+                    widget.menu_controller.set_selected(listaCategorie[index]);
+                    for (int i = 0; i < list.length; i++) {
+                      if (i != index) {
+                        list[i] = false;
+                      } else {
+                        list[index] = true;
+                      }
                     }
-                  }
-                  widget.menu_controller.set_selected(listaCategorie[index]);
-                });},
+                  });
+                },
                 shape: RoundedRectangleBorder(
                     side: BorderSide(color: Colors.black),
                     borderRadius: BorderRadius.circular(30)),
@@ -72,7 +69,8 @@ class CategorieBar extends State<CategorieBar_parent>{
                   children: [
                     Text(
                       listaCategorie[index].get_nome(),
-                      style: GoogleFonts.roboto(fontSize: 34, fontStyle: FontStyle.italic),
+                      style: GoogleFonts.roboto(
+                          fontSize: 34, fontStyle: FontStyle.italic),
                     ),
                   ],
                 ),
@@ -84,4 +82,14 @@ class CategorieBar extends State<CategorieBar_parent>{
     );
   }
 
+  void istanziaLista() {
+    listaCategorie = widget.menu_controller.getCategorieDaVisualizzare();
+    if(listaCategorie.length != list.length) {
+      if (listaCategorie.isNotEmpty) {
+        for (int i = 0; i < listaCategorie.length; i++) {
+          list.add(false);
+        }
+      }
+    }
+  }
 }

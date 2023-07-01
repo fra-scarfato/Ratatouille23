@@ -71,7 +71,7 @@ class ordinazioni_card_state extends State<ordinazioni_card>{
                       SizedBox(width:16),
                       IconButton(
                           onPressed: (){
-                            _ordinazione_controller.elimina_ordinazione(ord[i]);
+                            _ordinazione_controller.elimina_ordinazione_sala(ord[i]);
                           },
                           icon: Icon(
                             Icons.delete_outline,

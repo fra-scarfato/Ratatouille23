@@ -8,7 +8,9 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.unina.ratatouille23.utente.entity.Utente;
 
 import jakarta.persistence.CascadeType;
@@ -37,6 +39,7 @@ public class Ordinazione {
     @ManyToOne
     @JoinColumn(name = "fk_id_gestore")
     @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
+    @JsonInclude(Include.NON_NULL)
     private Utente gestoreOrdinazione;
 
     @ManyToOne

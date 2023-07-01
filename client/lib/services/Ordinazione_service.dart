@@ -61,6 +61,21 @@ class Ordinazione_service{
     }
   }
 
+  Future<String> get_ordinazione_by_id(int idOrdinazione) async {
+    var queryParameter;
+    String endpoint;
+    queryParameter = {'ido': idOrdinazione.toString()};
+    endpoint = "/order/get/sala/single";
+
+    final uri = Uri.http(authority, endpoint, queryParameter);
+    var response = await http.get(uri);
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      throw (response.statusCode);
+    }
+  }
+
   Future<List<Ordinazione>> elenco_ordinazioni_cucina(Utente utente) async {
     var queryParameter;
     String endpoint;
@@ -69,7 +84,6 @@ class Ordinazione_service{
 
     final uri = Uri.http(authority, endpoint, queryParameter);
     var response = await http.get(uri);
-    print("body:"+response.body);
     if (response.statusCode == 200) {
       List<Ordinazione> listaOrdinazione = (jsonDecode(response.body) as List)
           .map((ordinazione) => Ordinazione.fromJsonSenzaGestore(ordinazione))
@@ -117,6 +131,8 @@ class Ordinazione_service{
     ));
     stompClient.activate();
   }
+
+
 
 
 
