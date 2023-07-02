@@ -1,15 +1,11 @@
 import 'dart:convert';
-import 'dart:html';
 import 'package:stomp_dart_client/stomp.dart';
 import 'package:stomp_dart_client/stomp_config.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
 
-import 'package:ratatouille23/models/Elemento_ordinato.dart';
 import 'package:ratatouille23/models/Ordinazione.dart';
 import 'package:http/http.dart' as http;
-import 'package:ratatouille23/models/menu/Elemento.dart';
 
-import '../models/Ordinazione_DTO.dart';
 import '../models/Utente.dart';
 
 class Ordinazione_service{
@@ -24,12 +20,13 @@ class Ordinazione_service{
   late Function(StompFrame) onStompCallback;
 
   
-  void registra_nuova_ordinazione(Ordinazione ordinazione) async {
+  Future<void> registra_nuova_ordinazione(Ordinazione ordinazione) async {
     final uri = Uri.http(authority, '/order/add');
+    print(jsonEncode(ordinazione.toJsonSenzaId()));
     var response = await http.post(
       uri,
       headers: header,
-      body: jsonEncode(ordinazione.toJsonSenzaGestore()),
+      body: jsonEncode(ordinazione.toJsonSenzaId()),
     );
     if (response.statusCode != 200) {
       throw (response.statusCode);
@@ -37,7 +34,7 @@ class Ordinazione_service{
 
   }
 
-  void elimina_ordinazione(Ordinazione ordinazione) async {
+  Future<void> elimina_ordinazione(Ordinazione ordinazione) async {
     final uri = Uri.http(authority, '/order/delete');
     var response = await http.delete(
       uri,
@@ -49,7 +46,7 @@ class Ordinazione_service{
     }
   }
 
-  void modifica_ordinazione(Ordinazione ordinazione) async{
+  Future<void> modifica_ordinazione(Ordinazione ordinazione) async{
     final uri = Uri.http(authority, '/order/update');
     var response = await http.put(
       uri,
@@ -62,7 +59,7 @@ class Ordinazione_service{
   }
 
   Future<String> get_ordinazione_by_id(int idOrdinazione) async {
-    var queryParameter;
+    Map<String, String> queryParameter;
     String endpoint;
     queryParameter = {'ido': idOrdinazione.toString()};
     endpoint = "/order/get/sala/single";
@@ -77,7 +74,7 @@ class Ordinazione_service{
   }
 
   Future<List<Ordinazione>> elenco_ordinazioni_cucina(Utente utente) async {
-    var queryParameter;
+    Map<String, String> queryParameter;
     String endpoint;
     queryParameter = {'idr': utente.get_id_ristorante().toString()};
     endpoint = "/order/get/all";
@@ -86,7 +83,7 @@ class Ordinazione_service{
     var response = await http.get(uri);
     if (response.statusCode == 200) {
       List<Ordinazione> listaOrdinazione = (jsonDecode(response.body) as List)
-          .map((ordinazione) => Ordinazione.fromJsonSenzaGestore(ordinazione))
+          .map((ordinazione) => Ordinazione.fromJson(ordinazione))
           .toList();
       return listaOrdinazione;
     } else {
@@ -95,7 +92,7 @@ class Ordinazione_service{
   }
 
   Future<List<Ordinazione>> elenco_ordinazioni_sala(Utente utente) async {
-    var queryParameter;
+    Map<String, String> queryParameter;
     String endpoint;
     if(utente.get_ruolo() == "Addetto alla sala") {
       queryParameter = {'idu': utente.get_id().toString()};

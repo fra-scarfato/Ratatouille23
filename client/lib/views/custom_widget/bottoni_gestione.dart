@@ -5,14 +5,15 @@ import 'package:google_fonts/google_fonts.dart';
 class bottoni_gestione extends StatelessWidget{
   final Widget route;
   final String text;
+  final String routeText;
   final Color color1;
   final Color color2;
   final IconData icon;
-  const bottoni_gestione({super.key, required this.route, required this.text, required this.color1, required this.color2, required this.icon});
+  const bottoni_gestione({super.key, required this.route, required this.routeText, required this.text, required this.color1, required this.color2, required this.icon});
   Widget build(BuildContext context){
     return InkWell(
         onTap: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => route),);
+          Navigator.push(context, MaterialPageRoute(settings: RouteSettings(name: routeText),builder: (context) => route),);
         },
         child: Ink(
             height: (2*(MediaQuery.of(context).size.height))/5,

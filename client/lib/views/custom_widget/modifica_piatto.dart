@@ -356,6 +356,7 @@ class modifica_piatto_state extends State<modifica_piatto> {
                         }
                       } else {
                         FToast toast = FToast();
+                        toast.init(context);
                         var attesa = Finestra_attesa(context);
                         try{
                           Categoria? categoriaElemento = _menu_controller.trovaCategoriaElemento(categoria, widget.listaCategorie);
@@ -365,7 +366,7 @@ class modifica_piatto_state extends State<modifica_piatto> {
                             attesa.showDialogue();
                             await _menu_controller.modificaElemento(elementoDaAggiornare);
                             attesa.hideProgressDialogue();
-                            Fluttertoast.cancel();
+
                             toast.showToast(
                                 child: Finestra_conferma(message: "Modifica completata"),
                                 toastDuration: Duration(seconds: 2),
@@ -374,7 +375,6 @@ class modifica_piatto_state extends State<modifica_piatto> {
                           }
                         }catch (error){
                           attesa.hideProgressDialogue();
-                          Fluttertoast.cancel();
                           toast.showToast(
                               child: Finestra_errore(message: "Modifica non riuscita"),
                               toastDuration: Duration(seconds: 2),

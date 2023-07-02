@@ -16,13 +16,14 @@ class Ordinazione{
   Utente? _gestore_ordinazione;
   Utente? _addetto_alla_sala;
 
+  Ordinazione(){}
 
   double _calcola_totale(List<Elemento_ordinato> elementi){
     double totale=0;
     for(int i=0;i<elementi.length;i++){
-      totale=totale+elementi[i].get_elemento().costo;
+      totale=totale+(elementi[i].get_elemento().costo * elementi[i].get_quantita());
     }
-    return totale;
+    return double.parse(totale.toStringAsFixed(2));
   }
 
   Ordinazione.senzaId(int tavolo, String note, List<Elemento_ordinato> elementi, Utente addetto_alla_sala){
@@ -36,7 +37,6 @@ class Ordinazione{
   }
 
     Ordinazione.fromJson(Map<String, dynamic> json){
-    print(json);
       _id = json['id'];
       _tavolo=json['numeroTavolo'];
       _note=json['note'];
@@ -98,14 +98,16 @@ class Ordinazione{
     }
 
   Map<String, dynamic> toJsonSenzaId(){
+    List<Map> jsonElem = _elementi.map((e) => e.toJson()).toList();
     return{
-      'tavolo':_tavolo,
+      'idRistorante':_addetto_alla_sala?.get_id_ristorante(),
+      'numeroTavolo':_tavolo,
       'note':_note,
       'stato':_stato,
       'data':fromDateToString(),
-      'elementi':_elementi,
-      'costo_totale':_costo_totale,
-      'gestore_ordinazione':_gestore_ordinazione
+      'elementiOrdinati':jsonElem,
+      'costoTotale':_costo_totale,
+      'addettoAllaSala':_addetto_alla_sala
     };
   }
 
@@ -126,6 +128,7 @@ class Ordinazione{
   Map<String, dynamic> toJsonSenzaGestore(){
     List<Map> jsonElem = _elementi.map((e) => e.toJson()).toList();
     return{
+      'id':_id,
       'idRistorante':_addetto_alla_sala?.get_id_ristorante(),
       'numeroTavolo':_tavolo,
       'note':_note,
@@ -148,7 +151,7 @@ class Ordinazione{
     void set_note(String note){_note=note;}
     void set_stato(String stato){_stato=stato;}
     void set_lista_elementi(List<Elemento_ordinato> elementi){_elementi=elementi;}
-    void set_gestore_ordinazione(Utente gestore_ordinazione){_gestore_ordinazione=gestore_ordinazione;}
+    void set_gestore_ordinazione(Utente gestoreOrdinazione){_gestore_ordinazione=gestoreOrdinazione;}
 
     int get_id(){return _id;}
     int get_tavolo(){return _tavolo;}

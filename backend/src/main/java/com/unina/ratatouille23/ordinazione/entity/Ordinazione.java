@@ -66,9 +66,6 @@ public class Ordinazione {
     @OneToMany(mappedBy = "ordinazione", targetEntity = ElementoOrdinato.class, cascade = CascadeType.MERGE, fetch = FetchType.LAZY, orphanRemoval = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonManagedReference
-    // @JoinColumn(name = "fk_id_ordinazione", referencedColumnName = "id_ordinazione")
-    //Owner della relazione, viene istanziata l'ordinazione e poi vengono istanziati gli elementi ordinati
-    //con l'id dell'ordinazione come foreign key
     private List<ElementoOrdinato> elementiOrdinati;
 
     

@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ratatouille23/views/custom_widget/bottone_arancione_con_testo.dart';
-import 'package:ratatouille23/views/menu_vuoto.dart';
 
 import 'custom_widget/barra_superiore.dart';
 import 'custom_widget/finestra_nessun_elemento.dart';
@@ -74,7 +72,6 @@ class ordinazioni_vuoto_state extends State<ordinazioni_vuoto>{
 
       TextEditingController numeroTavoloController = TextEditingController();
       String numeroTavolo = '';
-      Color colore=Colors.black.withOpacity(0.1);
       Color borderSideColorNumeroTavolo = CupertinoColors.systemGrey3;
       Color hintColorNumeroTavolo = CupertinoColors.systemGrey3;
 

@@ -8,7 +8,7 @@ class barra_superiore extends StatelessWidget{
     return Container(
         height: 60.0,
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(100.0),
             bottomRight: Radius.circular(100.0),
@@ -26,26 +26,26 @@ class barra_superiore extends StatelessWidget{
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
+            const SizedBox(
               width: 30,
             ),
             IconButton(
               onPressed: (){Navigator.pop(context);},
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back_outlined,
                 color: Colors.white,
                 size: 30,
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Text(
               '$text',
-              style:TextStyle(
+              style:const TextStyle(
                 fontSize: 36,
                 color: Colors.white,
               ),
             ),
-            Spacer(),
+            const Spacer(),
           ],
         )
     );

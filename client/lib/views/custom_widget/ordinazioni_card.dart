@@ -1,25 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Ordinazione_controller.dart';
 
 import '../../models/Ordinazione.dart';
 import '../../models/Utente.dart';
+import 'Finestra_errore.dart';
 
 class ordinazioni_card extends StatefulWidget{
   List<Ordinazione> ord;
   Utente utente;
-  ordinazioni_card({Key? key, required this.ord, required this.utente}): super(key: key);
+  Ordinazione_controller ordinazione_controller;
+
+  ordinazioni_card({Key? key, required this.ord, required this.utente, required this.ordinazione_controller}): super(key: key);
+
   @override
   ordinazioni_card_state createState() => ordinazioni_card_state();
   }
 
 class ordinazioni_card_state extends State<ordinazioni_card>{
-  late Ordinazione_controller _ordinazione_controller;
 
   @override
   void initState() {
-    _ordinazione_controller = Ordinazione_controller(utente: widget.utente);
+    super.initState();
   }
 
   @override
@@ -70,9 +74,16 @@ class ordinazioni_card_state extends State<ordinazioni_card>{
                       ),
                       SizedBox(width:16),
                       IconButton(
-                          onPressed: (){
-                            _ordinazione_controller.elimina_ordinazione_sala(ord[i]);
-                          },
+                          onPressed: () async {
+                            try{
+                              await widget.ordinazione_controller.elimina_ordinazione_sala(ord[i]);
+                            } catch (error) {
+                              FToast toast = FToast();
+                              toast.showToast(
+                                  child: Finestra_errore(message: "Impossibile eliminare l'ordinazione.$error"),
+                                  toastDuration: const Duration(seconds: 2),
+                                  gravity: ToastGravity.BOTTOM);
+                          }},
                           icon: Icon(
                             Icons.delete_outline,
                             color: Colors.red,
@@ -144,24 +155,24 @@ class ordinazioni_card_state extends State<ordinazioni_card>{
     return list;
   }
 
-  Widget buildRiga(String get_nome_elemento, int get_quantita, double get_costo_elemento) {
+  Widget buildRiga(String getNomeElemento, int getQuantita, double getCostoElemento) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          '$get_nome_elemento',
+          '$getNomeElemento',
           style: GoogleFonts.roboto(fontSize: 36, fontStyle: FontStyle.italic),
         ),
         //SizedBox(width:100),
         Center(
           child: Text(
-            '$get_quantita',
+            '$getQuantita',
             style: GoogleFonts.roboto(fontSize: 36, fontStyle: FontStyle.italic),
           ),
         ),
         //SizedBox(width:100),
         Text(
-          '$get_costo_elemento\$',
+          '$getCostoElemento\$',
           style: GoogleFonts.roboto(fontSize: 36, fontStyle: FontStyle.italic, ),
         ),
         SizedBox(width: 30),

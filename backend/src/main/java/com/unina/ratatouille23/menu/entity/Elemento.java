@@ -12,6 +12,10 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 import java.util.List;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.unina.ratatouille23.ordinazione.entity.ElementoOrdinato;
 
 @Entity
@@ -34,6 +38,7 @@ public class Elemento {
     private String allergeni;
 
     @OneToMany(mappedBy = "elementoDaOrdinare")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<ElementoOrdinato> elementiOrdinati;
     
     @ManyToOne

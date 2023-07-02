@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ratatouille23/views/menu_vuoto.dart';
 import 'bottoni_menu_admin.dart';
 
 class slide_button extends StatelessWidget{

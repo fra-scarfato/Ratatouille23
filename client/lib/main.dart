@@ -11,7 +11,7 @@ import 'package:flutter/services.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: <SystemUiOverlay>[]);
-  Amplify_controller amplify_controller = new Amplify_controller();
+  Amplify_controller amplify_controller = Amplify_controller();
   amplify_controller.configureAmplify();
   runApp(const MyApp());
 }

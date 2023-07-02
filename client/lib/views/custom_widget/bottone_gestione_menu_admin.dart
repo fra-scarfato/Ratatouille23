@@ -14,7 +14,6 @@ import '../../models/Utente.dart';
 import '../../models/menu/Categoria.dart';
 import '../menu.dart';
 import 'Finestra_errore.dart';
-import 'bottoni_menu_admin.dart';
 
 class bottone_gestione_menu_admin extends StatefulWidget{
   final List<Categoria>? listaCategorie;
@@ -151,7 +150,6 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
 
     TextEditingController nomeCategoriaController = TextEditingController();
     String nomeCategoria = '';
-    Color colore=Colors.black.withOpacity(0.1);
     Color borderSideColorNome = CupertinoColors.systemGrey3;
     Color hintColorNome = CupertinoColors.systemGrey3;
 

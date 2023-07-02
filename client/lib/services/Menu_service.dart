@@ -54,7 +54,7 @@ class Menu_service {
     var response = await http.put(
       uri,
       headers: header,
-      body: jsonEncode(elemento.toJsonSenzaId()),
+      body: jsonEncode(elemento.toJson()),
     );
     if (response.statusCode != 200) {
       throw (response.statusCode);

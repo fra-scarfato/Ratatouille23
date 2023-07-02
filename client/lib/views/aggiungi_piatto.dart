@@ -365,7 +365,7 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                                     child: Finestra_conferma(message: "Elemento aggiunto correttamente"),
                                     toastDuration: Duration(seconds: 2),
                                     gravity: ToastGravity.BOTTOM);
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => menu(utente: widget.utente,)));
+                                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => menu(utente: widget.utente,)),ModalRoute.withName("/pagina_iniziale"));
                               }
                             }catch (error){
                               attesa.hideProgressDialogue();

@@ -6,11 +6,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Amplify_controller.dart';
 import 'package:ratatouille23/controllers/Utente_controller.dart';
 import 'package:ratatouille23/views/custom_widget/Finestra_conferma.dart';
-import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
 
 import '../models/Utente.dart';
-import 'Login_ui.dart';
 import 'custom_widget/Finestra_attesa.dart';
 import 'custom_widget/Finestra_errore.dart';
 import 'custom_widget/barra_superiore.dart';

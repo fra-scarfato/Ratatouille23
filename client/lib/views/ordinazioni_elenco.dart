@@ -3,16 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Ordinazione_controller.dart';
-import 'package:ratatouille23/models/menu/Categoria.dart';
-import 'package:ratatouille23/services/Ordinazione_service.dart';
-import 'package:ratatouille23/views/ordinazioni_vuoto.dart';
 import 'package:ratatouille23/views/presa_ordinazione.dart';
-import 'package:responsive_framework/responsive_wrapper.dart';
 
-import '../models/Elemento_ordinato.dart';
 import '../models/Ordinazione.dart';
 import '../models/Utente.dart';
-import '../models/menu/Elemento.dart';
 import 'custom_widget/barra_superiore.dart';
 import 'custom_widget/finestra_nessun_elemento.dart';
 import 'custom_widget/ordinazioni_card.dart';
@@ -68,7 +62,7 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
                             listenable: _ordinazione_controller,
                             builder: (context, child) {
                               if(ord.isNotEmpty){
-                                return ordinazioni_card(ord: ord,utente: utente,);
+                                return ordinazioni_card(ord: ord, utente: utente, ordinazione_controller: _ordinazione_controller,);
                               } else {
                                 return finestra_nessun_elemento(
                                     string1: 'NON HAI REGISTRATO',
@@ -119,7 +113,6 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
   Future<void> displaySelezionaTavolo(BuildContext context) {
     TextEditingController numeroTavoloController = TextEditingController();
     String numeroTavolo = '';
-    Color colore=Colors.black.withOpacity(0.1);
     BorderSide borderSideColorNumeroTavolo = BorderSide(color: CupertinoColors.systemGrey, width: 5 );
     Color hintColorNumeroTavolo = CupertinoColors.systemGrey;
     return showDialog(

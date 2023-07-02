@@ -14,39 +14,40 @@ class Ordinazione_controller extends ChangeNotifier {
   final Ordinazione_service _ordinazione_service = Ordinazione_service();
   List<Ordinazione> _listaOrdinazioniSala = <Ordinazione>[];
   List<Ordinazione> _listaOrdinazioniCucina = <Ordinazione>[];
-  List<Ordinazione> _listaOrdiniAttesa = <Ordinazione>[];
-  List<Ordinazione> _listaOrdiniPresiInCarico = <Ordinazione>[];
+  final List<Ordinazione> _listaOrdiniAttesa = <Ordinazione>[];
+  final List<Ordinazione> _listaOrdiniPresiInCarico = <Ordinazione>[];
   List<Ordinazione> _listaDaVisualizzare = <Ordinazione>[];
   final Utente utente;
 
   Ordinazione_controller({required this.utente});
 
   void onStompCallback(StompFrame frame) {
-    Ordinazione_DTO ordinazione_dto = Ordinazione_DTO.fromJsonSTOMP(
+    print(frame.body.toString());
+    Ordinazione_DTO ordinazioneDto = Ordinazione_DTO.fromJsonSTOMP(
         jsonDecode(frame.body.toString()));
-    if(ordinazione_dto.ordinazione.get_gestore_ordinazione() == null) {
-      if (ordinazione_dto.operazione == "INSERT") {
-        _listaOrdiniAttesa.add(ordinazione_dto.ordinazione);
+    if(ordinazioneDto.ordinazione.get_gestore_ordinazione() == null) {
+      if (ordinazioneDto.operazione == "INSERT") {
+        _listaOrdiniAttesa.add(ordinazioneDto.ordinazione);
       }
       notifyListeners();
     }
     //Se l'elemento in coda è da qualche altro utente, allora aggiorno la schermata
-    else if (ordinazione_dto.ordinazione.get_gestore_ordinazione()!.get_id() !=
+    else if (ordinazioneDto.ordinazione.get_gestore_ordinazione()!.get_id() !=
         utente.get_id()) {
-      if (ordinazione_dto.operazione == "UPDATE") {
-        if (ordinazione_dto.ordinazione.get_stato() == "Presa in carico") {
+      if (ordinazioneDto.operazione == "UPDATE") {
+        if (ordinazioneDto.ordinazione.get_stato() == "Presa in carico") {
           _listaOrdiniAttesa.removeWhere((element) =>
-          element.get_id() == ordinazione_dto.ordinazione.get_id());
-          _listaOrdiniPresiInCarico.add(ordinazione_dto.ordinazione);
-        } else if (ordinazione_dto.ordinazione.get_stato() == "Evasa") {
+          element.get_id() == ordinazioneDto.ordinazione.get_id());
+          _listaOrdiniPresiInCarico.add(ordinazioneDto.ordinazione);
+        } else if (ordinazioneDto.ordinazione.get_stato() == "Evasa") {
           _listaOrdiniPresiInCarico.removeWhere((element) =>
-          element.get_id() == ordinazione_dto.ordinazione.get_id());
+          element.get_id() == ordinazioneDto.ordinazione.get_id());
         }
       } else {
-        if (ordinazione_dto.ordinazione.get_stato() == "In attesa") {
-          _listaOrdiniAttesa.remove(ordinazione_dto.ordinazione);
+        if (ordinazioneDto.ordinazione.get_stato() == "In attesa") {
+          _listaOrdiniAttesa.remove(ordinazioneDto.ordinazione);
         } else {
-          _listaOrdiniPresiInCarico.remove(ordinazione_dto.ordinazione);
+          _listaOrdiniPresiInCarico.remove(ordinazioneDto.ordinazione);
         }
       }
       notifyListeners();
@@ -117,10 +118,10 @@ class Ordinazione_controller extends ChangeNotifier {
   }
 
   Future<void> registra_nuova_ordinazione(int tavolo, String note,
-      List<Elemento_ordinato> elementi, Utente addetto_alla_sala) async {
+      List<Elemento_ordinato> elementi, Utente addettoAllaSala) async {
     try {
-      Ordinazione nuovaOrdinazione = Ordinazione.senzaId(tavolo, note, elementi, addetto_alla_sala);
-      _ordinazione_service.registra_nuova_ordinazione(nuovaOrdinazione);
+      Ordinazione nuovaOrdinazione = Ordinazione.senzaId(tavolo, note, elementi, addettoAllaSala);
+      await _ordinazione_service.registra_nuova_ordinazione(nuovaOrdinazione);
       _listaOrdinazioniSala.add(nuovaOrdinazione);
       _listaOrdiniAttesa.add(nuovaOrdinazione);
       notifyListeners();
@@ -135,7 +136,9 @@ class Ordinazione_controller extends ChangeNotifier {
       if(statoOrdinazione != "In attesa") {
         throw "Ordinazione presa in carico. Impossibile eliminare.";
       }
-      _ordinazione_service.elimina_ordinazione(ordinazione);
+      await _ordinazione_service.elimina_ordinazione(ordinazione);
+      _listaOrdinazioniSala.remove(ordinazione);
+      notifyListeners();
     } catch (error) {
       rethrow;
     }
@@ -149,7 +152,7 @@ class Ordinazione_controller extends ChangeNotifier {
       else if(ordinazione.get_stato() == "Presa in carico") {
         _listaOrdiniPresiInCarico.remove(ordinazione);
       }
-      _ordinazione_service.elimina_ordinazione(ordinazione);
+      await _ordinazione_service.elimina_ordinazione(ordinazione);
       notifyListeners();
     } catch (error) {
       rethrow;
@@ -158,7 +161,7 @@ class Ordinazione_controller extends ChangeNotifier {
 
   Future<void> modifica_ordinazione_cucina(Ordinazione ordinazioneDaModificare) async {
     try {
-      _ordinazione_service.modifica_ordinazione(ordinazioneDaModificare);
+      await _ordinazione_service.modifica_ordinazione(ordinazioneDaModificare);
     } catch (error) {
       rethrow;
     }
@@ -170,7 +173,7 @@ class Ordinazione_controller extends ChangeNotifier {
       if(statoOrdinazione != "In attesa") {
         throw "Ordinazione presa in carico. Impossibile modificare.";
       }
-      _ordinazione_service.modifica_ordinazione(ordinazioneDaModificare);
+      await _ordinazione_service.modifica_ordinazione(ordinazioneDaModificare);
     } catch (error) {
       rethrow;
     }

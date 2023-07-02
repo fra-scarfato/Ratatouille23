@@ -8,7 +8,6 @@ import 'package:ratatouille23/views/custom_widget/barra_superiore.dart';
 import 'package:ratatouille23/views/ordinazioni_elenco.dart';
 import 'package:ratatouille23/views/pagina_iniziale.dart';
 
-import '../../models/Ordinazione.dart';
 import '../../models/Utente.dart';
 import 'Finestra_attesa.dart';
 import 'Finestra_conferma.dart';
@@ -39,7 +38,7 @@ class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
         backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: false,
         body: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: AssetImage("assets/images/bubble.png"),
@@ -48,8 +47,8 @@ class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                barra_superiore(text: 'Lista ordinazioni'),
-                SizedBox(height: 30),
+                const barra_superiore(text: 'Lista ordinazioni'),
+                const SizedBox(height: 30),
                 Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height - 195,
@@ -87,18 +86,18 @@ class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
                 attesa.hideProgressDialogue();
                 toast.showToast(
                     child: Finestra_conferma(message: "Ordinazione effettuata correttamente"),
-                    toastDuration: Duration(seconds: 2),
+                    toastDuration: const Duration(seconds: 2),
                     gravity: ToastGravity.BOTTOM);
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>ordinazioni_elenco(utente: widget.utente)));
+                    Navigator.of(context).popUntil(ModalRoute.withName("/pagina_iniziale"));
               }catch (error){
                 attesa.hideProgressDialogue();
                 toast.showToast(
                     child: Finestra_errore(message: "Ordinazione non riuscita!"),
-                    toastDuration: Duration(seconds: 2),
+                    toastDuration: const Duration(seconds: 2),
                     gravity: ToastGravity.BOTTOM);
                 }
               },
-            label: Text('CONFERMA ORDINE', style: TextStyle(color: Colors.white, fontSize: 24,),),
+            label: const Text('CONFERMA ORDINE', style: TextStyle(color: Colors.white, fontSize: 24,),),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
@@ -111,9 +110,9 @@ class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
         child: Card(
             color: Colors.white,
             elevation: 24.0,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(33.0))),
+            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(33.0))),
             child:Padding(
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -128,22 +127,22 @@ class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
                           '${widget.tavolo}',
                           style: GoogleFonts.roboto(fontSize: 36, fontStyle: FontStyle.italic,fontWeight: FontWeight.bold),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         IconButton(
                             onPressed: (){
                               Navigator.pop(context);
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.mode_edit_outlined,
                               size: 50,
                             )
                         ),
-                        SizedBox(width:16),
+                        const SizedBox(width:16),
                         IconButton(
                             onPressed: (){
                               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => pagina_iniziale(widget.utente)));
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.delete_outline,
                               color: Colors.red,
                               size: 50,
@@ -152,10 +151,10 @@ class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
 
                       ],
                     ),
-                    SizedBox(height:16),
+                    const SizedBox(height:16),
                     Container(
                       child: ListView(
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         children: lista_elementi(widget.elementi_ordinati),
                       ),
@@ -168,7 +167,7 @@ class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
                           filled: true,
                           fillColor: Colors.white,
                           border: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                                 color: Colors.grey,
                                 width: 5.0
                             ),
@@ -176,7 +175,7 @@ class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
 
                           ),
                           hintText: 'Aggiungi note...',
-                          hintStyle: TextStyle(color: Colors.grey)
+                          hintStyle: const TextStyle(color: Colors.grey)
                       ),
                       onChanged: (text){
                         setState(() {
@@ -200,11 +199,11 @@ class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
       if (i!=elementi_ordinati.length-1) {
         // print(elementi_ordinati[i].get_elemento().nome);
         list.add(buildRiga(elementi_ordinati[i].get_elemento().nome, elementi_ordinati[i].get_quantita() ,(elementi_ordinati[i].get_elemento().costo * elementi_ordinati[i].get_quantita())));
-        list.add(Divider(color: Colors.orange,));
+        list.add(const Divider(color: Colors.orange,));
       }
       else{
         list.add(buildRiga(elementi_ordinati[i].get_elemento().nome, elementi_ordinati[i].get_quantita() ,elementi_ordinati[i].get_elemento().costo));
-        list.add(Divider(color: Colors.orange,));
+        list.add(const Divider(color: Colors.orange,));
         list.add(
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -247,10 +246,10 @@ class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
         ),
         //SizedBox(width:100),
         Text(
-          '$get_costo_elemento\$',
+          '$get_costo_elemento',
           style: GoogleFonts.roboto(fontSize: 36, fontStyle: FontStyle.italic, ),
         ),
-        SizedBox(width: 30),
+        const SizedBox(width: 30),
 
       ],
     );
@@ -259,9 +258,9 @@ class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
   double _calcola_totale(List<Elemento_ordinato> elementi){
     double totale=0;
     for(int i=0;i<elementi.length;i++){
-      totale=totale+(elementi[i].get_elemento().costo* elementi[i].get_quantita());
+      totale=totale+(elementi[i].get_elemento().costo * elementi[i].get_quantita());
     }
-    return totale;
+    return double.parse(totale.toStringAsFixed(2));
   }
   //
   //

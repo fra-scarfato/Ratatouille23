@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 import '../../controllers/Menu_controller.dart';
 import '../../models/menu/Categoria.dart';
-import '../../models/menu/Elemento.dart';
 
 class CategorieBar_parent extends StatefulWidget {
   final Menu_controller menu_controller;
@@ -26,6 +24,7 @@ class CategorieBar extends State<CategorieBar_parent> {
 
   @override
  void initState() {
+   super.initState();
    istanziaLista();
    if(list.isNotEmpty) {
      list[0] = true;

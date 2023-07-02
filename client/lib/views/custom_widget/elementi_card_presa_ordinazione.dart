@@ -8,9 +8,6 @@ import 'package:ratatouille23/models/menu/Elemento.dart';
 import 'package:translator/translator.dart';
 
 import '../../controllers/Presa_ordinazione_view_controller.dart';
-import '../../models/menu/Categoria.dart';
-import 'elementi_card_bottom.dart';
-import 'elementi_card_header.dart';
 import 'elementi_card_presa_ordinazione_header.dart';
 
 class elementi_card_presa_ordinazione extends StatefulWidget{

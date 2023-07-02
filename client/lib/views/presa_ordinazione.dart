@@ -1,31 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:provider/provider.dart';
 import 'package:ratatouille23/views/custom_widget/Finestra_errore.dart';
-import 'package:ratatouille23/views/custom_widget/bottone_gestione_menu_admin.dart';
-import 'package:ratatouille23/views/pagina_iniziale.dart';
-import 'package:responsive_framework/responsive_wrapper.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:flag/flag.dart';
 
 import '../controllers/Menu_controller.dart';
 import '../controllers/Presa_ordinazione_view_controller.dart';
 import '../models/Elemento_ordinato.dart';
-import '../models/Ordinazione.dart';
 import '../models/Utente.dart';
 import '../models/menu/Categoria.dart';
-import '../models/menu/Elemento.dart';
 import 'custom_widget/Visualizza_riepilogo.dart';
 import 'custom_widget/barra_superiore.dart';
 import 'custom_widget/categorie_bar.dart';
-import 'custom_widget/elementi_card.dart';
-import 'custom_widget/elementi_card_bottom.dart';
-import 'custom_widget/elementi_card_header.dart';
 import 'custom_widget/elementi_card_presa_ordinazione.dart';
-import 'custom_widget/bottone_arancione_con_testo.dart';
 import 'custom_widget/finestra_nessun_elemento.dart';
-import 'home.dart';
 
 class Presa_ordinazione extends StatefulWidget {
   const Presa_ordinazione(

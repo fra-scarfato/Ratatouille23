@@ -16,14 +16,14 @@ class bottone_arancione_con_testo extends StatelessWidget{
         },
         child: Text(
           '$text',
-          style:TextStyle(
+          style:const TextStyle(
             fontSize: 24,
             color: Colors.white,
           ),
         ),
 
         style: ElevatedButton.styleFrom(
-          shape: StadiumBorder(),
+          shape: const StadiumBorder(),
           backgroundColor: Colors.orange,
           padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
 

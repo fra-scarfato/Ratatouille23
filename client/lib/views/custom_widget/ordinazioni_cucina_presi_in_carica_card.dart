@@ -102,7 +102,6 @@ class ordinazioni_cucina_card_presi_in_carica_state extends State<ordinazioni_cu
   }
 
   List<Widget> lista_elementi(Ordinazione ordinazione) {
-    double costo=ordinazione.get_costo_totale();
     List<Widget> list=[];
     for(int i=0 ;i< ordinazione.get_lista_elementi().length; i++){
       if (i!=ordinazione.get_lista_elementi().length-1) {
@@ -140,7 +139,6 @@ class ordinazioni_cucina_card_presi_in_carica_state extends State<ordinazioni_cu
   }
 
   Widget statoOrdine(Ordinazione ord) {
-    String stato = ord.get_stato();
     Widget bottone_evadi = ElevatedButton(
 
         onPressed: () {ord.set_stato('Evaso'); /*ordinazione_controller.modifica_ordinazione(ord);*/},

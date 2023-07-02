@@ -1,17 +1,11 @@
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Amplify_controller.dart';
-import 'package:ratatouille23/controllers/Utente_controller.dart';
 import 'package:ratatouille23/views/custom_widget/Finestra_attesa.dart';
 import 'package:ratatouille23/views/custom_widget/Finestra_conferma.dart';
-import 'package:ratatouille23/views/custom_widget/bottone_arancione_con_testo.dart';
 import 'package:ratatouille23/views/pagina_iniziale.dart';
-import 'package:responsive_framework/responsive_wrapper.dart';
 
 import '../models/Utente.dart';
 import 'custom_widget/Finestra_errore.dart';
@@ -33,8 +27,7 @@ class Reset_pwd extends State<Reset_pwd_ui> {
   String confirmationCode = '';
   BorderSide borderPassword = BorderSide.none;
   Color passwordHintTextColor = CupertinoColors.systemGrey;
-  Amplify_controller amplify_controller = new Amplify_controller();
-  Utente_controller _utente_controller = new Utente_controller();
+  Amplify_controller amplify_controller = Amplify_controller();
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +38,7 @@ class Reset_pwd extends State<Reset_pwd_ui> {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Gestisci la tua attività in modo semplice e veloce',
+            const Text('Gestisci la tua attività in modo semplice e veloce',
                 style: TextStyle(
                     fontSize: 48,
                     fontWeight: FontWeight.bold,
@@ -57,7 +50,7 @@ class Reset_pwd extends State<Reset_pwd_ui> {
                         color: Colors.black,
                       ),
                     ])),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             SizedBox(
@@ -109,7 +102,7 @@ class Reset_pwd extends State<Reset_pwd_ui> {
                 onPressed: () async {
                   if (fullPassword == '') {
                     setState(() {
-                      borderPassword = BorderSide(color: Colors.red, width: 5);
+                      borderPassword = const BorderSide(color: Colors.red, width: 5);
                       passwordHintTextColor = Colors.red;
                     });
                   } else {
@@ -126,7 +119,7 @@ class Reset_pwd extends State<Reset_pwd_ui> {
                       Fluttertoast.cancel();
                       toast.showToast(
                           child: Finestra_conferma(message: "Conferma completata"),
-                          toastDuration: Duration(seconds: 2),
+                          toastDuration: const Duration(seconds: 2),
                           gravity: ToastGravity.BOTTOM);
                       Navigator.push(
                           context,
@@ -138,23 +131,23 @@ class Reset_pwd extends State<Reset_pwd_ui> {
                       Fluttertoast.cancel();
                       toast.showToast(
                           child: Finestra_errore(message: "Conferma non riuscita"),
-                          toastDuration: Duration(seconds: 2),
+                          toastDuration: const Duration(seconds: 2),
                           gravity: ToastGravity.BOTTOM);
                     }
                   }
                 },
-                child: Text(
+                style: ElevatedButton.styleFrom(
+                  shape: const StadiumBorder(),
+                  backgroundColor: Colors.orange,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                ),
+                child: const Text(
                   'CAMBIA PASSWORD',
                   style: TextStyle(
                     fontSize: 24,
                     color: Colors.white,
                   ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  shape: StadiumBorder(),
-                  backgroundColor: Colors.orange,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                 ))
           ],
         )));

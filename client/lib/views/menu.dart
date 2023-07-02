@@ -1,23 +1,13 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 import 'package:ratatouille23/models/menu/Categoria.dart';
-import 'package:ratatouille23/models/menu/Elemento.dart';
 import 'package:ratatouille23/views/custom_widget/bottone_gestione_menu_admin.dart';
-import 'package:responsive_framework/responsive_wrapper.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:flag/flag.dart';
 
 import '../controllers/Menu_controller.dart';
 import '../models/Utente.dart';
 import 'custom_widget/barra_superiore.dart';
 import 'custom_widget/categorie_bar.dart';
 import 'custom_widget/elementi_card.dart';
-import 'custom_widget/elementi_card_bottom.dart';
-import 'custom_widget/elementi_card_header.dart';
 import 'custom_widget/finestra_nessun_elemento.dart';
-import 'home.dart';
 
 class menu extends StatefulWidget {
   final Utente utente;

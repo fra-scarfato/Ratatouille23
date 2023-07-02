@@ -118,7 +118,6 @@ class ordinazioni_cucina_card_state extends State<ordinazioni_cucina_card>{
   }
 
   List<Widget> lista_elementi(Ordinazione ordinazione) {
-    double costo=ordinazione.get_costo_totale();
     List<Widget> list=[];
     for(int i=0 ;i< ordinazione.get_lista_elementi().length; i++){
       if (i!=ordinazione.get_lista_elementi().length-1) {

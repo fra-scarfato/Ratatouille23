@@ -4,16 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Amplify_controller.dart';
-import 'package:ratatouille23/controllers/Utente_controller.dart';
 import 'package:ratatouille23/models/Utente.dart';
 import 'package:ratatouille23/views/Reset_pwd.dart';
 import 'package:ratatouille23/views/custom_widget/Finestra_attesa.dart';
 import 'package:ratatouille23/views/custom_widget/Finestra_conferma.dart';
-import 'package:ratatouille23/views/custom_widget/bottone_arancione_con_testo.dart';
 import 'package:ratatouille23/views/pagina_iniziale.dart';
-import 'package:responsive_framework/responsive_wrapper.dart';
 
 import 'custom_widget/Finestra_errore.dart';
 
@@ -34,7 +30,7 @@ class Login extends State<Login_ui> {
   Color mailHintTextColor = CupertinoColors.systemGrey;
   BorderSide borderPassword = BorderSide.none;
   Color passwordHintTextColor = CupertinoColors.systemGrey;
-  Amplify_controller amplify_controller = new Amplify_controller();
+  Amplify_controller amplify_controller = Amplify_controller();
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +41,7 @@ class Login extends State<Login_ui> {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Gestisci la tua attività in modo semplice e veloce',
+            const Text('Gestisci la tua attività in modo semplice e veloce',
                 style: TextStyle(
                     fontSize: 48,
                     fontWeight: FontWeight.bold,
@@ -57,7 +53,7 @@ class Login extends State<Login_ui> {
                         color: Colors.black,
                       ),
                     ])),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             SizedBox(
@@ -109,14 +105,14 @@ class Login extends State<Login_ui> {
                   if (fullMail == '' || fullPassword == '') {
                     if (fullMail == '') {
                       setState(() {
-                        borderMail = BorderSide(color: Colors.red, width: 5);
+                        borderMail = const BorderSide(color: Colors.red, width: 5);
                         mailHintTextColor = Colors.red;
                       });
                     }
                     if (fullPassword == '') {
                       setState(() {
                         borderPassword =
-                            BorderSide(color: Colors.red, width: 5);
+                            const BorderSide(color: Colors.red, width: 5);
                         passwordHintTextColor = Colors.red;
                       });
                     }
@@ -144,7 +140,7 @@ class Login extends State<Login_ui> {
                         attesa.hideProgressDialogue();
                         toast.showToast(
                             child: Finestra_conferma(message: "Accesso completato"),
-                            toastDuration: Duration(seconds: 2),
+                            toastDuration: const Duration(seconds: 2),
                             gravity: ToastGravity.BOTTOM);
                         if (utente.get_ruolo() == "Amministratore" ||
                             utente.get_ruolo() == "Supervisore") {
@@ -161,26 +157,25 @@ class Login extends State<Login_ui> {
                       }
                     } on AmplifyException {
                       attesa.hideProgressDialogue();
-                      Fluttertoast.cancel();
                       toast.showToast(
                           child: Finestra_errore(message: 'Email o password sbagliati'),
-                          toastDuration: Duration(seconds: 2),
+                          toastDuration: const Duration(seconds: 2),
                           gravity: ToastGravity.BOTTOM);
                     }
                   }
                 },
-                child: Text(
+                style: ElevatedButton.styleFrom(
+                  shape: const StadiumBorder(),
+                  backgroundColor: Colors.orange,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                ),
+                child: const Text(
                   'ACCEDI',
                   style: TextStyle(
                     fontSize: 24,
                     color: Colors.white,
                   ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  shape: StadiumBorder(),
-                  backgroundColor: Colors.orange,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                 ))
           ],
         )));
