@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -10,12 +9,12 @@ class CategorieBar_parent extends StatefulWidget {
 
   //final Function(Categoria) fun;
 
-  CategorieBar_parent({Key? key, required this.menu_controller
+  const CategorieBar_parent({Key? key, required this.menu_controller
       //required this.fun,
       })
       : super(key: key);
   @override
-  CategorieBar createState() => new CategorieBar();
+  CategorieBar createState() => CategorieBar();
 }
 
 class CategorieBar extends State<CategorieBar_parent> {
@@ -41,7 +40,7 @@ class CategorieBar extends State<CategorieBar_parent> {
           listaCategorie.length,
           (index) => Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Container(
+            child: SizedBox(
               width: 250,
               child: ListTile(
                 tileColor: Colors.yellow.shade200,
@@ -61,7 +60,7 @@ class CategorieBar extends State<CategorieBar_parent> {
                   });
                 },
                 shape: RoundedRectangleBorder(
-                    side: BorderSide(color: Colors.black),
+                    side: const BorderSide(color: Colors.black),
                     borderRadius: BorderRadius.circular(30)),
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

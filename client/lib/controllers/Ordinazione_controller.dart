@@ -22,7 +22,6 @@ class Ordinazione_controller extends ChangeNotifier {
   Ordinazione_controller({required this.utente});
 
   void onStompCallback(StompFrame frame) {
-    print(frame.body.toString());
     Ordinazione_DTO ordinazioneDto = Ordinazione_DTO.fromJsonSTOMP(
         jsonDecode(frame.body.toString()));
     if(ordinazioneDto.ordinazione.get_gestore_ordinazione() == null) {

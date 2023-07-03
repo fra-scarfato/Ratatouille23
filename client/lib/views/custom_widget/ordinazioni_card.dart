@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,14 +27,11 @@ class ordinazioni_card_state extends State<ordinazioni_card>{
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView(
-        shrinkWrap: true,
-        children: [
-          ...ordini_card(widget.ord),
-        ],
-      ),
-
+    return ListView(
+      shrinkWrap: true,
+      children: [
+        ...ordini_card(widget.ord),
+      ],
     );
   }
 
@@ -45,9 +41,9 @@ class ordinazioni_card_state extends State<ordinazioni_card>{
       list.add(Card(
           color: Colors.white,
           elevation: 24.0,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(33.0))),
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(33.0))),
           child:Padding(
-              padding: EdgeInsets.all(15),
+              padding: const EdgeInsets.all(15),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -62,17 +58,17 @@ class ordinazioni_card_state extends State<ordinazioni_card>{
                         '${ord[i].get_tavolo()}',
                         style: GoogleFonts.roboto(fontSize: 36, fontStyle: FontStyle.italic,fontWeight: FontWeight.bold),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       IconButton(
                           onPressed: (){
                             //TODO
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.mode_edit_outlined,
                             size: 50,
                           )
                       ),
-                      SizedBox(width:16),
+                      const SizedBox(width:16),
                       IconButton(
                           onPressed: () async {
                             try{
@@ -84,7 +80,7 @@ class ordinazioni_card_state extends State<ordinazioni_card>{
                                   toastDuration: const Duration(seconds: 2),
                                   gravity: ToastGravity.BOTTOM);
                           }},
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.delete_outline,
                             color: Colors.red,
                             size: 50,
@@ -93,15 +89,13 @@ class ordinazioni_card_state extends State<ordinazioni_card>{
 
                     ],
                   ),
-                  SizedBox(height:16),
-                  Container(
-                    child: ListView(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      children: lista_elementi(ord[i]),
-                    ),
+                  const SizedBox(height:16),
+                  ListView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    children: lista_elementi(ord[i]),
                   ),
-                  Container(
+                  SizedBox(
                     width:1161,
                     child: Text(
                         ord[i].get_note(),
@@ -125,11 +119,11 @@ class ordinazioni_card_state extends State<ordinazioni_card>{
     for(int i=0 ;i< ordinazione.get_lista_elementi().length; i++){
       if (i!=ordinazione.get_lista_elementi().length-1) {
         list.add(buildRiga(ordinazione.get_elemento(i).nome,ordinazione.get_quantita_elemento(i),ordinazione.get_elemento(i).costo));
-        list.add(Divider(color: Colors.orange,));
+        list.add(const Divider(color: Colors.orange,));
       }
       else{
         list.add(buildRiga(ordinazione.get_elemento(i).nome,ordinazione.get_quantita_elemento(i),ordinazione.get_elemento(i).costo));
-        list.add(Divider(color: Colors.orange,));
+        list.add(const Divider(color: Colors.orange,));
         list.add(
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -151,7 +145,7 @@ class ordinazioni_card_state extends State<ordinazioni_card>{
             )
         );
       }
-    };
+    }
     return list;
   }
 
@@ -160,7 +154,7 @@ class ordinazioni_card_state extends State<ordinazioni_card>{
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          '$getNomeElemento',
+          getNomeElemento,
           style: GoogleFonts.roboto(fontSize: 36, fontStyle: FontStyle.italic),
         ),
         //SizedBox(width:100),
@@ -175,7 +169,7 @@ class ordinazioni_card_state extends State<ordinazioni_card>{
           '$getCostoElemento\$',
           style: GoogleFonts.roboto(fontSize: 36, fontStyle: FontStyle.italic, ),
         ),
-        SizedBox(width: 30),
+        const SizedBox(width: 30),
 
       ],
     );

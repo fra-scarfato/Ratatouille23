@@ -1,5 +1,4 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,7 +20,7 @@ class elementi_card extends StatefulWidget {
   final List<Categoria>? listaCategorie;
 
   elementi_card(
-      {required this.utente,
+      {super.key, required this.utente,
       required this.elemento,
       required this.listaCategorie});
 
@@ -49,10 +48,10 @@ class elementi_card_state extends State<elementi_card> {
             key: UniqueKey(),
             color: Colors.white,
             elevation: 24.0,
-            shape: RoundedRectangleBorder(
+            shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(33.0))),
             child: Padding(
-              padding: EdgeInsets.all(15), //apply padding to all four sides
+              padding: const EdgeInsets.all(15), //apply padding to all four sides
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -67,7 +66,7 @@ class elementi_card_state extends State<elementi_card> {
                             fontSize: 36,
                             fontStyle: FontStyle.italic),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Text(
                         'Costo: ${widget.elemento.costo}\$',
                         style: GoogleFonts.roboto(
@@ -75,7 +74,7 @@ class elementi_card_state extends State<elementi_card> {
                             fontSize: 36,
                             fontStyle: FontStyle.italic),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 170,
                       ),
                       IconButton(
@@ -88,7 +87,7 @@ class elementi_card_state extends State<elementi_card> {
                                         utente: widget.utente,
                                         elemento: widget.elemento)));
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.mode_edit_outlined,
                             size: 50,
                           )),
@@ -99,32 +98,32 @@ class elementi_card_state extends State<elementi_card> {
                             try{
                               menu_controller.rimuoviElemento(widget.elemento);
                               toast.showToast(
-                                  child: Finestra_conferma(message: "Elemento rimosso"),
-                                  toastDuration: Duration(seconds: 2),
+                                  child: const Finestra_conferma(message: "Elemento rimosso"),
+                                  toastDuration: const Duration(seconds: 2),
                                   gravity: ToastGravity.BOTTOM);
                             } catch (error) {
                               toast.showToast(
-                                  child: Finestra_errore(message: 'Impossibile rimuovere elemento'),
+                                  child: const Finestra_errore(message: 'Impossibile rimuovere elemento'),
                                   toastDuration: const Duration(seconds: 2),
                                   gravity: ToastGravity.BOTTOM);
                             }
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.delete_outline,
                             color: Colors.red,
                             size: 50,
                           )),
                     ],
                   ),
-                  SizedBox(height: 16),
-                  Container(
+                  const SizedBox(height: 16),
+                  SizedBox(
                     width: 1161,
                     child: Text(menu_controller.getDescrizionePerTraduzione(),
                         style: GoogleFonts.roboto(
                             fontStyle: FontStyle.italic, fontSize: 27)),
                     //  )
                   ),
-                  SizedBox(height: 32),
+                  const SizedBox(height: 32),
                   // elementi_card_bottom(allergeni: widget.elemento.allergeni)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -136,7 +135,7 @@ class elementi_card_state extends State<elementi_card> {
                         },
                         child: Flag.fromCode(FlagsCode.IT, height: 30, width: 35),
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       InkWell(
                         onTap: () async {
                           await menu_controller.traduciInInglese(widget.elemento);
@@ -144,7 +143,7 @@ class elementi_card_state extends State<elementi_card> {
                         child: Flag.fromCode(FlagsCode.GB, height: 30, width: 35),
                       ),
                       //SizedBox(width: 451,),
-                      Spacer(),
+                      const Spacer(),
                       Container(
                         width: 1020,
                         alignment: AlignmentDirectional.topEnd,

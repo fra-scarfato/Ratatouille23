@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,7 +12,7 @@ class bottoneOrdini extends StatefulWidget {
   final Ordinazione_controller ordinazione_controller;
 
   @override
-  State<StatefulWidget> createState() => new OrdiniBar();
+  State<StatefulWidget> createState() => OrdiniBar();
 }
 
 class OrdiniBar extends State<bottoneOrdini> {
@@ -44,7 +43,7 @@ class OrdiniBar extends State<bottoneOrdini> {
               });
             },
             shape: RoundedRectangleBorder(
-                side: BorderSide(color: Colors.black),
+                side: const BorderSide(color: Colors.black),
                 borderRadius: BorderRadius.circular(30)),
             title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -72,7 +71,7 @@ class OrdiniBar extends State<bottoneOrdini> {
                 });
               },
               shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.black),
+                  side: const BorderSide(color: Colors.black),
                   borderRadius: BorderRadius.circular(30)),
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

@@ -16,7 +16,7 @@ class Ordinazione{
   Utente? _gestore_ordinazione;
   Utente? _addetto_alla_sala;
 
-  Ordinazione(){}
+  Ordinazione();
 
   double _calcola_totale(List<Elemento_ordinato> elementi){
     double totale=0;
@@ -141,12 +141,16 @@ class Ordinazione{
   }
 
   String fromDateToString() {
-    var formatter = new DateFormat('yyyy-MM-dd');
+    var formatter = DateFormat('yyyy-MM-dd');
     String formattedDate = formatter.format(_data);
     return formattedDate;
   }
 
-    void set_id(int id){_id=id;}
+  set addetto_alla_sala(Utente value) {
+    _addetto_alla_sala = value;
+  }
+
+  void set_id(int id){_id=id;}
     void set_tavolo(int tavolo){_tavolo=tavolo;}
     void set_note(String note){_note=note;}
     void set_stato(String stato){_stato=stato;}
@@ -161,7 +165,9 @@ class Ordinazione{
     List<Elemento_ordinato> get_lista_elementi(){return _elementi;}
     double get_costo_totale(){return _costo_totale;}
     Utente? get_gestore_ordinazione(){return _gestore_ordinazione;}
+    Utente? get_addetto_sala(){return _addetto_alla_sala;}
     Elemento get_elemento(int i){return _elementi[i].get_elemento();}
     int get_quantita_elemento(int i){return _elementi[i].get_quantita();}
+
 
 }

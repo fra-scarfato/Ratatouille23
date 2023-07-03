@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Finestra_attesa {
@@ -12,7 +11,7 @@ class Finestra_attesa {
         context: context,
         builder: (BuildContext context) => Container(
           color: Colors.white,
-          child: Center(
+          child: const Center(
             child: CircularProgressIndicator(),
           ),
         )
@@ -22,7 +21,7 @@ class Finestra_attesa {
   void hideProgressDialogue() {
     Navigator.of(context).pop(Container(
       color: Colors.white,
-      child: Center(
+      child: const Center(
         child: CircularProgressIndicator(),
       ),
     ),);}

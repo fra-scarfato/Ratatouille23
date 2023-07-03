@@ -31,6 +31,7 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
 
 
 
+  @override
   Widget build(BuildContext context){
     return ElevatedButton(
       onPressed: () {
@@ -38,14 +39,14 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
         _displayFunzioni(context, widget.menu_controller);
 
       },
-      child: Icon(
+      child: const Icon(
         Icons.sticky_note_2_outlined,
         color: Colors.black,
         size: 60,
       ),
 
       style: ElevatedButton.styleFrom(
-        shape: StadiumBorder(),
+        shape: const StadiumBorder(),
         backgroundColor: Colors.orange,
         padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
 
@@ -64,7 +65,7 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
               color: Colors.black.withOpacity(0.2),
             ),
             child: AnimationConfiguration.staggeredList(
-              duration: Duration(milliseconds: 450),
+              duration: const Duration(milliseconds: 450),
               position: 0,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -75,7 +76,7 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
                       child:Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children:[Text('Aggiungi categoria', style: GoogleFonts.roboto(fontSize: 24,color: Colors.white),),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 8),
                           ElevatedButton(
 
                             onPressed: () {
@@ -84,11 +85,11 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
                             },
 
                             style: ElevatedButton.styleFrom(
-                              shape: StadiumBorder(),
+                              shape: const StadiumBorder(),
                               backgroundColor: Colors.orange,
                               padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                             ),
-                            child: Icon(
+                            child: const Icon(
                               Icons.add,
                               color: Colors.white,
                               size: 60,
@@ -99,14 +100,14 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
                       )
                   ),
                   //slide_button(vertical_offset: 80, horizontal_offset: 0, text: 'Aggiungi categoria', route: , icon: Icons.add),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      slide_button(vertical_offset: 40, horizontal_offset: 40, text: 'Aggiungi piatto', route:  /*displayAggiungiCategoria*/aggiungi_piatto(listaCategorie: widget.listaCategorie, utente: widget.utente, menu_controller: menu_controller), icon: Icons.add),
-                      SizedBox(
+                      slide_button(vertical_offset: 40, horizontal_offset: 40, text: 'Aggiungi piatto', route:  /*displayAggiungiCategoria*/aggiungi_piattoUI(listaCategorie: widget.listaCategorie, utente: widget.utente, menu_controller: menu_controller), icon: Icons.add),
+                      const SizedBox(
                         height: 8,
                         width: 150,
                       ),
@@ -118,21 +119,21 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
                       Navigator.pop(context);
                       //_displayAddCategoria(context);
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.close,
                       color: Colors.black,
                       size: 60,
                     ),
 
                     style: ElevatedButton.styleFrom(
-                      shape: StadiumBorder(),
+                      shape: const StadiumBorder(),
                       backgroundColor: Colors.orange,
                       padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
 
                     ),
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 60,
                   )
                 ],
@@ -158,13 +159,13 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
         builder: (context) {
           return AlertDialog(
 
-            shape: RoundedRectangleBorder(
+            shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(32.0))),
             title: Center(
 
                 child:Padding(
 
-                  padding: EdgeInsetsDirectional.all(30.0),
+                  padding: const EdgeInsetsDirectional.all(30.0),
                   child: Text(
                     "Aggiungi una nuova categoria",
                     style: GoogleFonts.roboto(fontSize: 44, color: Colors.orange),
@@ -174,17 +175,17 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
             content: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 15,
                 ),
                 Text(
                   'Nome categoria',
                   style: GoogleFonts.roboto(fontSize: 44,),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 50,
                 ),
-                Spacer(),
+                const Spacer(),
                 SizedBox(
                   width: 522,
                   height: 54,
@@ -212,7 +213,7 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
                     },
                   ) ,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 15,
                 ),
               ],
@@ -220,7 +221,7 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
             actions: <Widget>[
               Column(mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(height:40),
+                  const SizedBox(height:40),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -228,7 +229,7 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: Text(
+                          child: const Text(
                             'ANNULLA',
                             style:TextStyle(
                               fontSize: 24,
@@ -236,12 +237,12 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
                             ),
                           ),
                           style: ElevatedButton.styleFrom(
-                            shape: StadiumBorder(),
+                            shape: const StadiumBorder(),
                             backgroundColor: Colors.red,
                             padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                           )
                       ),
-                      SizedBox(width:80),
+                      const SizedBox(width:80),
                       ElevatedButton(
                           onPressed: () async {
                             if(nomeCategoria==''){
@@ -259,20 +260,20 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
                               attesa.hideProgressDialogue();
                               Fluttertoast.cancel();
                               toast.showToast(
-                                  child: Finestra_conferma(message: "Categoria aggiunta correttamente"),
-                                  toastDuration: Duration(seconds: 2),
+                                  child: const Finestra_conferma(message: "Categoria aggiunta correttamente"),
+                                  toastDuration: const Duration(seconds: 2),
                                   gravity: ToastGravity.BOTTOM);
                               Navigator.pop(context);
                             }catch (error){
                               attesa.hideProgressDialogue();
                               Fluttertoast.cancel();
                               toast.showToast(
-                                  child: Finestra_errore(message: "Errore nell'aggiunta della categoria"),
-                                  toastDuration: Duration(seconds: 2),
+                                  child: const Finestra_errore(message: "Errore nell'aggiunta della categoria"),
+                                  toastDuration: const Duration(seconds: 2),
                                   gravity: ToastGravity.BOTTOM);
                             }
                             },
-                          child: Text(
+                          child: const Text(
                             'AGGIUNGI',
                             style:TextStyle(
                               fontSize: 24,
@@ -280,7 +281,7 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
                             ),
                           ),
                           style: ElevatedButton.styleFrom(
-                            shape: StadiumBorder(),
+                            shape: const StadiumBorder(),
                             backgroundColor: Colors.green,
                             padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                           )
@@ -288,7 +289,7 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
 
                     ],
                   ),
-                  SizedBox(height:40)
+                  const SizedBox(height:40)
                 ],)
             ],
           );}

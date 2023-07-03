@@ -1,10 +1,10 @@
-class ElementiVendutiData {
+class ElementoVendutoChartData {
   late String _nomeElemento;
   late int _numeroVendite;
   late double _guadagno;
   late int _id_elemento;
 
-  ElementiVendutiData(this._nomeElemento, this._id_elemento, this._numeroVendite, this._guadagno);
+  ElementoVendutoChartData(this._nomeElemento, this._id_elemento, this._numeroVendite, this._guadagno);
 
 
   int get id_elemento => _id_elemento;

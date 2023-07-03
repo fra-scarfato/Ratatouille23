@@ -40,7 +40,7 @@ class modifica_piatto_state extends State<modifica_piatto> {
   String categoria = '';
   List<String> items = []; //List<Categoria>
   String? selectedItem = 'Seleziona la categoria';
-  Menu_controller _menu_controller = new Menu_controller();
+  final Menu_controller _menu_controller = Menu_controller();
 
   Color borderSideColorNome = CupertinoColors.systemGrey3;
   Color borderSideColorCosto = CupertinoColors.systemGrey3;
@@ -49,6 +49,7 @@ class modifica_piatto_state extends State<modifica_piatto> {
   Color hintColorCosto = CupertinoColors.systemGrey3;
   Color hintColorCategoria = CupertinoColors.systemGrey3;
 
+  @override
   initState(){
     super.initState();
     nome = nomeController.text = widget.elemento.nome;
@@ -68,13 +69,13 @@ class modifica_piatto_state extends State<modifica_piatto> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            barra_superiore(
+            const barra_superiore(
               text: '',
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
                 Column(
@@ -84,12 +85,12 @@ class modifica_piatto_state extends State<modifica_piatto> {
                       style: GoogleFonts.roboto(
                           fontSize: 44, color: Colors.orange),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     )
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 SizedBox(
                   width: 900,
                   height: 91,
@@ -118,7 +119,7 @@ class modifica_piatto_state extends State<modifica_piatto> {
                         }
                     ),
                     onSuggestionSelected: (suggestion) {
-                      this.nomeController.text = suggestion;
+                      nomeController.text = suggestion;
                       nome = suggestion;
                     },
                     itemBuilder: (context, suggestion) {
@@ -129,7 +130,7 @@ class modifica_piatto_state extends State<modifica_piatto> {
                       return await OpenFoodAPIClient.getSuggestions(TagType.INGREDIENTS, input: pattern, language: OpenFoodFactsLanguage.ITALIAN);
                     },),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
               ],
@@ -137,7 +138,7 @@ class modifica_piatto_state extends State<modifica_piatto> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
                 Column(
@@ -147,12 +148,12 @@ class modifica_piatto_state extends State<modifica_piatto> {
                       style: GoogleFonts.roboto(
                           fontSize: 44, color: Colors.orange),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     )
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 SizedBox(
                   width: 900,
                   height: 91,
@@ -175,7 +176,7 @@ class modifica_piatto_state extends State<modifica_piatto> {
                     },
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
               ],
@@ -183,7 +184,7 @@ class modifica_piatto_state extends State<modifica_piatto> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
                 Column(
@@ -193,12 +194,12 @@ class modifica_piatto_state extends State<modifica_piatto> {
                       style: GoogleFonts.roboto(
                           fontSize: 44, color: Colors.orange),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     )
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 SizedBox(
                   width: 900,
                   height: 91,
@@ -209,7 +210,7 @@ class modifica_piatto_state extends State<modifica_piatto> {
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                               color: CupertinoColors.systemGrey3,
                               width: 5.0),
                           borderRadius: BorderRadius.circular(50)),
@@ -222,7 +223,7 @@ class modifica_piatto_state extends State<modifica_piatto> {
                     },
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
               ],
@@ -230,7 +231,7 @@ class modifica_piatto_state extends State<modifica_piatto> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
                 Column(
@@ -240,12 +241,12 @@ class modifica_piatto_state extends State<modifica_piatto> {
                       style: GoogleFonts.roboto(
                           fontSize: 44, color: Colors.orange),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     )
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 SizedBox(
                   width: 900,
                   height: 91,
@@ -258,7 +259,7 @@ class modifica_piatto_state extends State<modifica_piatto> {
                           filled: true,
                           fillColor: Colors.white,
                           border: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                   color: CupertinoColors.systemGrey3,
                                   width: 5.0
                               ),
@@ -284,7 +285,7 @@ class modifica_piatto_state extends State<modifica_piatto> {
                       return await OpenFoodAPIClient.getSuggestions(TagType.ALLERGENS, input: pattern, language: OpenFoodFactsLanguage.ITALIAN);
                     },)
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
               ],
@@ -292,13 +293,13 @@ class modifica_piatto_state extends State<modifica_piatto> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
                 Text('Categoria',
                     style: GoogleFonts.roboto(
                         fontSize: 44, color: Colors.orange)),
-                Spacer(),
+                const Spacer(),
                 Container(
                   width: 900,
                   height: 61,
@@ -306,14 +307,14 @@ class modifica_piatto_state extends State<modifica_piatto> {
                       borderRadius: BorderRadius.circular(50),
                       border: Border.all(
                           color: borderSideColorCategoria, width: 1)),
-                  padding: EdgeInsets.only(left: 7.0, right: 4.0, top: 3.0),
+                  padding: const EdgeInsets.only(left: 7.0, right: 4.0, top: 3.0),
                   child: DropDown(
                     items: items,
                     hint: Text(
                       categoria,
                       style: TextStyle(color: hintColorCategoria),
                     ),
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.expand_more,
                       color: Colors.black,
                     ),
@@ -325,7 +326,7 @@ class modifica_piatto_state extends State<modifica_piatto> {
                     },
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
               ],
@@ -368,22 +369,22 @@ class modifica_piatto_state extends State<modifica_piatto> {
                             attesa.hideProgressDialogue();
 
                             toast.showToast(
-                                child: Finestra_conferma(message: "Modifica completata"),
-                                toastDuration: Duration(seconds: 2),
+                                child: const Finestra_conferma(message: "Modifica completata"),
+                                toastDuration: const Duration(seconds: 2),
                                 gravity: ToastGravity.BOTTOM);
                             Navigator.push(context, MaterialPageRoute(builder: (context) => menu(utente: widget.utente,)));
                           }
                         }catch (error){
                           attesa.hideProgressDialogue();
                           toast.showToast(
-                              child: Finestra_errore(message: "Modifica non riuscita"),
-                              toastDuration: Duration(seconds: 2),
+                              child: const Finestra_errore(message: "Modifica non riuscita"),
+                              toastDuration: const Duration(seconds: 2),
                               gravity: ToastGravity.BOTTOM);
                         }
                       }
 
                     },
-                    child: Text(
+                    child: const Text(
                       'MODIFICA PIATTO',
                       style: TextStyle(
                         fontSize: 24,
@@ -391,14 +392,14 @@ class modifica_piatto_state extends State<modifica_piatto> {
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
-                      shape: StadiumBorder(),
+                      shape: const StadiumBorder(),
                       backgroundColor: Colors.orange,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 50, vertical: 20),
                     )),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 2,
             )
           ],

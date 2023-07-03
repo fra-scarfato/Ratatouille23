@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ratatouille23/controllers/Amplify_controller.dart';
 import 'package:ratatouille23/views/custom_widget/Finestra_attesa.dart';
 import 'package:ratatouille23/views/custom_widget/Finestra_conferma.dart';
-import 'package:ratatouille23/views/pagina_iniziale.dart';
+import 'package:ratatouille23/views/pagina_inizialeUI.dart';
 
 import '../models/Utente.dart';
 import 'custom_widget/Finestra_errore.dart';
@@ -118,19 +117,19 @@ class Reset_pwd extends State<Reset_pwd_ui> {
                       attesa.hideProgressDialogue();
                       Fluttertoast.cancel();
                       toast.showToast(
-                          child: Finestra_conferma(message: "Conferma completata"),
+                          child: const Finestra_conferma(message: "Conferma completata"),
                           toastDuration: const Duration(seconds: 2),
                           gravity: ToastGravity.BOTTOM);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  pagina_iniziale(utente)));
+                                  pagina_inizialeUI(utente)));
                     } catch (error) {
                       attesa.hideProgressDialogue();
                       Fluttertoast.cancel();
                       toast.showToast(
-                          child: Finestra_errore(message: "Conferma non riuscita"),
+                          child: const Finestra_errore(message: "Conferma non riuscita"),
                           toastDuration: const Duration(seconds: 2),
                           gravity: ToastGravity.BOTTOM);
                     }

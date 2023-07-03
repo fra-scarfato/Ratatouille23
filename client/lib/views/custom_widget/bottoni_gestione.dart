@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -10,10 +9,11 @@ class bottoni_gestione extends StatelessWidget{
   final Color color2;
   final IconData icon;
   const bottoni_gestione({super.key, required this.route, required this.routeText, required this.text, required this.color1, required this.color2, required this.icon});
+  @override
   Widget build(BuildContext context){
     return InkWell(
         onTap: (){
-          Navigator.push(context, MaterialPageRoute(settings: RouteSettings(name: routeText),builder: (context) => route),);
+          Navigator.push(context, createRoute(route, routeText));
         },
         child: Ink(
             height: (2*(MediaQuery.of(context).size.height))/5,
@@ -21,7 +21,7 @@ class bottoni_gestione extends StatelessWidget{
           // height: 350,
           // width: 350,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(33.0)),
+            borderRadius: const BorderRadius.all(Radius.circular(33.0)),
             gradient: LinearGradient(
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
@@ -41,12 +41,26 @@ class bottoni_gestione extends StatelessWidget{
               // size: 225,
             ),
             Text(
-              '$text',
+              text,
               style: GoogleFonts.roboto(fontSize: /*40*/MediaQuery.of(context).size.height/25 ,fontStyle: FontStyle.italic)
             )
           ],
         )
         )
+    );
+  }
+
+  Route createRoute(Widget page, String route) {
+    return PageRouteBuilder(
+      transitionDuration: const Duration(milliseconds: 600),
+      settings: RouteSettings(name: route),
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(
+          opacity: animation,
+          child: child,
+        );
+      },
     );
   }
 }

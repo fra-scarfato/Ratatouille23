@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ratatouille23/controllers/Ordinazione_controller.dart';
 import 'package:ratatouille23/views/custom_widget/ordini_bar.dart';
@@ -40,15 +39,15 @@ class ordinazioni_elenco_cucina_state extends State<ordinazioni_elenco_cucina> {
               body: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    barra_superiore(text: 'Lista ordinazioni'),
-                    SizedBox(height: 30),
+                    const barra_superiore(text: 'Lista ordinazioni'),
+                    const SizedBox(height: 30),
                     ListenableBuilder(
                         listenable: _ordinazione_controller,
                         builder: (context, child) {
                           return bottoneOrdini(ordinazione_controller: _ordinazione_controller,);
                         }
                     ),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     ListenableBuilder(
                         listenable: _ordinazione_controller,
                         builder: (context, child) {
@@ -56,7 +55,7 @@ class ordinazioni_elenco_cucina_state extends State<ordinazioni_elenco_cucina> {
                             return ordinazioni_cucina_card(
                                 ord: _ordinazione_controller.getListaOrdinazioniDaVisualizzare(), ordinazione_controller: _ordinazione_controller, utente: widget.utente);
                           } else {
-                            return finestra_nessun_elemento(
+                            return const finestra_nessun_elemento(
                                 string1: 'NON CI SONO',
                                 string2: 'ORDINAZIONI PRESENTI',
                                 string3: '',
@@ -70,7 +69,7 @@ class ordinazioni_elenco_cucina_state extends State<ordinazioni_elenco_cucina> {
           } else {
             widgetDaTornare = Container(
               color: Colors.white,
-              child: Center(
+              child: const Center(
                 child: CircularProgressIndicator(),
               ),
             );

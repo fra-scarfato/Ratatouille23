@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Amplify_controller.dart';
@@ -13,11 +12,11 @@ import 'custom_widget/Finestra_attesa.dart';
 import 'custom_widget/Finestra_errore.dart';
 import 'custom_widget/barra_superiore.dart';
 
-class registra_utente extends StatefulWidget {
+class registra_utenteUI extends StatefulWidget {
 
   final Utente utente;
 
-  const registra_utente({super.key, required this.utente});
+  const registra_utenteUI({super.key, required this.utente});
 
   @override
   registra_utente_ui createState() => registra_utente_ui();
@@ -25,7 +24,7 @@ class registra_utente extends StatefulWidget {
 
 }
 
-class registra_utente_ui extends State<registra_utente> {
+class registra_utente_ui extends State<registra_utenteUI> {
 
   Utente_controller utente_controller = Utente_controller();
   Amplify_controller amplify_controller = Amplify_controller();
@@ -62,11 +61,11 @@ class registra_utente_ui extends State<registra_utente> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            barra_superiore(text: '',),
+            const barra_superiore(text: '',),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
                 Column(
@@ -74,9 +73,9 @@ class registra_utente_ui extends State<registra_utente> {
                     'Nome',
                     style: GoogleFonts.roboto(fontSize: 44, color: Colors.orange),
                   ),
-                    SizedBox(height: 30,)],
+                    const SizedBox(height: 30,)],
                 ),
-                Spacer(),
+                const Spacer(),
                 SizedBox(
                   width: 900,
                   height: 91,
@@ -104,7 +103,7 @@ class registra_utente_ui extends State<registra_utente> {
                     },
                   ) ,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
               ],
@@ -112,7 +111,7 @@ class registra_utente_ui extends State<registra_utente> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
                 Column(
@@ -120,9 +119,9 @@ class registra_utente_ui extends State<registra_utente> {
                     'Cognome',
                     style: GoogleFonts.roboto(fontSize: 44, color: Colors.orange),
                   ),
-                    SizedBox(height: 30,)],
+                    const SizedBox(height: 30,)],
                 ),
-                Spacer(),
+                const Spacer(),
                 SizedBox(
                   width: 900,
                   height: 91,
@@ -149,7 +148,7 @@ class registra_utente_ui extends State<registra_utente> {
                     },
                   ) ,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
               ],
@@ -157,7 +156,7 @@ class registra_utente_ui extends State<registra_utente> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
                 Column(
@@ -165,9 +164,9 @@ class registra_utente_ui extends State<registra_utente> {
                     'Email',
                     style: GoogleFonts.roboto(fontSize: 44, color: Colors.orange),
                   ),
-                    SizedBox(height: 30,)],
+                    const SizedBox(height: 30,)],
                 ),
-                Spacer(),
+                const Spacer(),
                 SizedBox(
                   width: 900,
                   height: 91,
@@ -194,7 +193,7 @@ class registra_utente_ui extends State<registra_utente> {
                     },
                   ) ,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
               ],
@@ -202,7 +201,7 @@ class registra_utente_ui extends State<registra_utente> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
                 Column(
@@ -210,9 +209,9 @@ class registra_utente_ui extends State<registra_utente> {
                     'Password',
                     style: GoogleFonts.roboto(fontSize: 44, color: Colors.orange),
                   ),
-                    SizedBox(height: 30,)],
+                    const SizedBox(height: 30,)],
                 ),
-                Spacer(),
+                const Spacer(),
                 SizedBox(
                   width: 900,
                   height: 91,
@@ -240,7 +239,7 @@ class registra_utente_ui extends State<registra_utente> {
                     },
                   ) ,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
               ],
@@ -248,14 +247,14 @@ class registra_utente_ui extends State<registra_utente> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
                 Text(
                     'Ruolo',
                     style: GoogleFonts.roboto(fontSize: 44, color: Colors.orange)
                 ),
-                Spacer(),
+                const Spacer(),
                 Container(
                   width: 900,
                   height: 61,
@@ -263,14 +262,14 @@ class registra_utente_ui extends State<registra_utente> {
                       borderRadius: BorderRadius.circular(50),
                       border:Border.all( color:borderSideColorRuolo, width: 1)
                   ),
-                  padding: EdgeInsets.only(left: 7.0, right: 4.0, top: 3.0),
+                  padding: const EdgeInsets.only(left: 7.0, right: 4.0, top: 3.0),
                   child:DropDown(
-                    items: <String>['Amministratore',
+                    items: const <String>['Amministratore',
                       'Supervisore',
                       'Addetto alla sala',
                       'Addetto alla cucina'],
-                    hint: Text('Scegli il ruolo', style: TextStyle(color: CupertinoColors.systemGrey),),
-                    icon: Icon(
+                    hint: const Text('Scegli il ruolo', style: TextStyle(color: CupertinoColors.systemGrey),),
+                    icon: const Icon(
                       Icons.expand_more,
                       color: Colors.black,
                     ),
@@ -282,7 +281,7 @@ class registra_utente_ui extends State<registra_utente> {
                     },
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
               ],
@@ -335,21 +334,21 @@ class registra_utente_ui extends State<registra_utente> {
                           attesa.hideProgressDialogue();
                           Fluttertoast.cancel();
                           toast.showToast(
-                              child: Finestra_conferma(message: "Utente aggiunto correttamente"),
-                              toastDuration: Duration(seconds: 2),
+                              child: const Finestra_conferma(message: "Utente aggiunto correttamente"),
+                              toastDuration: const Duration(seconds: 2),
                               gravity: ToastGravity.BOTTOM);
                         }catch (error){
                           attesa.hideProgressDialogue();
                           Fluttertoast.cancel();
                           toast.showToast(
-                              child: Finestra_errore(message: "Aggiunta non riuscita"),
-                              toastDuration: Duration(seconds: 2),
+                              child: const Finestra_errore(message: "Aggiunta non riuscita"),
+                              toastDuration: const Duration(seconds: 2),
                               gravity: ToastGravity.BOTTOM);
                         }
                       }
 
                     },
-                    child: Text(
+                    child: const Text(
                       'AGGIUNGI UTENTE',
                       style:TextStyle(
                         fontSize: 24,
@@ -358,7 +357,7 @@ class registra_utente_ui extends State<registra_utente> {
                     ),
 
                     style: ElevatedButton.styleFrom(
-                      shape: StadiumBorder(),
+                      shape: const StadiumBorder(),
                       backgroundColor: Colors.orange,
                       padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
 
@@ -369,7 +368,7 @@ class registra_utente_ui extends State<registra_utente> {
 
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 2,
             )
           ],

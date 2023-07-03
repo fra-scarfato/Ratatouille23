@@ -1,12 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Ordinazione_controller.dart';
 import 'package:ratatouille23/models/Elemento_ordinato.dart';
 import 'package:ratatouille23/views/custom_widget/barra_superiore.dart';
-import 'package:ratatouille23/views/ordinazioni_elenco.dart';
-import 'package:ratatouille23/views/pagina_iniziale.dart';
+import 'package:ratatouille23/views/pagina_inizialeUI.dart';
 
 import '../../models/Utente.dart';
 import 'Finestra_attesa.dart';
@@ -18,6 +16,7 @@ class Visualizza_riepilogo extends StatefulWidget{
   final List<Elemento_ordinato> elementi_ordinati;
   final Utente utente;
   Visualizza_riepilogo({required this.tavolo, required this.elementi_ordinati, required this.utente});
+  @override
   Visualizza_riepilogo_state createState() => Visualizza_riepilogo_state();
 }
 
@@ -49,7 +48,7 @@ class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
               children: [
                 const barra_superiore(text: 'Lista ordinazioni'),
                 const SizedBox(height: 30),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height - 195,
                   child: ordine_card(widget.elementi_ordinati),
@@ -85,14 +84,14 @@ class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
                 await _ordinazione_controller.registra_nuova_ordinazione(widget.tavolo, note, widget.elementi_ordinati, widget.utente);
                 attesa.hideProgressDialogue();
                 toast.showToast(
-                    child: Finestra_conferma(message: "Ordinazione effettuata correttamente"),
+                    child: const Finestra_conferma(message: "Ordinazione effettuata correttamente"),
                     toastDuration: const Duration(seconds: 2),
                     gravity: ToastGravity.BOTTOM);
                     Navigator.of(context).popUntil(ModalRoute.withName("/pagina_iniziale"));
               }catch (error){
                 attesa.hideProgressDialogue();
                 toast.showToast(
-                    child: Finestra_errore(message: "Ordinazione non riuscita!"),
+                    child: const Finestra_errore(message: "Ordinazione non riuscita!"),
                     toastDuration: const Duration(seconds: 2),
                     gravity: ToastGravity.BOTTOM);
                 }
@@ -140,7 +139,7 @@ class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
                         const SizedBox(width:16),
                         IconButton(
                             onPressed: (){
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => pagina_iniziale(widget.utente)));
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => pagina_inizialeUI(widget.utente)));
                             },
                             icon: const Icon(
                               Icons.delete_outline,
@@ -152,12 +151,10 @@ class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
                       ],
                     ),
                     const SizedBox(height:16),
-                    Container(
-                      child: ListView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        children: lista_elementi(widget.elementi_ordinati),
-                      ),
+                    ListView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      children: lista_elementi(widget.elementi_ordinati),
                     ),
                     TextFormField(
                       controller: noteController,
@@ -194,7 +191,6 @@ class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
   List<Widget> lista_elementi(List<Elemento_ordinato> elementi_ordinati) {
     double costo = _calcola_totale(elementi_ordinati);
     List<Widget> list=[];
-    print(elementi_ordinati.length);
     for(int i=0 ;i< elementi_ordinati.length; i++){
       if (i!=elementi_ordinati.length-1) {
         // print(elementi_ordinati[i].get_elemento().nome);
@@ -225,7 +221,7 @@ class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
             )
         );
       }
-    };
+    }
     return list;
   }
 
@@ -234,7 +230,7 @@ class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          '$get_nome_elemento',
+          get_nome_elemento,
           style: GoogleFonts.roboto(fontSize: 36, fontStyle: FontStyle.italic),
         ),
         //SizedBox(width:100),

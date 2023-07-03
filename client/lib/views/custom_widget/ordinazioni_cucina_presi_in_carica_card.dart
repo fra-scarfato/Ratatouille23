@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Ordinazione_controller.dart';
@@ -25,7 +24,7 @@ class ordinazioni_cucina_card_presi_in_carica_state extends State<ordinazioni_cu
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height-195,
       child: ListView(
@@ -44,9 +43,9 @@ class ordinazioni_cucina_card_presi_in_carica_state extends State<ordinazioni_cu
       if(/*ord[i].get_gestore_ordinazione()==this*/ord[i].get_stato() == 'Preso in carica'){list.add(Card(
           color: Colors.white,
           elevation: 30.0,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(33.0))),
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(33.0))),
           child:Padding(
-              padding: EdgeInsets.all(15),
+              padding: const EdgeInsets.all(15),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -61,31 +60,31 @@ class ordinazioni_cucina_card_presi_in_carica_state extends State<ordinazioni_cu
                         '${ord[i].get_tavolo()}',
                         style: GoogleFonts.roboto(fontSize: 36, fontStyle: FontStyle.italic,fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(width:170),
+                      const SizedBox(width:170),
                       Text(
                         'Quantità',
                         style: GoogleFonts.roboto( fontSize: 36, fontStyle: FontStyle.italic),
                       ),
-                      Spacer(),
+                      const Spacer(),
                     ],
                   ),
-                  SizedBox(height:16),
+                  const SizedBox(height:16),
                   Row(
                     children: [
-                      Container(
+                      SizedBox(
                         width: 604,
                         child: ListView(
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           children: lista_elementi(ord[i]),
 
                         ),
                       ),
-                      SizedBox(width:114),
+                      const SizedBox(width:114),
                       Column(
                         children: [
                           statoOrdine(ord[i]),
-                          SizedBox(height: 50,)
+                          const SizedBox(height: 50,)
                         ],
                       ),
 
@@ -96,7 +95,7 @@ class ordinazioni_cucina_card_presi_in_carica_state extends State<ordinazioni_cu
               )
           )
 
-      ));};
+      ));}
     }
     return list;
   }
@@ -106,14 +105,14 @@ class ordinazioni_cucina_card_presi_in_carica_state extends State<ordinazioni_cu
     for(int i=0 ;i< ordinazione.get_lista_elementi().length; i++){
       if (i!=ordinazione.get_lista_elementi().length-1) {
         list.add(buildRiga(ordinazione.get_elemento(i).nome,ordinazione.get_quantita_elemento(i)));
-        list.add(Divider(color: Colors.orange,));
+        list.add(const Divider(color: Colors.orange,));
       }
       else{
         list.add(buildRiga(ordinazione.get_elemento(i).nome,ordinazione.get_quantita_elemento(i)));
-        list.add(Divider(color: Colors.orange,));
+        list.add(const Divider(color: Colors.orange,));
 
       }
-    };
+    }
     return list;
   }
 
@@ -122,17 +121,17 @@ class ordinazioni_cucina_card_presi_in_carica_state extends State<ordinazioni_cu
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          '$get_nome_elemento',
+          get_nome_elemento,
           style: GoogleFonts.roboto(fontSize: 36, fontStyle: FontStyle.italic),
         ),
-        SizedBox(width:30),
+        const SizedBox(width:30),
         Center(
           child: Text(
             '$get_quantita',
             style: GoogleFonts.roboto(fontSize: 36, fontStyle: FontStyle.italic),
           ),
         ),
-        SizedBox(width: 30),
+        const SizedBox(width: 30),
 
       ],
     );
@@ -142,20 +141,20 @@ class ordinazioni_cucina_card_presi_in_carica_state extends State<ordinazioni_cu
     Widget bottone_evadi = ElevatedButton(
 
         onPressed: () {ord.set_stato('Evaso'); /*ordinazione_controller.modifica_ordinazione(ord);*/},
-        child: Text(
+
+        style: ElevatedButton.styleFrom(
+          shape: const StadiumBorder(),
+          backgroundColor: Colors.green,
+          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+
+
+        ),
+        child: const Text(
           '           EVADI           ',
           style:TextStyle(
             fontSize: 24,
             color: Colors.white,
           ),
-        ),
-
-        style: ElevatedButton.styleFrom(
-          shape: StadiumBorder(),
-          backgroundColor: Colors.green,
-          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-
-
         )
 
     );

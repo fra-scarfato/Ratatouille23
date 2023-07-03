@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
 
         ),
         initialRoute: "/",
-        home: Home()
+        home: const Home()
     );
   }
 }

@@ -14,19 +14,19 @@ class bottone_arancione_con_testo extends StatelessWidget{
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) => route));
         },
-        child: Text(
-          '$text',
-          style:const TextStyle(
-            fontSize: 24,
-            color: Colors.white,
-          ),
-        ),
 
         style: ElevatedButton.styleFrom(
           shape: const StadiumBorder(),
           backgroundColor: Colors.orange,
           padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
 
+        ),
+        child: Text(
+          text,
+          style:const TextStyle(
+            fontSize: 24,
+            color: Colors.white,
+          ),
         )
 
     );

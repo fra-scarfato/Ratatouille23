@@ -19,7 +19,7 @@ class menu extends StatefulWidget {
 }
 
 class menu_ui extends State<menu> {
-  Menu_controller _menu_controller = new Menu_controller();
+  final Menu_controller _menu_controller = Menu_controller();
   List<Categoria> listaCategorie = [];
 
   @override
@@ -39,7 +39,7 @@ class menu_ui extends State<menu> {
             body: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                barra_superiore(
+                const barra_superiore(
                   text: '',
                 ),
                 ListenableBuilder(
@@ -49,7 +49,7 @@ class menu_ui extends State<menu> {
                         menu_controller: _menu_controller);
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 ListenableBuilder(
@@ -65,14 +65,14 @@ class menu_ui extends State<menu> {
               ],
             ),
             floatingActionButton: bottone_gestione_menu_admin(
-                listaCategorie: this.listaCategorie, utente: utente, menu_controller: _menu_controller, ),
+                listaCategorie: listaCategorie, utente: utente, menu_controller: _menu_controller, ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
           );
         } else {
           widget = Container(
             color: Colors.white,
-            child: Center(
+            child: const Center(
               child: CircularProgressIndicator(),
             ),
           );
@@ -86,13 +86,13 @@ class menu_ui extends State<menu> {
     //TODO: Sto prendendo gli elementi di tutte le categorie nella prima schermata. Devo sapere in che categoria sono e visualizzare solo gli elementi di quella categoria
     List<Widget> list = [];
     if (categoria.get_elementi()!.isNotEmpty) {
-      categoria.get_elementi()!.forEach((element) {
+      for (var element in categoria.get_elementi()!) {
         list.add(elementi_card(
           utente: widget.utente,
           elemento: element,
           listaCategorie: listaCategorie,
         ));
-      });
+      }
     }
 
     return list;
@@ -100,8 +100,8 @@ class menu_ui extends State<menu> {
 
   Widget container_elementi(List<Widget> elem) {
     Widget widget;
-    if (elem.length != 0) {
-      widget = Container(
+    if (elem.isNotEmpty) {
+      widget = SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height - 187,
         child: ReorderableListView(
@@ -121,15 +121,15 @@ class menu_ui extends State<menu> {
           ],
         ),
       );
-    } else if (listaCategorie.length != 0) {
-      widget = finestra_nessun_elemento(
+    } else if (listaCategorie.isNotEmpty) {
+      widget = const finestra_nessun_elemento(
           string1: 'NON CI SONO PIATTI',
           string2: 'NELLA CATEGORIA',
           string3: '',
           string4: 'AGGIUNGI UN NUOVO PIATTO',
           string5: 'CLICCANDO IL BOTTONE');
     } else {
-      widget = finestra_nessun_elemento(
+      widget = const finestra_nessun_elemento(
           string1: 'NON CI SONO PIATTI',
           string2: 'NEL TUO MENU',
           string3: 'CREA UNA CATEGORIA E',

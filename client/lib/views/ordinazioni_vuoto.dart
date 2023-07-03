@@ -7,6 +7,7 @@ import 'custom_widget/finestra_nessun_elemento.dart';
 
 class ordinazioni_vuoto extends StatefulWidget{
   const ordinazioni_vuoto({super.key});
+  @override
   ordinazioni_vuoto_state createState() => ordinazioni_vuoto_state();
 }
 
@@ -21,7 +22,7 @@ class ordinazioni_vuoto_state extends State<ordinazioni_vuoto>{
       backgroundColor: Colors.transparent,
       resizeToAvoidBottomInset: false,
       body:Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
               image: AssetImage("assets/images/bubble.png"),
@@ -32,15 +33,15 @@ class ordinazioni_vuoto_state extends State<ordinazioni_vuoto>{
           child:Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              barra_superiore(text: '',),
-              finestra_nessun_elemento(string1: 'NON HAI REGISTRATO', string2: 'NESSUNA ORDINAZIONE', string3: 'REGISTRA UNA NUOVA', string4: 'ORDINAZIONE CLICCANDO IL', string5: 'BOTTONE'),
-              SizedBox(height:35),
+              const barra_superiore(text: '',),
+              const finestra_nessun_elemento(string1: 'NON HAI REGISTRATO', string2: 'NESSUNA ORDINAZIONE', string3: 'REGISTRA UNA NUOVA', string4: 'ORDINAZIONE CLICCANDO IL', string5: 'BOTTONE'),
+              const SizedBox(height:35),
               ElevatedButton(
 
                   onPressed: () {
                     displaySelezionaTavolo(context);
                   },
-                  child: Text(
+                  child: const Text(
                     'REGISTRA NUOVA ORDINAZIONE',
                     style:TextStyle(
                       fontSize: 24,
@@ -49,14 +50,14 @@ class ordinazioni_vuoto_state extends State<ordinazioni_vuoto>{
                   ),
 
                   style: ElevatedButton.styleFrom(
-                    shape: StadiumBorder(),
+                    shape: const StadiumBorder(),
                     backgroundColor: Colors.orange,
                     padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
 
                   )
 
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               )
 
@@ -80,13 +81,13 @@ class ordinazioni_vuoto_state extends State<ordinazioni_vuoto>{
           builder: (context) {
             return AlertDialog(
 
-              shape: RoundedRectangleBorder(
+              shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(32.0))),
               title: Center(
 
                   child:Padding(
 
-                    padding: EdgeInsetsDirectional.all(30.0),
+                    padding: const EdgeInsetsDirectional.all(30.0),
                     child: Text(
                       "A quale tavolo si riferisce l'ordine?",
                       style: GoogleFonts.roboto(fontSize: 44, color: Colors.orange),
@@ -96,17 +97,17 @@ class ordinazioni_vuoto_state extends State<ordinazioni_vuoto>{
               content: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 15,
                   ),
                   Text(
                     'Numero Tavolo',
                     style: GoogleFonts.roboto(fontSize: 44,),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 50,
                   ),
-                  Spacer(),
+                  const Spacer(),
                   SizedBox(
                     width: 522,
                     height: 54,
@@ -134,7 +135,7 @@ class ordinazioni_vuoto_state extends State<ordinazioni_vuoto>{
                       },
                     ) ,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 15,
                   ),
                 ],
@@ -142,7 +143,7 @@ class ordinazioni_vuoto_state extends State<ordinazioni_vuoto>{
               actions: <Widget>[
                 Column(mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(height:40),
+                    const SizedBox(height:40),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -151,7 +152,7 @@ class ordinazioni_vuoto_state extends State<ordinazioni_vuoto>{
                               //Navigator.push(context, MaterialPageRoute(builder: (context) => const menu()));
                               Navigator.pop(context);
                             },
-                            child: Text(
+                            child: const Text(
                               'ANNULLA',
                               style:TextStyle(
                                 fontSize: 24,
@@ -159,12 +160,12 @@ class ordinazioni_vuoto_state extends State<ordinazioni_vuoto>{
                               ),
                             ),
                             style: ElevatedButton.styleFrom(
-                              shape: StadiumBorder(),
+                              shape: const StadiumBorder(),
                               backgroundColor: Colors.red,
                               padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                             )
                         ),
-                        SizedBox(width:80),
+                        const SizedBox(width:80),
                         ElevatedButton(
                             onPressed: () {
                               if(numeroTavolo==''){
@@ -173,10 +174,9 @@ class ordinazioni_vuoto_state extends State<ordinazioni_vuoto>{
                                   hintColorNumeroTavolo= Colors.red;
                                 });
                               }
-                              print(int.parse(numeroTavolo));
                               //Navigator.push(context, MaterialPageRoute(builder: (context) => const menu(numerotavolo.toInt()));
                             },
-                            child: Text(
+                            child: const Text(
                               'Prosegui',
                               style:TextStyle(
                                 fontSize: 24,
@@ -184,7 +184,7 @@ class ordinazioni_vuoto_state extends State<ordinazioni_vuoto>{
                               ),
                             ),
                             style: ElevatedButton.styleFrom(
-                              shape: StadiumBorder(),
+                              shape: const StadiumBorder(),
                               backgroundColor: Colors.green,
                               padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                             )
@@ -192,7 +192,7 @@ class ordinazioni_vuoto_state extends State<ordinazioni_vuoto>{
 
                       ],
                     ),
-                    SizedBox(height:40)
+                    const SizedBox(height:40)
                   ],)
               ],
             );}

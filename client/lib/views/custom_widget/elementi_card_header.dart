@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -22,22 +21,22 @@ class elementi_card_header_state extends State<elementi_card_header>{
           widget.nome,
           style: GoogleFonts.roboto(color: Colors.orange, fontSize: 36, fontStyle: FontStyle.italic),
         ),
-        Spacer(),
+        const Spacer(),
         Text(
           'Costo: ${widget.costo}\$',
           style: GoogleFonts.roboto(color: Colors.orange, fontSize: 36, fontStyle: FontStyle.italic),
         ),
-        SizedBox(width: 176,),
+        const SizedBox(width: 176,),
         IconButton(
             onPressed: (){/*modifica_piatto(listaCategorie: [], utente: null, elemento: null,)*/},
-            icon: Icon(
+            icon: const Icon(
               Icons.mode_edit_outlined,
               size: 50,
             )
         ),
         IconButton(
             onPressed: (){},
-            icon: Icon(
+            icon: const Icon(
               Icons.delete_outline,
               color: Colors.red,
               size: 50,

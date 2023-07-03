@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -39,19 +38,19 @@ class elementi_card_presa_ordinazione_header_state
           style: GoogleFonts.roboto(
               color: Colors.orange, fontSize: 36, fontStyle: FontStyle.italic),
         ),
-        Spacer(),
+        const Spacer(),
         Text(
           'Costo: ${widget.costo}\$',
           style: GoogleFonts.roboto(
               color: Colors.orange, fontSize: 36, fontStyle: FontStyle.italic),
         ),
-        SizedBox(
+        const SizedBox(
           width: 176,
         ),
         Row(
           children: [
             IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.remove_rounded,
                 color: Colors.orangeAccent,
                 size: 50,
@@ -74,11 +73,11 @@ class elementi_card_presa_ordinazione_header_state
                       .get_quantita(widget.elemento);
                   return Text(
                     '${widget.quantita}',
-                    style: TextStyle(fontSize: 50),
+                    style: const TextStyle(fontSize: 50),
                   );
                 }),
             IconButton(
-              icon: Icon(
+              icon: const Icon(
                   Icons.add,
                   color: Colors.orangeAccent,
               ),

@@ -22,7 +22,6 @@ class Ordinazione_service{
   
   Future<void> registra_nuova_ordinazione(Ordinazione ordinazione) async {
     final uri = Uri.http(authority, '/order/add');
-    print(jsonEncode(ordinazione.toJsonSenzaId()));
     var response = await http.post(
       uri,
       headers: header,

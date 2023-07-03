@@ -15,18 +15,18 @@ import 'custom_widget/Finestra_errore.dart';
 import 'custom_widget/barra_superiore.dart';
 import 'menu.dart';
 
-class aggiungi_piatto extends StatefulWidget {
+class aggiungi_piattoUI extends StatefulWidget {
   final List<Categoria>? listaCategorie;
   final Utente utente;
   final Menu_controller menu_controller;
 
-  const aggiungi_piatto({super.key, required this.listaCategorie, required this.utente, required this.menu_controller, });
+  const aggiungi_piattoUI({super.key, required this.listaCategorie, required this.utente, required this.menu_controller, });
 
   @override
   aggiungi_piatto_state createState() => aggiungi_piatto_state();
 }
 
-class aggiungi_piatto_state extends State<aggiungi_piatto> {
+class aggiungi_piatto_state extends State<aggiungi_piattoUI> {
   TextEditingController nomeController = TextEditingController();
   TextEditingController costoController = TextEditingController();
   TextEditingController descrizioneController = TextEditingController();
@@ -38,7 +38,7 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
   String categoria = '';
   List<String> items = []; //List<Categoria>
   String? selectedItem = 'Seleziona la categoria';
-  Menu_controller _menu_controller = new Menu_controller();
+  final Menu_controller _menu_controller = Menu_controller();
 
   Color borderSideColorNome = CupertinoColors.systemGrey3;
   Color borderSideColorCosto = CupertinoColors.systemGrey3;
@@ -59,13 +59,13 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                barra_superiore(
+                const barra_superiore(
                   text: '',
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 30,
                     ),
                     Column(
@@ -75,12 +75,12 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                           style: GoogleFonts.roboto(
                               fontSize: 44, color: Colors.orange),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         )
                       ],
                     ),
-                    Spacer(),
+                    const Spacer(),
                     SizedBox(
                       width: 900,
                       height: 91,
@@ -93,7 +93,7 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                               filled: true,
                               fillColor: Colors.white,
                               border: OutlineInputBorder(
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                       color: CupertinoColors.systemGrey3,
                                       width: 5.0
                                   ),
@@ -108,8 +108,8 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                             }
                         ),
                         onSuggestionSelected: (suggestion) {
-                          this.nomeController.text = suggestion;
-                          nome = this.nomeController.text;
+                          nomeController.text = suggestion;
+                          nome = nomeController.text;
                         },
                         itemBuilder: (context, suggestion) {
                           return ListTile(
@@ -123,7 +123,7 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                           );
                         },)
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 30,
                     ),
                   ],
@@ -131,7 +131,7 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 30,
                     ),
                     Column(
@@ -141,12 +141,12 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                           style: GoogleFonts.roboto(
                               fontSize: 44, color: Colors.orange),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         )
                       ],
                     ),
-                    Spacer(),
+                    const Spacer(),
                     SizedBox(
                       width: 900,
                       height: 91,
@@ -169,7 +169,7 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                         },
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 30,
                     ),
                   ],
@@ -177,7 +177,7 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 30,
                     ),
                     Column(
@@ -187,12 +187,12 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                           style: GoogleFonts.roboto(
                               fontSize: 44, color: Colors.orange),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         )
                       ],
                     ),
-                    Spacer(),
+                    const Spacer(),
                     SizedBox(
                       width: 900,
                       height: 91,
@@ -203,7 +203,7 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                           filled: true,
                           fillColor: Colors.white,
                           border: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                   color: CupertinoColors.systemGrey3,
                                   width: 5.0),
                               borderRadius: BorderRadius.circular(50)),
@@ -216,7 +216,7 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                         },
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 30,
                     ),
                   ],
@@ -224,7 +224,7 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 30,
                     ),
                     Column(
@@ -234,12 +234,12 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                           style: GoogleFonts.roboto(
                               fontSize: 44, color: Colors.orange),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         )
                       ],
                     ),
-                    Spacer(),
+                    const Spacer(),
                     SizedBox(
                       width: 900,
                       height: 91,
@@ -252,7 +252,7 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                               filled: true,
                               fillColor: Colors.white,
                               border: OutlineInputBorder(
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                       color: CupertinoColors.systemGrey3,
                                       width: 5.0
                                   ),
@@ -267,8 +267,8 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                             }
                         ),
                         onSuggestionSelected: (suggestion) {
-                          this.allergeniController.text = suggestion;
-                          allergeni = this.allergeniController.text;
+                          allergeniController.text = suggestion;
+                          allergeni = allergeniController.text;
                         },
                         itemBuilder: (context, suggestion) {
                           return ListTile(
@@ -278,7 +278,7 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                           return await OpenFoodAPIClient.getSuggestions(TagType.ALLERGENS, input: pattern, language: OpenFoodFactsLanguage.ITALIAN);
                         },),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 30,
                     ),
                   ],
@@ -286,13 +286,13 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 30,
                     ),
                     Text('Categoria',
                         style: GoogleFonts.roboto(
                             fontSize: 44, color: Colors.orange)),
-                    Spacer(),
+                    const Spacer(),
                     Container(
                       width: 900,
                       height: 61,
@@ -300,14 +300,14 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                           borderRadius: BorderRadius.circular(50),
                           border: Border.all(
                               color: borderSideColorCategoria, width: 1)),
-                      padding: EdgeInsets.only(left: 7.0, right: 4.0, top: 3.0),
+                      padding: const EdgeInsets.only(left: 7.0, right: 4.0, top: 3.0),
                       child: DropDown(
                         items: items,
                         hint: Text(
                           categoria,
                           style: TextStyle(color: hintColorCategoria),
                         ),
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.expand_more,
                           color: Colors.black,
                         ),
@@ -319,7 +319,7 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                         },
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 30,
                     ),
                   ],
@@ -362,8 +362,8 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                                 attesa.hideProgressDialogue();
                                 Fluttertoast.cancel();
                                 toast.showToast(
-                                    child: Finestra_conferma(message: "Elemento aggiunto correttamente"),
-                                    toastDuration: Duration(seconds: 2),
+                                    child: const Finestra_conferma(message: "Elemento aggiunto correttamente"),
+                                    toastDuration: const Duration(seconds: 2),
                                     gravity: ToastGravity.BOTTOM);
                                 Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => menu(utente: widget.utente,)),ModalRoute.withName("/pagina_iniziale"));
                               }
@@ -371,14 +371,14 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                               attesa.hideProgressDialogue();
                               Fluttertoast.cancel();
                               toast.showToast(
-                                  child: Finestra_errore(message: "Errore nell'aggiunta dell'elemento"),
-                                  toastDuration: Duration(seconds: 2),
+                                  child: const Finestra_errore(message: "Errore nell'aggiunta dell'elemento"),
+                                  toastDuration: const Duration(seconds: 2),
                                   gravity: ToastGravity.BOTTOM);
                            }
                           }
 
                         },
-                        child: Text(
+                        child: const Text(
                           'AGGIUNGI PIATTO',
                           style: TextStyle(
                             fontSize: 24,
@@ -386,14 +386,14 @@ class aggiungi_piatto_state extends State<aggiungi_piatto> {
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          shape: StadiumBorder(),
+                          shape: const StadiumBorder(),
                           backgroundColor: Colors.orange,
                           padding: const EdgeInsets.symmetric(
                               horizontal: 50, vertical: 20),
                         )),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 2,
                 )
               ],

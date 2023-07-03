@@ -1,15 +1,13 @@
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ratatouille23/controllers/Amplify_controller.dart';
 import 'package:ratatouille23/models/Utente.dart';
 import 'package:ratatouille23/views/Reset_pwd.dart';
 import 'package:ratatouille23/views/custom_widget/Finestra_attesa.dart';
 import 'package:ratatouille23/views/custom_widget/Finestra_conferma.dart';
-import 'package:ratatouille23/views/pagina_iniziale.dart';
+import 'package:ratatouille23/views/pagina_inizialeUI.dart';
 
 import 'custom_widget/Finestra_errore.dart';
 
@@ -139,7 +137,7 @@ class Login extends State<Login_ui> {
                             .fetchCurrentUserAttributes();
                         attesa.hideProgressDialogue();
                         toast.showToast(
-                            child: Finestra_conferma(message: "Accesso completato"),
+                            child: const Finestra_conferma(message: "Accesso completato"),
                             toastDuration: const Duration(seconds: 2),
                             gravity: ToastGravity.BOTTOM);
                         if (utente.get_ruolo() == "Amministratore" ||
@@ -148,7 +146,7 @@ class Login extends State<Login_ui> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      pagina_iniziale(utente)));
+                                      pagina_inizialeUI(utente)));
                         } else if (utente.get_ruolo() == "Addetto alla sala") {
                           //TODO: Prende solo le ordinazioni
                         } else {
@@ -158,7 +156,7 @@ class Login extends State<Login_ui> {
                     } on AmplifyException {
                       attesa.hideProgressDialogue();
                       toast.showToast(
-                          child: Finestra_errore(message: 'Email o password sbagliati'),
+                          child: const Finestra_errore(message: 'Email o password sbagliati'),
                           toastDuration: const Duration(seconds: 2),
                           gravity: ToastGravity.BOTTOM);
                     }

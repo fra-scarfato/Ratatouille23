@@ -25,7 +25,7 @@ class Presa_ordinazione extends StatefulWidget {
 }
 
 class Presa_ordinazione_state extends State<Presa_ordinazione> {
-  Menu_controller _menu_controller = new Menu_controller();
+  final Menu_controller _menu_controller = Menu_controller();
   final Presa_ordinazione_view_controller _presa_ordinazione_view_controller =
       Presa_ordinazione_view_controller();
 
@@ -50,12 +50,11 @@ class Presa_ordinazione_state extends State<Presa_ordinazione> {
             body: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                barra_superiore(
+                const barra_superiore(
                   text: '',
                 ),
-                CategorieBar_parent(
-                    menu_controller: _menu_controller),
-                SizedBox(
+                CategorieBar_parent(menu_controller: _menu_controller),
+                const SizedBox(
                   height: 30,
                 ),
                 ListenableBuilder(
@@ -97,8 +96,8 @@ class Presa_ordinazione_state extends State<Presa_ordinazione> {
               onPressed: () {
                 elementi_ordinati =
                     _presa_ordinazione_view_controller.get_list_elem_ord();
-                print(elementi_ordinati.length);
-                if (elementi_ordinati.length > 0) {
+
+                if (elementi_ordinati.isNotEmpty) {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -111,13 +110,13 @@ class Presa_ordinazione_state extends State<Presa_ordinazione> {
                   FToast toast = FToast();
                   toast.init(context);
                   return toast.showToast(
-                      child: Finestra_errore(
+                      child: const Finestra_errore(
                           message: 'L\'ordine non puo essere vuoto!'),
-                      toastDuration: Duration(seconds: 2),
+                      toastDuration: const Duration(seconds: 2),
                       gravity: ToastGravity.BOTTOM);
                 }
               },
-              label: Text(
+              label: const Text(
                 'Visualizza riepilogo',
                 style: TextStyle(
                   color: Colors.white,
@@ -133,7 +132,7 @@ class Presa_ordinazione_state extends State<Presa_ordinazione> {
         } else {
           widget = Container(
             color: Colors.white,
-            child: Center(
+            child: const Center(
               child: CircularProgressIndicator(),
             ),
           );
@@ -146,13 +145,13 @@ class Presa_ordinazione_state extends State<Presa_ordinazione> {
   List<Widget> elementi_card_ordinazione(Categoria categoria) {
     List<Widget> list = [];
     if (categoria.get_elementi()!.isNotEmpty) {
-      categoria.get_elementi()!.forEach((element) {
+      for (var element in categoria.get_elementi()!) {
         list.add(elementi_card_presa_ordinazione(
             utente: widget.utente,
             elemento: element,
             presa_ordinazione_view_controller:
                 _presa_ordinazione_view_controller));
-      });
+      }
     }
 
     return list;
@@ -160,8 +159,8 @@ class Presa_ordinazione_state extends State<Presa_ordinazione> {
 
   Widget container_elementi(List<Widget> elem) {
     Widget widget;
-    if (elem.length != 0) {
-      widget = Container(
+    if (elem.isNotEmpty) {
+      widget = SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height - 187,
         child: ListView(
@@ -172,14 +171,14 @@ class Presa_ordinazione_state extends State<Presa_ordinazione> {
         ),
       );
     } else if (_menu_controller.getCategorieDaVisualizzare().isNotEmpty) {
-      widget = finestra_nessun_elemento(
+      widget = const finestra_nessun_elemento(
           string1: 'NON CI SONO PIATTI',
           string2: 'NELLA CATEGORIA',
           string3: '',
           string4: 'AGGIUNGI UN NUOVO PIATTO',
           string5: 'CLICCANDO IL BOTTONE');
     } else {
-      widget = finestra_nessun_elemento(
+      widget = const finestra_nessun_elemento(
           string1: 'NON CI SONO PIATTI',
           string2: 'NEL TUO MENU',
           string3: 'CREA UNA CATEGORIA E',
@@ -191,7 +190,7 @@ class Presa_ordinazione_state extends State<Presa_ordinazione> {
 
   check_ordinazione(
       int tavolo, List<Elemento_ordinato> get_list_elem_ord, Utente utente) {
-    if (get_list_elem_ord.length != 0) {
+    if (get_list_elem_ord.isNotEmpty) {
       return Visualizza_riepilogo(
           tavolo: tavolo,
           elementi_ordinati:
@@ -201,8 +200,8 @@ class Presa_ordinazione_state extends State<Presa_ordinazione> {
       FToast toast = FToast();
       toast.init(context);
       return toast.showToast(
-          child: Finestra_errore(message: 'L\'ordine non puo essere vuoto!'),
-          toastDuration: Duration(seconds: 2),
+          child: const Finestra_errore(message: 'L\'ordine non puo essere vuoto!'),
+          toastDuration: const Duration(seconds: 2),
           gravity: ToastGravity.BOTTOM);
     }
   }

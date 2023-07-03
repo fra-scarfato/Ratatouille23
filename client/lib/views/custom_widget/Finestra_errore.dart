@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Finestra_errore extends StatelessWidget{
 
   final String message;
 
-  Finestra_errore({required this.message});
+  const Finestra_errore({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +17,8 @@ class Finestra_errore extends StatelessWidget{
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.cancel),
-          SizedBox(
+          const Icon(Icons.cancel),
+          const SizedBox(
             width: 12.0,
           ),
           Text(message),

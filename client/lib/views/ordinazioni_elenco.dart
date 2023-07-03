@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Ordinazione_controller.dart';
 import 'package:ratatouille23/views/presa_ordinazione.dart';
@@ -44,7 +43,7 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
               backgroundColor: Colors.transparent,
               resizeToAvoidBottomInset: false,
               body: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       image: DecorationImage(
                         fit: BoxFit.cover,
                         image: AssetImage("assets/images/bubble.png"),
@@ -53,9 +52,9 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      barra_superiore(text: 'Lista ordinazioni'),
-                      SizedBox(height: 30),
-                      Container(
+                      const barra_superiore(text: 'Lista ordinazioni'),
+                      const SizedBox(height: 30),
+                      SizedBox(
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height - 195,
                         child: ListenableBuilder(
@@ -64,7 +63,7 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
                               if(ord.isNotEmpty){
                                 return ordinazioni_card(ord: ord, utente: utente, ordinazione_controller: _ordinazione_controller,);
                               } else {
-                                return finestra_nessun_elemento(
+                                return const finestra_nessun_elemento(
                                     string1: 'NON HAI REGISTRATO',
                                     string2: 'NESSUNA ORDINAZIONE',
                                     string3: 'REGISTRA UNA NUOVA',
@@ -79,7 +78,7 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
                           onPressed: () {
                             displaySelezionaTavolo(context);
                           },
-                          child: Text(
+                          child: const Text(
                             'REGISTRA NUOVA ORDINAZIONE',
                             style: TextStyle(
                               fontSize: 24,
@@ -87,7 +86,7 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
                             ),
                           ),
                           style: ElevatedButton.styleFrom(
-                            shape: StadiumBorder(),
+                            shape: const StadiumBorder(),
                             backgroundColor: Colors.orange,
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 50, vertical: 20),
@@ -100,7 +99,7 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
           } else {
             widget = Container(
               color: Colors.white,
-              child: Center(
+              child: const Center(
                 child: CircularProgressIndicator(),
               ),
             );
@@ -113,18 +112,18 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
   Future<void> displaySelezionaTavolo(BuildContext context) {
     TextEditingController numeroTavoloController = TextEditingController();
     String numeroTavolo = '';
-    BorderSide borderSideColorNumeroTavolo = BorderSide(color: CupertinoColors.systemGrey, width: 5 );
+    BorderSide borderSideColorNumeroTavolo = const BorderSide(color: CupertinoColors.systemGrey, width: 5 );
     Color hintColorNumeroTavolo = CupertinoColors.systemGrey;
     return showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-            shape: RoundedRectangleBorder(
+            shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(32.0))
             ),
             title: Center(
                 child:Padding(
-                  padding: EdgeInsetsDirectional.all(30.0),
+                  padding: const EdgeInsetsDirectional.all(30.0),
                   child: Text(
                     "A quale tavolo si riferisce l'ordine?",
                     style: GoogleFonts.roboto(fontSize: 44, color: Colors.orange),
@@ -134,17 +133,17 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
             content: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 15,
                 ),
                 Text(
                   'Numero Tavolo',
                   style: GoogleFonts.roboto(fontSize: 44,),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 50,
                 ),
-                Spacer(),
+                const Spacer(),
                 SizedBox(
                   width: 522,
                   height: 54,
@@ -169,7 +168,7 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
                     },
                   ) ,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 15,
                 ),
               ],
@@ -177,7 +176,7 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
             actions: <Widget>[
               Column(mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(height:40),
+                  const SizedBox(height:40),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -186,7 +185,7 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
                             //Navigator.push(context, MaterialPageRoute(builder: (context) => const menu()));
                             Navigator.pop(context);
                           },
-                          child: Text(
+                          child: const Text(
                             'ANNULLA',
                             style:TextStyle(
                               fontSize: 24,
@@ -194,17 +193,17 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
                             ),
                           ),
                           style: ElevatedButton.styleFrom(
-                            shape: StadiumBorder(),
+                            shape: const StadiumBorder(),
                             backgroundColor: Colors.red,
                             padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                           )
                       ),
-                      SizedBox(width:80),
+                      const SizedBox(width:80),
                       ElevatedButton(
                           onPressed: () {
                             if(numeroTavolo=='' || !isNumber(numeroTavolo)){
                               setState(() {
-                                borderSideColorNumeroTavolo=  BorderSide(color: Colors.red, width: 5 );
+                                borderSideColorNumeroTavolo=  const BorderSide(color: Colors.red, width: 5 );
                                 hintColorNumeroTavolo= Colors.red;
                               });
                             }else{
@@ -216,7 +215,7 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
                                           utente: widget.utente)));
                             }
                           },
-                          child: Text(
+                          child: const Text(
                             'PROSEGUI',
                             style:TextStyle(
                               fontSize: 24,
@@ -224,7 +223,7 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
                             ),
                           ),
                           style: ElevatedButton.styleFrom(
-                            shape: StadiumBorder(),
+                            shape: const StadiumBorder(),
                             backgroundColor: Colors.green,
                             padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                           )
@@ -232,7 +231,7 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
 
                     ],
                   ),
-                  SizedBox(height:40)
+                  const SizedBox(height:40)
                 ],)
             ],
           );}

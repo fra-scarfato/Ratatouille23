@@ -2,7 +2,6 @@
 
 import 'package:ratatouille23/controllers/Menu_controller.dart';
 import 'package:ratatouille23/views/custom_widget/barra_superiore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../models/Utente.dart';
@@ -29,7 +28,7 @@ class menu_vuoto_ui extends State<menu_vuoto>{
       backgroundColor: Colors.transparent,
       resizeToAvoidBottomInset: false,
       body:Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
               image: AssetImage("assets/images/bubble.png"),
@@ -40,11 +39,11 @@ class menu_vuoto_ui extends State<menu_vuoto>{
           child:Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              barra_superiore(text: '',),
-              finestra_nessun_elemento(string1: 'NON CI SONO PIATTI', string2: 'NEL TUO MENU', string3: 'CREA UNA CATEGORIA E', string4: 'AGGIUNGI UN NUOVO PIATTO', string5: 'CLICCANDO IL BOTTONE'),
-              SizedBox(height:35),
-              bottone_gestione_menu_admin(listaCategorie: [], utente: widget.utente, menu_controller: widget.menu_controller,),
-              SizedBox(
+              const barra_superiore(text: '',),
+              const finestra_nessun_elemento(string1: 'NON CI SONO PIATTI', string2: 'NEL TUO MENU', string3: 'CREA UNA CATEGORIA E', string4: 'AGGIUNGI UN NUOVO PIATTO', string5: 'CLICCANDO IL BOTTONE'),
+              const SizedBox(height:35),
+              bottone_gestione_menu_admin(listaCategorie: const [], utente: widget.utente, menu_controller: widget.menu_controller,),
+              const SizedBox(
                 height: 8,
               )
 

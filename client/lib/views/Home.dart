@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ratatouille23/controllers/Amplify_controller.dart';
 import 'package:ratatouille23/views/custom_widget/Finestra_attesa.dart';
-import 'package:ratatouille23/views/pagina_iniziale.dart';
+import 'package:ratatouille23/views/pagina_inizialeUI.dart';
 
 import '../models/Utente.dart';
 import 'Login_ui.dart';
@@ -50,9 +50,9 @@ class Home extends StatelessWidget {
                                 attesa.showDialogue();
                                 Utente utente  = await amplify_controller.fetchCurrentUserAttributes();
                                 attesa.hideProgressDialogue();
-                                Navigator.push(context, MaterialPageRoute(settings: RouteSettings(name: "/pagina_iniziale"),builder: (context) => pagina_iniziale(utente)));
+                                Navigator.push(context, MaterialPageRoute(settings: const RouteSettings(name: "/pagina_iniziale"),builder: (context) => pagina_inizialeUI(utente)));
                               } else {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const Login_ui()));
+                                Navigator.push(context, createRoute(const Login_ui(), "/login"));
                               }
 
                             },
@@ -87,6 +87,20 @@ class Home extends StatelessWidget {
             return widgetDaTornare;
           }
 
+    );
+  }
+
+  Route createRoute(Widget page, String route) {
+    return PageRouteBuilder(
+      transitionDuration: const Duration(milliseconds:600),
+      settings: RouteSettings(name: route),
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(
+          opacity: animation,
+          child: child,
+        );
+      },
     );
   }
 }

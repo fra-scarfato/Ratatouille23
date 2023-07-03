@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class bottoni_menu_admin extends StatelessWidget{
   final Widget route;
   final IconData icon;
-  const bottoni_menu_admin({required this.route, required this.icon});
+  const bottoni_menu_admin({super.key, required this.route, required this.icon});
 
+  @override
   Widget build(BuildContext context){
 
     return ElevatedButton(
@@ -16,7 +16,7 @@ class bottoni_menu_admin extends StatelessWidget{
       },
 
       style: ElevatedButton.styleFrom(
-        shape: StadiumBorder(),
+        shape: const StadiumBorder(),
         backgroundColor: Colors.orange,
         padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
       ),

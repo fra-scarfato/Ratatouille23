@@ -61,7 +61,7 @@ class Utente{
     void set_cognome(String cognome){_cognome=cognome;}
     void set_email(String email){_email=email;}
     void set_ruolo(String ruolo){_ruolo=ruolo;}
-    void set_id_ristorante(int id_ristorante){_id_ristorante=id_ristorante;}
+    void set_id_ristorante(int idRistorante){_id_ristorante=idRistorante;}
 
     int get_id(){return _id;}
     String get_name(){return _nome;}
