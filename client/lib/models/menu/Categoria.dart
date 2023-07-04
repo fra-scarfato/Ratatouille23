@@ -4,7 +4,7 @@ class Categoria{
 
   late int _id;
   late String _nome;
-  List<Elemento>? _elementi;
+  List<Elemento> _elementi = <Elemento>[];
   late int _id_ristorante;
 
   Categoria.vuota();
@@ -30,7 +30,7 @@ class Categoria{
     _id_ristorante=json['idRistorante'];
     _elementi = [];
     json['elementiDellaCategoria'].forEach((v) {
-      _elementi?.add(Elemento.fromJson(v));
+      _elementi.add(Elemento.fromJson(v));
     });
 
   }

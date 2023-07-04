@@ -18,31 +18,32 @@ class elementi_card extends StatefulWidget {
   final Utente utente;
   final Elemento elemento;
   final List<Categoria>? listaCategorie;
+  final Menu_controller menu_controller;
 
   elementi_card(
       {super.key, required this.utente,
       required this.elemento,
-      required this.listaCategorie});
+      required this.listaCategorie,
+      required this.menu_controller});
 
   @override
   elementi_card_state createState() => elementi_card_state();
 }
 
 class elementi_card_state extends State<elementi_card> {
-  Menu_controller menu_controller = Menu_controller();
 
   @override
   void initState() {
     super.initState();
-    menu_controller.setNomePerTraduzione(widget.elemento.nome);
-    menu_controller.setDescrizionePerTraduzione(widget.elemento.descrizione);
-    menu_controller.setAllergeniPerTraduzione(widget.elemento.allergeni);
+    widget.menu_controller.setNomePerTraduzione(widget.elemento.nome);
+    widget.menu_controller.setDescrizionePerTraduzione(widget.elemento.descrizione);
+    widget.menu_controller.setAllergeniPerTraduzione(widget.elemento.allergeni);
   }
 
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
-        listenable: menu_controller,
+        listenable: widget.menu_controller,
         builder: (context, child) {
           return Card(
             key: UniqueKey(),
@@ -60,7 +61,7 @@ class elementi_card_state extends State<elementi_card> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        menu_controller.getNomePerTraduzione(),
+                        widget.menu_controller.getNomePerTraduzione(),
                         style: GoogleFonts.roboto(
                             color: Colors.orange,
                             fontSize: 36,
@@ -68,7 +69,7 @@ class elementi_card_state extends State<elementi_card> {
                       ),
                       const Spacer(),
                       Text(
-                        'Costo: ${widget.elemento.costo}\$',
+                        'Costo: ${widget.elemento.costo}€',
                         style: GoogleFonts.roboto(
                             color: Colors.orange,
                             fontSize: 36,
@@ -92,16 +93,17 @@ class elementi_card_state extends State<elementi_card> {
                             size: 50,
                           )),
                       IconButton(
-                          onPressed: () {
+                          onPressed: () async {
                             FToast toast = FToast();
                             toast.init(context);
                             try{
-                              menu_controller.rimuoviElemento(widget.elemento);
+                              await widget.menu_controller.rimuoviElemento(widget.elemento);
                               toast.showToast(
                                   child: const Finestra_conferma(message: "Elemento rimosso"),
                                   toastDuration: const Duration(seconds: 2),
                                   gravity: ToastGravity.BOTTOM);
                             } catch (error) {
+                              print(error.toString());
                               toast.showToast(
                                   child: const Finestra_errore(message: 'Impossibile rimuovere elemento'),
                                   toastDuration: const Duration(seconds: 2),
@@ -118,7 +120,7 @@ class elementi_card_state extends State<elementi_card> {
                   const SizedBox(height: 16),
                   SizedBox(
                     width: 1161,
-                    child: Text(menu_controller.getDescrizionePerTraduzione(),
+                    child: Text(widget.menu_controller.getDescrizionePerTraduzione(),
                         style: GoogleFonts.roboto(
                             fontStyle: FontStyle.italic, fontSize: 27)),
                     //  )
@@ -131,14 +133,14 @@ class elementi_card_state extends State<elementi_card> {
                     children: [
                       InkWell(
                         onTap: () {
-                          menu_controller.traduciInItaliano(widget.elemento);
+                          widget.menu_controller.traduciInItaliano(widget.elemento);
                         },
                         child: Flag.fromCode(FlagsCode.IT, height: 30, width: 35),
                       ),
                       const SizedBox(width: 8),
                       InkWell(
                         onTap: () async {
-                          await menu_controller.traduciInInglese(widget.elemento);
+                          await widget.menu_controller.traduciInInglese(widget.elemento);
                         },
                         child: Flag.fromCode(FlagsCode.GB, height: 30, width: 35),
                       ),
@@ -157,7 +159,7 @@ class elementi_card_state extends State<elementi_card> {
                                     fontStyle: FontStyle.italic,
                                     color: Colors.orange)),
                             Expanded(
-                                child: Text(menu_controller.getAllergeniPerTraduzione(),
+                                child: Text(widget.menu_controller.getAllergeniPerTraduzione(),
                                     // overflow: TextOverflow.ellipsis,
                                     style: GoogleFonts.roboto(
                                         fontSize: 27, fontStyle: FontStyle.italic)))

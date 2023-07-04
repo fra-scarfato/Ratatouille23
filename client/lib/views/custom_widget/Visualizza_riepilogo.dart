@@ -212,7 +212,7 @@ class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
                       style: GoogleFonts.roboto(color: Colors.orange, fontSize: 36, fontStyle: FontStyle.italic),
                     ),
                     Text(
-                      '$costo\$',
+                      '$costo€',
                       style: GoogleFonts.roboto(fontSize: 40, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -242,7 +242,7 @@ class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
         ),
         //SizedBox(width:100),
         Text(
-          '$get_costo_elemento',
+          '$get_costo_elemento€',
           style: GoogleFonts.roboto(fontSize: 36, fontStyle: FontStyle.italic, ),
         ),
         const SizedBox(width: 30),

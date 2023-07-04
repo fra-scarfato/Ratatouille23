@@ -16,7 +16,7 @@ class Menu_service {
     final uri = Uri.http(authority, '/menu/get', queryParameter);
     var response = await http.get(uri);
     if (response.statusCode == 200) {
-      List<Categoria> listaCategorie = (jsonDecode(response.body) as List)
+      List<Categoria> listaCategorie = (jsonDecode(utf8.decode(response.bodyBytes)) as List)
           .map((categoria) => Categoria.fromJson(categoria))
           .toList();
       return listaCategorie;
@@ -73,7 +73,7 @@ class Menu_service {
     }
   }
 
-  void eliminaElemento(Elemento elementoDaEliminare) async {
+  Future<void> eliminaElemento(Elemento elementoDaEliminare) async {
     final uri = Uri.http(authority, '/menu/element/delete');
     var response = await http.delete(
       uri,

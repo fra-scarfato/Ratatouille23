@@ -5,6 +5,7 @@ import 'package:ratatouille23/controllers/Ordinazione_controller.dart';
 
 import '../../models/Ordinazione.dart';
 import '../../models/Utente.dart';
+import 'Finestra_conferma.dart';
 import 'Finestra_errore.dart';
 
 class ordinazioni_card extends StatefulWidget{
@@ -71,10 +72,15 @@ class ordinazioni_card_state extends State<ordinazioni_card>{
                       const SizedBox(width:16),
                       IconButton(
                           onPressed: () async {
+                            FToast toast = FToast();
+                            toast.init(context);
                             try{
                               await widget.ordinazione_controller.elimina_ordinazione_sala(ord[i]);
+                              toast.showToast(
+                                  child: const Finestra_conferma(message: "Elemento rimosso"),
+                                  toastDuration: const Duration(seconds: 2),
+                                  gravity: ToastGravity.BOTTOM);
                             } catch (error) {
-                              FToast toast = FToast();
                               toast.showToast(
                                   child: Finestra_errore(message: "Impossibile eliminare l'ordinazione.$error"),
                                   toastDuration: const Duration(seconds: 2),
@@ -136,7 +142,7 @@ class ordinazioni_card_state extends State<ordinazioni_card>{
                       style: GoogleFonts.roboto(color: Colors.orange, fontSize: 36, fontStyle: FontStyle.italic),
                     ),
                     Text(
-                      '$costo\$',
+                      '$costo€',
                       style: GoogleFonts.roboto(fontSize: 40, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -166,7 +172,7 @@ class ordinazioni_card_state extends State<ordinazioni_card>{
         ),
         //SizedBox(width:100),
         Text(
-          '$getCostoElemento\$',
+          '$getCostoElemento€',
           style: GoogleFonts.roboto(fontSize: 36, fontStyle: FontStyle.italic, ),
         ),
         const SizedBox(width: 30),

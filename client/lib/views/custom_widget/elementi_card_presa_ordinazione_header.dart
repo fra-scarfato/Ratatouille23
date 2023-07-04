@@ -40,7 +40,7 @@ class elementi_card_presa_ordinazione_header_state
         ),
         const Spacer(),
         Text(
-          'Costo: ${widget.costo}\$',
+          'Costo: ${widget.costo}€',
           style: GoogleFonts.roboto(
               color: Colors.orange, fontSize: 36, fontStyle: FontStyle.italic),
         ),

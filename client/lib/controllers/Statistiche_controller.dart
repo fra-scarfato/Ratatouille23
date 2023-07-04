@@ -22,6 +22,8 @@ class Statistiche_controller {
   final List<GestoreOrdinazioneChartData> _gestoreData = <GestoreOrdinazioneChartData>[];
   final List<TempoGuadagnoChartData> _guadagniData = <TempoGuadagnoChartData>[];
 
+  List<Ordinazione> get listaOrdinazioni => _listaOrdinazioni;
+
   List<AddettoAllaSalaChartData> get addettoData => _addettoData;
   List<TempoGuadagnoChartData> get guadagniData => _guadagniData;
 

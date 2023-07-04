@@ -90,7 +90,7 @@ class menu_ui extends State<menu> {
         list.add(elementi_card(
           utente: widget.utente,
           elemento: element,
-          listaCategorie: listaCategorie,
+          listaCategorie: _menu_controller.getCategorieDaVisualizzare(), menu_controller: _menu_controller,
         ));
       }
     }
@@ -104,18 +104,8 @@ class menu_ui extends State<menu> {
       widget = SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height - 187,
-        child: ReorderableListView(
+        child: ListView(
           shrinkWrap: true,
-          onReorder: (int oldIndex, int newIndex) {
-            setState(() {
-              if (newIndex > oldIndex) {
-                newIndex -= 1;
-              }
-
-              final items = elem.removeAt(oldIndex);
-              elem.insert(newIndex, items);
-            });
-          },
           children: [
             ...elem,
           ],

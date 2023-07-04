@@ -127,10 +127,12 @@ class Menu_controller extends ChangeNotifier{
 
   Future<void> rimuoviElemento(Elemento elementoDaRimuovere) async{
     try{
-      _menu_service.eliminaElemento(elementoDaRimuovere);
+      await _menu_service.eliminaElemento(elementoDaRimuovere);
+      elementoDaRimuovere.categoria = get_selected();
       for (var categoria in _listaCategorie) {
         if(categoria.get_id() == elementoDaRimuovere.categoria.get_id()) {
-          categoria.get_elementi()?.remove(elementoDaRimuovere);
+          int? index = categoria.get_elementi()?.indexWhere((element) => element.id == elementoDaRimuovere.id);
+          categoria.get_elementi()?.removeAt(index!);
         }
       }
       notifyListeners();

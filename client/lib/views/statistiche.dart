@@ -8,6 +8,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../controllers/Statistiche_controller.dart';
 import '../models/Utente.dart';
+import 'custom_widget/finestra_nessun_elemento.dart';
 
 class statistiche extends StatefulWidget {
   final Utente utente;
@@ -37,12 +38,16 @@ class statistiche_ui extends State<statistiche> {
             if(snapshot.data != null) {
               listaElementi = snapshot.data!;
             }
+            if(statistiche_controller.listaOrdinazioni.isNotEmpty) {
+
+            }
             widgetDaTornare = Scaffold(
               body: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const barra_superiore(text: ""),
                   const SizedBox(height: 20,),
+                  (statistiche_controller.listaOrdinazioni.isNotEmpty) ?
                   Expanded(
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
@@ -243,7 +248,12 @@ class statistiche_ui extends State<statistiche> {
                         ],
                       ),
                     ),
-                  ),
+                  ) : const finestra_nessun_elemento(
+                      string1: 'NESSUNA ORDINAZIONE',
+                      string2: 'EVASA',
+                      string3: 'EVADI ALMENO UN',
+                      string4: 'ORDINAZIONE E TORNA QUI',
+                      string5: ''),
                 ],
               ),
             );
