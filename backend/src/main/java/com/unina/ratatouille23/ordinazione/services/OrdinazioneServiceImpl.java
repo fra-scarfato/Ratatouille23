@@ -26,9 +26,11 @@ public class OrdinazioneServiceImpl implements OrdinazioneService{
     
     @Override
     @Transactional
-    public void registraNuovaOrdinazione(Ordinazione ordinazioneDaRegistrare) {
+    public int registraNuovaOrdinazione(Ordinazione ordinazioneDaRegistrare) {
         ordinazioneRepository.save(ordinazioneDaRegistrare);
         elementoOrdinatoRepository.saveAll(ordinazioneDaRegistrare.getElementiOrdinati());
+        System.out.println(ordinazioneDaRegistrare.getId());
+        return ordinazioneDaRegistrare.getId();
     }
 
     @Override
@@ -72,7 +74,14 @@ public class OrdinazioneServiceImpl implements OrdinazioneService{
     }
 
     @Override
-    public void modificaOrdinazione(Ordinazione nuovaOrdinazione) {
+    public void modificaOrdinazioneSala(Ordinazione nuovaOrdinazione) {
+        elementoOrdinatoRepository.deleteElementiOrdinati(nuovaOrdinazione.getId());
+        elementoOrdinatoRepository.saveAll(nuovaOrdinazione.getElementiOrdinati());
+        ordinazioneRepository.aggiornaOrdinazione(nuovaOrdinazione.getNote(), nuovaOrdinazione.getCostoTotale(), nuovaOrdinazione.getId());
+    } 
+
+    @Override
+    public void modificaOrdinazioneCucina(Ordinazione nuovaOrdinazione) {
         ordinazioneRepository.save(nuovaOrdinazione);
     } 
     

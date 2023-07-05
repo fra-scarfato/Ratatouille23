@@ -9,22 +9,21 @@ import 'package:translator/translator.dart';
 import '../../controllers/Presa_ordinazione_view_controller.dart';
 import 'elementi_card_presa_ordinazione_header.dart';
 
-class elementi_card_presa_ordinazione extends StatefulWidget{
-  @override
-  final Key key = UniqueKey();
+class elementi_card_modifica_ordinazione extends StatefulWidget{
   final Utente utente;
   final Elemento elemento;
+  final int quantita;
   final Presa_ordinazione_view_controller presa_ordinazione_view_controller;
 
-  elementi_card_presa_ordinazione({super.key, required this.utente, required this.elemento, required this.presa_ordinazione_view_controller});
+  elementi_card_modifica_ordinazione({super.key, required this.utente, required this.elemento, required this.quantita, required this.presa_ordinazione_view_controller});
   @override
-  elementi_card_presa_ordinazione_state createState() => elementi_card_presa_ordinazione_state();
+  elementi_card_modifica_ordinazione_state createState() => elementi_card_modifica_ordinazione_state();
 }
 
-class elementi_card_presa_ordinazione_state extends State<elementi_card_presa_ordinazione>{
-  GoogleTranslator translator = GoogleTranslator();
+class elementi_card_modifica_ordinazione_state extends State<elementi_card_modifica_ordinazione>{
   @override
   Widget build(BuildContext context) {
+    GoogleTranslator translator = GoogleTranslator();
     return Card(
       key: UniqueKey(),
       color: Colors.white,
@@ -41,7 +40,7 @@ class elementi_card_presa_ordinazione_state extends State<elementi_card_presa_or
                 utente: widget.utente,
                 elemento: widget.elemento,
                 presa_ordinazione_view_controller: widget.presa_ordinazione_view_controller,
-                quantita: 0,
+                quantita: widget.quantita,
             ),
             const SizedBox(height: 16),
             SizedBox(

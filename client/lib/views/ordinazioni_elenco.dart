@@ -212,7 +212,7 @@ class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
                                   MaterialPageRoute(
                                       builder: (context) => Presa_ordinazione(
                                           numeroTavolo: numeroTavolo,
-                                          utente: widget.utente)));
+                                          utente: widget.utente, ordinazione_controller: _ordinazione_controller,)));
                             }
                           },
                           child: const Text(

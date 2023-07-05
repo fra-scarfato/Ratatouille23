@@ -74,7 +74,7 @@ class Menu_controller extends ChangeNotifier{
 
   Future<void> rimuoviCategoria(Categoria categoriaDaRimuovere) async{
     try{
-      _listaCategorie.remove(categoriaDaRimuovere);
+      _listaCategorie.removeWhere((categoria) => categoria.get_id() == categoriaDaRimuovere.get_id());
       _menu_service.eliminaCategoria(categoriaDaRimuovere);
       notifyListeners();
     } catch (error) {

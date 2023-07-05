@@ -35,11 +35,23 @@ class Amplify_controller {
     return false;
   }
 
+  Future<Utente> confermaUtente(String email, String confirmationCode, String oldPassword, String newPassword) async {
+    await confirmUser(username: email, confirmationCode: confirmationCode);
+    var result = await signInUser(email, oldPassword);
+    if (result.nextStep.signInStep == AuthSignInStep.done) {
+      await updatePassword(oldPassword: oldPassword, newPassword: newPassword);
+      Utente utente = await fetchCurrentUserAttributes();
+      return utente;
+    } else {
+      throw "Credenziali errate";
+    }
+  }
+
   Future<Utente> fetchCurrentUserAttributes() async {
     try {
       final result = await Amplify.Auth.fetchUserAttributes();
       Utente_service utente_service = Utente_service();
-      return await utente_service.getUtenteWithEmail(result[1].value);
+      return await utente_service.getUtenteWithEmail(result[2].value);
     } on AuthException {
       rethrow;
     }

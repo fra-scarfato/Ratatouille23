@@ -46,6 +46,7 @@ class Elemento_ordinato{
       _quantita--;
     }
   }
+  void set_quantita(int quantita){_quantita=quantita;}
 
   int get_id_ordinazione(){return _id_ordinazione;}
   Elemento get_elemento(){return _elemento;}

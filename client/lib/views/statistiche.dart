@@ -81,7 +81,7 @@ class statistiche_ui extends State<statistiche> {
                                       enablePanning: true,
                                     ),
                                     primaryYAxis: NumericAxis(
-                                      numberFormat: NumberFormat.simpleCurrency()
+                                      numberFormat: NumberFormat.simpleCurrency(name: 'EUR')
                                     ),
                                     series: <ChartSeries>[
                                       ColumnSeries<ElementoVendutoChartData, String>(
@@ -233,7 +233,7 @@ class statistiche_ui extends State<statistiche> {
                                 enablePanning: true,
                               ),
                               primaryYAxis: NumericAxis(
-                                  numberFormat: NumberFormat.simpleCurrency()
+                                  numberFormat: NumberFormat.simpleCurrency(name: 'EUR')
                               ),
                               series: <ChartSeries>[
                                 LineSeries<TempoGuadagnoChartData, DateTime>(

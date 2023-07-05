@@ -7,6 +7,7 @@ import '../../models/Ordinazione.dart';
 import '../../models/Utente.dart';
 import 'Finestra_conferma.dart';
 import 'Finestra_errore.dart';
+import 'modifica_ordinazione.dart';
 
 class ordinazioni_card extends StatefulWidget{
   List<Ordinazione> ord;
@@ -62,12 +63,12 @@ class ordinazioni_card_state extends State<ordinazioni_card>{
                       const Spacer(),
                       IconButton(
                           onPressed: (){
-                            //TODO
+                            Navigator.push(context, MaterialPageRoute(builder: (builder) => Modifica_ordinazione(utente: widget.utente, ordinazione: widget.ord[i], ordinazione_controller: widget.ordinazione_controller,)));
                           },
                           icon: const Icon(
                             Icons.mode_edit_outlined,
-                            size: 50,
-                          )
+                          ),
+                        iconSize: 50,
                       ),
                       const SizedBox(width:16),
                       IconButton(
@@ -89,8 +90,8 @@ class ordinazioni_card_state extends State<ordinazioni_card>{
                           icon: const Icon(
                             Icons.delete_outline,
                             color: Colors.red,
-                            size: 50,
-                          )
+                          ),
+                        iconSize: 50,
                       ),
 
                     ],

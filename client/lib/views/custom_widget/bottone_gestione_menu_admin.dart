@@ -12,11 +12,11 @@ import 'package:ratatouille23/views/custom_widget/slide_button.dart';
 
 import '../../models/Utente.dart';
 import '../../models/menu/Categoria.dart';
-import '../menu.dart';
 import 'Finestra_errore.dart';
+import 'elimina_categoria.dart';
 
 class bottone_gestione_menu_admin extends StatefulWidget{
-  final List<Categoria>? listaCategorie;
+  final List<Categoria> listaCategorie;
   final Menu_controller menu_controller;
   final Utente utente;
 
@@ -111,7 +111,7 @@ class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admi
                         height: 8,
                         width: 150,
                       ),
-                      slide_button(vertical_offset: 40, horizontal_offset: -40, text: 'Elimina categoria', route: menu(utente: widget.utente), icon: Icons.delete_outline_outlined),
+                      slide_button(vertical_offset: 40, horizontal_offset: -40, text: 'Elimina categoria', route: Elimina_categoria(listaCategorie: widget.listaCategorie, utente: widget.utente, menu_controller: widget.menu_controller,), icon: Icons.delete_outline_outlined),
                     ],
                   ),
                   ElevatedButton(

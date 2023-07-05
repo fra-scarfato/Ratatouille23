@@ -60,9 +60,8 @@ class pagina_inizialeUI extends StatelessWidget {
 
                 children: [
                   const SizedBox(width: 50),
-                  utente.get_ruolo() == "Amministratore" ?
                   Expanded(
-                    child: bottoni_gestione(
+                    child: (utente.get_ruolo() == "Amministratore") ? bottoni_gestione(
                         route: registra_utenteUI(
                           utente: utente,
                         ),
@@ -70,27 +69,27 @@ class pagina_inizialeUI extends StatelessWidget {
                         text: 'AGGIUNGI UTENTE',
                         color1: Colors.orangeAccent,
                         color2: Colors.yellow,
-                        icon: Icons.person_add_alt_1_outlined),
-                  ) : const SizedBox.shrink(),
+                        icon: Icons.person_add_alt_1_outlined) : bottoneBloccato(),
+                  ),
                   const SizedBox(width: 50),
                   Expanded(
-                    child: bottoni_gestione(
+                    child: (utente.get_ruolo() == "Amministratore" || utente.get_ruolo() == "Addetto alla sala") ? bottoni_gestione(
                         route: ordinazioni_elenco(utente: utente),
                         routeText: "/ordinazioni",
                         text: 'ORDINAZIONI',
                         color1: Colors.pink,
                         color2: Colors.deepOrange,
-                        icon: Icons.checklist_outlined),
+                        icon: Icons.checklist_outlined) : bottoneBloccato(),
                   ),
                   const SizedBox(width: 50),
                   Expanded(
-                    child: bottoni_gestione(
+                    child: (utente.get_ruolo() == "Amministratore" || utente.get_ruolo() == "Supervisore") ? bottoni_gestione(
                         route: menu(utente: utente),
                         routeText: "/menu",
                         text: 'MENU',
                         color1: Colors.lightBlue,
                         color2: Colors.lightBlueAccent,
-                        icon: Icons.menu_book),
+                        icon: Icons.menu_book) : bottoneBloccato(),
                   ),
                   const SizedBox(width: 50),
                 ],
@@ -101,28 +100,26 @@ class pagina_inizialeUI extends StatelessWidget {
                 children: [
                   const SizedBox(width: 50),
                   Expanded(
-                    child: bottoni_gestione(
+                    child: (utente.get_ruolo() == "Amministratore" || utente.get_ruolo() == "Addetto alla cucina") ? bottoni_gestione(
                         route: ordinazioni_elenco_cucina(utente: utente,),
                         routeText: "/cucina",
                         text: 'CUCINA',
                         color1: Colors.purple,
                         color2: Colors.purpleAccent,
-                        icon: Icons.cake_outlined),
+                        icon: Icons.cake_outlined) : bottoneBloccato(),
                   ),
-                  utente.get_ruolo() == "Amministratore" ?
                   const SizedBox(
                     width: 30,
-                  ): const SizedBox.shrink(),
-                  utente.get_ruolo() == "Amministratore" ?
+                  ),
                   Expanded(
-                    child: bottoni_gestione(
+                    child: (utente.get_ruolo() == "Amministratore") ? bottoni_gestione(
                         route: statistiche(utente: utente,),
                         routeText: "/statistiche",
                         text: 'STATISTICHE',
                         color1: Colors.green,
                         color2: Colors.lightGreen,
-                        icon: Icons.query_stats_outlined),
-                  ) : const SizedBox.shrink(),
+                        icon: Icons.query_stats_outlined) : bottoneBloccato(),
+                  ),
                   const SizedBox(width: 50),
                 ],
               )

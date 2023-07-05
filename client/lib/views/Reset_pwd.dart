@@ -110,12 +110,8 @@ class Reset_pwd extends State<Reset_pwd_ui> {
                     toast.init(context);
                     try {
                       attesa.showDialogue();
-                      await amplify_controller.confirmUser(username: widget.email, confirmationCode: confirmationCode);
-                      await amplify_controller.updatePassword(oldPassword: widget.oldPassword, newPassword: fullPassword);
-                      Utente utente =
-                          await amplify_controller.fetchCurrentUserAttributes();
+                      Utente utente = await amplify_controller.confermaUtente(widget.email, confirmationCode, widget.oldPassword, fullPassword);
                       attesa.hideProgressDialogue();
-                      Fluttertoast.cancel();
                       toast.showToast(
                           child: const Finestra_conferma(message: "Conferma completata"),
                           toastDuration: const Duration(seconds: 2),
@@ -127,7 +123,6 @@ class Reset_pwd extends State<Reset_pwd_ui> {
                                   pagina_inizialeUI(utente)));
                     } catch (error) {
                       attesa.hideProgressDialogue();
-                      Fluttertoast.cancel();
                       toast.showToast(
                           child: const Finestra_errore(message: "Conferma non riuscita"),
                           toastDuration: const Duration(seconds: 2),

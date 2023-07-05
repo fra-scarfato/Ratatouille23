@@ -90,8 +90,7 @@ class elementi_card_state extends State<elementi_card> {
                           },
                           icon: const Icon(
                             Icons.mode_edit_outlined,
-                            size: 50,
-                          )),
+                          ),iconSize: 50,),
                       IconButton(
                           onPressed: () async {
                             FToast toast = FToast();
@@ -113,8 +112,7 @@ class elementi_card_state extends State<elementi_card> {
                           icon: const Icon(
                             Icons.delete_outline,
                             color: Colors.red,
-                            size: 50,
-                          )),
+                          ), iconSize: 50,),
                     ],
                   ),
                   const SizedBox(height: 16),

@@ -64,3 +64,49 @@ class bottoni_gestione extends StatelessWidget{
     );
   }
 }
+
+class bottoneBloccato extends StatelessWidget{
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+        onTap: (){
+
+        },
+        child: Ink(
+            height: (2*(MediaQuery.of(context).size.height))/5,
+            width: (2*(MediaQuery.of(context).size.height))/5,
+            // height: 350,
+            // width: 350,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(33.0)),
+              gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [
+                    Colors.black12,
+                    Colors.grey
+                  ]
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.lock_outline,
+                  color: Colors.black,
+                  size: MediaQuery.of(context).size.height/4,
+                  // size: 225,
+                ),
+                Text(
+                    "BLOCCATO",
+                    style: GoogleFonts.roboto(fontSize: /*40*/MediaQuery.of(context).size.height/25 ,fontStyle: FontStyle.italic)
+                )
+              ],
+            )
+        )
+    );
+  }
+
+}

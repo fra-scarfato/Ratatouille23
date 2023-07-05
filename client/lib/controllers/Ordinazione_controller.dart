@@ -27,6 +27,9 @@ class Ordinazione_controller extends ChangeNotifier {
     if(ordinazioneDto.ordinazione.get_gestore_ordinazione() == null) {
       if (ordinazioneDto.operazione == "INSERT") {
         _listaOrdiniAttesa.add(ordinazioneDto.ordinazione);
+      } else if(ordinazioneDto.operazione == "UPDATE") {
+        int index = _listaOrdiniAttesa.indexWhere((ordine) => ordine.get_id() == ordinazioneDto.ordinazione.get_id());
+        _listaOrdiniAttesa[index] = ordinazioneDto.ordinazione;
       }
       notifyListeners();
     }
@@ -41,6 +44,8 @@ class Ordinazione_controller extends ChangeNotifier {
         } else if (ordinazioneDto.ordinazione.get_stato() == "Evasa") {
           _listaOrdiniPresiInCarico.removeWhere((element) =>
           element.get_id() == ordinazioneDto.ordinazione.get_id());
+        } else {
+
         }
       } else {
         if (ordinazioneDto.ordinazione.get_stato() == "In attesa") {
@@ -120,7 +125,8 @@ class Ordinazione_controller extends ChangeNotifier {
       List<Elemento_ordinato> elementi, Utente addettoAllaSala) async {
     try {
       Ordinazione nuovaOrdinazione = Ordinazione.senzaId(tavolo, note, elementi, addettoAllaSala);
-      await _ordinazione_service.registra_nuova_ordinazione(nuovaOrdinazione);
+      int id = int.parse(await _ordinazione_service.registra_nuova_ordinazione(nuovaOrdinazione));
+      nuovaOrdinazione.set_id(id);
       _listaOrdinazioniSala.add(nuovaOrdinazione);
       _listaOrdiniAttesa.add(nuovaOrdinazione);
       notifyListeners();
@@ -160,7 +166,7 @@ class Ordinazione_controller extends ChangeNotifier {
 
   Future<void> modifica_ordinazione_cucina(Ordinazione ordinazioneDaModificare) async {
     try {
-      await _ordinazione_service.modifica_ordinazione(ordinazioneDaModificare);
+      await _ordinazione_service.modifica_ordinazione_cucina(ordinazioneDaModificare);
     } catch (error) {
       rethrow;
     }
@@ -172,7 +178,10 @@ class Ordinazione_controller extends ChangeNotifier {
       if(statoOrdinazione != "In attesa") {
         throw "Ordinazione presa in carico. Impossibile modificare.";
       }
-      await _ordinazione_service.modifica_ordinazione(ordinazioneDaModificare);
+      await _ordinazione_service.modifica_ordinazione_sala(ordinazioneDaModificare);
+      int index = _listaOrdinazioniSala.indexWhere((ordinazione) => ordinazione.get_id() == ordinazioneDaModificare.get_id());
+      _listaOrdinazioniSala[index] = ordinazioneDaModificare;
+      notifyListeners();
     } catch (error) {
       rethrow;
     }

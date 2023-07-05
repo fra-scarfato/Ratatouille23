@@ -25,16 +25,24 @@ class Presa_ordinazione_view_controller with ChangeNotifier{
 
   aggiungi_quantita(Elemento elemento){
     int i = 0;
-    while(_list_elem_ord[i].get_elemento() != elemento){
+    while(_list_elem_ord[i].get_elemento().id != elemento.id){
       i++;
     }
     _list_elem_ord[i].incrementa_quantita();
     notifyListeners();
   }
 
+  set_quantita(Elemento elemento, int quantita){
+    int i = 0;
+    while(_list_elem_ord[i].get_elemento().id != elemento.id){
+      i++;
+    }
+    _list_elem_ord[i].set_quantita(quantita);
+  }
+
   rimuovi_quantita(Elemento elemento){
     int i = 0;
-    while(_list_elem_ord[i].get_elemento() != elemento){
+    while(_list_elem_ord[i].get_elemento().id != elemento.id){
       i++;
     }
     _list_elem_ord[i].decrementa_quantita();
@@ -55,7 +63,7 @@ class Presa_ordinazione_view_controller with ChangeNotifier{
   }
   get_quantita(Elemento elemento){
       int i = 0;
-      while(_list_elem_ord[i].get_elemento() != elemento){
+      while(_list_elem_ord[i].get_elemento().id != elemento.id){
         i++;
       }
       return _list_elem_ord[i].get_quantita();

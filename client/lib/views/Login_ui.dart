@@ -144,9 +144,7 @@ class Login extends State<Login_ui> {
                             utente.get_ruolo() == "Supervisore") {
                           Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      pagina_inizialeUI(utente)));
+                              MaterialPageRoute(settings: const RouteSettings(name: "/pagina_iniziale"),builder: (context) => pagina_inizialeUI(utente)));
                         } else if (utente.get_ruolo() == "Addetto alla sala") {
                           //TODO: Prende solo le ordinazioni
                         } else {
@@ -177,5 +175,19 @@ class Login extends State<Login_ui> {
                 ))
           ],
         )));
+  }
+
+  Route createRoute(Widget page, String route) {
+    return PageRouteBuilder(
+      transitionDuration: const Duration(milliseconds:600),
+      settings: RouteSettings(name: route),
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(
+          opacity: animation,
+          child: child,
+        );
+      },
+    );
   }
 }

@@ -48,11 +48,12 @@ public class OrdinazioneController {
     }
 
     @PostMapping("/add")
-    void registraNuovaOrdinazione(@RequestBody Ordinazione nuovaOrdinazione) {
+    int registraNuovaOrdinazione(@RequestBody Ordinazione nuovaOrdinazione) {
         //Client connesso su /ws
-        servizioOrdinazioni.registraNuovaOrdinazione(nuovaOrdinazione);
+        int id = servizioOrdinazioni.registraNuovaOrdinazione(nuovaOrdinazione);
         //Client in ascolto su un endpoint /ws/order/{idr}
         simpMessagingTemplate.convertAndSend(servizioOrdinazioni.getBroadcastURL(nuovaOrdinazione), new OrdinazioneDTO(nuovaOrdinazione, "INSERT"));
+        return id;
     }
 
     @DeleteMapping("/delete")
@@ -62,9 +63,15 @@ public class OrdinazioneController {
         simpMessagingTemplate.convertAndSend(servizioOrdinazioni.getBroadcastURL(ordinazioneDaEliminare), new OrdinazioneDTO(ordinazioneDaEliminare, "DELETE"));
     }
 
-    @PutMapping("/update")
-    void aggiornaOrdinazione(@RequestBody Ordinazione ordinazioneDaAggiornare) {
-        servizioOrdinazioni.modificaOrdinazione(ordinazioneDaAggiornare);
+    @PutMapping("/update/sala")
+    void aggiornaOrdinazioneSala(@RequestBody Ordinazione ordinazioneDaAggiornare) {
+        servizioOrdinazioni.modificaOrdinazioneSala(ordinazioneDaAggiornare);
+        simpMessagingTemplate.convertAndSend(servizioOrdinazioni.getBroadcastURL(ordinazioneDaAggiornare), new OrdinazioneDTO(ordinazioneDaAggiornare, "UPDATE"));
+    }
+
+    @PutMapping("/update/cucina")
+    void aggiornaOrdinazioneCucina(@RequestBody Ordinazione ordinazioneDaAggiornare) {
+        servizioOrdinazioni.modificaOrdinazioneCucina(ordinazioneDaAggiornare);
         simpMessagingTemplate.convertAndSend(servizioOrdinazioni.getBroadcastURL(ordinazioneDaAggiornare), new OrdinazioneDTO(ordinazioneDaAggiornare, "UPDATE"));
     }
 

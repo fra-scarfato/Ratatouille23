@@ -15,7 +15,9 @@ class Visualizza_riepilogo extends StatefulWidget{
   final int tavolo;
   final List<Elemento_ordinato> elementi_ordinati;
   final Utente utente;
-  Visualizza_riepilogo({required this.tavolo, required this.elementi_ordinati, required this.utente});
+  final Ordinazione_controller ordinazione_controller;
+
+  Visualizza_riepilogo({required this.tavolo, required this.elementi_ordinati, required this.utente, required this.ordinazione_controller});
   @override
   Visualizza_riepilogo_state createState() => Visualizza_riepilogo_state();
 }
@@ -23,11 +25,10 @@ class Visualizza_riepilogo extends StatefulWidget{
 class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
   TextEditingController noteController= TextEditingController();
   String note='';
-  late Ordinazione_controller _ordinazione_controller;
+
 
   @override
   void initState() {
-    _ordinazione_controller = Ordinazione_controller(utente: widget.utente);
     super.initState();
   }
 
@@ -53,24 +54,6 @@ class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
                   height: MediaQuery.of(context).size.height - 195,
                   child: ordine_card(widget.elementi_ordinati),
                 ),
-                // ElevatedButton(
-                //     onPressed: () {
-                //
-                //     },
-                //     child: Text(
-                //       'CONFERMA ORDINE',
-                //       style: TextStyle(
-                //         fontSize: 24,
-                //         color: Colors.white,
-                //       ),
-                //     ),
-                //     style: ElevatedButton.styleFrom(
-                //       shape: StadiumBorder(),
-                //       backgroundColor: Colors.orange,
-                //       padding: const EdgeInsets.symmetric(
-                //           horizontal: 50, vertical: 20),
-                //     )
-                // )
               ],
             )
         ),
@@ -81,13 +64,13 @@ class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
               toast.init(context);
               try{
                 attesa.showDialogue();
-                await _ordinazione_controller.registra_nuova_ordinazione(widget.tavolo, note, widget.elementi_ordinati, widget.utente);
+                await widget.ordinazione_controller.registra_nuova_ordinazione(widget.tavolo, note, widget.elementi_ordinati, widget.utente);
                 attesa.hideProgressDialogue();
                 toast.showToast(
                     child: const Finestra_conferma(message: "Ordinazione effettuata correttamente"),
                     toastDuration: const Duration(seconds: 2),
                     gravity: ToastGravity.BOTTOM);
-                    Navigator.of(context).popUntil(ModalRoute.withName("/pagina_iniziale"));
+                    Navigator.of(context).popUntil(ModalRoute.withName("/ordinazioni"));
               }catch (error){
                 attesa.hideProgressDialogue();
                 toast.showToast(

@@ -332,14 +332,12 @@ class registra_utente_ui extends State<registra_utenteUI> {
                           await amplify_controller.signUpUser(email: mail, password: password);
                           await utente_controller.aggiungiUtente(nome, cognome, mail, ruolo, widget.utente.get_id_ristorante());
                           attesa.hideProgressDialogue();
-                          Fluttertoast.cancel();
                           toast.showToast(
                               child: const Finestra_conferma(message: "Utente aggiunto correttamente"),
                               toastDuration: const Duration(seconds: 2),
                               gravity: ToastGravity.BOTTOM);
                         }catch (error){
                           attesa.hideProgressDialogue();
-                          Fluttertoast.cancel();
                           toast.showToast(
                               child: const Finestra_errore(message: "Aggiunta non riuscita"),
                               toastDuration: const Duration(seconds: 2),

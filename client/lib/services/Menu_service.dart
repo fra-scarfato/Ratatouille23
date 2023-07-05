@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:ratatouille23/models/menu/Elemento.dart';
 
 class Menu_service {
-  final String authority = "localhost:8080";
+  final String authority = "192.168.1.87:8080";
   final header = {
     'Content-Type': 'application/json; charset=UTF-8',
     'Access-Control-Allow-Origin': '*',

@@ -10,7 +10,7 @@ class elementi_card_presa_ordinazione_header extends StatefulWidget {
   final double costo;
   final Utente utente;
   final Elemento elemento;
-  int quantita = 0;
+  int quantita;
   final Presa_ordinazione_view_controller presa_ordinazione_view_controller;
 
   elementi_card_presa_ordinazione_header(
@@ -19,7 +19,8 @@ class elementi_card_presa_ordinazione_header extends StatefulWidget {
       required this.costo,
       required this.utente,
       required this.elemento,
-      required this.presa_ordinazione_view_controller})
+      required this.presa_ordinazione_view_controller,
+      required this.quantita})
       : super(key: key);
   @override
   elementi_card_presa_ordinazione_header_state createState() =>
@@ -30,6 +31,7 @@ class elementi_card_presa_ordinazione_header_state
     extends State<elementi_card_presa_ordinazione_header> {
   @override
   Widget build(BuildContext context) {
+    widget.presa_ordinazione_view_controller.set_quantita(widget.elemento, widget.quantita);
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [

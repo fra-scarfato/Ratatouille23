@@ -125,6 +125,10 @@ class Ordinazione{
     };
   }
 
+  set costo_totale(double value) {
+    _costo_totale = value;
+  }
+
   Map<String, dynamic> toJsonSenzaGestore(){
     List<Map> jsonElem = _elementi.map((e) => e.toJson()).toList();
     return{

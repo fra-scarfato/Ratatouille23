@@ -10,7 +10,7 @@ import '../models/Utente.dart';
 
 class Ordinazione_service{
 
-  String authority = "localhost:8080";
+  String authority = "192.168.1.87:8080";
   final header = {
     'Content-Type': 'application/json; charset=UTF-8',
     'Access-Control-Allow-Origin': '*',
@@ -20,7 +20,7 @@ class Ordinazione_service{
   late Function(StompFrame) onStompCallback;
 
   
-  Future<void> registra_nuova_ordinazione(Ordinazione ordinazione) async {
+  Future<String> registra_nuova_ordinazione(Ordinazione ordinazione) async {
     final uri = Uri.http(authority, '/order/add');
     var response = await http.post(
       uri,
@@ -29,6 +29,8 @@ class Ordinazione_service{
     );
     if (response.statusCode != 200) {
       throw (response.statusCode);
+    } else {
+      return response.body;
     }
 
   }
@@ -45,8 +47,20 @@ class Ordinazione_service{
     }
   }
 
-  Future<void> modifica_ordinazione(Ordinazione ordinazione) async{
-    final uri = Uri.http(authority, '/order/update');
+  Future<void> modifica_ordinazione_sala(Ordinazione ordinazione) async{
+    final uri = Uri.http(authority, '/order/update/sala');
+    var response = await http.put(
+      uri,
+      headers: header,
+      body: (ordinazione.get_gestore_ordinazione() != null) ? jsonEncode(ordinazione.toJson()) : jsonEncode(ordinazione.toJsonSenzaGestore()),
+    );
+    if (response.statusCode != 200) {
+      throw (response.statusCode);
+    }
+  }
+
+  Future<void> modifica_ordinazione_cucina(Ordinazione ordinazione) async{
+    final uri = Uri.http(authority, '/order/update/cucina');
     var response = await http.put(
       uri,
       headers: header,

@@ -14,8 +14,8 @@ public interface OrdinazioneRepository extends CrudRepository<Ordinazione, Integ
     public List<Ordinazione> getTutteLeOrdinazioni(int idRistorante);
 
     @Transactional
-    @Modifying
-    @Query(value = "UPDATE ordinazione o SET o.note=?1, o.costo_totale=?2 WHERE o.id_ordinazione=?3", nativeQuery = true)
+    @Modifying(flushAutomatically = true, clearAutomatically = true)
+    @Query(value = "UPDATE ordinazione SET ordinazione.note=?1, ordinazione.costo_totale=?2 WHERE ordinazione.id_ordinazione=?3", nativeQuery = true)
     void aggiornaOrdinazione(String note, double costoTotale, int id);
 
     @Query(value = "SELECT * FROM ordinazione WHERE ordinazione.fk_id_addettosala=?1 AND ordinazione.stato='In attesa'", nativeQuery = true)
