@@ -6,7 +6,10 @@ import '../services/Utente_service.dart';
 
 class Utente_controller{
 
-  final Utente_service _utente_service = Utente_service();
+  late Utente_service _utente_service;
+
+
+  Utente_controller(this._utente_service);
 
   Future<List<Utente>?> getAllUtenti(int idRistorante) async {
     try{
@@ -31,7 +34,7 @@ class Utente_controller{
   Future<void> aggiungiUtente(String nome, String cognome, String email, String ruolo, int id_ristorante) async {
     try{
       var utenteDaAggiungere = Utente.senzaId(nome, cognome, email, ruolo, id_ristorante);
-      _utente_service.aggiungi(utenteDaAggiungere);
+      await _utente_service.aggiungi(utenteDaAggiungere);
     } catch (error) {
       rethrow;
     }

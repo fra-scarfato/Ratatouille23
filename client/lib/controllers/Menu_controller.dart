@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:ratatouille23/services/Menu_service.dart';
 import 'package:translator/translator.dart';
@@ -7,13 +9,21 @@ import '../models/menu/Elemento.dart';
 
 
 class Menu_controller extends ChangeNotifier{
-  final Menu_service _menu_service = Menu_service();
+  late Menu_service _menu_service;
   List<Categoria> _listaCategorie = <Categoria>[];
   String nomePerTraduzione = "";
   String descrizionePerTraduzione = "";
   String allergeniPerTraduzione = "";
 
   Categoria selected = Categoria.vuota();
+
+  Menu_service get menu_service => _menu_service;
+
+  Menu_controller() {
+    _menu_service = Menu_service();
+  }
+
+  Menu_controller.service(this._menu_service);
 
   String getNomePerTraduzione() {
     return nomePerTraduzione;
@@ -65,9 +75,9 @@ class Menu_controller extends ChangeNotifier{
     try{
       var categoriaDaAggiungere = Categoria.senzaIdAndElementi(nome, idRistorante);
       _listaCategorie.add(categoriaDaAggiungere);
-      _menu_service.aggiungiNuovaCategoria(categoriaDaAggiungere);
+      await _menu_service.aggiungiNuovaCategoria(categoriaDaAggiungere);
       notifyListeners();
-    } catch (error) {
+    } on HttpException {
       rethrow;
     }
   }
@@ -75,7 +85,7 @@ class Menu_controller extends ChangeNotifier{
   Future<void> rimuoviCategoria(Categoria categoriaDaRimuovere) async{
     try{
       _listaCategorie.removeWhere((categoria) => categoria.get_id() == categoriaDaRimuovere.get_id());
-      _menu_service.eliminaCategoria(categoriaDaRimuovere);
+      await _menu_service.eliminaCategoria(categoriaDaRimuovere);
       notifyListeners();
     } catch (error) {
       rethrow;
@@ -101,19 +111,17 @@ class Menu_controller extends ChangeNotifier{
     return listaCategorieAsString;
   }
 
-  Categoria? trovaCategoriaElemento(String nomeCategoria, List<Categoria>? listaCategorie){
-    Categoria? categoriaElemento;
-    for (var categoria in listaCategorie!) {
-      if(categoria.get_nome() == nomeCategoria) {
-        categoriaElemento = categoria;
-      }
+  Categoria trovaCategoriaElemento(String nomeCategoria, List<Categoria>? listaCategorie){
+    int i=0;
+    while(listaCategorie?[i].get_nome() != nomeCategoria) {
+      i=i+1;
     }
-    return categoriaElemento;
+    return listaCategorie![i];
   }
 
   Future<void> aggiungiElemento(Elemento elementoDaAggiungere) async {
     try{
-      _menu_service.aggiungiNuovoElemento(elementoDaAggiungere);
+      await _menu_service.aggiungiNuovoElemento(elementoDaAggiungere);
       for (var categoria in _listaCategorie) {
         if(categoria.get_id() == elementoDaAggiungere.categoria.get_id()) {
           categoria.get_elementi()?.add(elementoDaAggiungere);
@@ -143,7 +151,7 @@ class Menu_controller extends ChangeNotifier{
 
   Future<void> modificaElemento(Elemento elementoDaAggiornare) async {
     try{
-      _menu_service.aggiornaVecchioElemento(elementoDaAggiornare);
+      await _menu_service.aggiornaVecchioElemento(elementoDaAggiornare);
     } catch (error) {
       rethrow;
     }

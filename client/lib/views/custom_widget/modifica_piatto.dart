@@ -361,19 +361,17 @@ class modifica_piatto_state extends State<modifica_piatto> {
                         var attesa = Finestra_attesa(context);
                         try{
                           Categoria? categoriaElemento = _menu_controller.trovaCategoriaElemento(categoria, widget.listaCategorie);
-                          if(categoriaElemento != null){
-                            double costoDouble = double.parse(costo);
-                            Elemento elementoDaAggiornare = Elemento(widget.elemento.id, nome,descrizione,costoDouble,allergeni,categoriaElemento);
-                            attesa.showDialogue();
-                            await _menu_controller.modificaElemento(elementoDaAggiornare);
-                            attesa.hideProgressDialogue();
+                          double costoDouble = double.parse(costo);
+                          Elemento elementoDaAggiornare = Elemento(widget.elemento.id, nome,descrizione,costoDouble,allergeni,categoriaElemento);
+                          attesa.showDialogue();
+                          await _menu_controller.modificaElemento(elementoDaAggiornare);
+                          attesa.hideProgressDialogue();
 
-                            toast.showToast(
-                                child: const Finestra_conferma(message: "Modifica completata"),
-                                toastDuration: const Duration(seconds: 2),
-                                gravity: ToastGravity.BOTTOM);
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => menu(utente: widget.utente,)));
-                          }
+                          toast.showToast(
+                              child: const Finestra_conferma(message: "Modifica completata"),
+                              toastDuration: const Duration(seconds: 2),
+                              gravity: ToastGravity.BOTTOM);
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => menu(utente: widget.utente,)));
                         }catch (error){
                           attesa.hideProgressDialogue();
                           toast.showToast(

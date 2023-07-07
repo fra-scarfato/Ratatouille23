@@ -9,6 +9,12 @@ class Presa_ordinazione_view_controller with ChangeNotifier{
   List<Elemento_ordinato> _list_elem_ord = <Elemento_ordinato>[];
 
 
+  set list_elem_ord(List<Elemento_ordinato> value) {
+    _list_elem_ord = value;
+  }
+
+  List<Elemento_ordinato> get list_elem_ord => _list_elem_ord;
+
   set_categorie(List<Categoria>? cat){
     _categorie = cat;
     for(int i = 0; i < _categorie!.length; i++){

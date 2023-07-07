@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Amplify_controller.dart';
 import 'package:ratatouille23/controllers/Utente_controller.dart';
+import 'package:ratatouille23/services/Utente_service.dart';
 import 'package:ratatouille23/views/custom_widget/Finestra_conferma.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
 
@@ -26,7 +27,7 @@ class registra_utenteUI extends StatefulWidget {
 
 class registra_utente_ui extends State<registra_utenteUI> {
 
-  Utente_controller utente_controller = Utente_controller();
+  Utente_controller utente_controller = Utente_controller(Utente_service());
   Amplify_controller amplify_controller = Amplify_controller();
   TextEditingController nomeController = TextEditingController();
   TextEditingController cognomeController = TextEditingController();

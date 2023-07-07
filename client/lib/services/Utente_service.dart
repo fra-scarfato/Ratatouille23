@@ -13,7 +13,7 @@ class Utente_service{
   };
 
 
-  void aggiungi(Utente utente) async {
+  Future<void> aggiungi(Utente utente) async {
     final uri = Uri.http(authority, '/user/add');
     var response = await http.post(
       uri,

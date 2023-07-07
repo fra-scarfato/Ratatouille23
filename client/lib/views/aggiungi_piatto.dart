@@ -354,19 +354,17 @@ class aggiungi_piatto_state extends State<aggiungi_piattoUI> {
                             toast.init(context);
                             try{
                               Categoria? categoriaElemento = _menu_controller.trovaCategoriaElemento(categoria, widget.listaCategorie);
-                              if(categoriaElemento != null){
-                                double costoDouble = double.parse(costo);
-                                Elemento elementoDaAggiungere = Elemento.senzaId(nome,descrizione,costoDouble,allergeni,categoriaElemento);
-                                attesa.showDialogue();
-                                await _menu_controller.aggiungiElemento(elementoDaAggiungere);
-                                attesa.hideProgressDialogue();
-                                Fluttertoast.cancel();
-                                toast.showToast(
-                                    child: const Finestra_conferma(message: "Elemento aggiunto correttamente"),
-                                    toastDuration: const Duration(seconds: 2),
-                                    gravity: ToastGravity.BOTTOM);
-                                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => menu(utente: widget.utente,)),ModalRoute.withName("/pagina_iniziale"));
-                              }
+                              double costoDouble = double.parse(costo);
+                              Elemento elementoDaAggiungere = Elemento.senzaId(nome,descrizione,costoDouble,allergeni,categoriaElemento);
+                              attesa.showDialogue();
+                              await _menu_controller.aggiungiElemento(elementoDaAggiungere);
+                              attesa.hideProgressDialogue();
+                              Fluttertoast.cancel();
+                              toast.showToast(
+                                  child: const Finestra_conferma(message: "Elemento aggiunto correttamente"),
+                                  toastDuration: const Duration(seconds: 2),
+                                  gravity: ToastGravity.BOTTOM);
+                              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => menu(utente: widget.utente,)),ModalRoute.withName("/pagina_iniziale"));
                             }catch (error){
                               attesa.hideProgressDialogue();
                               Fluttertoast.cancel();

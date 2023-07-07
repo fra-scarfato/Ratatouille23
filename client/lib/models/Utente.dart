@@ -18,6 +18,9 @@ class Utente{
   }
 
   Utente.senzaId(String nome, String cognome, String email, String ruolo, int id_ristorante){
+    if(isNumeric(nome) || isNumeric(cognome) || isNumeric(email)) {
+      throw Exception();
+    }
     _nome=nome;
     _cognome=cognome;
     _email=email;
@@ -69,4 +72,14 @@ class Utente{
     String get_email(){return _email;}
     String get_ruolo(){return _ruolo;}
     int get_id_ristorante(){return _id_ristorante;}
+
+    bool isNumeric(String string) {
+      if(string.isNotEmpty) {
+        final number = num.tryParse(string);
+        if(number != null) {
+          return true;
+        }
+      }
+      return false;
+    }
   }

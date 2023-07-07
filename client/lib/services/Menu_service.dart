@@ -25,7 +25,7 @@ class Menu_service {
     }
   }
 
-  void aggiungiNuovaCategoria(Categoria categoria) async {
+  Future<void> aggiungiNuovaCategoria(Categoria categoria) async {
     final uri = Uri.http(authority, '/menu/category/add');
     var response = await http.post(
       uri,
@@ -37,7 +37,7 @@ class Menu_service {
     }
   }
 
-  void aggiungiNuovoElemento(Elemento elemento) async {
+  Future<void> aggiungiNuovoElemento(Elemento elemento) async {
     final uri = Uri.http(authority, '/menu/element/add');
     var response = await http.post(
       uri,
@@ -49,7 +49,7 @@ class Menu_service {
     }
   }
 
-  void aggiornaVecchioElemento(Elemento elemento) async {
+  Future<void> aggiornaVecchioElemento(Elemento elemento) async {
     final uri = Uri.http(authority, '/menu/element/update');
     var response = await http.put(
       uri,
@@ -61,7 +61,7 @@ class Menu_service {
     }
   }
 
-  void eliminaCategoria(Categoria categoriaDaEliminare) async {
+  Future<void> eliminaCategoria(Categoria categoriaDaEliminare) async {
     final uri = Uri.http(authority, '/menu/category/delete');
     var response = await http.delete(
       uri,
