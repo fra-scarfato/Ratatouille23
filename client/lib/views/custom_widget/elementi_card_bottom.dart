@@ -7,10 +7,10 @@ class elementi_card_bottom extends StatefulWidget{
   final String allergeni;
   const elementi_card_bottom({Key? key, required this.allergeni}) : super(key: key);
   @override
-  elementi_card_bottom_state createState() => elementi_card_bottom_state();
+  elementi_card_bottom_ui createState() => elementi_card_bottom_ui();
   }
 
-class elementi_card_bottom_state extends State<elementi_card_bottom>{
+class elementi_card_bottom_ui extends State<elementi_card_bottom>{
   @override
   Widget build(BuildContext context) {
     return Row(

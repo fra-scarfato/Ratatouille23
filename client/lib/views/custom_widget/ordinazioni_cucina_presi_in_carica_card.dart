@@ -10,10 +10,10 @@ class ordinazioni_cucina_presi_in_carica_card extends StatefulWidget{
   Utente utente;
   ordinazioni_cucina_presi_in_carica_card({Key? key, required this.ord, required this.utente}): super(key: key);
   @override
-  ordinazioni_cucina_card_presi_in_carica_state createState() => ordinazioni_cucina_card_presi_in_carica_state();
+  ordinazioni_cucina_card_presi_in_carica_ui createState() => ordinazioni_cucina_card_presi_in_carica_ui();
 }
 
-class ordinazioni_cucina_card_presi_in_carica_state extends State<ordinazioni_cucina_presi_in_carica_card>{
+class ordinazioni_cucina_card_presi_in_carica_ui extends State<ordinazioni_cucina_presi_in_carica_card>{
   late Ordinazione_controller ordinazione_controller;
 
   @override
@@ -140,7 +140,7 @@ class ordinazioni_cucina_card_presi_in_carica_state extends State<ordinazioni_cu
   Widget statoOrdine(Ordinazione ord) {
     Widget bottone_evadi = ElevatedButton(
 
-        onPressed: () {ord.set_stato('Evaso'); /*ordinazione_controller.modifica_ordinazione(ord);*/},
+        onPressed: () {ord.set_stato('Evasa'); /*ordinazione_controller.modifica_ordinazione(ord);*/},
 
         style: ElevatedButton.styleFrom(
           shape: const StadiumBorder(),

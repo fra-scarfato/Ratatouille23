@@ -7,11 +7,11 @@ class elementi_card_header extends StatefulWidget{
 
   const elementi_card_header({Key? key, required this.nome, required this.costo}) : super(key: key);
   @override
-  elementi_card_header_state createState() => elementi_card_header_state();
+  elementi_card_header_ui createState() => elementi_card_header_ui();
 
 }
 
-class elementi_card_header_state extends State<elementi_card_header>{
+class elementi_card_header_ui extends State<elementi_card_header>{
   @override
   Widget build(BuildContext context) {
     return Row(

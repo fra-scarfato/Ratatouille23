@@ -17,10 +17,10 @@ class ordinazioni_card extends StatefulWidget{
   ordinazioni_card({Key? key, required this.ord, required this.utente, required this.ordinazione_controller}): super(key: key);
 
   @override
-  ordinazioni_card_state createState() => ordinazioni_card_state();
+  ordinazioni_card_ui createState() => ordinazioni_card_ui();
   }
 
-class ordinazioni_card_state extends State<ordinazioni_card>{
+class ordinazioni_card_ui extends State<ordinazioni_card>{
 
   @override
   void initState() {

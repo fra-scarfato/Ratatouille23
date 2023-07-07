@@ -23,11 +23,11 @@ class bottone_gestione_menu_admin extends StatefulWidget{
   const bottone_gestione_menu_admin({Key? key, required this.listaCategorie,required this.utente, required this.menu_controller}) : super(key : key);
 
   @override
-  bottone_gestione_menu_admin_state createState() => bottone_gestione_menu_admin_state();
+  bottone_gestione_menu_admin_ui createState() => bottone_gestione_menu_admin_ui();
 
 }
 
-class bottone_gestione_menu_admin_state extends State<bottone_gestione_menu_admin>{
+class bottone_gestione_menu_admin_ui extends State<bottone_gestione_menu_admin>{
 
 
 

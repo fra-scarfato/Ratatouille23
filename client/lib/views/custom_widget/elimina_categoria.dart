@@ -18,10 +18,10 @@ class Elimina_categoria extends StatefulWidget{
   const Elimina_categoria({Key? key, required this.listaCategorie,required this.utente, required this.menu_controller}) : super(key : key);
 
   @override
-  State<StatefulWidget> createState() => Elimina_categoria_state();
+  State<StatefulWidget> createState() => Elimina_categoria_ui();
 }
 
-class Elimina_categoria_state extends State<Elimina_categoria> {
+class Elimina_categoria_ui extends State<Elimina_categoria> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,10 +54,10 @@ class categoria_card extends StatefulWidget {
   categoria_card({required this.menu_controller, required this.categoria});
 
   @override
-  State<StatefulWidget> createState() => categoria_card_state();
+  State<StatefulWidget> createState() => categoria_card_ui();
 }
 
-class categoria_card_state extends State<categoria_card> {
+class categoria_card_ui extends State<categoria_card> {
   @override
   Widget build(BuildContext context) {
     return Card(

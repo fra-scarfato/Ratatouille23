@@ -13,11 +13,11 @@ class ordinazioni_elenco_cucina extends StatefulWidget {
   const ordinazioni_elenco_cucina({super.key, required this.utente});
 
   @override
-  ordinazioni_elenco_cucina_state createState() =>
-      ordinazioni_elenco_cucina_state();
+  ordinazioni_elenco_cucina_ui createState() =>
+      ordinazioni_elenco_cucina_ui();
 }
 
-class ordinazioni_elenco_cucina_state extends State<ordinazioni_elenco_cucina> {
+class ordinazioni_elenco_cucina_ui extends State<ordinazioni_elenco_cucina> {
   late Ordinazione_controller _ordinazione_controller;
 
   @override

@@ -16,10 +16,10 @@ class ordinazioni_elenco extends StatefulWidget{
   const ordinazioni_elenco({super.key, required this.utente});
 
   @override
-  ordinazioni_elenco_state createState() => ordinazioni_elenco_state();
+  ordinazioni_elenco_ui createState() => ordinazioni_elenco_ui();
 }
 
-class ordinazioni_elenco_state extends State<ordinazioni_elenco>{
+class ordinazioni_elenco_ui extends State<ordinazioni_elenco>{
   late Ordinazione_controller _ordinazione_controller;
 
   @override
