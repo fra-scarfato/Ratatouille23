@@ -8,10 +8,10 @@ import 'custom_widget/finestra_nessun_elemento.dart';
 class ordinazioni_vuoto extends StatefulWidget{
   const ordinazioni_vuoto({super.key});
   @override
-  ordinazioni_vuoto_state createState() => ordinazioni_vuoto_state();
+  ordinazioni_vuoto_ui createState() => ordinazioni_vuoto_ui();
 }
 
-class ordinazioni_vuoto_state extends State<ordinazioni_vuoto>{
+class ordinazioni_vuoto_ui extends State<ordinazioni_vuoto>{
 
   @override
   Widget build(BuildContext context) {

@@ -27,10 +27,10 @@ class elementi_card extends StatefulWidget {
       required this.menu_controller});
 
   @override
-  elementi_card_state createState() => elementi_card_state();
+  elementi_card_ui createState() => elementi_card_ui();
 }
 
-class elementi_card_state extends State<elementi_card> {
+class elementi_card_ui extends State<elementi_card> {
 
   @override
   void initState() {

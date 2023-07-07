@@ -22,10 +22,10 @@ class Visualizza_riepilogo_modifica extends StatefulWidget{
   Visualizza_riepilogo_modifica({required this.ordinazione, required this.elementi_ordinati, required this.utente, required this.ordinazione_controller});
 
   @override
-  Visualizza_riepilogo_modifica_state createState() => Visualizza_riepilogo_modifica_state();
+  Visualizza_riepilogo_modifica_ui createState() => Visualizza_riepilogo_modifica_ui();
 }
 
-class Visualizza_riepilogo_modifica_state extends State<Visualizza_riepilogo_modifica>{
+class Visualizza_riepilogo_modifica_ui extends State<Visualizza_riepilogo_modifica>{
   TextEditingController noteController= TextEditingController();
   String note='';
 

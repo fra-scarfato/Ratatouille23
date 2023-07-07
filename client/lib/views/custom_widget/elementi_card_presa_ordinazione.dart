@@ -18,10 +18,10 @@ class elementi_card_presa_ordinazione extends StatefulWidget{
 
   elementi_card_presa_ordinazione({super.key, required this.utente, required this.elemento, required this.presa_ordinazione_view_controller});
   @override
-  elementi_card_presa_ordinazione_state createState() => elementi_card_presa_ordinazione_state();
+  elementi_card_presa_ordinazione_ui createState() => elementi_card_presa_ordinazione_ui();
 }
 
-class elementi_card_presa_ordinazione_state extends State<elementi_card_presa_ordinazione>{
+class elementi_card_presa_ordinazione_ui extends State<elementi_card_presa_ordinazione>{
   GoogleTranslator translator = GoogleTranslator();
   @override
   Widget build(BuildContext context) {

@@ -12,10 +12,10 @@ class ordinazioni_cucina_card extends StatefulWidget{
 
   const ordinazioni_cucina_card({Key? key, required this.ord, required this.ordinazione_controller, required this.utente}): super(key: key);
   @override
-  ordinazioni_cucina_card_state createState() => ordinazioni_cucina_card_state();
+  ordinazioni_cucina_card_ui createState() => ordinazioni_cucina_card_ui();
 }
 
-class ordinazioni_cucina_card_state extends State<ordinazioni_cucina_card>{
+class ordinazioni_cucina_card_ui extends State<ordinazioni_cucina_card>{
   late Ordinazione_controller ordinazione_controller;
 
   @override

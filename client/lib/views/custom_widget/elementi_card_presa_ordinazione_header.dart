@@ -23,11 +23,11 @@ class elementi_card_presa_ordinazione_header extends StatefulWidget {
       required this.quantita})
       : super(key: key);
   @override
-  elementi_card_presa_ordinazione_header_state createState() =>
-      elementi_card_presa_ordinazione_header_state();
+  elementi_card_presa_ordinazione_header_ui createState() =>
+      elementi_card_presa_ordinazione_header_ui();
 }
 
-class elementi_card_presa_ordinazione_header_state
+class elementi_card_presa_ordinazione_header_ui
     extends State<elementi_card_presa_ordinazione_header> {
   @override
   Widget build(BuildContext context) {

@@ -19,10 +19,10 @@ class Visualizza_riepilogo extends StatefulWidget{
 
   Visualizza_riepilogo({required this.tavolo, required this.elementi_ordinati, required this.utente, required this.ordinazione_controller});
   @override
-  Visualizza_riepilogo_state createState() => Visualizza_riepilogo_state();
+  Visualizza_riepilogo_ui createState() => Visualizza_riepilogo_ui();
 }
 
-class Visualizza_riepilogo_state extends State<Visualizza_riepilogo>{
+class Visualizza_riepilogo_ui extends State<Visualizza_riepilogo>{
   TextEditingController noteController= TextEditingController();
   String note='';
 

@@ -27,10 +27,10 @@ class Modifica_ordinazione extends StatefulWidget {
   final Presa_ordinazione_view_controller presa_ordinazione_view_controller = Presa_ordinazione_view_controller();
 
   @override
-  Modifica_ordinazione_state createState() => Modifica_ordinazione_state();
+  Modifica_ordinazione_ui createState() => Modifica_ordinazione_ui();
 }
 
-class Modifica_ordinazione_state extends State<Modifica_ordinazione>{
+class Modifica_ordinazione_ui extends State<Modifica_ordinazione>{
 
   @override
   Widget build(BuildContext context) {

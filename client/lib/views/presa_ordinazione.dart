@@ -23,10 +23,10 @@ class Presa_ordinazione extends StatefulWidget {
   final Ordinazione_controller ordinazione_controller;
 
   @override
-  Presa_ordinazione_state createState() => Presa_ordinazione_state();
+  Presa_ordinazione_ui createState() => Presa_ordinazione_ui();
 }
 
-class Presa_ordinazione_state extends State<Presa_ordinazione> {
+class Presa_ordinazione_ui extends State<Presa_ordinazione> {
   final Menu_controller _menu_controller = Menu_controller();
   final Presa_ordinazione_view_controller _presa_ordinazione_view_controller =
       Presa_ordinazione_view_controller();

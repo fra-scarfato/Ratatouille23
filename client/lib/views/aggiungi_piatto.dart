@@ -23,10 +23,10 @@ class aggiungi_piattoUI extends StatefulWidget {
   const aggiungi_piattoUI({super.key, required this.listaCategorie, required this.utente, required this.menu_controller, });
 
   @override
-  aggiungi_piatto_state createState() => aggiungi_piatto_state();
+  aggiungi_piatto_ui createState() => aggiungi_piatto_ui();
 }
 
-class aggiungi_piatto_state extends State<aggiungi_piattoUI> {
+class aggiungi_piatto_ui extends State<aggiungi_piattoUI> {
   TextEditingController nomeController = TextEditingController();
   TextEditingController costoController = TextEditingController();
   TextEditingController descrizioneController = TextEditingController();

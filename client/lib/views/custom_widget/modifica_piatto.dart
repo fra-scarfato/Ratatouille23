@@ -25,10 +25,10 @@ class modifica_piatto extends StatefulWidget {
   const modifica_piatto({super.key, required this.listaCategorie, required this.utente, required this.elemento });
 
   @override
-  modifica_piatto_state createState() => modifica_piatto_state();
+  modifica_piatto_ui createState() => modifica_piatto_ui();
 }
 
-class modifica_piatto_state extends State<modifica_piatto> {
+class modifica_piatto_ui extends State<modifica_piatto> {
   TextEditingController nomeController = TextEditingController();
   TextEditingController costoController = TextEditingController();
   TextEditingController descrizioneController = TextEditingController();
