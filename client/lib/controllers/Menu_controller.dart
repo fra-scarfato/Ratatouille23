@@ -77,12 +77,6 @@ class Menu_controller extends ChangeNotifier{
       var categoriaDaAggiungere = Categoria.senzaIdAndElementi(nome, idRistorante);
       _listaCategorie.add(categoriaDaAggiungere);
       await _menu_service.aggiungiNuovaCategoria(categoriaDaAggiungere);
-      await FirebaseAnalytics.instance.logEvent(
-        name: "Utente aggiunge nuova categoria",
-        parameters: {
-          "nome categoria": categoriaDaAggiungere.get_nome(),
-        },
-      );
       notifyListeners();
     } on HttpException {
       rethrow;

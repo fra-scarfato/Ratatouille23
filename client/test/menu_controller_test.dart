@@ -7,9 +7,13 @@ import 'package:ratatouille23/models/menu/Categoria.dart';
 import 'package:ratatouille23/services/Menu_service.dart';
 
 class CategoriaSTUB extends Fake implements Categoria{
+  String nome;
+
+  CategoriaSTUB(this.nome);
+
   @override
   String get_nome() {
-    return "Primi";
+    return nome;
   }
 }
 
@@ -18,17 +22,18 @@ class MenuServiceSTUB extends Mock implements Menu_service {}
 void main() {
   late Menu_controller menu_controller;
 
-  //setUp(() => menu_controller = Menu_controller());
+  setUp(() => menu_controller = Menu_controller());
 
   group('trovaCategoriaElementoTEST', () {
     List<Categoria> listaCategorie = <Categoria>[];
 
     setUp(() {
-      listaCategorie.add(CategoriaSTUB());
+      listaCategorie.add(CategoriaSTUB("Primi"));
+      listaCategorie.add(CategoriaSTUB("Secondi"));
     });
 
     test('trovaCategoriaElemento_Path_105_106_107_108', () {
-      expect(menu_controller.trovaCategoriaElemento("Primi", listaCategorie), isA<CategoriaSTUB>());
+      expect(menu_controller.trovaCategoriaElemento("Secondi", listaCategorie), isA<CategoriaSTUB>());
     });
   });
   
@@ -37,7 +42,7 @@ void main() {
     
     setUp(() {
       menuServiceSTUB = MenuServiceSTUB();
-      registerFallbackValue(CategoriaSTUB());
+      registerFallbackValue(CategoriaSTUB("Secondi"));
     });
     
     test('aggiungiCategoria_Path_72_73_74_75_76', () {

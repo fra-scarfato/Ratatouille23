@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -257,8 +258,13 @@ class bottone_gestione_menu_admin_ui extends State<bottone_gestione_menu_admin>{
                             try{
                               attesa.showDialogue();
                               await menu_controller.aggiungiCategoria(nomeCategoria,/*widget.utente.get_idRistorante*/ widget.utente.get_id_ristorante());
+                              await FirebaseAnalytics.instance.logEvent(
+                                name: "Utente aggiunge nuova categoria",
+                                parameters: {
+                                  "nome categoria": nomeCategoria,
+                                },
+                              );
                               attesa.hideProgressDialogue();
-                              Fluttertoast.cancel();
                               toast.showToast(
                                   child: const Finestra_conferma(message: "Categoria aggiunta correttamente"),
                                   toastDuration: const Duration(seconds: 2),
@@ -266,7 +272,6 @@ class bottone_gestione_menu_admin_ui extends State<bottone_gestione_menu_admin>{
                               Navigator.pop(context);
                             }catch (error){
                               attesa.hideProgressDialogue();
-                              Fluttertoast.cancel();
                               toast.showToast(
                                   child: const Finestra_errore(message: "Errore nell'aggiunta della categoria"),
                                   toastDuration: const Duration(seconds: 2),

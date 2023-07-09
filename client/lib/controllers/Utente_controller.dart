@@ -38,8 +38,8 @@ class Utente_controller{
     } catch (error) {
       rethrow;
     }
-
   }
+
   Future<void> rimuoviUtente(int id, String nome, String cognome, String email, String ruolo, int id_ristorante) async {
     try{
       var utenteDaEliminare = Utente(id, nome, cognome, email, ruolo, id_ristorante);
