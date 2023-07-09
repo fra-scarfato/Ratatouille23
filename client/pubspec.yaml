@@ -54,6 +54,8 @@ dependencies:
   translator: ^0.1.7
   syncfusion_flutter_charts: ^22.1.36
   mocktail: ^0.2.0
+  firebase_core: ^2.14.0
+  firebase_analytics: ^10.4.3
 
 
 dev_dependencies:

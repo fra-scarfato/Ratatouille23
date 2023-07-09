@@ -1,6 +1,7 @@
 // ignore: file_names
 import 'dart:convert';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:ratatouille23/models/Ordinazione.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
@@ -105,20 +106,36 @@ class Ordinazione_controller extends ChangeNotifier {
     return _listaOrdinazioniSala;
   }
 
-  void prendiInCaricoOrdinazione(Ordinazione ordinazioneDaPrendereInCarico) {
+  Future<void> prendiInCaricoOrdinazione(Ordinazione ordinazioneDaPrendereInCarico) async {
     ordinazioneDaPrendereInCarico.set_gestore_ordinazione(utente);
     ordinazioneDaPrendereInCarico.set_stato("Presa in carico");
     _listaDaVisualizzare.remove(ordinazioneDaPrendereInCarico);
     _listaOrdiniAttesa.remove(ordinazioneDaPrendereInCarico);
     _listaOrdiniPresiInCarico.add(ordinazioneDaPrendereInCarico);
     notifyListeners();
+    await FirebaseAnalytics.instance.logEvent(
+      name: "Utente prende in carico ordinazione",
+      parameters: {
+        "id ordinazione": ordinazioneDaPrendereInCarico.get_id(),
+        "id addetto alla sala": ordinazioneDaPrendereInCarico.get_addetto_sala()?.get_id(),
+        "id gestore ordinazione": ordinazioneDaPrendereInCarico.get_gestore_ordinazione()?.get_id()
+      },
+    );
   }
 
-  void evadiOrdinazione(Ordinazione ordinazioneDaEvadere) {
+  Future<void> evadiOrdinazione(Ordinazione ordinazioneDaEvadere) async {
     ordinazioneDaEvadere.set_stato("Evasa");
     _listaDaVisualizzare.remove(ordinazioneDaEvadere);
     _listaOrdiniPresiInCarico.remove(ordinazioneDaEvadere);
     notifyListeners();
+    await FirebaseAnalytics.instance.logEvent(
+      name: "Utente evade ordinazione",
+      parameters: {
+        "id ordinazione": ordinazioneDaEvadere.get_id(),
+        "id addetto alla sala": ordinazioneDaEvadere.get_addetto_sala()?.get_id(),
+        "id gestore ordinazione": ordinazioneDaEvadere.get_gestore_ordinazione()?.get_id()
+      },
+    );
   }
 
   Future<void> registra_nuova_ordinazione(int tavolo, String note,
@@ -127,6 +144,13 @@ class Ordinazione_controller extends ChangeNotifier {
       Ordinazione nuovaOrdinazione = Ordinazione.senzaId(tavolo, note, elementi, addettoAllaSala);
       int id = int.parse(await _ordinazione_service.registra_nuova_ordinazione(nuovaOrdinazione));
       nuovaOrdinazione.set_id(id);
+      await FirebaseAnalytics.instance.logEvent(
+        name: "Utente registra nuova ordinazione",
+        parameters: {
+          "id ordinazione": nuovaOrdinazione.get_id(),
+          "id addetto alla sala": nuovaOrdinazione.get_addetto_sala()?.get_id(),
+        },
+      );
       _listaOrdinazioniSala.add(nuovaOrdinazione);
       _listaOrdiniAttesa.add(nuovaOrdinazione);
       notifyListeners();
@@ -142,6 +166,13 @@ class Ordinazione_controller extends ChangeNotifier {
         throw "Ordinazione presa in carico. Impossibile eliminare.";
       }
       await _ordinazione_service.elimina_ordinazione(ordinazione);
+      await FirebaseAnalytics.instance.logEvent(
+        name: "Utente elimina ordinazione",
+        parameters: {
+          "id ordinazione": ordinazione.get_id(),
+          "id addetto alla sala": ordinazione.get_addetto_sala()?.get_id(),
+        },
+      );
       _listaOrdinazioniSala.remove(ordinazione);
       notifyListeners();
     } catch (error) {
@@ -158,6 +189,13 @@ class Ordinazione_controller extends ChangeNotifier {
         _listaOrdiniPresiInCarico.remove(ordinazione);
       }
       await _ordinazione_service.elimina_ordinazione(ordinazione);
+      await FirebaseAnalytics.instance.logEvent(
+        name: "Utente elimina ordinazione",
+        parameters: {
+          "id ordinazione": ordinazione.get_id(),
+          "id addetto alla cucina": ordinazione.get_addetto_sala()?.get_id(),
+        },
+      );
       notifyListeners();
     } catch (error) {
       rethrow;
@@ -179,6 +217,13 @@ class Ordinazione_controller extends ChangeNotifier {
         throw "Ordinazione presa in carico. Impossibile modificare.";
       }
       await _ordinazione_service.modifica_ordinazione_sala(ordinazioneDaModificare);
+      await FirebaseAnalytics.instance.logEvent(
+        name: "Utente modifica ordinazione",
+        parameters: {
+          "id ordinazione": ordinazioneDaModificare.get_id(),
+          "id addetto alla sala": ordinazioneDaModificare.get_addetto_sala()?.get_id(),
+        },
+      );
       int index = _listaOrdinazioniSala.indexWhere((ordinazione) => ordinazione.get_id() == ordinazioneDaModificare.get_id());
       _listaOrdinazioniSala[index] = ordinazioneDaModificare;
       notifyListeners();

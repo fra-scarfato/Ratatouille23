@@ -5,14 +5,21 @@ import 'package:ratatouille23/controllers/Amplify_controller.dart';
 import 'package:ratatouille23/views/Home.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 // Generated in previous step
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: <SystemUiOverlay>[]);
   Amplify_controller amplify_controller = Amplify_controller();
   amplify_controller.configureAmplify();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   runApp(const MyApp());
 }
 
@@ -27,7 +34,7 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.landscapeRight,
     ]);
     return MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Ratatouille 23',
         theme: ThemeData(
           primarySwatch: Colors.orange,
 

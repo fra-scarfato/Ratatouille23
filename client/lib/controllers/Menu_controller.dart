@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:ratatouille23/services/Menu_service.dart';
 import 'package:translator/translator.dart';
@@ -76,6 +77,12 @@ class Menu_controller extends ChangeNotifier{
       var categoriaDaAggiungere = Categoria.senzaIdAndElementi(nome, idRistorante);
       _listaCategorie.add(categoriaDaAggiungere);
       await _menu_service.aggiungiNuovaCategoria(categoriaDaAggiungere);
+      await FirebaseAnalytics.instance.logEvent(
+        name: "Utente aggiunge nuova categoria",
+        parameters: {
+          "nome categoria": categoriaDaAggiungere.get_nome(),
+        },
+      );
       notifyListeners();
     } on HttpException {
       rethrow;
@@ -86,6 +93,12 @@ class Menu_controller extends ChangeNotifier{
     try{
       _listaCategorie.removeWhere((categoria) => categoria.get_id() == categoriaDaRimuovere.get_id());
       await _menu_service.eliminaCategoria(categoriaDaRimuovere);
+      await FirebaseAnalytics.instance.logEvent(
+        name: "Utente rimuove categoria",
+        parameters: {
+          "nome categoria": categoriaDaRimuovere.get_nome(),
+        },
+      );
       notifyListeners();
     } catch (error) {
       rethrow;
@@ -122,6 +135,13 @@ class Menu_controller extends ChangeNotifier{
   Future<void> aggiungiElemento(Elemento elementoDaAggiungere) async {
     try{
       await _menu_service.aggiungiNuovoElemento(elementoDaAggiungere);
+      await FirebaseAnalytics.instance.logEvent(
+        name: "Utente aggiunge nuovo elemento",
+        parameters: {
+          "nome elemento": elementoDaAggiungere.nome,
+          "nome categoria": elementoDaAggiungere.categoria.get_nome(),
+        },
+      );
       for (var categoria in _listaCategorie) {
         if(categoria.get_id() == elementoDaAggiungere.categoria.get_id()) {
           categoria.get_elementi()?.add(elementoDaAggiungere);
@@ -136,6 +156,13 @@ class Menu_controller extends ChangeNotifier{
   Future<void> rimuoviElemento(Elemento elementoDaRimuovere) async{
     try{
       await _menu_service.eliminaElemento(elementoDaRimuovere);
+      await FirebaseAnalytics.instance.logEvent(
+        name: "Utente elimina un elemento",
+        parameters: {
+          "nome elemento": elementoDaRimuovere.nome,
+          "nome categoria": elementoDaRimuovere.categoria.get_nome(),
+        },
+      );
       elementoDaRimuovere.categoria = get_selected();
       for (var categoria in _listaCategorie) {
         if(categoria.get_id() == elementoDaRimuovere.categoria.get_id()) {
@@ -152,6 +179,13 @@ class Menu_controller extends ChangeNotifier{
   Future<void> modificaElemento(Elemento elementoDaAggiornare) async {
     try{
       await _menu_service.aggiornaVecchioElemento(elementoDaAggiornare);
+      await FirebaseAnalytics.instance.logEvent(
+        name: "Utente modifica elemento",
+        parameters: {
+          "nome elemento": elementoDaAggiornare.nome,
+          "nome categoria": elementoDaAggiornare.categoria.get_nome(),
+        },
+      );
     } catch (error) {
       rethrow;
     }

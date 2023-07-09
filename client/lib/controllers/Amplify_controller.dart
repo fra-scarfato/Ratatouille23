@@ -1,5 +1,6 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:ratatouille23/models/Utente.dart';
 import 'package:ratatouille23/services/Utente_service.dart';
 
@@ -28,6 +29,7 @@ class Amplify_controller {
   Future<bool> signOutCurrentUser() async {
     final result = await Amplify.Auth.signOut();
     if (result is CognitoCompleteSignOut) {
+      await FirebaseAnalytics.instance.logEvent(name: "Logout di un utente");
       return true;
     } else if (result is CognitoFailedSignOut) {
       throw (result.toString());
@@ -60,6 +62,9 @@ class Amplify_controller {
   Future<bool> fetchAuthSession() async {
     try {
       final result = await Amplify.Auth.fetchAuthSession();
+      if(result.isSignedIn) {
+        await FirebaseAnalytics.instance.logEvent(name: "Login di un utente");
+      }
       return result.isSignedIn;
     } on AuthException {
       rethrow;
@@ -73,6 +78,7 @@ class Amplify_controller {
         username: email,
         password: password,
       );
+      await FirebaseAnalytics.instance.logEvent(name: "Login di un utente");
     } catch (e) {
       rethrow;
     }
@@ -88,6 +94,7 @@ class Amplify_controller {
         username: username,
         confirmationCode: confirmationCode,
       );
+      await FirebaseAnalytics.instance.logEvent(name: "Conferma email di un utente");
     } on AuthException {
       rethrow;
     }
@@ -102,6 +109,7 @@ class Amplify_controller {
         username: email,
         password: password,
       );
+      await FirebaseAnalytics.instance.logEvent(name: "Registrazione di un nuovo utente");
     } on AuthException {
       rethrow;
     }
