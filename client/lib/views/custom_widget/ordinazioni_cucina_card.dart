@@ -42,6 +42,14 @@ class ordinazioni_cucina_card_ui extends State<ordinazioni_cucina_card>{
   List<Card> ordini_cucina_card(List<Ordinazione> ord){
     List<Card> list=[];
     for(int i=0;i<ord.length;i++){
+      List<Widget> listaElementi = lista_elementi(ord[i]);
+      listaElementi.add(const SizedBox(height: 30,));
+      listaElementi.add(Row(
+        children: [
+          Text("Note: ", style: GoogleFonts.roboto(fontSize: 36, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
+          Text(ord[i].get_note(), style: GoogleFonts.roboto(fontSize: 36, fontStyle: FontStyle.italic,),)
+        ],
+      ));
       list.add(Card(
           color: Colors.white,
           elevation: 30.0,
@@ -49,7 +57,7 @@ class ordinazioni_cucina_card_ui extends State<ordinazioni_cucina_card>{
           child:Padding(
               padding: const EdgeInsets.all(15),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -71,28 +79,32 @@ class ordinazioni_cucina_card_ui extends State<ordinazioni_cucina_card>{
                     ],
                   ),
                   const SizedBox(height:16),
-                  Row(
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        width: 604,
-                        child: ListView(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          children: lista_elementi(ord[i]),
-
-                        ),
-                      ),
-                      const SizedBox(width:114),
-                      Column(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          statoOrdine(ord[i], ordinazione_controller),
-                          const SizedBox(height: 50,)
+                          SizedBox(
+                            width: 604,
+                            child: ListView(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              children: listaElementi,
+                            ),
+                          ),
+                          Spacer(),
+                          Column(
+                            children: [
+                              statoOrdine(ord[i], ordinazione_controller),
+                              const SizedBox(height: 50,)
+                            ],
+                          ),
+                          Spacer(),
                         ],
                       ),
-
-
                     ],
-                  )
+                  ),
                 ],
               )
           )
@@ -175,8 +187,7 @@ class ordinazioni_cucina_card_ui extends State<ordinazioni_cucina_card>{
           shape: const StadiumBorder(),
           backgroundColor: Colors.green,
           padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-
-
+          minimumSize: const Size(500,90),
         )
 
     );
@@ -201,7 +212,7 @@ class ordinazioni_cucina_card_ui extends State<ordinazioni_cucina_card>{
           shape: const StadiumBorder(),
           backgroundColor: Colors.orange,
           padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-
+          minimumSize: const Size(500,90),
         )
 
     );

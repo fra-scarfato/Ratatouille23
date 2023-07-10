@@ -359,7 +359,6 @@ class aggiungi_piatto_ui extends State<aggiungi_piattoUI> {
                               attesa.showDialogue();
                               await _menu_controller.aggiungiElemento(elementoDaAggiungere);
                               attesa.hideProgressDialogue();
-                              Fluttertoast.cancel();
                               toast.showToast(
                                   child: const Finestra_conferma(message: "Elemento aggiunto correttamente"),
                                   toastDuration: const Duration(seconds: 2),
@@ -367,7 +366,6 @@ class aggiungi_piatto_ui extends State<aggiungi_piattoUI> {
                               Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => menu(utente: widget.utente,)),ModalRoute.withName("/pagina_iniziale"));
                             }catch (error){
                               attesa.hideProgressDialogue();
-                              Fluttertoast.cancel();
                               toast.showToast(
                                   child: const Finestra_errore(message: "Errore nell'aggiunta dell'elemento"),
                                   toastDuration: const Duration(seconds: 2),

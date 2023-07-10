@@ -87,6 +87,7 @@ class menu_ui extends State<menu> {
     List<Widget> list = [];
     if (categoria.get_elementi()!.isNotEmpty) {
       for (var element in categoria.get_elementi()!) {
+        element.categoria = categoria;
         list.add(elementi_card(
           utente: widget.utente,
           elemento: element,

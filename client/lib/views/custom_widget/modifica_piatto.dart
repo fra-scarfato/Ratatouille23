@@ -366,12 +366,11 @@ class modifica_piatto_ui extends State<modifica_piatto> {
                           attesa.showDialogue();
                           await _menu_controller.modificaElemento(elementoDaAggiornare);
                           attesa.hideProgressDialogue();
-
                           toast.showToast(
                               child: const Finestra_conferma(message: "Modifica completata"),
                               toastDuration: const Duration(seconds: 2),
                               gravity: ToastGravity.BOTTOM);
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => menu(utente: widget.utente,)));
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => menu(utente: widget.utente,)),ModalRoute.withName("/pagina_iniziale"));
                         }catch (error){
                           attesa.hideProgressDialogue();
                           toast.showToast(
@@ -406,7 +405,7 @@ class modifica_piatto_ui extends State<modifica_piatto> {
   }
 
   bool isNumber(String costo) {
-    return (int.tryParse(costo) != null) && (int.tryParse(costo)! > 0);
+    return (double.tryParse(costo) != null) && (double.tryParse(costo)! > 0);
   }
 
 }
