@@ -39,7 +39,7 @@ public class OrdinazioneController {
 
     @GetMapping("/get/sala/all")
     List<Ordinazione> getOrdinazioniSala(@RequestParam(value = "idr") int idRistorante) {
-        return servizioOrdinazioni.getOrdinazioniDaAddettoAllaSala(idRistorante);
+        return servizioOrdinazioni.getOrdinazioniSala(idRistorante);
     }
 
     @GetMapping("/get/all")

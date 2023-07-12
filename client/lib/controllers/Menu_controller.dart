@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:ratatouille23/services/Menu_service.dart';
-import 'package:translator/translator.dart';
 
 import '../models/menu/Categoria.dart';
 import '../models/menu/Elemento.dart';
@@ -15,6 +14,7 @@ class Menu_controller extends ChangeNotifier{
   String nomePerTraduzione = "";
   String descrizionePerTraduzione = "";
   String allergeniPerTraduzione = "";
+  List<bool> isTradotto = <bool>[];
 
   Categoria selected = Categoria.vuota();
 
@@ -26,51 +26,27 @@ class Menu_controller extends ChangeNotifier{
 
   Menu_controller.service(this._menu_service);
 
-  String getNomePerTraduzione() {
-    return nomePerTraduzione;
-  }
-
-  String getDescrizionePerTraduzione() {
-    return descrizionePerTraduzione;
-  }
-
-  String getAllergeniPerTraduzione() {
-    return allergeniPerTraduzione;
-  }
-
-  void setNomePerTraduzione(String nome) {
-    nomePerTraduzione = nome;
-  }
-
-  void setDescrizionePerTraduzione(String descrizione) {
-    descrizionePerTraduzione = descrizione;
-  }
-
-  void setAllergeniPerTraduzione(String allergeni) {
-    allergeniPerTraduzione = allergeni;
-  }
-
   List<Categoria> getCategorieDaVisualizzare() {
     return _listaCategorie;
   }
 
-  Future<void> traduciInInglese(Elemento elemento) async {
-    GoogleTranslator translator = GoogleTranslator();
-    Translation nomeTradotto = await translator.translate(elemento.nome, from: 'it', to: 'en');
-    Translation descrizioneTradotto = await translator.translate(elemento.descrizione, from: 'it', to: 'en');
-    Translation allergeniTradotto = await translator.translate(elemento.allergeni, from: 'it', to: 'en');
-    nomePerTraduzione = nomeTradotto.toString();
-    descrizionePerTraduzione = descrizioneTradotto.toString();
-    allergeniPerTraduzione = allergeniTradotto.toString();
-    notifyListeners();
-  }
+  // Future<void> traduciInInglese(Elemento elemento) async {
+  //   GoogleTranslator translator = GoogleTranslator();
+  //   Translation nomeTradotto = await translator.translate(elemento.nome, from: 'it', to: 'en');
+  //   Translation descrizioneTradotto = await translator.translate(elemento.descrizione, from: 'it', to: 'en');
+  //   Translation allergeniTradotto = await translator.translate(elemento.allergeni, from: 'it', to: 'en');
+  //   nomePerTraduzione = nomeTradotto.toString();
+  //   descrizionePerTraduzione = descrizioneTradotto.toString();
+  //   allergeniPerTraduzione = allergeniTradotto.toString();
+  //   notifyListeners();
+  // }
 
-  void traduciInItaliano(Elemento elemento) {
-    nomePerTraduzione = elemento.nome;
-    descrizionePerTraduzione = elemento.descrizione;
-    allergeniPerTraduzione = elemento.allergeni;
-    notifyListeners();
-  }
+  // void traduciInItaliano(Elemento elemento) {
+  //   nomePerTraduzione = elemento.nome;
+  //   descrizionePerTraduzione = elemento.descrizione;
+  //   allergeniPerTraduzione = elemento.allergeni;
+  //   notifyListeners();
+  // }
 
   Future<void> aggiungiCategoria(String nome, int idRistorante) async {
     try{

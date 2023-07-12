@@ -37,6 +37,17 @@ class Amplify_controller {
     return false;
   }
 
+  Future<Utente> confermaUtenteConNuovaPassword(String email, String confirmationCode, String oldPassword, String newPassword) async {
+    await confirmUser(username: email, confirmationCode: newPassword);
+    var result = await signInUser(email, oldPassword);
+    if (result.nextStep.signInStep == AuthSignInStep.done) {
+      Utente utente = await fetchCurrentUserAttributes();
+      return utente;
+    } else {
+      throw "Credenziali errate";
+    }
+  }
+
   Future<Utente> confermaUtente(String email, String confirmationCode, String oldPassword, String newPassword) async {
     await confirmUser(username: email, confirmationCode: confirmationCode);
     var result = await signInUser(email, oldPassword);

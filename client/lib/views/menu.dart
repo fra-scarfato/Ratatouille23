@@ -34,7 +34,6 @@ class menu_ui extends State<menu> {
           if(listaCategorie.isNotEmpty) {
             _menu_controller.set_selected(listaCategorie[0]);
           }
-          
           widget = Scaffold(
             body: Column(
               mainAxisAlignment: MainAxisAlignment.start,

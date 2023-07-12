@@ -42,7 +42,7 @@ class pagina_inizialeUI extends StatelessWidget {
                 await amplify_controller.signOutCurrentUser();
                 Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Home()), (route) => false);
               },
-              icon: const Icon(Icons.logout)
+              icon: const Icon(Icons.logout),
           )
         ],
       ),

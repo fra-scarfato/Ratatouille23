@@ -15,6 +15,8 @@ class elementi_card_presa_ordinazione extends StatefulWidget{
   final Utente utente;
   final Elemento elemento;
   final Presa_ordinazione_view_controller presa_ordinazione_view_controller;
+  String descrizioneElemento = "";
+  String allergeniElemento = "";
 
   elementi_card_presa_ordinazione({super.key, required this.utente, required this.elemento, required this.presa_ordinazione_view_controller});
   @override
@@ -23,6 +25,14 @@ class elementi_card_presa_ordinazione extends StatefulWidget{
 
 class elementi_card_presa_ordinazione_ui extends State<elementi_card_presa_ordinazione>{
   GoogleTranslator translator = GoogleTranslator();
+
+  @override
+  void initState() {
+    super.initState();
+    widget.allergeniElemento = widget.elemento.allergeni;
+    widget.descrizioneElemento = widget.elemento.descrizione;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -47,7 +57,7 @@ class elementi_card_presa_ordinazione_ui extends State<elementi_card_presa_ordin
             SizedBox(
               width:1161,
               child: Text(
-                  widget.elemento.descrizione,
+                  widget.descrizioneElemento,
                   style: GoogleFonts.roboto(fontStyle: FontStyle.italic, fontSize: 27)
               ),
               //  )
@@ -60,36 +70,31 @@ class elementi_card_presa_ordinazione_ui extends State<elementi_card_presa_ordin
               children: [
                 InkWell(
                   onTap: () async {
-                    translator.translate(widget.elemento.descrizione, from: 'en', to: 'it').then(
-                            (value){
-                          widget.elemento.descrizione = value.toString();
-                        }
-                    );
-                    translator.translate(widget.elemento.allergeni, from: 'en', to: 'it').then(
-                            (value){
-                          setState(() {
-                            widget.elemento.allergeni = value.toString();
-                          });
-                        }
-                    );
+                    setState(() {
+                      widget.descrizioneElemento = widget.elemento.descrizione;
+                      widget.allergeniElemento = widget.elemento.allergeni;
+                    });
                   },
                   child: Flag.fromCode(FlagsCode.IT, height: 30, width: 35),
                 ),
                 const SizedBox(width: 8),
                 InkWell(
                   onTap: (){
-                    translator.translate(widget.elemento.descrizione, from: 'it', to: 'en').then(
-                            (value){
-                          widget.elemento.descrizione = value.toString();
-                        }
-                    );
-                    translator.translate(widget.elemento.allergeni, from: 'it', to: 'en').then(
-                            (value){
-                          setState(() {
-                            widget.elemento.allergeni = value.toString();
-                          });
-                        }
-                    );
+                    setState(() {
+                      translator.translate(widget.elemento.descrizione, from: 'it', to: 'en').then(
+                              (value){
+                                widget.descrizioneElemento = value.toString();
+                          }
+                      );
+                      translator.translate(widget.elemento.allergeni, from: 'it', to: 'en').then(
+                              (value){
+                            setState(() {
+                              widget.allergeniElemento = value.toString();
+                            });
+                          }
+                      );
+                    });
+
                   },
                   child: Flag.fromCode(FlagsCode.GB, height: 30, width: 35),
                 ),
@@ -106,7 +111,7 @@ class elementi_card_presa_ordinazione_ui extends State<elementi_card_presa_ordin
                           style: GoogleFonts.roboto(fontSize: 27, fontStyle: FontStyle.italic, color: Colors.orange)
                       ),
                       Expanded(child: Text(
-                          widget.elemento.allergeni,
+                          widget.allergeniElemento,
                           // overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.roboto(fontSize: 27, fontStyle: FontStyle.italic)
                       )

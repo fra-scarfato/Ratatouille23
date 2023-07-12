@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ratatouille23/controllers/Menu_controller.dart';
 import 'package:flag/flag_enum.dart';
 import 'package:flag/flag_widget.dart';
+import 'package:translator/translator.dart';
 
 import '../../models/Utente.dart';
 import '../../models/menu/Categoria.dart';
@@ -19,6 +20,9 @@ class elementi_card extends StatefulWidget {
   final Elemento elemento;
   final List<Categoria>? listaCategorie;
   final Menu_controller menu_controller;
+  String nomeDaVisualizzare = "";
+  String descrizioneDaVisualizzare = "";
+  String allergeniDaVisualizzare = "";
 
   elementi_card(
       {super.key, required this.utente,
@@ -35,9 +39,9 @@ class elementi_card_ui extends State<elementi_card> {
   @override
   void initState() {
     super.initState();
-    widget.menu_controller.setNomePerTraduzione(widget.elemento.nome);
-    widget.menu_controller.setDescrizionePerTraduzione(widget.elemento.descrizione);
-    widget.menu_controller.setAllergeniPerTraduzione(widget.elemento.allergeni);
+    widget.nomeDaVisualizzare = widget.elemento.nome;
+    widget.descrizioneDaVisualizzare = widget.elemento.descrizione;
+    widget.allergeniDaVisualizzare = widget.elemento.allergeni;
   }
 
   @override
@@ -56,12 +60,11 @@ class elementi_card_ui extends State<elementi_card> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  //elementi_card_header(nome: widget.nome, costo: widget.costo),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        widget.menu_controller.getNomePerTraduzione(),
+                        widget.nomeDaVisualizzare,
                         style: GoogleFonts.roboto(
                             color: Colors.orange,
                             fontSize: 36,
@@ -118,7 +121,7 @@ class elementi_card_ui extends State<elementi_card> {
                   const SizedBox(height: 16),
                   SizedBox(
                     width: 1161,
-                    child: Text(widget.menu_controller.getDescrizionePerTraduzione(),
+                    child: Text(widget.descrizioneDaVisualizzare,
                         style: GoogleFonts.roboto(
                             fontStyle: FontStyle.italic, fontSize: 27)),
                     //  )
@@ -131,14 +134,26 @@ class elementi_card_ui extends State<elementi_card> {
                     children: [
                       InkWell(
                         onTap: () {
-                          widget.menu_controller.traduciInItaliano(widget.elemento);
+                          setState(() {
+                            widget.nomeDaVisualizzare = widget.elemento.nome;
+                            widget.descrizioneDaVisualizzare = widget.elemento.descrizione;
+                            widget.allergeniDaVisualizzare = widget.elemento.allergeni;
+                          });
                         },
                         child: Flag.fromCode(FlagsCode.IT, height: 30, width: 35),
                       ),
                       const SizedBox(width: 8),
                       InkWell(
                         onTap: () async {
-                          await widget.menu_controller.traduciInInglese(widget.elemento);
+                          GoogleTranslator translator = GoogleTranslator();
+                          Translation nomeTradotto = await translator.translate(widget.elemento.nome, from: 'it', to: 'en');
+                          Translation descrizioneTradotto = await translator.translate(widget.elemento.descrizione, from: 'it', to: 'en');
+                          Translation allergeniTradotto = await translator.translate(widget.elemento.allergeni, from: 'it', to: 'en');
+                          setState(() {
+                            widget.nomeDaVisualizzare = nomeTradotto.toString();
+                            widget.descrizioneDaVisualizzare = descrizioneTradotto.toString();
+                            widget.allergeniDaVisualizzare = allergeniTradotto.toString();
+                          });
                         },
                         child: Flag.fromCode(FlagsCode.GB, height: 30, width: 35),
                       ),
@@ -157,7 +172,7 @@ class elementi_card_ui extends State<elementi_card> {
                                     fontStyle: FontStyle.italic,
                                     color: Colors.orange)),
                             Expanded(
-                                child: Text(widget.menu_controller.getAllergeniPerTraduzione(),
+                                child: Text( widget.allergeniDaVisualizzare,
                                     // overflow: TextOverflow.ellipsis,
                                     style: GoogleFonts.roboto(
                                         fontSize: 27, fontStyle: FontStyle.italic)))

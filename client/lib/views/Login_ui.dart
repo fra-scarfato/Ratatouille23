@@ -123,14 +123,17 @@ class Login extends State<Login_ui> {
                       var result = await amplify_controller.signInUser(
                           fullMail, fullPassword);
                       if (result.nextStep.signInStep ==
-                          AuthSignInStep.confirmSignUp) {
+                          AuthSignInStep.confirmSignUp || result.nextStep.signInStep ==
+                          AuthSignInStep.confirmSignInWithNewPassword) {
                         attesa.hideProgressDialogue();
                         Navigator.push(
                             context,
                             MaterialPageRoute(
+                                settings: const RouteSettings(name: "/reset_pwd"),
                                 builder: (context) => Reset_pwd_ui(
                                     email: fullMail,
-                                    oldPassword: fullPassword)));
+                                    oldPassword: fullPassword,
+                                    authSignInStep: result.nextStep.signInStep,)));
                       } else if (result.nextStep.signInStep ==
                           AuthSignInStep.done) {
                         Utente utente = await amplify_controller

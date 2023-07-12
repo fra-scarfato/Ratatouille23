@@ -1,23 +1,18 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:ratatouille23/constants.dart';
 
 import '../models/Utente.dart';
 
 class Utente_service{
-
-  final String authority = "192.168.1.87:8080";
-  final header = {
-    'Content-Type': 'application/json; charset=UTF-8',
-    'Access-Control-Allow-Origin': '*',
-  };
-
+  APIConstants apiConstants = APIConstants();
 
   Future<void> aggiungi(Utente utente) async {
-    final uri = Uri.http(authority, '/user/add');
+    final uri = Uri.http(apiConstants.baseURL, '/user/add');
     var response = await http.post(
       uri,
-      headers: header,
+      headers: apiConstants.header,
       body: jsonEncode(utente.toJsonSenzaId()),
     );
     if (response.statusCode != 200) {
@@ -26,10 +21,10 @@ class Utente_service{
   }
 
   Future<void> rimuovi(Utente utente) async {
-    final uri = Uri.http(authority, '/user/delete');
+    final uri = Uri.http(apiConstants.baseURL, '/user/delete');
     var response = await http.delete(
       uri,
-      headers: header,
+      headers: apiConstants.header,
       body: jsonEncode(utente.toJson()),
     );
     if (response.statusCode != 200) {
@@ -38,10 +33,10 @@ class Utente_service{
 
   }
   Future<void> aggiorna(Utente utente) async{
-    final uri = Uri.http(authority, '/user/update');
+    final uri = Uri.http(apiConstants.baseURL, '/user/update');
     var response = await http.put(
       uri,
-      headers: header,
+      headers: apiConstants.header,
       body: jsonEncode(utente.toJson()),
     );
     if (response.statusCode != 200) {
@@ -53,7 +48,7 @@ class Utente_service{
     final queryParameter = {
       'idr': idRistorante.toString()
     };
-    final uri = Uri.http(authority, '/user/get', queryParameter);
+    final uri = Uri.http(apiConstants.baseURL, '/user/get', queryParameter);
     var response = await http.get(uri);
     if(response.statusCode==200){
       List<Utente> lista_utenti = (jsonDecode(response.body) as List)
@@ -71,7 +66,7 @@ class Utente_service{
     final queryParameter = {
       'email': email
     };
-    final uri = Uri.http(authority, '/user/get-user', queryParameter);
+    final uri = Uri.http(apiConstants.baseURL, '/user/get-user', queryParameter);
     var response = await http.get(uri);
     if(response.statusCode==200){
       Utente utente = Utente.fromJson(jsonDecode(response.body));

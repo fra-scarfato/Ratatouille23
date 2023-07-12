@@ -6,25 +6,21 @@ import 'package:stomp_dart_client/stomp_frame.dart';
 import 'package:ratatouille23/models/Ordinazione.dart';
 import 'package:http/http.dart' as http;
 
+import '../constants.dart';
 import '../models/Utente.dart';
 
 class Ordinazione_service{
-
-  String authority = "192.168.1.87:8080";
-  final header = {
-    'Content-Type': 'application/json; charset=UTF-8',
-    'Access-Control-Allow-Origin': '*',
-  };
+  APIConstants apiConstants = APIConstants();
   late StompClient stompClient;
   late int endpointStomp;
   late Function(StompFrame) onStompCallback;
 
   
   Future<String> registra_nuova_ordinazione(Ordinazione ordinazione) async {
-    final uri = Uri.http(authority, '/order/add');
+    final uri = Uri.http(apiConstants.baseURL, '/order/add');
     var response = await http.post(
       uri,
-      headers: header,
+      headers: apiConstants.header,
       body: jsonEncode(ordinazione.toJsonSenzaId()),
     );
     if (response.statusCode != 200) {
@@ -36,10 +32,10 @@ class Ordinazione_service{
   }
 
   Future<void> elimina_ordinazione(Ordinazione ordinazione) async {
-    final uri = Uri.http(authority, '/order/delete');
+    final uri = Uri.http(apiConstants.baseURL, '/order/delete');
     var response = await http.delete(
       uri,
-      headers: header,
+      headers: apiConstants.header,
       body: (ordinazione.get_gestore_ordinazione() != null) ? jsonEncode(ordinazione.toJson()) : jsonEncode(ordinazione.toJsonSenzaGestore()),
     );
     if (response.statusCode != 200) {
@@ -48,10 +44,10 @@ class Ordinazione_service{
   }
 
   Future<void> modifica_ordinazione_sala(Ordinazione ordinazione) async{
-    final uri = Uri.http(authority, '/order/update/sala');
+    final uri = Uri.http(apiConstants.baseURL, '/order/update/sala');
     var response = await http.put(
       uri,
-      headers: header,
+      headers: apiConstants.header,
       body: (ordinazione.get_gestore_ordinazione() != null) ? jsonEncode(ordinazione.toJson()) : jsonEncode(ordinazione.toJsonSenzaGestore()),
     );
     if (response.statusCode != 200) {
@@ -60,10 +56,10 @@ class Ordinazione_service{
   }
 
   Future<void> modifica_ordinazione_cucina(Ordinazione ordinazione) async{
-    final uri = Uri.http(authority, '/order/update/cucina');
+    final uri = Uri.http(apiConstants.baseURL, '/order/update/cucina');
     var response = await http.put(
       uri,
-      headers: header,
+      headers: apiConstants.header,
       body: (ordinazione.get_gestore_ordinazione() != null) ? jsonEncode(ordinazione.toJson()) : jsonEncode(ordinazione.toJsonSenzaGestore()),
     );
     if (response.statusCode != 200) {
@@ -77,7 +73,7 @@ class Ordinazione_service{
     queryParameter = {'ido': idOrdinazione.toString()};
     endpoint = "/order/get/sala/single";
 
-    final uri = Uri.http(authority, endpoint, queryParameter);
+    final uri = Uri.http(apiConstants.baseURL, endpoint, queryParameter);
     var response = await http.get(uri);
     if (response.statusCode == 200) {
       return response.body;
@@ -92,10 +88,10 @@ class Ordinazione_service{
     queryParameter = {'idr': utente.get_id_ristorante().toString()};
     endpoint = "/order/get/all";
 
-    final uri = Uri.http(authority, endpoint, queryParameter);
+    final uri = Uri.http(apiConstants.baseURL, endpoint, queryParameter);
     var response = await http.get(uri);
     if (response.statusCode == 200) {
-      List<Ordinazione> listaOrdinazione = (jsonDecode(response.body) as List)
+      List<Ordinazione> listaOrdinazione = (jsonDecode(utf8.decode(response.bodyBytes)) as List)
           .map((ordinazione) => Ordinazione.fromJson(ordinazione))
           .toList();
       return listaOrdinazione;
@@ -114,10 +110,11 @@ class Ordinazione_service{
       queryParameter = {'idr': utente.get_id_ristorante().toString()};
       endpoint = "/order/get/sala/all";
     }
-    final uri = Uri.http(authority, endpoint, queryParameter);
+    final uri = Uri.http(apiConstants.baseURL, endpoint, queryParameter);
     var response = await http.get(uri);
     if (response.statusCode == 200) {
-      List<Ordinazione> listaOrdinazione = (jsonDecode(response.body) as List)
+      print(jsonDecode(utf8.decode(response.bodyBytes)));
+      List<Ordinazione> listaOrdinazione = (jsonDecode(utf8.decode(response.bodyBytes)) as List)
           .map((ordinazione) => Ordinazione.fromJsonSenzaGestore(ordinazione))
           .toList();
       return listaOrdinazione;
@@ -133,7 +130,7 @@ class Ordinazione_service{
 
   void configuraStompClient(int idRistorante) {
     endpointStomp = idRistorante;
-    String stompURL = "ws://$authority/ws";
+    String stompURL = "ws://${apiConstants.baseURL}/ws";
     stompClient = StompClient(config: StompConfig(
       url: stompURL,
       onConnect: onStompConnect,

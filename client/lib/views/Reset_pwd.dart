@@ -1,3 +1,5 @@
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -10,10 +12,11 @@ import '../models/Utente.dart';
 import 'custom_widget/Finestra_errore.dart';
 
 class Reset_pwd_ui extends StatefulWidget {
-  const Reset_pwd_ui({Key? key, required this.email, required this.oldPassword}) : super(key: key);
+  const Reset_pwd_ui({Key? key, required this.email, required this.oldPassword, required this.authSignInStep}) : super(key: key);
 
   final String email;
   final String oldPassword;
+  final AuthSignInStep authSignInStep;
 
   @override
   Reset_pwd createState() => Reset_pwd();
@@ -109,8 +112,13 @@ class Reset_pwd extends State<Reset_pwd_ui> {
                     FToast toast = FToast();
                     toast.init(context);
                     try {
+                      Utente utente;
                       attesa.showDialogue();
-                      Utente utente = await amplify_controller.confermaUtente(widget.email, confirmationCode, widget.oldPassword, fullPassword);
+                      if(widget.authSignInStep == AuthSignInStep.confirmSignInWithNewPassword) {
+                        utente = await amplify_controller.confermaUtenteConNuovaPassword(widget.email, confirmationCode, widget.oldPassword, fullPassword);
+                      } else {
+                        utente = await amplify_controller.confermaUtente(widget.email, confirmationCode, widget.oldPassword, fullPassword);
+                      }
                       attesa.hideProgressDialogue();
                       toast.showToast(
                           child: const Finestra_conferma(message: "Conferma completata"),

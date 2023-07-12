@@ -29,12 +29,12 @@ public class OrdinazioneServiceImpl implements OrdinazioneService{
     public int registraNuovaOrdinazione(Ordinazione ordinazioneDaRegistrare) {
         ordinazioneRepository.save(ordinazioneDaRegistrare);
         elementoOrdinatoRepository.saveAll(ordinazioneDaRegistrare.getElementiOrdinati());
-        System.out.println(ordinazioneDaRegistrare.getId());
         return ordinazioneDaRegistrare.getId();
     }
 
     @Override
     public void eliminaOrdinazione(Ordinazione ordinazioneDaEliminare) {
+        elementoOrdinatoRepository.deleteElementiOrdinati(ordinazioneDaEliminare.getId());
         ordinazioneRepository.delete(ordinazioneDaEliminare);
     }
 
