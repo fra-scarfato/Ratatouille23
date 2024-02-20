@@ -20,3 +20,5 @@ Technology stack is composed by:
 * Docker
 
 ![architecture on cloud](https://github.com/fra-scarfato/Ratatouille23/blob/main/AWS-architecture.png)
+
+For more information, check the [doc](https://github.com/fra-scarfato/Ratatouille23/blob/main/Documentation.pdf).
